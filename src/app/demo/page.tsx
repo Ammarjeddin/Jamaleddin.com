@@ -1,7 +1,7 @@
 import { getSiteSettings } from "@/lib/tina";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { BlockRenderer, Block } from "@/components/blocks";
-import { defaultNavigation } from "@/lib/navigation";
+import { getNavigation } from "@/lib/navigation";
 
 // Demo blocks showcasing all available block types
 const demoBlocks: Block[] = [
@@ -182,8 +182,10 @@ export default async function DemoPage() {
   const { data } = await getSiteSettings();
   const settings = data.siteSettings;
 
+  const navigation = getNavigation(settings.template);
+
   return (
-    <PageLayout settings={settings} navigation={defaultNavigation}>
+    <PageLayout settings={settings} navigation={navigation}>
       <BlockRenderer blocks={demoBlocks} />
     </PageLayout>
   );

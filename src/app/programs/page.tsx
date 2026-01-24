@@ -1,7 +1,7 @@
 import { getSiteSettings, getAllPrograms } from "@/lib/tina";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Container } from "@/components/ui/Container";
-import { defaultNavigation } from "@/lib/navigation";
+import { getNavigation } from "@/lib/navigation";
 import Link from "next/link";
 import { Users, GraduationCap, Heart, Laptop } from "lucide-react";
 import type { Metadata } from "next";
@@ -23,8 +23,10 @@ export default async function ProgramsPage() {
   const settings = data.siteSettings;
   const programs = await getAllPrograms();
 
+  const navigation = getNavigation(settings.template);
+
   return (
-    <PageLayout settings={settings} navigation={defaultNavigation}>
+    <PageLayout settings={settings} navigation={navigation}>
       {/* Hero */}
       <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white py-20">
         <Container>

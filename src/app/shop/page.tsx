@@ -2,7 +2,7 @@ import { getSiteSettings } from "@/lib/tina";
 import { getActiveProducts, getProductCategories } from "@/lib/products";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Container } from "@/components/ui/Container";
-import { defaultNavigation } from "@/lib/navigation";
+import { getNavigation } from "@/lib/navigation";
 import { ShopPageClient } from "./ShopPageClient";
 import type { Metadata } from "next";
 
@@ -21,8 +21,10 @@ export default async function ShopPage() {
   const currency = shopSettings?.currency || "USD";
   const gridColumns = shopSettings?.gridColumns || "3";
 
+  const navigation = getNavigation(settings.template);
+
   return (
-    <PageLayout settings={settings} navigation={defaultNavigation}>
+    <PageLayout settings={settings} navigation={navigation}>
       {/* Hero */}
       <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white py-16">
         <Container>

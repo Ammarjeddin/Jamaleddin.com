@@ -12,6 +12,93 @@ var siteSettingsCollection = {
     global: true
   },
   fields: [
+    // Template Configuration
+    {
+      type: "object",
+      name: "template",
+      label: "Template Configuration",
+      fields: [
+        {
+          type: "string",
+          name: "type",
+          label: "Template Type",
+          options: [
+            { value: "organization", label: "Organization / Non-Profit" },
+            { value: "company", label: "Company / Business" }
+          ]
+        },
+        {
+          type: "object",
+          name: "features",
+          label: "Features",
+          fields: [
+            {
+              type: "object",
+              name: "shop",
+              label: "Shop / E-Commerce",
+              fields: [
+                {
+                  type: "boolean",
+                  name: "enabled",
+                  label: "Enable Shop"
+                },
+                {
+                  type: "string",
+                  name: "currency",
+                  label: "Currency",
+                  options: [
+                    { value: "USD", label: "USD ($)" },
+                    { value: "EUR", label: "EUR (\u20AC)" },
+                    { value: "GBP", label: "GBP (\xA3)" },
+                    { value: "CAD", label: "CAD ($)" },
+                    { value: "AUD", label: "AUD ($)" }
+                  ]
+                },
+                {
+                  type: "number",
+                  name: "productsPerPage",
+                  label: "Products Per Page"
+                },
+                {
+                  type: "string",
+                  name: "gridColumns",
+                  label: "Grid Columns",
+                  options: [
+                    { value: "2", label: "2 Columns" },
+                    { value: "3", label: "3 Columns" },
+                    { value: "4", label: "4 Columns" }
+                  ]
+                }
+              ]
+            },
+            {
+              type: "object",
+              name: "programs",
+              label: "Programs",
+              fields: [
+                {
+                  type: "boolean",
+                  name: "enabled",
+                  label: "Enable Programs"
+                }
+              ]
+            },
+            {
+              type: "object",
+              name: "events",
+              label: "Events",
+              fields: [
+                {
+                  type: "boolean",
+                  name: "enabled",
+                  label: "Enable Events"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     // Branding
     {
       type: "string",
@@ -495,6 +582,63 @@ var divider = {
     }
   ]
 };
+var productGrid = {
+  name: "productGrid",
+  label: "Product Grid",
+  fields: [
+    { type: "string", name: "heading", label: "Section Heading" },
+    { type: "string", name: "subheading", label: "Section Subheading" },
+    {
+      type: "string",
+      name: "displayMode",
+      label: "Display Mode",
+      options: [
+        { value: "all", label: "All Products" },
+        { value: "featured", label: "Featured Only" },
+        { value: "category", label: "Specific Category" }
+      ]
+    },
+    { type: "string", name: "category", label: "Category (if Display Mode is Category)" },
+    { type: "number", name: "maxProducts", label: "Max Products to Show" },
+    {
+      type: "string",
+      name: "columns",
+      label: "Grid Columns",
+      options: [
+        { value: "2", label: "2 Columns" },
+        { value: "3", label: "3 Columns" },
+        { value: "4", label: "4 Columns" }
+      ]
+    }
+  ]
+};
+var productShowcase = {
+  name: "productShowcase",
+  label: "Product Showcase",
+  fields: [
+    { type: "string", name: "heading", label: "Eyebrow Text" },
+    { type: "string", name: "productSlug", label: "Product Slug" },
+    {
+      type: "string",
+      name: "layout",
+      label: "Layout",
+      options: [
+        { value: "left", label: "Image Left" },
+        { value: "right", label: "Image Right" }
+      ]
+    },
+    {
+      type: "string",
+      name: "backgroundColor",
+      label: "Background Color",
+      options: [
+        { value: "white", label: "White" },
+        { value: "gray", label: "Gray" },
+        { value: "primary", label: "Primary Color" }
+      ]
+    }
+  ]
+};
 var blockTemplates = [
   textBlock,
   heroBanner,
@@ -510,7 +654,9 @@ var blockTemplates = [
   video,
   timeline,
   team,
-  divider
+  divider,
+  productGrid,
+  productShowcase
 ];
 
 // tina/collections/pages.ts
@@ -602,6 +748,204 @@ var homeCollection = {
   ]
 };
 
+// tina/collections/products.ts
+var productsCollection = {
+  name: "products",
+  label: "Products",
+  path: "content/products",
+  format: "json",
+  fields: [
+    // Basic Info
+    {
+      type: "string",
+      name: "name",
+      label: "Product Name",
+      required: true,
+      isTitle: true
+    },
+    {
+      type: "string",
+      name: "slug",
+      label: "URL Slug",
+      required: true
+    },
+    {
+      type: "string",
+      name: "description",
+      label: "Short Description",
+      ui: { component: "textarea" }
+    },
+    {
+      type: "rich-text",
+      name: "longDescription",
+      label: "Full Description"
+    },
+    // Product Type
+    {
+      type: "string",
+      name: "productType",
+      label: "Product Type",
+      required: true,
+      options: [
+        { value: "physical", label: "Physical Product" },
+        { value: "digital", label: "Digital Download" },
+        { value: "service", label: "Service" }
+      ]
+    },
+    // Pricing
+    {
+      type: "object",
+      name: "pricing",
+      label: "Pricing",
+      fields: [
+        {
+          type: "number",
+          name: "price",
+          label: "Price",
+          required: true
+        },
+        {
+          type: "number",
+          name: "compareAtPrice",
+          label: "Compare At Price (original/sale)"
+        },
+        {
+          type: "boolean",
+          name: "taxable",
+          label: "Taxable"
+        }
+      ]
+    },
+    // Images
+    {
+      type: "object",
+      name: "images",
+      label: "Product Images",
+      list: true,
+      fields: [
+        { type: "image", name: "src", label: "Image" },
+        { type: "string", name: "alt", label: "Alt Text" }
+      ]
+    },
+    // Organization
+    {
+      type: "string",
+      name: "category",
+      label: "Category"
+    },
+    {
+      type: "string",
+      name: "tags",
+      label: "Tags (comma-separated)"
+    },
+    // Inventory
+    {
+      type: "object",
+      name: "inventory",
+      label: "Inventory",
+      fields: [
+        {
+          type: "boolean",
+          name: "trackInventory",
+          label: "Track Inventory"
+        },
+        {
+          type: "number",
+          name: "quantity",
+          label: "Quantity in Stock"
+        },
+        {
+          type: "string",
+          name: "sku",
+          label: "SKU"
+        },
+        {
+          type: "boolean",
+          name: "allowBackorder",
+          label: "Allow Backorders"
+        }
+      ]
+    },
+    // Physical Product Fields
+    {
+      type: "object",
+      name: "physical",
+      label: "Physical Product Details",
+      fields: [
+        { type: "number", name: "weight", label: "Weight (oz)" },
+        { type: "number", name: "length", label: "Length (in)" },
+        { type: "number", name: "width", label: "Width (in)" },
+        { type: "number", name: "height", label: "Height (in)" },
+        { type: "boolean", name: "requiresShipping", label: "Requires Shipping" }
+      ]
+    },
+    // Digital Product Fields
+    {
+      type: "object",
+      name: "digital",
+      label: "Digital Product Details",
+      fields: [
+        { type: "string", name: "downloadUrl", label: "Download URL" },
+        { type: "string", name: "fileType", label: "File Type" },
+        { type: "string", name: "fileSize", label: "File Size" },
+        { type: "number", name: "downloadLimit", label: "Download Limit" }
+      ]
+    },
+    // Service Fields
+    {
+      type: "object",
+      name: "service",
+      label: "Service Details",
+      fields: [
+        { type: "string", name: "duration", label: "Duration (e.g., 1 hour)" },
+        { type: "boolean", name: "requiresBooking", label: "Requires Booking" },
+        { type: "string", name: "bookingUrl", label: "Booking URL" }
+      ]
+    },
+    // Variants (optional)
+    {
+      type: "object",
+      name: "variants",
+      label: "Product Variants",
+      list: true,
+      fields: [
+        { type: "string", name: "name", label: "Variant Name" },
+        { type: "string", name: "sku", label: "SKU" },
+        { type: "number", name: "price", label: "Price (if different)" },
+        { type: "number", name: "quantity", label: "Quantity" },
+        { type: "image", name: "image", label: "Variant Image" }
+      ]
+    },
+    // SEO
+    {
+      type: "object",
+      name: "seo",
+      label: "SEO",
+      fields: [
+        { type: "string", name: "metaTitle", label: "Meta Title" },
+        { type: "string", name: "metaDescription", label: "Meta Description", ui: { component: "textarea" } },
+        { type: "image", name: "ogImage", label: "Social Share Image" }
+      ]
+    },
+    // Status
+    {
+      type: "string",
+      name: "status",
+      label: "Status",
+      options: [
+        { value: "active", label: "Active" },
+        { value: "draft", label: "Draft" },
+        { value: "archived", label: "Archived" }
+      ]
+    },
+    {
+      type: "boolean",
+      name: "featured",
+      label: "Featured Product"
+    }
+  ]
+};
+
 // tina/config.ts
 var branch = process.env.GITHUB_BRANCH || process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || "main";
 var config_default = defineConfig({
@@ -621,7 +965,7 @@ var config_default = defineConfig({
     }
   },
   schema: {
-    collections: [siteSettingsCollection, pagesCollection, homeCollection]
+    collections: [siteSettingsCollection, pagesCollection, homeCollection, productsCollection]
   }
 });
 export {

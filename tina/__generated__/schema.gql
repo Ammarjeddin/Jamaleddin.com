@@ -60,12 +60,15 @@ type Query {
   pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
   home(relativePath: String): Home!
   homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
+  products(relativePath: String): Products!
+  productsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ProductsFilter): ProductsConnection!
 }
 
 input DocumentFilter {
   siteSettings: SiteSettingsFilter
   pages: PagesFilter
   home: HomeFilter
+  products: ProductsFilter
 }
 
 type DocumentConnectionEdges {
@@ -91,7 +94,33 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = SiteSettings | Pages | Home | Folder
+union DocumentNode = SiteSettings | Pages | Home | Products | Folder
+
+type SiteSettingsTemplateFeaturesShop {
+  enabled: Boolean
+  currency: String
+  productsPerPage: Float
+  gridColumns: String
+}
+
+type SiteSettingsTemplateFeaturesPrograms {
+  enabled: Boolean
+}
+
+type SiteSettingsTemplateFeaturesEvents {
+  enabled: Boolean
+}
+
+type SiteSettingsTemplateFeatures {
+  shop: SiteSettingsTemplateFeaturesShop
+  programs: SiteSettingsTemplateFeaturesPrograms
+  events: SiteSettingsTemplateFeaturesEvents
+}
+
+type SiteSettingsTemplate {
+  type: String
+  features: SiteSettingsTemplateFeatures
+}
 
 type SiteSettingsLogo {
   main: String
@@ -145,6 +174,7 @@ type SiteSettingsSeo {
 }
 
 type SiteSettings implements Node & Document {
+  template: SiteSettingsTemplate
   siteName: String!
   tagline: String
   logo: SiteSettingsLogo
@@ -165,6 +195,47 @@ input StringFilter {
   eq: String
   exists: Boolean
   in: [String]
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input SiteSettingsTemplateFeaturesShopFilter {
+  enabled: BooleanFilter
+  currency: StringFilter
+  productsPerPage: NumberFilter
+  gridColumns: StringFilter
+}
+
+input SiteSettingsTemplateFeaturesProgramsFilter {
+  enabled: BooleanFilter
+}
+
+input SiteSettingsTemplateFeaturesEventsFilter {
+  enabled: BooleanFilter
+}
+
+input SiteSettingsTemplateFeaturesFilter {
+  shop: SiteSettingsTemplateFeaturesShopFilter
+  programs: SiteSettingsTemplateFeaturesProgramsFilter
+  events: SiteSettingsTemplateFeaturesEventsFilter
+}
+
+input SiteSettingsTemplateFilter {
+  type: StringFilter
+  features: SiteSettingsTemplateFeaturesFilter
 }
 
 input ImageFilter {
@@ -226,6 +297,7 @@ input SiteSettingsSeoFilter {
 }
 
 input SiteSettingsFilter {
+  template: SiteSettingsTemplateFilter
   siteName: StringFilter
   tagline: StringFilter
   logo: SiteSettingsLogoFilter
@@ -399,7 +471,23 @@ type PagesBlocksDivider {
   size: String
 }
 
-union PagesBlocks = PagesBlocksTextBlock | PagesBlocksHeroBanner | PagesBlocksImageTextLeft | PagesBlocksImageTextRight | PagesBlocksCardsGrid | PagesBlocksCtaBox | PagesBlocksFaq | PagesBlocksImageGallery | PagesBlocksContactInfo | PagesBlocksStats | PagesBlocksTestimonials | PagesBlocksVideo | PagesBlocksTimeline | PagesBlocksTeam | PagesBlocksDivider
+type PagesBlocksProductGrid {
+  heading: String
+  subheading: String
+  displayMode: String
+  category: String
+  maxProducts: Float
+  columns: String
+}
+
+type PagesBlocksProductShowcase {
+  heading: String
+  productSlug: String
+  layout: String
+  backgroundColor: String
+}
+
+union PagesBlocks = PagesBlocksTextBlock | PagesBlocksHeroBanner | PagesBlocksImageTextLeft | PagesBlocksImageTextRight | PagesBlocksCardsGrid | PagesBlocksCtaBox | PagesBlocksFaq | PagesBlocksImageGallery | PagesBlocksContactInfo | PagesBlocksStats | PagesBlocksTestimonials | PagesBlocksVideo | PagesBlocksTimeline | PagesBlocksTeam | PagesBlocksDivider | PagesBlocksProductGrid | PagesBlocksProductShowcase
 
 type Pages implements Node & Document {
   title: String!
@@ -496,11 +584,6 @@ input PagesBlocksImageGalleryFilter {
   images: PagesBlocksImageGalleryImagesFilter
 }
 
-input BooleanFilter {
-  eq: Boolean
-  exists: Boolean
-}
-
 input PagesBlocksContactInfoFilter {
   heading: StringFilter
   showForm: BooleanFilter
@@ -572,6 +655,22 @@ input PagesBlocksDividerFilter {
   size: StringFilter
 }
 
+input PagesBlocksProductGridFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  displayMode: StringFilter
+  category: StringFilter
+  maxProducts: NumberFilter
+  columns: StringFilter
+}
+
+input PagesBlocksProductShowcaseFilter {
+  heading: StringFilter
+  productSlug: StringFilter
+  layout: StringFilter
+  backgroundColor: StringFilter
+}
+
 input PagesBlocksFilter {
   textBlock: PagesBlocksTextBlockFilter
   heroBanner: PagesBlocksHeroBannerFilter
@@ -588,6 +687,8 @@ input PagesBlocksFilter {
   timeline: PagesBlocksTimelineFilter
   team: PagesBlocksTeamFilter
   divider: PagesBlocksDividerFilter
+  productGrid: PagesBlocksProductGridFilter
+  productShowcase: PagesBlocksProductShowcaseFilter
 }
 
 input PagesFilter {
@@ -770,7 +871,23 @@ type HomeBlocksDivider {
   size: String
 }
 
-union HomeBlocks = HomeBlocksTextBlock | HomeBlocksHeroBanner | HomeBlocksImageTextLeft | HomeBlocksImageTextRight | HomeBlocksCardsGrid | HomeBlocksCtaBox | HomeBlocksFaq | HomeBlocksImageGallery | HomeBlocksContactInfo | HomeBlocksStats | HomeBlocksTestimonials | HomeBlocksVideo | HomeBlocksTimeline | HomeBlocksTeam | HomeBlocksDivider
+type HomeBlocksProductGrid {
+  heading: String
+  subheading: String
+  displayMode: String
+  category: String
+  maxProducts: Float
+  columns: String
+}
+
+type HomeBlocksProductShowcase {
+  heading: String
+  productSlug: String
+  layout: String
+  backgroundColor: String
+}
+
+union HomeBlocks = HomeBlocksTextBlock | HomeBlocksHeroBanner | HomeBlocksImageTextLeft | HomeBlocksImageTextRight | HomeBlocksCardsGrid | HomeBlocksCtaBox | HomeBlocksFaq | HomeBlocksImageGallery | HomeBlocksContactInfo | HomeBlocksStats | HomeBlocksTestimonials | HomeBlocksVideo | HomeBlocksTimeline | HomeBlocksTeam | HomeBlocksDivider | HomeBlocksProductGrid | HomeBlocksProductShowcase
 
 type Home implements Node & Document {
   title: String!
@@ -944,6 +1061,22 @@ input HomeBlocksDividerFilter {
   size: StringFilter
 }
 
+input HomeBlocksProductGridFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  displayMode: StringFilter
+  category: StringFilter
+  maxProducts: NumberFilter
+  columns: StringFilter
+}
+
+input HomeBlocksProductShowcaseFilter {
+  heading: StringFilter
+  productSlug: StringFilter
+  layout: StringFilter
+  backgroundColor: StringFilter
+}
+
 input HomeBlocksFilter {
   textBlock: HomeBlocksTextBlockFilter
   heroBanner: HomeBlocksHeroBannerFilter
@@ -960,6 +1093,8 @@ input HomeBlocksFilter {
   timeline: HomeBlocksTimelineFilter
   team: HomeBlocksTeamFilter
   divider: HomeBlocksDividerFilter
+  productGrid: HomeBlocksProductGridFilter
+  productShowcase: HomeBlocksProductShowcaseFilter
 }
 
 input HomeFilter {
@@ -980,6 +1115,166 @@ type HomeConnection implements Connection {
   edges: [HomeConnectionEdges]
 }
 
+type ProductsPricing {
+  price: Float!
+  compareAtPrice: Float
+  taxable: Boolean
+}
+
+type ProductsImages {
+  src: String
+  alt: String
+}
+
+type ProductsInventory {
+  trackInventory: Boolean
+  quantity: Float
+  sku: String
+  allowBackorder: Boolean
+}
+
+type ProductsPhysical {
+  weight: Float
+  length: Float
+  width: Float
+  height: Float
+  requiresShipping: Boolean
+}
+
+type ProductsDigital {
+  downloadUrl: String
+  fileType: String
+  fileSize: String
+  downloadLimit: Float
+}
+
+type ProductsService {
+  duration: String
+  requiresBooking: Boolean
+  bookingUrl: String
+}
+
+type ProductsVariants {
+  name: String
+  sku: String
+  price: Float
+  quantity: Float
+  image: String
+}
+
+type ProductsSeo {
+  metaTitle: String
+  metaDescription: String
+  ogImage: String
+}
+
+type Products implements Node & Document {
+  name: String!
+  slug: String!
+  description: String
+  longDescription: JSON
+  productType: String!
+  pricing: ProductsPricing
+  images: [ProductsImages]
+  category: String
+  tags: String
+  inventory: ProductsInventory
+  physical: ProductsPhysical
+  digital: ProductsDigital
+  service: ProductsService
+  variants: [ProductsVariants]
+  seo: ProductsSeo
+  status: String
+  featured: Boolean
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input ProductsPricingFilter {
+  price: NumberFilter
+  compareAtPrice: NumberFilter
+  taxable: BooleanFilter
+}
+
+input ProductsImagesFilter {
+  src: ImageFilter
+  alt: StringFilter
+}
+
+input ProductsInventoryFilter {
+  trackInventory: BooleanFilter
+  quantity: NumberFilter
+  sku: StringFilter
+  allowBackorder: BooleanFilter
+}
+
+input ProductsPhysicalFilter {
+  weight: NumberFilter
+  length: NumberFilter
+  width: NumberFilter
+  height: NumberFilter
+  requiresShipping: BooleanFilter
+}
+
+input ProductsDigitalFilter {
+  downloadUrl: StringFilter
+  fileType: StringFilter
+  fileSize: StringFilter
+  downloadLimit: NumberFilter
+}
+
+input ProductsServiceFilter {
+  duration: StringFilter
+  requiresBooking: BooleanFilter
+  bookingUrl: StringFilter
+}
+
+input ProductsVariantsFilter {
+  name: StringFilter
+  sku: StringFilter
+  price: NumberFilter
+  quantity: NumberFilter
+  image: ImageFilter
+}
+
+input ProductsSeoFilter {
+  metaTitle: StringFilter
+  metaDescription: StringFilter
+  ogImage: ImageFilter
+}
+
+input ProductsFilter {
+  name: StringFilter
+  slug: StringFilter
+  description: StringFilter
+  longDescription: RichTextFilter
+  productType: StringFilter
+  pricing: ProductsPricingFilter
+  images: ProductsImagesFilter
+  category: StringFilter
+  tags: StringFilter
+  inventory: ProductsInventoryFilter
+  physical: ProductsPhysicalFilter
+  digital: ProductsDigitalFilter
+  service: ProductsServiceFilter
+  variants: ProductsVariantsFilter
+  seo: ProductsSeoFilter
+  status: StringFilter
+  featured: BooleanFilter
+}
+
+type ProductsConnectionEdges {
+  cursor: String!
+  node: Products
+}
+
+type ProductsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [ProductsConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -992,12 +1287,15 @@ type Mutation {
   createPages(relativePath: String!, params: PagesMutation!): Pages!
   updateHome(relativePath: String!, params: HomeMutation!): Home!
   createHome(relativePath: String!, params: HomeMutation!): Home!
+  updateProducts(relativePath: String!, params: ProductsMutation!): Products!
+  createProducts(relativePath: String!, params: ProductsMutation!): Products!
 }
 
 input DocumentUpdateMutation {
   siteSettings: SiteSettingsMutation
   pages: PagesMutation
   home: HomeMutation
+  products: ProductsMutation
   relativePath: String
 }
 
@@ -1005,6 +1303,33 @@ input DocumentMutation {
   siteSettings: SiteSettingsMutation
   pages: PagesMutation
   home: HomeMutation
+  products: ProductsMutation
+}
+
+input SiteSettingsTemplateFeaturesShopMutation {
+  enabled: Boolean
+  currency: String
+  productsPerPage: Float
+  gridColumns: String
+}
+
+input SiteSettingsTemplateFeaturesProgramsMutation {
+  enabled: Boolean
+}
+
+input SiteSettingsTemplateFeaturesEventsMutation {
+  enabled: Boolean
+}
+
+input SiteSettingsTemplateFeaturesMutation {
+  shop: SiteSettingsTemplateFeaturesShopMutation
+  programs: SiteSettingsTemplateFeaturesProgramsMutation
+  events: SiteSettingsTemplateFeaturesEventsMutation
+}
+
+input SiteSettingsTemplateMutation {
+  type: String
+  features: SiteSettingsTemplateFeaturesMutation
 }
 
 input SiteSettingsLogoMutation {
@@ -1059,6 +1384,7 @@ input SiteSettingsSeoMutation {
 }
 
 input SiteSettingsMutation {
+  template: SiteSettingsTemplateMutation
   siteName: String
   tagline: String
   logo: SiteSettingsLogoMutation
@@ -1221,6 +1547,22 @@ input PagesBlocksDividerMutation {
   size: String
 }
 
+input PagesBlocksProductGridMutation {
+  heading: String
+  subheading: String
+  displayMode: String
+  category: String
+  maxProducts: Float
+  columns: String
+}
+
+input PagesBlocksProductShowcaseMutation {
+  heading: String
+  productSlug: String
+  layout: String
+  backgroundColor: String
+}
+
 input PagesBlocksMutation {
   textBlock: PagesBlocksTextBlockMutation
   heroBanner: PagesBlocksHeroBannerMutation
@@ -1237,6 +1579,8 @@ input PagesBlocksMutation {
   timeline: PagesBlocksTimelineMutation
   team: PagesBlocksTeamMutation
   divider: PagesBlocksDividerMutation
+  productGrid: PagesBlocksProductGridMutation
+  productShowcase: PagesBlocksProductShowcaseMutation
 }
 
 input PagesMutation {
@@ -1408,6 +1752,22 @@ input HomeBlocksDividerMutation {
   size: String
 }
 
+input HomeBlocksProductGridMutation {
+  heading: String
+  subheading: String
+  displayMode: String
+  category: String
+  maxProducts: Float
+  columns: String
+}
+
+input HomeBlocksProductShowcaseMutation {
+  heading: String
+  productSlug: String
+  layout: String
+  backgroundColor: String
+}
+
 input HomeBlocksMutation {
   textBlock: HomeBlocksTextBlockMutation
   heroBanner: HomeBlocksHeroBannerMutation
@@ -1424,6 +1784,8 @@ input HomeBlocksMutation {
   timeline: HomeBlocksTimelineMutation
   team: HomeBlocksTeamMutation
   divider: HomeBlocksDividerMutation
+  productGrid: HomeBlocksProductGridMutation
+  productShowcase: HomeBlocksProductShowcaseMutation
 }
 
 input HomeMutation {
@@ -1431,6 +1793,79 @@ input HomeMutation {
   description: String
   hero: HomeHeroMutation
   blocks: [HomeBlocksMutation]
+}
+
+input ProductsPricingMutation {
+  price: Float
+  compareAtPrice: Float
+  taxable: Boolean
+}
+
+input ProductsImagesMutation {
+  src: String
+  alt: String
+}
+
+input ProductsInventoryMutation {
+  trackInventory: Boolean
+  quantity: Float
+  sku: String
+  allowBackorder: Boolean
+}
+
+input ProductsPhysicalMutation {
+  weight: Float
+  length: Float
+  width: Float
+  height: Float
+  requiresShipping: Boolean
+}
+
+input ProductsDigitalMutation {
+  downloadUrl: String
+  fileType: String
+  fileSize: String
+  downloadLimit: Float
+}
+
+input ProductsServiceMutation {
+  duration: String
+  requiresBooking: Boolean
+  bookingUrl: String
+}
+
+input ProductsVariantsMutation {
+  name: String
+  sku: String
+  price: Float
+  quantity: Float
+  image: String
+}
+
+input ProductsSeoMutation {
+  metaTitle: String
+  metaDescription: String
+  ogImage: String
+}
+
+input ProductsMutation {
+  name: String
+  slug: String
+  description: String
+  longDescription: JSON
+  productType: String
+  pricing: ProductsPricingMutation
+  images: [ProductsImagesMutation]
+  category: String
+  tags: String
+  inventory: ProductsInventoryMutation
+  physical: ProductsPhysicalMutation
+  digital: ProductsDigitalMutation
+  service: ProductsServiceMutation
+  variants: [ProductsVariantsMutation]
+  seo: ProductsSeoMutation
+  status: String
+  featured: Boolean
 }
 
 schema {

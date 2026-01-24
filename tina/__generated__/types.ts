@@ -88,6 +88,8 @@ export type Query = {
   pagesConnection: PagesConnection;
   home: Home;
   homeConnection: HomeConnection;
+  products: Products;
+  productsConnection: ProductsConnection;
 };
 
 
@@ -156,10 +158,26 @@ export type QueryHomeConnectionArgs = {
   filter?: InputMaybe<HomeFilter>;
 };
 
+
+export type QueryProductsArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryProductsConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ProductsFilter>;
+};
+
 export type DocumentFilter = {
   siteSettings?: InputMaybe<SiteSettingsFilter>;
   pages?: InputMaybe<PagesFilter>;
   home?: InputMaybe<HomeFilter>;
+  products?: InputMaybe<ProductsFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -199,7 +217,38 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = SiteSettings | Pages | Home | Folder;
+export type DocumentNode = SiteSettings | Pages | Home | Products | Folder;
+
+export type SiteSettingsTemplateFeaturesShop = {
+  __typename?: 'SiteSettingsTemplateFeaturesShop';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  currency?: Maybe<Scalars['String']['output']>;
+  productsPerPage?: Maybe<Scalars['Float']['output']>;
+  gridColumns?: Maybe<Scalars['String']['output']>;
+};
+
+export type SiteSettingsTemplateFeaturesPrograms = {
+  __typename?: 'SiteSettingsTemplateFeaturesPrograms';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type SiteSettingsTemplateFeaturesEvents = {
+  __typename?: 'SiteSettingsTemplateFeaturesEvents';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type SiteSettingsTemplateFeatures = {
+  __typename?: 'SiteSettingsTemplateFeatures';
+  shop?: Maybe<SiteSettingsTemplateFeaturesShop>;
+  programs?: Maybe<SiteSettingsTemplateFeaturesPrograms>;
+  events?: Maybe<SiteSettingsTemplateFeaturesEvents>;
+};
+
+export type SiteSettingsTemplate = {
+  __typename?: 'SiteSettingsTemplate';
+  type?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<SiteSettingsTemplateFeatures>;
+};
 
 export type SiteSettingsLogo = {
   __typename?: 'SiteSettingsLogo';
@@ -262,6 +311,7 @@ export type SiteSettingsSeo = {
 
 export type SiteSettings = Node & Document & {
   __typename?: 'SiteSettings';
+  template?: Maybe<SiteSettingsTemplate>;
   siteName: Scalars['String']['output'];
   tagline?: Maybe<Scalars['String']['output']>;
   logo?: Maybe<SiteSettingsLogo>;
@@ -282,6 +332,47 @@ export type StringFilter = {
   eq?: InputMaybe<Scalars['String']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type NumberFilter = {
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  eq?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type SiteSettingsTemplateFeaturesShopFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+  currency?: InputMaybe<StringFilter>;
+  productsPerPage?: InputMaybe<NumberFilter>;
+  gridColumns?: InputMaybe<StringFilter>;
+};
+
+export type SiteSettingsTemplateFeaturesProgramsFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+};
+
+export type SiteSettingsTemplateFeaturesEventsFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+};
+
+export type SiteSettingsTemplateFeaturesFilter = {
+  shop?: InputMaybe<SiteSettingsTemplateFeaturesShopFilter>;
+  programs?: InputMaybe<SiteSettingsTemplateFeaturesProgramsFilter>;
+  events?: InputMaybe<SiteSettingsTemplateFeaturesEventsFilter>;
+};
+
+export type SiteSettingsTemplateFilter = {
+  type?: InputMaybe<StringFilter>;
+  features?: InputMaybe<SiteSettingsTemplateFeaturesFilter>;
 };
 
 export type ImageFilter = {
@@ -343,6 +434,7 @@ export type SiteSettingsSeoFilter = {
 };
 
 export type SiteSettingsFilter = {
+  template?: InputMaybe<SiteSettingsTemplateFilter>;
   siteName?: InputMaybe<StringFilter>;
   tagline?: InputMaybe<StringFilter>;
   logo?: InputMaybe<SiteSettingsLogoFilter>;
@@ -540,7 +632,25 @@ export type PagesBlocksDivider = {
   size?: Maybe<Scalars['String']['output']>;
 };
 
-export type PagesBlocks = PagesBlocksTextBlock | PagesBlocksHeroBanner | PagesBlocksImageTextLeft | PagesBlocksImageTextRight | PagesBlocksCardsGrid | PagesBlocksCtaBox | PagesBlocksFaq | PagesBlocksImageGallery | PagesBlocksContactInfo | PagesBlocksStats | PagesBlocksTestimonials | PagesBlocksVideo | PagesBlocksTimeline | PagesBlocksTeam | PagesBlocksDivider;
+export type PagesBlocksProductGrid = {
+  __typename?: 'PagesBlocksProductGrid';
+  heading?: Maybe<Scalars['String']['output']>;
+  subheading?: Maybe<Scalars['String']['output']>;
+  displayMode?: Maybe<Scalars['String']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
+  maxProducts?: Maybe<Scalars['Float']['output']>;
+  columns?: Maybe<Scalars['String']['output']>;
+};
+
+export type PagesBlocksProductShowcase = {
+  __typename?: 'PagesBlocksProductShowcase';
+  heading?: Maybe<Scalars['String']['output']>;
+  productSlug?: Maybe<Scalars['String']['output']>;
+  layout?: Maybe<Scalars['String']['output']>;
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+};
+
+export type PagesBlocks = PagesBlocksTextBlock | PagesBlocksHeroBanner | PagesBlocksImageTextLeft | PagesBlocksImageTextRight | PagesBlocksCardsGrid | PagesBlocksCtaBox | PagesBlocksFaq | PagesBlocksImageGallery | PagesBlocksContactInfo | PagesBlocksStats | PagesBlocksTestimonials | PagesBlocksVideo | PagesBlocksTimeline | PagesBlocksTeam | PagesBlocksDivider | PagesBlocksProductGrid | PagesBlocksProductShowcase;
 
 export type Pages = Node & Document & {
   __typename?: 'Pages';
@@ -638,11 +748,6 @@ export type PagesBlocksImageGalleryFilter = {
   images?: InputMaybe<PagesBlocksImageGalleryImagesFilter>;
 };
 
-export type BooleanFilter = {
-  eq?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
 export type PagesBlocksContactInfoFilter = {
   heading?: InputMaybe<StringFilter>;
   showForm?: InputMaybe<BooleanFilter>;
@@ -714,6 +819,22 @@ export type PagesBlocksDividerFilter = {
   size?: InputMaybe<StringFilter>;
 };
 
+export type PagesBlocksProductGridFilter = {
+  heading?: InputMaybe<StringFilter>;
+  subheading?: InputMaybe<StringFilter>;
+  displayMode?: InputMaybe<StringFilter>;
+  category?: InputMaybe<StringFilter>;
+  maxProducts?: InputMaybe<NumberFilter>;
+  columns?: InputMaybe<StringFilter>;
+};
+
+export type PagesBlocksProductShowcaseFilter = {
+  heading?: InputMaybe<StringFilter>;
+  productSlug?: InputMaybe<StringFilter>;
+  layout?: InputMaybe<StringFilter>;
+  backgroundColor?: InputMaybe<StringFilter>;
+};
+
 export type PagesBlocksFilter = {
   textBlock?: InputMaybe<PagesBlocksTextBlockFilter>;
   heroBanner?: InputMaybe<PagesBlocksHeroBannerFilter>;
@@ -730,6 +851,8 @@ export type PagesBlocksFilter = {
   timeline?: InputMaybe<PagesBlocksTimelineFilter>;
   team?: InputMaybe<PagesBlocksTeamFilter>;
   divider?: InputMaybe<PagesBlocksDividerFilter>;
+  productGrid?: InputMaybe<PagesBlocksProductGridFilter>;
+  productShowcase?: InputMaybe<PagesBlocksProductShowcaseFilter>;
 };
 
 export type PagesFilter = {
@@ -938,7 +1061,25 @@ export type HomeBlocksDivider = {
   size?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeBlocks = HomeBlocksTextBlock | HomeBlocksHeroBanner | HomeBlocksImageTextLeft | HomeBlocksImageTextRight | HomeBlocksCardsGrid | HomeBlocksCtaBox | HomeBlocksFaq | HomeBlocksImageGallery | HomeBlocksContactInfo | HomeBlocksStats | HomeBlocksTestimonials | HomeBlocksVideo | HomeBlocksTimeline | HomeBlocksTeam | HomeBlocksDivider;
+export type HomeBlocksProductGrid = {
+  __typename?: 'HomeBlocksProductGrid';
+  heading?: Maybe<Scalars['String']['output']>;
+  subheading?: Maybe<Scalars['String']['output']>;
+  displayMode?: Maybe<Scalars['String']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
+  maxProducts?: Maybe<Scalars['Float']['output']>;
+  columns?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeBlocksProductShowcase = {
+  __typename?: 'HomeBlocksProductShowcase';
+  heading?: Maybe<Scalars['String']['output']>;
+  productSlug?: Maybe<Scalars['String']['output']>;
+  layout?: Maybe<Scalars['String']['output']>;
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeBlocks = HomeBlocksTextBlock | HomeBlocksHeroBanner | HomeBlocksImageTextLeft | HomeBlocksImageTextRight | HomeBlocksCardsGrid | HomeBlocksCtaBox | HomeBlocksFaq | HomeBlocksImageGallery | HomeBlocksContactInfo | HomeBlocksStats | HomeBlocksTestimonials | HomeBlocksVideo | HomeBlocksTimeline | HomeBlocksTeam | HomeBlocksDivider | HomeBlocksProductGrid | HomeBlocksProductShowcase;
 
 export type Home = Node & Document & {
   __typename?: 'Home';
@@ -1113,6 +1254,22 @@ export type HomeBlocksDividerFilter = {
   size?: InputMaybe<StringFilter>;
 };
 
+export type HomeBlocksProductGridFilter = {
+  heading?: InputMaybe<StringFilter>;
+  subheading?: InputMaybe<StringFilter>;
+  displayMode?: InputMaybe<StringFilter>;
+  category?: InputMaybe<StringFilter>;
+  maxProducts?: InputMaybe<NumberFilter>;
+  columns?: InputMaybe<StringFilter>;
+};
+
+export type HomeBlocksProductShowcaseFilter = {
+  heading?: InputMaybe<StringFilter>;
+  productSlug?: InputMaybe<StringFilter>;
+  layout?: InputMaybe<StringFilter>;
+  backgroundColor?: InputMaybe<StringFilter>;
+};
+
 export type HomeBlocksFilter = {
   textBlock?: InputMaybe<HomeBlocksTextBlockFilter>;
   heroBanner?: InputMaybe<HomeBlocksHeroBannerFilter>;
@@ -1129,6 +1286,8 @@ export type HomeBlocksFilter = {
   timeline?: InputMaybe<HomeBlocksTimelineFilter>;
   team?: InputMaybe<HomeBlocksTeamFilter>;
   divider?: InputMaybe<HomeBlocksDividerFilter>;
+  productGrid?: InputMaybe<HomeBlocksProductGridFilter>;
+  productShowcase?: InputMaybe<HomeBlocksProductShowcaseFilter>;
 };
 
 export type HomeFilter = {
@@ -1151,6 +1310,177 @@ export type HomeConnection = Connection & {
   edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
 };
 
+export type ProductsPricing = {
+  __typename?: 'ProductsPricing';
+  price: Scalars['Float']['output'];
+  compareAtPrice?: Maybe<Scalars['Float']['output']>;
+  taxable?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type ProductsImages = {
+  __typename?: 'ProductsImages';
+  src?: Maybe<Scalars['String']['output']>;
+  alt?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProductsInventory = {
+  __typename?: 'ProductsInventory';
+  trackInventory?: Maybe<Scalars['Boolean']['output']>;
+  quantity?: Maybe<Scalars['Float']['output']>;
+  sku?: Maybe<Scalars['String']['output']>;
+  allowBackorder?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type ProductsPhysical = {
+  __typename?: 'ProductsPhysical';
+  weight?: Maybe<Scalars['Float']['output']>;
+  length?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  requiresShipping?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type ProductsDigital = {
+  __typename?: 'ProductsDigital';
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileType?: Maybe<Scalars['String']['output']>;
+  fileSize?: Maybe<Scalars['String']['output']>;
+  downloadLimit?: Maybe<Scalars['Float']['output']>;
+};
+
+export type ProductsService = {
+  __typename?: 'ProductsService';
+  duration?: Maybe<Scalars['String']['output']>;
+  requiresBooking?: Maybe<Scalars['Boolean']['output']>;
+  bookingUrl?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProductsVariants = {
+  __typename?: 'ProductsVariants';
+  name?: Maybe<Scalars['String']['output']>;
+  sku?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  quantity?: Maybe<Scalars['Float']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProductsSeo = {
+  __typename?: 'ProductsSeo';
+  metaTitle?: Maybe<Scalars['String']['output']>;
+  metaDescription?: Maybe<Scalars['String']['output']>;
+  ogImage?: Maybe<Scalars['String']['output']>;
+};
+
+export type Products = Node & Document & {
+  __typename?: 'Products';
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  longDescription?: Maybe<Scalars['JSON']['output']>;
+  productType: Scalars['String']['output'];
+  pricing?: Maybe<ProductsPricing>;
+  images?: Maybe<Array<Maybe<ProductsImages>>>;
+  category?: Maybe<Scalars['String']['output']>;
+  tags?: Maybe<Scalars['String']['output']>;
+  inventory?: Maybe<ProductsInventory>;
+  physical?: Maybe<ProductsPhysical>;
+  digital?: Maybe<ProductsDigital>;
+  service?: Maybe<ProductsService>;
+  variants?: Maybe<Array<Maybe<ProductsVariants>>>;
+  seo?: Maybe<ProductsSeo>;
+  status?: Maybe<Scalars['String']['output']>;
+  featured?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type ProductsPricingFilter = {
+  price?: InputMaybe<NumberFilter>;
+  compareAtPrice?: InputMaybe<NumberFilter>;
+  taxable?: InputMaybe<BooleanFilter>;
+};
+
+export type ProductsImagesFilter = {
+  src?: InputMaybe<ImageFilter>;
+  alt?: InputMaybe<StringFilter>;
+};
+
+export type ProductsInventoryFilter = {
+  trackInventory?: InputMaybe<BooleanFilter>;
+  quantity?: InputMaybe<NumberFilter>;
+  sku?: InputMaybe<StringFilter>;
+  allowBackorder?: InputMaybe<BooleanFilter>;
+};
+
+export type ProductsPhysicalFilter = {
+  weight?: InputMaybe<NumberFilter>;
+  length?: InputMaybe<NumberFilter>;
+  width?: InputMaybe<NumberFilter>;
+  height?: InputMaybe<NumberFilter>;
+  requiresShipping?: InputMaybe<BooleanFilter>;
+};
+
+export type ProductsDigitalFilter = {
+  downloadUrl?: InputMaybe<StringFilter>;
+  fileType?: InputMaybe<StringFilter>;
+  fileSize?: InputMaybe<StringFilter>;
+  downloadLimit?: InputMaybe<NumberFilter>;
+};
+
+export type ProductsServiceFilter = {
+  duration?: InputMaybe<StringFilter>;
+  requiresBooking?: InputMaybe<BooleanFilter>;
+  bookingUrl?: InputMaybe<StringFilter>;
+};
+
+export type ProductsVariantsFilter = {
+  name?: InputMaybe<StringFilter>;
+  sku?: InputMaybe<StringFilter>;
+  price?: InputMaybe<NumberFilter>;
+  quantity?: InputMaybe<NumberFilter>;
+  image?: InputMaybe<ImageFilter>;
+};
+
+export type ProductsSeoFilter = {
+  metaTitle?: InputMaybe<StringFilter>;
+  metaDescription?: InputMaybe<StringFilter>;
+  ogImage?: InputMaybe<ImageFilter>;
+};
+
+export type ProductsFilter = {
+  name?: InputMaybe<StringFilter>;
+  slug?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  longDescription?: InputMaybe<RichTextFilter>;
+  productType?: InputMaybe<StringFilter>;
+  pricing?: InputMaybe<ProductsPricingFilter>;
+  images?: InputMaybe<ProductsImagesFilter>;
+  category?: InputMaybe<StringFilter>;
+  tags?: InputMaybe<StringFilter>;
+  inventory?: InputMaybe<ProductsInventoryFilter>;
+  physical?: InputMaybe<ProductsPhysicalFilter>;
+  digital?: InputMaybe<ProductsDigitalFilter>;
+  service?: InputMaybe<ProductsServiceFilter>;
+  variants?: InputMaybe<ProductsVariantsFilter>;
+  seo?: InputMaybe<ProductsSeoFilter>;
+  status?: InputMaybe<StringFilter>;
+  featured?: InputMaybe<BooleanFilter>;
+};
+
+export type ProductsConnectionEdges = {
+  __typename?: 'ProductsConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Products>;
+};
+
+export type ProductsConnection = Connection & {
+  __typename?: 'ProductsConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<ProductsConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -1164,6 +1494,8 @@ export type Mutation = {
   createPages: Pages;
   updateHome: Home;
   createHome: Home;
+  updateProducts: Products;
+  createProducts: Products;
 };
 
 
@@ -1235,10 +1567,23 @@ export type MutationCreateHomeArgs = {
   params: HomeMutation;
 };
 
+
+export type MutationUpdateProductsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: ProductsMutation;
+};
+
+
+export type MutationCreateProductsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: ProductsMutation;
+};
+
 export type DocumentUpdateMutation = {
   siteSettings?: InputMaybe<SiteSettingsMutation>;
   pages?: InputMaybe<PagesMutation>;
   home?: InputMaybe<HomeMutation>;
+  products?: InputMaybe<ProductsMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1246,6 +1591,33 @@ export type DocumentMutation = {
   siteSettings?: InputMaybe<SiteSettingsMutation>;
   pages?: InputMaybe<PagesMutation>;
   home?: InputMaybe<HomeMutation>;
+  products?: InputMaybe<ProductsMutation>;
+};
+
+export type SiteSettingsTemplateFeaturesShopMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  currency?: InputMaybe<Scalars['String']['input']>;
+  productsPerPage?: InputMaybe<Scalars['Float']['input']>;
+  gridColumns?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SiteSettingsTemplateFeaturesProgramsMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SiteSettingsTemplateFeaturesEventsMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SiteSettingsTemplateFeaturesMutation = {
+  shop?: InputMaybe<SiteSettingsTemplateFeaturesShopMutation>;
+  programs?: InputMaybe<SiteSettingsTemplateFeaturesProgramsMutation>;
+  events?: InputMaybe<SiteSettingsTemplateFeaturesEventsMutation>;
+};
+
+export type SiteSettingsTemplateMutation = {
+  type?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<SiteSettingsTemplateFeaturesMutation>;
 };
 
 export type SiteSettingsLogoMutation = {
@@ -1300,6 +1672,7 @@ export type SiteSettingsSeoMutation = {
 };
 
 export type SiteSettingsMutation = {
+  template?: InputMaybe<SiteSettingsTemplateMutation>;
   siteName?: InputMaybe<Scalars['String']['input']>;
   tagline?: InputMaybe<Scalars['String']['input']>;
   logo?: InputMaybe<SiteSettingsLogoMutation>;
@@ -1462,6 +1835,22 @@ export type PagesBlocksDividerMutation = {
   size?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type PagesBlocksProductGridMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  subheading?: InputMaybe<Scalars['String']['input']>;
+  displayMode?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  maxProducts?: InputMaybe<Scalars['Float']['input']>;
+  columns?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PagesBlocksProductShowcaseMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  productSlug?: InputMaybe<Scalars['String']['input']>;
+  layout?: InputMaybe<Scalars['String']['input']>;
+  backgroundColor?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type PagesBlocksMutation = {
   textBlock?: InputMaybe<PagesBlocksTextBlockMutation>;
   heroBanner?: InputMaybe<PagesBlocksHeroBannerMutation>;
@@ -1478,6 +1867,8 @@ export type PagesBlocksMutation = {
   timeline?: InputMaybe<PagesBlocksTimelineMutation>;
   team?: InputMaybe<PagesBlocksTeamMutation>;
   divider?: InputMaybe<PagesBlocksDividerMutation>;
+  productGrid?: InputMaybe<PagesBlocksProductGridMutation>;
+  productShowcase?: InputMaybe<PagesBlocksProductShowcaseMutation>;
 };
 
 export type PagesMutation = {
@@ -1649,6 +2040,22 @@ export type HomeBlocksDividerMutation = {
   size?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomeBlocksProductGridMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  subheading?: InputMaybe<Scalars['String']['input']>;
+  displayMode?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  maxProducts?: InputMaybe<Scalars['Float']['input']>;
+  columns?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeBlocksProductShowcaseMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  productSlug?: InputMaybe<Scalars['String']['input']>;
+  layout?: InputMaybe<Scalars['String']['input']>;
+  backgroundColor?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomeBlocksMutation = {
   textBlock?: InputMaybe<HomeBlocksTextBlockMutation>;
   heroBanner?: InputMaybe<HomeBlocksHeroBannerMutation>;
@@ -1665,6 +2072,8 @@ export type HomeBlocksMutation = {
   timeline?: InputMaybe<HomeBlocksTimelineMutation>;
   team?: InputMaybe<HomeBlocksTeamMutation>;
   divider?: InputMaybe<HomeBlocksDividerMutation>;
+  productGrid?: InputMaybe<HomeBlocksProductGridMutation>;
+  productShowcase?: InputMaybe<HomeBlocksProductShowcaseMutation>;
 };
 
 export type HomeMutation = {
@@ -1674,18 +2083,93 @@ export type HomeMutation = {
   blocks?: InputMaybe<Array<InputMaybe<HomeBlocksMutation>>>;
 };
 
-export type SiteSettingsPartsFragment = { __typename: 'SiteSettings', siteName: string, tagline?: string | null, logo?: { __typename: 'SiteSettingsLogo', main?: string | null, icon?: string | null, light?: string | null } | null, theme?: { __typename: 'SiteSettingsTheme', primaryColor?: string | null, secondaryColor?: string | null, accentColor?: string | null, backgroundColor?: string | null, textColor?: string | null } | null, fonts?: { __typename: 'SiteSettingsFonts', pairing?: string | null } | null, layout?: { __typename: 'SiteSettingsLayout', homepage?: string | null, navbar?: string | null, footer?: string | null } | null, social?: { __typename: 'SiteSettingsSocial', facebook?: string | null, instagram?: string | null, twitter?: string | null, linkedin?: string | null, youtube?: string | null, tiktok?: string | null } | null, contact?: { __typename: 'SiteSettingsContact', email?: string | null, phone?: string | null, address?: string | null } | null, analytics?: { __typename: 'SiteSettingsAnalytics', googleAnalyticsId?: string | null, facebookPixelId?: string | null, plausibleDomain?: string | null } | null, seo?: { __typename: 'SiteSettingsSeo', titleTemplate?: string | null, defaultDescription?: string | null, defaultOgImage?: string | null } | null };
+export type ProductsPricingMutation = {
+  price?: InputMaybe<Scalars['Float']['input']>;
+  compareAtPrice?: InputMaybe<Scalars['Float']['input']>;
+  taxable?: InputMaybe<Scalars['Boolean']['input']>;
+};
 
-export type PagesPartsFragment = { __typename: 'Pages', title: string, description?: string | null, ogImage?: string | null, blocks?: Array<{ __typename: 'PagesBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'PagesBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'PagesBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'PagesBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'PagesBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'PagesBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'PagesBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'PagesBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'PagesBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'PagesBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'PagesBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'PagesBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'PagesBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'PagesBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'PagesBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'PagesBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'PagesBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'PagesBlocksDivider', style?: string | null, size?: string | null } | null> | null };
+export type ProductsImagesMutation = {
+  src?: InputMaybe<Scalars['String']['input']>;
+  alt?: InputMaybe<Scalars['String']['input']>;
+};
 
-export type HomePartsFragment = { __typename: 'Home', title: string, description?: string | null, hero?: { __typename: 'HomeHero', slides?: Array<{ __typename: 'HomeHeroSlides', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null } | null> | null } | null, blocks?: Array<{ __typename: 'HomeBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'HomeBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'HomeBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'HomeBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'HomeBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'HomeBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'HomeBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'HomeBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'HomeBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'HomeBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'HomeBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'HomeBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'HomeBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'HomeBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'HomeBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'HomeBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'HomeBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'HomeBlocksDivider', style?: string | null, size?: string | null } | null> | null };
+export type ProductsInventoryMutation = {
+  trackInventory?: InputMaybe<Scalars['Boolean']['input']>;
+  quantity?: InputMaybe<Scalars['Float']['input']>;
+  sku?: InputMaybe<Scalars['String']['input']>;
+  allowBackorder?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ProductsPhysicalMutation = {
+  weight?: InputMaybe<Scalars['Float']['input']>;
+  length?: InputMaybe<Scalars['Float']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  requiresShipping?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ProductsDigitalMutation = {
+  downloadUrl?: InputMaybe<Scalars['String']['input']>;
+  fileType?: InputMaybe<Scalars['String']['input']>;
+  fileSize?: InputMaybe<Scalars['String']['input']>;
+  downloadLimit?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type ProductsServiceMutation = {
+  duration?: InputMaybe<Scalars['String']['input']>;
+  requiresBooking?: InputMaybe<Scalars['Boolean']['input']>;
+  bookingUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductsVariantsMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  sku?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['Float']['input']>;
+  quantity?: InputMaybe<Scalars['Float']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductsSeoMutation = {
+  metaTitle?: InputMaybe<Scalars['String']['input']>;
+  metaDescription?: InputMaybe<Scalars['String']['input']>;
+  ogImage?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ProductsMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  longDescription?: InputMaybe<Scalars['JSON']['input']>;
+  productType?: InputMaybe<Scalars['String']['input']>;
+  pricing?: InputMaybe<ProductsPricingMutation>;
+  images?: InputMaybe<Array<InputMaybe<ProductsImagesMutation>>>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<Scalars['String']['input']>;
+  inventory?: InputMaybe<ProductsInventoryMutation>;
+  physical?: InputMaybe<ProductsPhysicalMutation>;
+  digital?: InputMaybe<ProductsDigitalMutation>;
+  service?: InputMaybe<ProductsServiceMutation>;
+  variants?: InputMaybe<Array<InputMaybe<ProductsVariantsMutation>>>;
+  seo?: InputMaybe<ProductsSeoMutation>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SiteSettingsPartsFragment = { __typename: 'SiteSettings', siteName: string, tagline?: string | null, template?: { __typename: 'SiteSettingsTemplate', type?: string | null, features?: { __typename: 'SiteSettingsTemplateFeatures', shop?: { __typename: 'SiteSettingsTemplateFeaturesShop', enabled?: boolean | null, currency?: string | null, productsPerPage?: number | null, gridColumns?: string | null } | null, programs?: { __typename: 'SiteSettingsTemplateFeaturesPrograms', enabled?: boolean | null } | null, events?: { __typename: 'SiteSettingsTemplateFeaturesEvents', enabled?: boolean | null } | null } | null } | null, logo?: { __typename: 'SiteSettingsLogo', main?: string | null, icon?: string | null, light?: string | null } | null, theme?: { __typename: 'SiteSettingsTheme', primaryColor?: string | null, secondaryColor?: string | null, accentColor?: string | null, backgroundColor?: string | null, textColor?: string | null } | null, fonts?: { __typename: 'SiteSettingsFonts', pairing?: string | null } | null, layout?: { __typename: 'SiteSettingsLayout', homepage?: string | null, navbar?: string | null, footer?: string | null } | null, social?: { __typename: 'SiteSettingsSocial', facebook?: string | null, instagram?: string | null, twitter?: string | null, linkedin?: string | null, youtube?: string | null, tiktok?: string | null } | null, contact?: { __typename: 'SiteSettingsContact', email?: string | null, phone?: string | null, address?: string | null } | null, analytics?: { __typename: 'SiteSettingsAnalytics', googleAnalyticsId?: string | null, facebookPixelId?: string | null, plausibleDomain?: string | null } | null, seo?: { __typename: 'SiteSettingsSeo', titleTemplate?: string | null, defaultDescription?: string | null, defaultOgImage?: string | null } | null };
+
+export type PagesPartsFragment = { __typename: 'Pages', title: string, description?: string | null, ogImage?: string | null, blocks?: Array<{ __typename: 'PagesBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'PagesBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'PagesBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'PagesBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'PagesBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'PagesBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'PagesBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'PagesBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'PagesBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'PagesBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'PagesBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'PagesBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'PagesBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'PagesBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'PagesBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'PagesBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'PagesBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'PagesBlocksDivider', style?: string | null, size?: string | null } | { __typename: 'PagesBlocksProductGrid', heading?: string | null, subheading?: string | null, displayMode?: string | null, category?: string | null, maxProducts?: number | null, columns?: string | null } | { __typename: 'PagesBlocksProductShowcase', heading?: string | null, productSlug?: string | null, layout?: string | null, backgroundColor?: string | null } | null> | null };
+
+export type HomePartsFragment = { __typename: 'Home', title: string, description?: string | null, hero?: { __typename: 'HomeHero', slides?: Array<{ __typename: 'HomeHeroSlides', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null } | null> | null } | null, blocks?: Array<{ __typename: 'HomeBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'HomeBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'HomeBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'HomeBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'HomeBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'HomeBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'HomeBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'HomeBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'HomeBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'HomeBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'HomeBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'HomeBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'HomeBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'HomeBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'HomeBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'HomeBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'HomeBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'HomeBlocksDivider', style?: string | null, size?: string | null } | { __typename: 'HomeBlocksProductGrid', heading?: string | null, subheading?: string | null, displayMode?: string | null, category?: string | null, maxProducts?: number | null, columns?: string | null } | { __typename: 'HomeBlocksProductShowcase', heading?: string | null, productSlug?: string | null, layout?: string | null, backgroundColor?: string | null } | null> | null };
+
+export type ProductsPartsFragment = { __typename: 'Products', name: string, slug: string, description?: string | null, longDescription?: any | null, productType: string, category?: string | null, tags?: string | null, status?: string | null, featured?: boolean | null, pricing?: { __typename: 'ProductsPricing', price: number, compareAtPrice?: number | null, taxable?: boolean | null } | null, images?: Array<{ __typename: 'ProductsImages', src?: string | null, alt?: string | null } | null> | null, inventory?: { __typename: 'ProductsInventory', trackInventory?: boolean | null, quantity?: number | null, sku?: string | null, allowBackorder?: boolean | null } | null, physical?: { __typename: 'ProductsPhysical', weight?: number | null, length?: number | null, width?: number | null, height?: number | null, requiresShipping?: boolean | null } | null, digital?: { __typename: 'ProductsDigital', downloadUrl?: string | null, fileType?: string | null, fileSize?: string | null, downloadLimit?: number | null } | null, service?: { __typename: 'ProductsService', duration?: string | null, requiresBooking?: boolean | null, bookingUrl?: string | null } | null, variants?: Array<{ __typename: 'ProductsVariants', name?: string | null, sku?: string | null, price?: number | null, quantity?: number | null, image?: string | null } | null> | null, seo?: { __typename: 'ProductsSeo', metaTitle?: string | null, metaDescription?: string | null, ogImage?: string | null } | null };
 
 export type SiteSettingsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type SiteSettingsQuery = { __typename?: 'Query', siteSettings: { __typename: 'SiteSettings', id: string, siteName: string, tagline?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, logo?: { __typename: 'SiteSettingsLogo', main?: string | null, icon?: string | null, light?: string | null } | null, theme?: { __typename: 'SiteSettingsTheme', primaryColor?: string | null, secondaryColor?: string | null, accentColor?: string | null, backgroundColor?: string | null, textColor?: string | null } | null, fonts?: { __typename: 'SiteSettingsFonts', pairing?: string | null } | null, layout?: { __typename: 'SiteSettingsLayout', homepage?: string | null, navbar?: string | null, footer?: string | null } | null, social?: { __typename: 'SiteSettingsSocial', facebook?: string | null, instagram?: string | null, twitter?: string | null, linkedin?: string | null, youtube?: string | null, tiktok?: string | null } | null, contact?: { __typename: 'SiteSettingsContact', email?: string | null, phone?: string | null, address?: string | null } | null, analytics?: { __typename: 'SiteSettingsAnalytics', googleAnalyticsId?: string | null, facebookPixelId?: string | null, plausibleDomain?: string | null } | null, seo?: { __typename: 'SiteSettingsSeo', titleTemplate?: string | null, defaultDescription?: string | null, defaultOgImage?: string | null } | null } };
+export type SiteSettingsQuery = { __typename?: 'Query', siteSettings: { __typename: 'SiteSettings', id: string, siteName: string, tagline?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, template?: { __typename: 'SiteSettingsTemplate', type?: string | null, features?: { __typename: 'SiteSettingsTemplateFeatures', shop?: { __typename: 'SiteSettingsTemplateFeaturesShop', enabled?: boolean | null, currency?: string | null, productsPerPage?: number | null, gridColumns?: string | null } | null, programs?: { __typename: 'SiteSettingsTemplateFeaturesPrograms', enabled?: boolean | null } | null, events?: { __typename: 'SiteSettingsTemplateFeaturesEvents', enabled?: boolean | null } | null } | null } | null, logo?: { __typename: 'SiteSettingsLogo', main?: string | null, icon?: string | null, light?: string | null } | null, theme?: { __typename: 'SiteSettingsTheme', primaryColor?: string | null, secondaryColor?: string | null, accentColor?: string | null, backgroundColor?: string | null, textColor?: string | null } | null, fonts?: { __typename: 'SiteSettingsFonts', pairing?: string | null } | null, layout?: { __typename: 'SiteSettingsLayout', homepage?: string | null, navbar?: string | null, footer?: string | null } | null, social?: { __typename: 'SiteSettingsSocial', facebook?: string | null, instagram?: string | null, twitter?: string | null, linkedin?: string | null, youtube?: string | null, tiktok?: string | null } | null, contact?: { __typename: 'SiteSettingsContact', email?: string | null, phone?: string | null, address?: string | null } | null, analytics?: { __typename: 'SiteSettingsAnalytics', googleAnalyticsId?: string | null, facebookPixelId?: string | null, plausibleDomain?: string | null } | null, seo?: { __typename: 'SiteSettingsSeo', titleTemplate?: string | null, defaultDescription?: string | null, defaultOgImage?: string | null } | null } };
 
 export type SiteSettingsConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1697,14 +2181,14 @@ export type SiteSettingsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type SiteSettingsConnectionQuery = { __typename?: 'Query', siteSettingsConnection: { __typename?: 'SiteSettingsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SiteSettingsConnectionEdges', cursor: string, node?: { __typename: 'SiteSettings', id: string, siteName: string, tagline?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, logo?: { __typename: 'SiteSettingsLogo', main?: string | null, icon?: string | null, light?: string | null } | null, theme?: { __typename: 'SiteSettingsTheme', primaryColor?: string | null, secondaryColor?: string | null, accentColor?: string | null, backgroundColor?: string | null, textColor?: string | null } | null, fonts?: { __typename: 'SiteSettingsFonts', pairing?: string | null } | null, layout?: { __typename: 'SiteSettingsLayout', homepage?: string | null, navbar?: string | null, footer?: string | null } | null, social?: { __typename: 'SiteSettingsSocial', facebook?: string | null, instagram?: string | null, twitter?: string | null, linkedin?: string | null, youtube?: string | null, tiktok?: string | null } | null, contact?: { __typename: 'SiteSettingsContact', email?: string | null, phone?: string | null, address?: string | null } | null, analytics?: { __typename: 'SiteSettingsAnalytics', googleAnalyticsId?: string | null, facebookPixelId?: string | null, plausibleDomain?: string | null } | null, seo?: { __typename: 'SiteSettingsSeo', titleTemplate?: string | null, defaultDescription?: string | null, defaultOgImage?: string | null } | null } | null } | null> | null } };
+export type SiteSettingsConnectionQuery = { __typename?: 'Query', siteSettingsConnection: { __typename?: 'SiteSettingsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SiteSettingsConnectionEdges', cursor: string, node?: { __typename: 'SiteSettings', id: string, siteName: string, tagline?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, template?: { __typename: 'SiteSettingsTemplate', type?: string | null, features?: { __typename: 'SiteSettingsTemplateFeatures', shop?: { __typename: 'SiteSettingsTemplateFeaturesShop', enabled?: boolean | null, currency?: string | null, productsPerPage?: number | null, gridColumns?: string | null } | null, programs?: { __typename: 'SiteSettingsTemplateFeaturesPrograms', enabled?: boolean | null } | null, events?: { __typename: 'SiteSettingsTemplateFeaturesEvents', enabled?: boolean | null } | null } | null } | null, logo?: { __typename: 'SiteSettingsLogo', main?: string | null, icon?: string | null, light?: string | null } | null, theme?: { __typename: 'SiteSettingsTheme', primaryColor?: string | null, secondaryColor?: string | null, accentColor?: string | null, backgroundColor?: string | null, textColor?: string | null } | null, fonts?: { __typename: 'SiteSettingsFonts', pairing?: string | null } | null, layout?: { __typename: 'SiteSettingsLayout', homepage?: string | null, navbar?: string | null, footer?: string | null } | null, social?: { __typename: 'SiteSettingsSocial', facebook?: string | null, instagram?: string | null, twitter?: string | null, linkedin?: string | null, youtube?: string | null, tiktok?: string | null } | null, contact?: { __typename: 'SiteSettingsContact', email?: string | null, phone?: string | null, address?: string | null } | null, analytics?: { __typename: 'SiteSettingsAnalytics', googleAnalyticsId?: string | null, facebookPixelId?: string | null, plausibleDomain?: string | null } | null, seo?: { __typename: 'SiteSettingsSeo', titleTemplate?: string | null, defaultDescription?: string | null, defaultOgImage?: string | null } | null } | null } | null> | null } };
 
 export type PagesQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, title: string, description?: string | null, ogImage?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PagesBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'PagesBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'PagesBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'PagesBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'PagesBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'PagesBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'PagesBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'PagesBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'PagesBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'PagesBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'PagesBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'PagesBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'PagesBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'PagesBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'PagesBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'PagesBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'PagesBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'PagesBlocksDivider', style?: string | null, size?: string | null } | null> | null } };
+export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, title: string, description?: string | null, ogImage?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PagesBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'PagesBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'PagesBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'PagesBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'PagesBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'PagesBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'PagesBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'PagesBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'PagesBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'PagesBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'PagesBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'PagesBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'PagesBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'PagesBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'PagesBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'PagesBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'PagesBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'PagesBlocksDivider', style?: string | null, size?: string | null } | { __typename: 'PagesBlocksProductGrid', heading?: string | null, subheading?: string | null, displayMode?: string | null, category?: string | null, maxProducts?: number | null, columns?: string | null } | { __typename: 'PagesBlocksProductShowcase', heading?: string | null, productSlug?: string | null, layout?: string | null, backgroundColor?: string | null } | null> | null } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1716,14 +2200,14 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, title: string, description?: string | null, ogImage?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PagesBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'PagesBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'PagesBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'PagesBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'PagesBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'PagesBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'PagesBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'PagesBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'PagesBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'PagesBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'PagesBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'PagesBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'PagesBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'PagesBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'PagesBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'PagesBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'PagesBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'PagesBlocksDivider', style?: string | null, size?: string | null } | null> | null } | null } | null> | null } };
+export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, title: string, description?: string | null, ogImage?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PagesBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'PagesBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'PagesBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'PagesBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'PagesBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'PagesBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'PagesBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'PagesBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'PagesBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'PagesBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'PagesBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'PagesBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'PagesBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'PagesBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'PagesBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'PagesBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'PagesBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'PagesBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'PagesBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'PagesBlocksDivider', style?: string | null, size?: string | null } | { __typename: 'PagesBlocksProductGrid', heading?: string | null, subheading?: string | null, displayMode?: string | null, category?: string | null, maxProducts?: number | null, columns?: string | null } | { __typename: 'PagesBlocksProductShowcase', heading?: string | null, productSlug?: string | null, layout?: string | null, backgroundColor?: string | null } | null> | null } | null } | null> | null } };
 
 export type HomeQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', slides?: Array<{ __typename: 'HomeHeroSlides', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null } | null> | null } | null, blocks?: Array<{ __typename: 'HomeBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'HomeBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'HomeBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'HomeBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'HomeBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'HomeBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'HomeBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'HomeBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'HomeBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'HomeBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'HomeBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'HomeBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'HomeBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'HomeBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'HomeBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'HomeBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'HomeBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'HomeBlocksDivider', style?: string | null, size?: string | null } | null> | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', slides?: Array<{ __typename: 'HomeHeroSlides', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null } | null> | null } | null, blocks?: Array<{ __typename: 'HomeBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'HomeBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'HomeBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'HomeBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'HomeBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'HomeBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'HomeBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'HomeBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'HomeBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'HomeBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'HomeBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'HomeBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'HomeBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'HomeBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'HomeBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'HomeBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'HomeBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'HomeBlocksDivider', style?: string | null, size?: string | null } | { __typename: 'HomeBlocksProductGrid', heading?: string | null, subheading?: string | null, displayMode?: string | null, category?: string | null, maxProducts?: number | null, columns?: string | null } | { __typename: 'HomeBlocksProductShowcase', heading?: string | null, productSlug?: string | null, layout?: string | null, backgroundColor?: string | null } | null> | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1735,11 +2219,52 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', slides?: Array<{ __typename: 'HomeHeroSlides', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null } | null> | null } | null, blocks?: Array<{ __typename: 'HomeBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'HomeBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'HomeBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'HomeBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'HomeBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'HomeBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'HomeBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'HomeBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'HomeBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'HomeBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'HomeBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'HomeBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'HomeBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'HomeBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'HomeBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'HomeBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'HomeBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'HomeBlocksDivider', style?: string | null, size?: string | null } | null> | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', slides?: Array<{ __typename: 'HomeHeroSlides', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null } | null> | null } | null, blocks?: Array<{ __typename: 'HomeBlocksTextBlock', heading?: string | null, content?: any | null, alignment?: string | null } | { __typename: 'HomeBlocksHeroBanner', title?: string | null, subtitle?: string | null, backgroundImage?: string | null, buttonText?: string | null, buttonLink?: string | null, height?: string | null } | { __typename: 'HomeBlocksImageTextLeft', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksImageTextRight', image?: string | null, imageAlt?: string | null, heading?: string | null, content?: any | null, buttonText?: string | null, buttonLink?: string | null } | { __typename: 'HomeBlocksCardsGrid', heading?: string | null, subheading?: string | null, columns?: string | null, cards?: Array<{ __typename: 'HomeBlocksCardsGridCards', title?: string | null, description?: string | null, image?: string | null, icon?: string | null, link?: string | null } | null> | null } | { __typename: 'HomeBlocksCtaBox', heading?: string | null, text?: string | null, buttonText?: string | null, buttonLink?: string | null, backgroundImage?: string | null, style?: string | null } | { __typename: 'HomeBlocksFaq', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksFaqItems', question?: string | null, answer?: any | null } | null> | null } | { __typename: 'HomeBlocksImageGallery', heading?: string | null, layout?: string | null, images?: Array<{ __typename: 'HomeBlocksImageGalleryImages', src?: string | null, alt?: string | null, caption?: string | null } | null> | null } | { __typename: 'HomeBlocksContactInfo', heading?: string | null, showForm?: boolean | null, showMap?: boolean | null, mapEmbedUrl?: string | null } | { __typename: 'HomeBlocksStats', heading?: string | null, stats?: Array<{ __typename: 'HomeBlocksStatsStats', number?: string | null, label?: string | null, icon?: string | null } | null> | null } | { __typename: 'HomeBlocksTestimonials', heading?: string | null, layout?: string | null, items?: Array<{ __typename: 'HomeBlocksTestimonialsItems', quote?: string | null, author?: string | null, role?: string | null, avatar?: string | null } | null> | null } | { __typename: 'HomeBlocksVideo', heading?: string | null, videoUrl?: string | null, thumbnail?: string | null, caption?: string | null } | { __typename: 'HomeBlocksTimeline', heading?: string | null, items?: Array<{ __typename: 'HomeBlocksTimelineItems', year?: string | null, title?: string | null, description?: string | null, image?: string | null } | null> | null } | { __typename: 'HomeBlocksTeam', heading?: string | null, subheading?: string | null, members?: Array<{ __typename: 'HomeBlocksTeamMembers', name?: string | null, role?: string | null, photo?: string | null, bio?: string | null, linkedin?: string | null, twitter?: string | null, email?: string | null } | null> | null } | { __typename: 'HomeBlocksDivider', style?: string | null, size?: string | null } | { __typename: 'HomeBlocksProductGrid', heading?: string | null, subheading?: string | null, displayMode?: string | null, category?: string | null, maxProducts?: number | null, columns?: string | null } | { __typename: 'HomeBlocksProductShowcase', heading?: string | null, productSlug?: string | null, layout?: string | null, backgroundColor?: string | null } | null> | null } | null } | null> | null } };
+
+export type ProductsQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type ProductsQuery = { __typename?: 'Query', products: { __typename: 'Products', id: string, name: string, slug: string, description?: string | null, longDescription?: any | null, productType: string, category?: string | null, tags?: string | null, status?: string | null, featured?: boolean | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, pricing?: { __typename: 'ProductsPricing', price: number, compareAtPrice?: number | null, taxable?: boolean | null } | null, images?: Array<{ __typename: 'ProductsImages', src?: string | null, alt?: string | null } | null> | null, inventory?: { __typename: 'ProductsInventory', trackInventory?: boolean | null, quantity?: number | null, sku?: string | null, allowBackorder?: boolean | null } | null, physical?: { __typename: 'ProductsPhysical', weight?: number | null, length?: number | null, width?: number | null, height?: number | null, requiresShipping?: boolean | null } | null, digital?: { __typename: 'ProductsDigital', downloadUrl?: string | null, fileType?: string | null, fileSize?: string | null, downloadLimit?: number | null } | null, service?: { __typename: 'ProductsService', duration?: string | null, requiresBooking?: boolean | null, bookingUrl?: string | null } | null, variants?: Array<{ __typename: 'ProductsVariants', name?: string | null, sku?: string | null, price?: number | null, quantity?: number | null, image?: string | null } | null> | null, seo?: { __typename: 'ProductsSeo', metaTitle?: string | null, metaDescription?: string | null, ogImage?: string | null } | null } };
+
+export type ProductsConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ProductsFilter>;
+}>;
+
+
+export type ProductsConnectionQuery = { __typename?: 'Query', productsConnection: { __typename?: 'ProductsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ProductsConnectionEdges', cursor: string, node?: { __typename: 'Products', id: string, name: string, slug: string, description?: string | null, longDescription?: any | null, productType: string, category?: string | null, tags?: string | null, status?: string | null, featured?: boolean | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, pricing?: { __typename: 'ProductsPricing', price: number, compareAtPrice?: number | null, taxable?: boolean | null } | null, images?: Array<{ __typename: 'ProductsImages', src?: string | null, alt?: string | null } | null> | null, inventory?: { __typename: 'ProductsInventory', trackInventory?: boolean | null, quantity?: number | null, sku?: string | null, allowBackorder?: boolean | null } | null, physical?: { __typename: 'ProductsPhysical', weight?: number | null, length?: number | null, width?: number | null, height?: number | null, requiresShipping?: boolean | null } | null, digital?: { __typename: 'ProductsDigital', downloadUrl?: string | null, fileType?: string | null, fileSize?: string | null, downloadLimit?: number | null } | null, service?: { __typename: 'ProductsService', duration?: string | null, requiresBooking?: boolean | null, bookingUrl?: string | null } | null, variants?: Array<{ __typename: 'ProductsVariants', name?: string | null, sku?: string | null, price?: number | null, quantity?: number | null, image?: string | null } | null> | null, seo?: { __typename: 'ProductsSeo', metaTitle?: string | null, metaDescription?: string | null, ogImage?: string | null } | null } | null } | null> | null } };
 
 export const SiteSettingsPartsFragmentDoc = gql`
     fragment SiteSettingsParts on SiteSettings {
   __typename
+  template {
+    __typename
+    type
+    features {
+      __typename
+      shop {
+        __typename
+        enabled
+        currency
+        productsPerPage
+        gridColumns
+      }
+      programs {
+        __typename
+        enabled
+      }
+      events {
+        __typename
+        enabled
+      }
+    }
+  }
   siteName
   tagline
   logo {
@@ -1931,6 +2456,20 @@ export const PagesPartsFragmentDoc = gql`
       style
       size
     }
+    ... on PagesBlocksProductGrid {
+      heading
+      subheading
+      displayMode
+      category
+      maxProducts
+      columns
+    }
+    ... on PagesBlocksProductShowcase {
+      heading
+      productSlug
+      layout
+      backgroundColor
+    }
   }
 }
     `;
@@ -2080,7 +2619,88 @@ export const HomePartsFragmentDoc = gql`
       style
       size
     }
+    ... on HomeBlocksProductGrid {
+      heading
+      subheading
+      displayMode
+      category
+      maxProducts
+      columns
+    }
+    ... on HomeBlocksProductShowcase {
+      heading
+      productSlug
+      layout
+      backgroundColor
+    }
   }
+}
+    `;
+export const ProductsPartsFragmentDoc = gql`
+    fragment ProductsParts on Products {
+  __typename
+  name
+  slug
+  description
+  longDescription
+  productType
+  pricing {
+    __typename
+    price
+    compareAtPrice
+    taxable
+  }
+  images {
+    __typename
+    src
+    alt
+  }
+  category
+  tags
+  inventory {
+    __typename
+    trackInventory
+    quantity
+    sku
+    allowBackorder
+  }
+  physical {
+    __typename
+    weight
+    length
+    width
+    height
+    requiresShipping
+  }
+  digital {
+    __typename
+    downloadUrl
+    fileType
+    fileSize
+    downloadLimit
+  }
+  service {
+    __typename
+    duration
+    requiresBooking
+    bookingUrl
+  }
+  variants {
+    __typename
+    name
+    sku
+    price
+    quantity
+    image
+  }
+  seo {
+    __typename
+    metaTitle
+    metaDescription
+    ogImage
+  }
+  status
+  featured
 }
     `;
 export const SiteSettingsDocument = gql`
@@ -2254,6 +2874,63 @@ export const HomeConnectionDocument = gql`
   }
 }
     ${HomePartsFragmentDoc}`;
+export const ProductsDocument = gql`
+    query products($relativePath: String!) {
+  products(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ProductsParts
+  }
+}
+    ${ProductsPartsFragmentDoc}`;
+export const ProductsConnectionDocument = gql`
+    query productsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ProductsFilter) {
+  productsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ProductsParts
+      }
+    }
+  }
+}
+    ${ProductsPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -2274,6 +2951,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     homeConnection(variables?: HomeConnectionQueryVariables, options?: C): Promise<{data: HomeConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeConnectionQueryVariables, query: string}> {
         return requester<{data: HomeConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeConnectionQueryVariables, query: string}, HomeConnectionQueryVariables>(HomeConnectionDocument, variables, options);
+      },
+    products(variables: ProductsQueryVariables, options?: C): Promise<{data: ProductsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ProductsQueryVariables, query: string}> {
+        return requester<{data: ProductsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ProductsQueryVariables, query: string}, ProductsQueryVariables>(ProductsDocument, variables, options);
+      },
+    productsConnection(variables?: ProductsConnectionQueryVariables, options?: C): Promise<{data: ProductsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ProductsConnectionQueryVariables, query: string}> {
+        return requester<{data: ProductsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ProductsConnectionQueryVariables, query: string}, ProductsConnectionQueryVariables>(ProductsConnectionDocument, variables, options);
       }
     };
   }

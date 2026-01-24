@@ -3,7 +3,7 @@ import { getProduct, getProductSlugs } from "@/lib/products";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Container } from "@/components/ui/Container";
 import { ProductDetail } from "@/components/shop/ProductDetail";
-import { defaultNavigation } from "@/lib/navigation";
+import { getNavigation } from "@/lib/navigation";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
@@ -53,8 +53,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const currency = settings.template?.features?.shop?.currency || "USD";
 
+  const navigation = getNavigation(settings.template);
+
   return (
-    <PageLayout settings={settings} navigation={defaultNavigation}>
+    <PageLayout settings={settings} navigation={navigation}>
       <section className="section">
         <Container>
           {/* Breadcrumb */}

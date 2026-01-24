@@ -1,5 +1,27 @@
 fragment SiteSettingsParts on SiteSettings {
   __typename
+  template {
+    __typename
+    type
+    features {
+      __typename
+      shop {
+        __typename
+        enabled
+        currency
+        productsPerPage
+        gridColumns
+      }
+      programs {
+        __typename
+        enabled
+      }
+      events {
+        __typename
+        enabled
+      }
+    }
+  }
   siteName
   tagline
   logo {
@@ -190,6 +212,20 @@ fragment PagesParts on Pages {
       style
       size
     }
+    ... on PagesBlocksProductGrid {
+      heading
+      subheading
+      displayMode
+      category
+      maxProducts
+      columns
+    }
+    ... on PagesBlocksProductShowcase {
+      heading
+      productSlug
+      layout
+      backgroundColor
+    }
   }
 }
 
@@ -338,5 +374,85 @@ fragment HomeParts on Home {
       style
       size
     }
+    ... on HomeBlocksProductGrid {
+      heading
+      subheading
+      displayMode
+      category
+      maxProducts
+      columns
+    }
+    ... on HomeBlocksProductShowcase {
+      heading
+      productSlug
+      layout
+      backgroundColor
+    }
   }
+}
+
+fragment ProductsParts on Products {
+  __typename
+  name
+  slug
+  description
+  longDescription
+  productType
+  pricing {
+    __typename
+    price
+    compareAtPrice
+    taxable
+  }
+  images {
+    __typename
+    src
+    alt
+  }
+  category
+  tags
+  inventory {
+    __typename
+    trackInventory
+    quantity
+    sku
+    allowBackorder
+  }
+  physical {
+    __typename
+    weight
+    length
+    width
+    height
+    requiresShipping
+  }
+  digital {
+    __typename
+    downloadUrl
+    fileType
+    fileSize
+    downloadLimit
+  }
+  service {
+    __typename
+    duration
+    requiresBooking
+    bookingUrl
+  }
+  variants {
+    __typename
+    name
+    sku
+    price
+    quantity
+    image
+  }
+  seo {
+    __typename
+    metaTitle
+    metaDescription
+    ogImage
+  }
+  status
+  featured
 }

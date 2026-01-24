@@ -1,7 +1,7 @@
 import { getSiteSettings, getProgramContent, getAllPrograms } from "@/lib/tina";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { BlockRenderer, Block } from "@/components/blocks";
-import { defaultNavigation } from "@/lib/navigation";
+import { getNavigation } from "@/lib/navigation";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -33,8 +33,10 @@ export default async function ProgramPage({ params }: ProgramPageProps) {
     notFound();
   }
 
+  const navigation = getNavigation(settings.template);
+
   return (
-    <PageLayout settings={settings} navigation={defaultNavigation}>
+    <PageLayout settings={settings} navigation={navigation}>
       <BlockRenderer blocks={(content.blocks || []) as Block[]} />
     </PageLayout>
   );

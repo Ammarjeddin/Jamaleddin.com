@@ -1,6 +1,6 @@
 # Next.js + TinaCMS Website Template
 
-A reusable, white-label website template with visual editing capabilities. Customize branding, colors, fonts, and layouts directly from the admin dashboard or content files.
+A reusable, white-label website template with visual editing capabilities and optional e-commerce. Customize branding, colors, fonts, and layouts directly from the admin dashboard or content files.
 
 ## Demo
 
@@ -8,14 +8,29 @@ This template includes a complete demo site for "Horizon Community Foundation" -
 
 ## Features
 
+### Core Features
 - **15 Block Types** - Text, Hero, Cards, FAQ, Gallery, Stats, Testimonials, Timeline, Team, and more
 - **Visual Editing** - TinaCMS provides live preview editing
 - **Git-Based Content** - All content stored as JSON in your repository
 - **Theme Customization** - Colors, fonts, layouts editable from settings
 - **Layout Variants** - Multiple navbar (3), footer (3), and homepage (3) options
-- **SEO Optimized** - Static generation with Next.js 15
+- **SEO Optimized** - Static generation with Next.js 16
 - **Responsive** - Mobile-first design with Tailwind CSS 4
 - **TypeScript** - Full type safety throughout
+
+### E-Commerce (Optional)
+- **Feature Toggle** - Enable/disable shop per deployment
+- **Product Management** - Manage products through TinaCMS
+- **Shopping Cart** - Persistent cart with localStorage
+- **Stripe Checkout** - Secure payment processing
+- **Product Types** - Physical, digital, and service products
+- **Inventory Tracking** - Stock management with "out of stock" display
+
+### Admin Dashboard
+- **Unified Entry Point** - Single dashboard for all admin functions
+- **Content Management** - Quick access to Pages, Settings, and Media
+- **Feature Status** - Visual indicators for enabled/disabled features
+- **Shop Admin** - Inventory stats and product management (when enabled)
 
 ## Quick Start
 
@@ -27,12 +42,16 @@ cd my-site
 # Install dependencies
 npm install
 
-# Start development server
-npm run dev
+# Copy environment variables
+cp .env.example .env.local
+
+# Start development server with TinaCMS
+npm run dev:tina
 
 # Open browser
 # Site: http://localhost:3000
-# Admin: http://localhost:3000/admin/index.html (requires TinaCMS setup)
+# Admin: http://localhost:3000/admin/index.html
+# Dashboard: http://localhost:3000/dashboard
 ```
 
 ## Project Structure
@@ -40,32 +59,29 @@ npm run dev
 ```
 ├── content/                 # Content files (JSON)
 │   ├── home/               # Homepage content
-│   │   └── index.json
-│   ├── pages/              # Page content
-│   │   ├── about.json
-│   │   ├── contact.json
-│   │   ├── events.json
-│   │   ├── gallery.json
-│   │   └── get-involved.json
+│   ├── pages/              # Page content (about, contact, etc.)
+│   ├── products/           # Product content (when shop enabled)
 │   ├── programs/           # Program/service content
-│   │   ├── adult-education.json
-│   │   ├── community-wellness.json
-│   │   ├── digital-skills.json
-│   │   └── youth-leadership.json
 │   └── settings/           # Site settings
 │       └── site.json
 ├── docs/                    # Documentation
 ├── public/                  # Static assets
 ├── src/
-│   ├── app/                # Next.js App Router pages
+│   ├── app/
+│   │   ├── api/            # API routes (checkout)
+│   │   ├── dashboard/      # Admin dashboard
+│   │   ├── shop/           # Shop pages (when enabled)
+│   │   └── ...             # Other pages
 │   ├── components/
-│   │   ├── blocks/         # 15 content block components
+│   │   ├── blocks/         # 15+ content block components
 │   │   ├── home/           # Homepage layouts
 │   │   ├── layout/         # Navbar & Footer variants
-│   │   ├── providers/      # Context providers (Theme)
+│   │   ├── shop/           # Shop components (cart, products)
 │   │   └── ui/             # Shared UI components
+│   ├── contexts/           # React contexts (Cart)
 │   └── lib/                # Utilities and helpers
 └── tina/                   # TinaCMS configuration
+    └── collections/        # Content schemas
 ```
 
 ## Customization
@@ -82,24 +98,33 @@ All branding and theme settings are in `content/settings/site.json`:
 | **Homepage** | Standard, Hero-Full, Minimal |
 | **Navbar** | Floating, Fixed, Transparent |
 | **Footer** | Full, Minimal, Centered |
-| **Social** | Facebook, Instagram, Twitter, LinkedIn, YouTube, TikTok |
+| **Social** | Facebook, Instagram, Twitter, LinkedIn, YouTube |
 | **Analytics** | Google Analytics, Facebook Pixel, Plausible |
+
+### Template Features
+
+Enable or disable features in site settings:
+
+```json
+{
+  "template": {
+    "type": "organization",
+    "features": {
+      "shop": {
+        "enabled": true,
+        "currency": "USD",
+        "productsPerPage": 12
+      },
+      "programs": { "enabled": true },
+      "events": { "enabled": true }
+    }
+  }
+}
+```
 
 ### Navigation
 
-Edit `src/lib/navigation.ts` to update menu items:
-
-```typescript
-export const defaultNavigation = {
-  mainNav: [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Programs", href: "/programs", children: [...] },
-    { label: "Contact", href: "/contact" },
-  ],
-  ctaButton: { label: "Donate", href: "/donate" },
-};
-```
+Navigation is dynamically generated based on enabled features. When shop is enabled, a "Shop" link automatically appears in the navbar.
 
 ## Block Types
 
@@ -120,24 +145,73 @@ export const defaultNavigation = {
 | 13 | **Timeline** | Vertical event timeline |
 | 14 | **Team Members** | Staff/team grid with bios |
 | 15 | **Divider** | Visual separator |
+| 16 | **Product Grid** | Display products on any page |
+| 17 | **Product Showcase** | Featured product highlight |
+
+## E-Commerce Setup
+
+### Enable Shop Feature
+
+1. Edit `content/settings/site.json`
+2. Set `template.features.shop.enabled` to `true`
+3. The Shop link will appear in navigation automatically
+
+### Stripe Configuration
+
+Add to your `.env.local`:
+
+```env
+STRIPE_SECRET_KEY=sk_test_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+```
+
+### Managing Products
+
+1. Go to Dashboard → Shop (or TinaCMS → Products)
+2. Create products with:
+   - Name, description, images
+   - Pricing (price, compare-at price)
+   - Product type (physical, digital, service)
+   - Inventory tracking
+   - Categories and tags
+
+### Shop Pages
+
+- `/shop` - Product listing with filters
+- `/shop/[slug]` - Product detail page
+- `/shop/cart` - Shopping cart
+- `/shop/checkout` - Stripe checkout redirect
+- `/shop/success` - Order confirmation
+
+## Admin Dashboard
+
+Access the admin dashboard at `/dashboard`:
+
+- **Content Management** - Links to TinaCMS for pages, settings, media
+- **Feature Status** - See which features are enabled
+- **Shop Admin** - View inventory stats (when shop enabled)
+- **External Tools** - Quick links to TinaCMS and Stripe dashboard
 
 ## Available Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run dev:tina` | Start with TinaCMS admin |
+| `npm run dev` | Start development server (no TinaCMS admin) |
+| `npm run dev:tina` | Start with TinaCMS admin panel |
 | `npm run build` | Build for production |
 | `npm run build:tina` | Build with TinaCMS |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 
+**Note:** Use `npm run dev:tina` for development to access the TinaCMS admin panel.
+
 ## Tech Stack
 
-- [Next.js 15](https://nextjs.org/) - React framework with App Router
+- [Next.js 16](https://nextjs.org/) - React framework with App Router
 - [React 19](https://react.dev/) - UI library
 - [TinaCMS](https://tina.io/) - Git-based headless CMS
 - [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS
+- [Stripe](https://stripe.com/) - Payment processing
 - [Lucide Icons](https://lucide.dev/) - Icon library
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
 
@@ -147,28 +221,30 @@ export const defaultNavigation = {
 
 1. Push your repository to GitHub
 2. Import to [Vercel](https://vercel.com)
-3. Framework preset: Next.js (auto-detected)
+3. Add environment variables:
+   - `NEXT_PUBLIC_TINA_CLIENT_ID`
+   - `TINA_TOKEN`
+   - `STRIPE_SECRET_KEY` (if shop enabled)
+   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (if shop enabled)
 4. Deploy automatically on every push
 
-### Netlify
+### Environment Variables
 
-1. Push your repository to GitHub
-2. Import to [Netlify](https://netlify.com)
-3. Build command: `npm run build`
-4. Publish directory: `.next`
-
-### Environment Variables (for TinaCMS Cloud)
-
-```
+```env
+# TinaCMS (required for cloud editing)
 NEXT_PUBLIC_TINA_CLIENT_ID=your-client-id
 TINA_TOKEN=your-token
+
+# Stripe (required if shop enabled)
+STRIPE_SECRET_KEY=sk_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_...
 ```
 
 ## Documentation
 
 - [Getting Started](docs/GETTING_STARTED.md) - Installation and setup
 - [Customization Guide](docs/CUSTOMIZATION.md) - Theme and layout options
-- [Block Types Reference](docs/BLOCKS.md) - All 15 block components
+- [Block Types Reference](docs/BLOCKS.md) - All block components
 - [Deployment Guide](docs/DEPLOYMENT.md) - Deploy to production
 
 ## Demo Pages
@@ -184,6 +260,8 @@ The template includes these demo pages:
 - `/contact` - Contact form with FAQ
 - `/get-involved` - Volunteer and donation info
 - `/demo` - Block component showcase
+- `/shop` - Product listing (when enabled)
+- `/dashboard` - Admin dashboard
 
 ## License
 
@@ -191,4 +269,4 @@ MIT
 
 ---
 
-Built with Next.js and TinaCMS
+Built with Next.js, TinaCMS, and Stripe

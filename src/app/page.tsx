@@ -1,7 +1,7 @@
 import { getSiteSettings, getHomeContent } from "@/lib/tina";
 import { HomeLayout } from "@/components/home/layouts";
 import { Container } from "@/components/ui/Container";
-import { defaultNavigation } from "@/lib/navigation";
+import { getNavigation } from "@/lib/navigation";
 import Link from "next/link";
 import { Users, GraduationCap, Heart, Laptop } from "lucide-react";
 
@@ -37,10 +37,12 @@ export default async function Home() {
     },
   ];
 
+  const navigation = getNavigation(settings.template);
+
   return (
     <HomeLayout
       settings={settings}
-      navigation={defaultNavigation}
+      navigation={navigation}
       content={homeContent || { hero: { slides: [{ title: settings.siteName, subtitle: settings.tagline }] } }}
     >
       {/* Stats Section */}
