@@ -1,0 +1,42 @@
+{
+  "name": "Community Garden Starter Kit",
+  "slug": "community-garden-kit",
+  "description": "Everything you need to start a community garden initiative in your neighborhood.",
+  "productType": "physical",
+  "pricing": {
+    "price": 49.99,
+    "compareAtPrice": 69.99,
+    "taxable": true
+  },
+  "images": [
+    {
+      "src": "/images/products/garden-kit-1.jpg",
+      "alt": "Community Garden Starter Kit contents"
+    },
+    {
+      "src": "/images/products/garden-kit-2.jpg",
+      "alt": "Garden tools included in kit"
+    }
+  ],
+  "category": "Merchandise",
+  "tags": "gardening, community, sustainability, starter-kit",
+  "inventory": {
+    "trackInventory": true,
+    "quantity": 25,
+    "sku": "HCF-GARDEN-001",
+    "allowBackorder": false
+  },
+  "physical": {
+    "weight": 80,
+    "length": 18,
+    "width": 12,
+    "height": 8,
+    "requiresShipping": true
+  },
+  "seo": {
+    "metaTitle": "Community Garden Starter Kit | Horizon Foundation",
+    "metaDescription": "Start a community garden with our comprehensive starter kit. Includes seeds, tools, and a planning guide."
+  },
+  "status": "active",
+  "featured": true
+}

@@ -1,0 +1,91 @@
+{
+  "title": "Community Wellness",
+  "description": "Promoting physical and mental health through fitness programs, counseling services, and wellness workshops.",
+  "icon": "heart",
+  "featured": true,
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Community Wellness Program",
+      "subtitle": "Nurturing mind, body, and spirit for a healthier community",
+      "height": "medium"
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "/images/demo/wellness.jpg",
+      "imageAlt": "Community wellness activities",
+      "heading": "Holistic Health for Everyone",
+      "content": "<p>Our Community Wellness program takes a holistic approach to health, offering resources and activities that address physical fitness, mental health, nutrition, and social connection.</p><p>All activities are free or low-cost, making wellness accessible to everyone in our community.</p>",
+      "buttonText": "View Schedule",
+      "buttonLink": "/events"
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Wellness Offerings",
+      "columns": "4",
+      "cards": [
+        {
+          "title": "Fitness Classes",
+          "description": "Yoga, Zumba, walking groups, and strength training for all fitness levels.",
+          "icon": "activity"
+        },
+        {
+          "title": "Mental Health",
+          "description": "Support groups, counseling referrals, and stress management workshops.",
+          "icon": "brain"
+        },
+        {
+          "title": "Nutrition",
+          "description": "Healthy cooking classes, nutrition education, and community meals.",
+          "icon": "apple"
+        },
+        {
+          "title": "Health Screenings",
+          "description": "Free blood pressure checks, health fairs, and preventive care resources.",
+          "icon": "stethoscope"
+        }
+      ]
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Weekly Schedule",
+      "content": "<p><strong>Monday:</strong> Morning Yoga (9 AM) | Walking Group (5 PM)</p><p><strong>Tuesday:</strong> Stress Management Support Group (6 PM)</p><p><strong>Wednesday:</strong> Zumba (6 PM) | Healthy Cooking Class (7 PM)</p><p><strong>Thursday:</strong> Strength Training (9 AM) | Meditation Circle (7 PM)</p><p><strong>Saturday:</strong> Community Wellness Fair (Monthly, 9 AM - 2 PM)</p>",
+      "alignment": "left"
+    },
+    {
+      "_template": "stats",
+      "heading": "Wellness Impact",
+      "stats": [
+        { "number": "400+", "label": "Weekly Participants" },
+        { "number": "12", "label": "Weekly Classes" },
+        { "number": "Free", "label": "Blood Pressure Checks" },
+        { "number": "100%", "label": "Accessible" }
+      ]
+    },
+    {
+      "_template": "testimonials",
+      "heading": "Wellness Journeys",
+      "layout": "carousel",
+      "items": [
+        {
+          "quote": "The Saturday yoga class became my weekly reset. It's more than exercise – it's a community that supports each other.",
+          "author": "Helen Garcia",
+          "role": "Yoga Participant"
+        },
+        {
+          "quote": "The mental health support group helped me through a really tough time. I found people who understood what I was going through.",
+          "author": "Anonymous",
+          "role": "Support Group Member"
+        }
+      ]
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Join a Wellness Activity",
+      "text": "No registration required for most activities. Just show up and join us!",
+      "buttonText": "View Full Schedule",
+      "buttonLink": "/events",
+      "style": "secondary"
+    }
+  ]
+}

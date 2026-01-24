@@ -1,0 +1,109 @@
+{
+  "title": "About Us",
+  "description": "Learn about Horizon Community Foundation's mission, history, and the team behind our community programs.",
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "About Horizon Community Foundation",
+      "subtitle": "Building stronger communities through education and empowerment since 2009",
+      "height": "small"
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "/images/demo/about-mission.jpg",
+      "imageAlt": "Community members working together",
+      "heading": "Our Mission",
+      "content": "<p>Horizon Community Foundation is dedicated to empowering individuals and strengthening communities through education, mentorship, and engagement programs.</p><p>We believe that every person has the potential to thrive when given the right opportunities and support. Our programs are designed to break down barriers and create pathways to success for people of all ages and backgrounds.</p>",
+      "buttonText": "See Our Programs",
+      "buttonLink": "/programs"
+    },
+    {
+      "_template": "stats",
+      "heading": "Our Impact Over 15 Years",
+      "stats": [
+        { "number": "25,000+", "label": "Lives Transformed", "icon": "heart" },
+        { "number": "500+", "label": "Volunteers", "icon": "users" },
+        { "number": "100+", "label": "Community Events", "icon": "calendar" },
+        { "number": "$2M+", "label": "Invested in Programs", "icon": "dollar-sign" }
+      ]
+    },
+    {
+      "_template": "timeline",
+      "heading": "Our Journey",
+      "items": [
+        {
+          "year": "2009",
+          "title": "Foundation Established",
+          "description": "Horizon Community Foundation was founded by a group of dedicated community leaders who saw the need for accessible education and support programs."
+        },
+        {
+          "year": "2012",
+          "title": "Youth Leadership Program Launched",
+          "description": "Our flagship youth program began, providing mentorship and leadership training to local high school students."
+        },
+        {
+          "year": "2016",
+          "title": "Community Center Opens",
+          "description": "We opened our first dedicated community center, providing a hub for all our programs and events."
+        },
+        {
+          "year": "2020",
+          "title": "Digital Transformation",
+          "description": "Launched virtual programs and digital skills training to serve our community during challenging times."
+        },
+        {
+          "year": "2024",
+          "title": "Expanding Our Reach",
+          "description": "Now serving over 2,500 community members annually with plans to expand to neighboring communities."
+        }
+      ]
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Our Values",
+      "content": "<p><strong>Community First:</strong> Every decision we make centers on the wellbeing of our community members.</p><p><strong>Accessibility:</strong> We believe everyone deserves access to quality education and support, regardless of their background.</p><p><strong>Empowerment:</strong> We don't just provide services – we equip people with skills and confidence to succeed independently.</p><p><strong>Collaboration:</strong> We work alongside community partners, businesses, and volunteers to maximize our impact.</p>",
+      "alignment": "left"
+    },
+    {
+      "_template": "team",
+      "heading": "Our Leadership Team",
+      "subheading": "Dedicated professionals committed to community transformation",
+      "members": [
+        {
+          "name": "Dr. Angela Morrison",
+          "role": "Executive Director",
+          "bio": "Leading Horizon since 2015, Angela brings 25 years of nonprofit and community development experience.",
+          "email": "angela@horizonfoundation.org",
+          "linkedin": "https://linkedin.com/in/angelamorrison"
+        },
+        {
+          "name": "Marcus Thompson",
+          "role": "Director of Programs",
+          "bio": "Marcus oversees all community programs and has grown our reach by 300% in five years.",
+          "email": "marcus@horizonfoundation.org",
+          "linkedin": "https://linkedin.com/in/marcusthompson"
+        },
+        {
+          "name": "Lisa Park",
+          "role": "Community Outreach Manager",
+          "bio": "Lisa builds partnerships and ensures our programs meet real community needs.",
+          "email": "lisa@horizonfoundation.org"
+        },
+        {
+          "name": "James Rodriguez",
+          "role": "Youth Programs Coordinator",
+          "bio": "A program alumnus himself, James is passionate about mentoring the next generation.",
+          "email": "james@horizonfoundation.org"
+        }
+      ]
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Join Our Mission",
+      "text": "Whether you volunteer, donate, or spread the word, you can help us build stronger communities.",
+      "buttonText": "Get Involved",
+      "buttonLink": "/get-involved",
+      "style": "primary"
+    }
+  ]
+}

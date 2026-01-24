@@ -1,0 +1,106 @@
+{
+  "title": "Youth Leadership Program",
+  "description": "Developing the next generation of community leaders through mentorship, workshops, and real-world projects.",
+  "icon": "users",
+  "featured": true,
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Youth Leadership Program",
+      "subtitle": "Developing tomorrow's leaders through mentorship, skill-building, and community engagement",
+      "height": "medium"
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "/images/demo/youth-program.jpg",
+      "imageAlt": "Youth leadership students in a workshop",
+      "heading": "About the Program",
+      "content": "<p>Our Youth Leadership Program empowers high school students with the skills, confidence, and connections they need to become effective leaders in their communities.</p><p>Over the course of two semesters, participants engage in:</p><ul><li>Weekly mentorship sessions with community leaders</li><li>Leadership skills workshops</li><li>Community service projects</li><li>College and career preparation</li></ul>",
+      "buttonText": "Apply Now",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "stats",
+      "heading": "Program Impact",
+      "stats": [
+        { "number": "95%", "label": "Graduation Rate" },
+        { "number": "500+", "label": "Alumni" },
+        { "number": "85%", "label": "College Enrollment" },
+        { "number": "1,000+", "label": "Service Hours/Year" }
+      ]
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "What You'll Learn",
+      "columns": "3",
+      "cards": [
+        {
+          "title": "Communication",
+          "description": "Public speaking, active listening, and effective written communication skills.",
+          "icon": "message-circle"
+        },
+        {
+          "title": "Problem Solving",
+          "description": "Critical thinking and creative approaches to community challenges.",
+          "icon": "lightbulb"
+        },
+        {
+          "title": "Teamwork",
+          "description": "Collaboration, conflict resolution, and building diverse teams.",
+          "icon": "users"
+        },
+        {
+          "title": "Project Management",
+          "description": "Planning, executing, and evaluating community projects.",
+          "icon": "clipboard-list"
+        },
+        {
+          "title": "Self-Awareness",
+          "description": "Understanding your strengths, values, and leadership style.",
+          "icon": "user"
+        },
+        {
+          "title": "Community Engagement",
+          "description": "Building connections and making a positive impact locally.",
+          "icon": "heart"
+        }
+      ]
+    },
+    {
+      "_template": "testimonials",
+      "heading": "Alumni Stories",
+      "layout": "carousel",
+      "items": [
+        {
+          "quote": "The Youth Leadership Program gave me the confidence to apply to my dream college. My mentor helped me every step of the way, from essays to interviews.",
+          "author": "Maria Santos",
+          "role": "Program Graduate, 2024 | Now at State University"
+        },
+        {
+          "quote": "I learned that leadership isn't about being in charge – it's about serving others. That lesson changed how I approach everything.",
+          "author": "Jamal Williams",
+          "role": "Program Graduate, 2023 | Community Organizer"
+        },
+        {
+          "quote": "The community service project we led gave me a sense of purpose. I'm now studying nonprofit management in college.",
+          "author": "Sophia Chen",
+          "role": "Program Graduate, 2022"
+        }
+      ]
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Program Details",
+      "content": "<p><strong>Duration:</strong> Two semesters (September - May)</p><p><strong>Schedule:</strong> Tuesday and Thursday, 4:00 PM - 6:00 PM</p><p><strong>Eligibility:</strong> High school students (grades 9-12) in our service area</p><p><strong>Cost:</strong> Free (limited spots available)</p><p><strong>Application Deadline:</strong> August 15th for fall cohort</p>",
+      "alignment": "left"
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Ready to Lead?",
+      "text": "Applications for the 2026-2027 cohort open in June. Join our mailing list to be notified.",
+      "buttonText": "Apply Now",
+      "buttonLink": "/contact",
+      "style": "primary"
+    }
+  ]
+}

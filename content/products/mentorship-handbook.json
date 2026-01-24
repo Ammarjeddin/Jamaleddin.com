@@ -1,0 +1,33 @@
+{
+  "name": "Mentorship Program Handbook (Digital)",
+  "slug": "mentorship-handbook",
+  "description": "A comprehensive guide to running effective mentorship programs in your community.",
+  "productType": "digital",
+  "pricing": {
+    "price": 19.99,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "/images/products/handbook-cover.jpg",
+      "alt": "Mentorship Handbook cover"
+    }
+  ],
+  "category": "Digital Resources",
+  "tags": "mentorship, guide, education, ebook",
+  "inventory": {
+    "trackInventory": false
+  },
+  "digital": {
+    "downloadUrl": "/downloads/mentorship-handbook.pdf",
+    "fileType": "PDF",
+    "fileSize": "15 MB",
+    "downloadLimit": 5
+  },
+  "seo": {
+    "metaTitle": "Mentorship Program Handbook | Horizon Foundation",
+    "metaDescription": "Download our complete guide to building and managing successful mentorship programs."
+  },
+  "status": "active",
+  "featured": true
+}

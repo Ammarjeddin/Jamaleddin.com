@@ -1,0 +1,73 @@
+{
+  "title": "Gallery",
+  "description": "Photos from Horizon Community Foundation events, programs, and community activities.",
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Photo Gallery",
+      "subtitle": "Moments from our community programs and events",
+      "height": "small"
+    },
+    {
+      "_template": "imageGallery",
+      "heading": "Recent Highlights",
+      "layout": "masonry",
+      "images": [
+        {
+          "src": "/images/demo/gallery-1.jpg",
+          "alt": "Youth Leadership graduation ceremony",
+          "caption": "Youth Leadership Class of 2024 Graduation"
+        },
+        {
+          "src": "/images/demo/gallery-2.jpg",
+          "alt": "Community wellness event",
+          "caption": "Annual Wellness Fair"
+        },
+        {
+          "src": "/images/demo/gallery-3.jpg",
+          "alt": "Digital skills workshop",
+          "caption": "Digital Skills Training Session"
+        },
+        {
+          "src": "/images/demo/gallery-4.jpg",
+          "alt": "Volunteer appreciation event",
+          "caption": "Volunteer Appreciation Dinner"
+        },
+        {
+          "src": "/images/demo/gallery-5.jpg",
+          "alt": "Community garden project",
+          "caption": "Community Garden Initiative"
+        },
+        {
+          "src": "/images/demo/gallery-6.jpg",
+          "alt": "Annual gala celebration",
+          "caption": "Spring Gala 2024"
+        },
+        {
+          "src": "/images/demo/gallery-7.jpg",
+          "alt": "Youth mentorship session",
+          "caption": "Mentorship Program in Action"
+        },
+        {
+          "src": "/images/demo/gallery-8.jpg",
+          "alt": "Adult education class",
+          "caption": "Adult Education Workshop"
+        }
+      ]
+    },
+    {
+      "_template": "video",
+      "heading": "See Us in Action",
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "caption": "A look inside Horizon Community Foundation's programs and impact"
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Share Your Story",
+      "text": "Have photos from a Horizon event? We'd love to feature them in our gallery.",
+      "buttonText": "Submit Photos",
+      "buttonLink": "/contact",
+      "style": "primary"
+    }
+  ]
+}

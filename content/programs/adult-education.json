@@ -1,0 +1,102 @@
+{
+  "title": "Adult Education",
+  "description": "Providing accessible learning opportunities for adults seeking to advance their careers and personal growth.",
+  "icon": "graduation-cap",
+  "featured": true,
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Adult Education Program",
+      "subtitle": "It's never too late to learn. Advance your career and personal growth with our accessible courses.",
+      "height": "medium"
+    },
+    {
+      "_template": "imageTextLeft",
+      "image": "/images/demo/adult-education.jpg",
+      "imageAlt": "Adult students in a classroom",
+      "heading": "Lifelong Learning",
+      "content": "<p>Our Adult Education program provides accessible, affordable learning opportunities for community members looking to advance their careers, earn credentials, or pursue personal enrichment.</p><p>We offer flexible scheduling with evening and weekend classes, and many courses are available online.</p>",
+      "buttonText": "View Course Catalog",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Course Categories",
+      "subheading": "Explore our range of educational offerings",
+      "columns": "3",
+      "cards": [
+        {
+          "title": "GED Preparation",
+          "description": "Comprehensive preparation for the GED exam with experienced instructors and practice tests.",
+          "icon": "book-open"
+        },
+        {
+          "title": "English Language",
+          "description": "ESL classes for all levels, from beginner to advanced conversation and writing.",
+          "icon": "globe"
+        },
+        {
+          "title": "Career Skills",
+          "description": "Resume writing, interview preparation, and professional development workshops.",
+          "icon": "briefcase"
+        },
+        {
+          "title": "Financial Literacy",
+          "description": "Budgeting, saving, credit management, and planning for the future.",
+          "icon": "dollar-sign"
+        },
+        {
+          "title": "Health & Wellness",
+          "description": "Nutrition, stress management, and healthy living workshops.",
+          "icon": "heart"
+        },
+        {
+          "title": "Arts & Enrichment",
+          "description": "Creative writing, art, music, and cultural appreciation classes.",
+          "icon": "palette"
+        }
+      ]
+    },
+    {
+      "_template": "stats",
+      "heading": "Program Success",
+      "stats": [
+        { "number": "300+", "label": "Students Enrolled" },
+        { "number": "90%", "label": "Course Completion" },
+        { "number": "150+", "label": "GED Graduates" },
+        { "number": "Free", "label": "Most Core Courses" }
+      ]
+    },
+    {
+      "_template": "testimonials",
+      "heading": "Student Success Stories",
+      "layout": "grid",
+      "items": [
+        {
+          "quote": "After 30 years, I finally got my GED. The instructors at Horizon believed in me when I didn't believe in myself.",
+          "author": "Margaret Johnson",
+          "role": "GED Graduate, 2024"
+        },
+        {
+          "quote": "The ESL program helped me improve my English and gain confidence. Now I can help my children with their homework!",
+          "author": "Carlos Mendez",
+          "role": "ESL Program Participant"
+        }
+      ]
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Enrollment Information",
+      "content": "<p><strong>Schedule:</strong> Classes meet Monday & Wednesday evenings (6-8 PM) or Saturday mornings (9 AM - 12 PM)</p><p><strong>Cost:</strong> Most core courses are free. Some specialty courses have a small materials fee.</p><p><strong>Enrollment:</strong> Open enrollment throughout the year. Some courses have specific start dates.</p><p><strong>Requirements:</strong> Must be 18 or older. No prior education required for most courses.</p>",
+      "alignment": "left"
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Start Your Learning Journey",
+      "text": "Contact us to learn about current course offerings and enrollment.",
+      "buttonText": "Enroll Today",
+      "buttonLink": "/contact",
+      "style": "accent"
+    }
+  ]
+}

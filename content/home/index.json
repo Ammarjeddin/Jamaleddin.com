@@ -1,0 +1,91 @@
+{
+  "title": "Horizon Community Foundation",
+  "description": "Empowering communities through education, mentorship, and engagement programs. Join us in creating lasting change.",
+  "hero": {
+    "slides": [
+      {
+        "title": "Empowering Communities, One Step at a Time",
+        "subtitle": "Join us in creating lasting change through education, mentorship, and community engagement.",
+        "backgroundImage": "/images/demo/hero-community.jpg",
+        "buttonText": "Get Involved",
+        "buttonLink": "/get-involved"
+      },
+      {
+        "title": "Building Tomorrow's Leaders",
+        "subtitle": "Our youth leadership program develops skills, confidence, and community connections.",
+        "backgroundImage": "/images/demo/hero-youth.jpg",
+        "buttonText": "Learn More",
+        "buttonLink": "/programs/youth-leadership"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "_template": "stats",
+      "heading": "Our Impact",
+      "stats": [
+        { "number": "2,500+", "label": "People Served Annually" },
+        { "number": "15", "label": "Years of Service" },
+        { "number": "50+", "label": "Community Partners" },
+        { "number": "95%", "label": "Program Satisfaction" }
+      ]
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Our Programs",
+      "subheading": "Discover how we're making a difference in our community",
+      "columns": "4",
+      "cards": [
+        {
+          "title": "Youth Leadership",
+          "description": "Developing the next generation of community leaders through mentorship, workshops, and real-world projects.",
+          "icon": "users",
+          "link": "/programs/youth-leadership"
+        },
+        {
+          "title": "Adult Education",
+          "description": "Providing accessible learning opportunities for adults seeking to advance their careers and personal growth.",
+          "icon": "graduation-cap",
+          "link": "/programs/adult-education"
+        },
+        {
+          "title": "Community Wellness",
+          "description": "Promoting physical and mental health through fitness programs, counseling services, and wellness workshops.",
+          "icon": "heart",
+          "link": "/programs/community-wellness"
+        },
+        {
+          "title": "Digital Skills",
+          "description": "Bridging the digital divide with hands-on technology training for all ages and skill levels.",
+          "icon": "laptop",
+          "link": "/programs/digital-skills"
+        }
+      ]
+    },
+    {
+      "_template": "testimonials",
+      "heading": "What People Say",
+      "layout": "carousel",
+      "items": [
+        {
+          "quote": "The Youth Leadership Program changed my life. I gained confidence, skills, and a network of mentors who continue to support me today.",
+          "author": "Maria Santos",
+          "role": "Program Graduate, 2024"
+        },
+        {
+          "quote": "Thanks to the Digital Skills program, I was able to land my first tech job at 52. It's never too late to learn!",
+          "author": "Robert Chen",
+          "role": "Digital Skills Graduate"
+        }
+      ]
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Ready to Make a Difference?",
+      "text": "Whether you want to volunteer, donate, or participate in our programs, there's a place for you at Horizon.",
+      "buttonText": "Get Involved Today",
+      "buttonLink": "/get-involved",
+      "style": "primary"
+    }
+  ]
+}

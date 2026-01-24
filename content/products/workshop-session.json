@@ -1,0 +1,35 @@
+{
+  "name": "Community Workshop Session",
+  "slug": "workshop-session",
+  "description": "Book a professional workshop session for your organization or community group.",
+  "productType": "service",
+  "pricing": {
+    "price": 299.00,
+    "taxable": true
+  },
+  "images": [
+    {
+      "src": "/images/products/workshop.jpg",
+      "alt": "Workshop session in progress"
+    }
+  ],
+  "category": "Services",
+  "tags": "workshop, training, community, education",
+  "inventory": {
+    "trackInventory": true,
+    "quantity": 10,
+    "sku": "HCF-WORKSHOP-001",
+    "allowBackorder": true
+  },
+  "service": {
+    "duration": "2 hours",
+    "requiresBooking": true,
+    "bookingUrl": "/contact?service=workshop"
+  },
+  "seo": {
+    "metaTitle": "Book a Community Workshop | Horizon Foundation",
+    "metaDescription": "Schedule a professional workshop session with our experienced facilitators."
+  },
+  "status": "active",
+  "featured": false
+}
