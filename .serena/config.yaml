@@ -1,0 +1,11 @@
+# Serena Project Configuration
+project_name: siteTemplate
+programming_languages:
+  - typescript
+  - javascript
+file_encoding: utf-8
+
+# Project settings
+settings:
+  max_file_size: 100000
+  max_answer_chars: 50000
