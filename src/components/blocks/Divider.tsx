@@ -15,7 +15,7 @@ export function Divider({ style = "line", size = "medium" }: DividerProps) {
   return (
     <div className={cn("relative", sizes[size])}>
       {style === "line" && (
-        <div className="max-w-xs mx-auto h-px bg-gray-200" />
+        <div className="max-w-xs mx-auto h-px bg-gray-200 dark:bg-slate-600" />
       )}
 
       {style === "dots" && (

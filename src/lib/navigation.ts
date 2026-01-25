@@ -1,4 +1,4 @@
-import type { TemplateSettings } from "./tina";
+import type { TemplateSettings, SiteSettings } from "./tina";
 
 export interface NavItem {
   label: string;
@@ -27,8 +27,16 @@ export const defaultNavigation: NavItem[] = [
 
 /**
  * Generate dynamic navigation based on template settings
+ * If custom navigation is defined in settings, use that instead
  */
-export function getNavigation(template?: TemplateSettings): NavItem[] {
+export function getNavigation(template?: TemplateSettings, settings?: SiteSettings): NavItem[] {
+  // If custom navigation is defined in settings, use it
+  const customNav = settings?.navigation as NavItem[] | undefined;
+  if (customNav && customNav.length > 0) {
+    return customNav;
+  }
+
+  // Otherwise, generate navigation based on feature flags
   const baseNav: NavItem[] = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },

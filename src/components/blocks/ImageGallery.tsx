@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils/cn";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GalleryImage {
@@ -15,12 +16,14 @@ interface ImageGalleryProps {
   heading?: string;
   layout?: "grid" | "masonry" | "carousel";
   images: GalleryImage[];
+  isFirstBlock?: boolean;
 }
 
 export function ImageGallery({
   heading,
   layout = "grid",
   images,
+  isFirstBlock = false,
 }: ImageGalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -36,10 +39,10 @@ export function ImageGallery({
     );
 
   return (
-    <section className="section">
+    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 dark:text-white">
             {heading}
           </h2>
         )}

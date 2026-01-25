@@ -15,7 +15,7 @@ export function PageLayout({ settings, navigation, children }: PageLayoutProps) 
   return (
     <>
       <Navbar settings={settings} navigation={navigation} showCart={showCart} />
-      <main className="pt-20 min-h-screen">{children}</main>
+      <main className="min-h-screen">{children}</main>
       <Footer settings={settings} navigation={navigation} />
     </>
   );

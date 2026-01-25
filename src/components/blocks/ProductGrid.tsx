@@ -1,5 +1,6 @@
 import { ProductCard } from "@/components/shop/ProductCard";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils/cn";
 import { getActiveProducts, getFeaturedProducts, getProductsByCategory } from "@/lib/products";
 import type { Product } from "@/lib/types/product";
 
@@ -10,6 +11,7 @@ interface ProductGridProps {
   category?: string;
   maxProducts?: number;
   columns?: "2" | "3" | "4";
+  isFirstBlock?: boolean;
 }
 
 export async function ProductGrid({
@@ -19,6 +21,7 @@ export async function ProductGrid({
   category,
   maxProducts = 12,
   columns = "3",
+  isFirstBlock = false,
 }: ProductGridProps) {
   let products: Product[];
 
@@ -44,17 +47,17 @@ export async function ProductGrid({
   }[columns];
 
   return (
-    <section className="section">
+    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         {(heading || subheading) && (
           <div className="text-center mb-12">
             {heading && (
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {heading}
               </h2>
             )}
             {subheading && (
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
@@ -68,7 +71,7 @@ export async function ProductGrid({
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 py-12">
+          <p className="text-center text-gray-500 dark:text-slate-400 py-12">
             No products found.
           </p>
         )}

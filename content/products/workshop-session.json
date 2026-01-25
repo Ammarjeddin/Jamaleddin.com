@@ -9,8 +9,12 @@
   },
   "images": [
     {
-      "src": "/images/products/workshop.jpg",
+      "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
       "alt": "Workshop session in progress"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+      "alt": "Professional meeting and training"
     }
   ],
   "category": "Services",

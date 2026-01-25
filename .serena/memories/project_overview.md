@@ -4,12 +4,23 @@
 A reusable, white-label website template built with Next.js 15+ and TinaCMS. Designed to be forked/cloned and customized for any organization in minutes through the admin dashboard.
 
 ## Tech Stack
-- **Framework**: Next.js 15+ (App Router)
-- **CMS**: TinaCMS (Git-based, visual editing)
-- **Styling**: Tailwind CSS
+- **Framework**: Next.js 16+ (App Router)
+- **CMS**: Custom Admin Dashboard (Git-based content)
+- **Styling**: Tailwind CSS v4
 - **Icons**: Lucide Icons
 - **Language**: TypeScript
-- **Hosting**: Netlify/Vercel (auto-deploy from Git)
+- **Hosting**: Netlify (auto-deploy from Git)
+- **E-commerce**: Stripe integration for shop
+
+## Dark Mode
+- Uses `useDarkMode()` hook from `@/contexts/DarkModeContext`
+- **Important**: Tailwind `dark:` classes have specificity issues in this project
+- **Solution**: Use inline styles with `isDarkMode` state for reliable dark mode:
+  ```tsx
+  const { isDarkMode } = useDarkMode();
+  const textStyle = { color: isDarkMode ? "#ffffff" : "#374151" };
+  ```
+- Components using dark mode must have `"use client"` directive
 
 ## Key Features
 
@@ -28,7 +39,7 @@ All customization from the TinaCMS admin dashboard:
 - **Navbar**: Floating, Fixed, Transparent
 - **Footer**: Full, Minimal, Centered
 
-### 15 Block/Section Types
+### 17 Block/Section Types
 1. Text Block
 2. Hero Banner
 3. Image + Text (Left)
@@ -44,6 +55,21 @@ All customization from the TinaCMS admin dashboard:
 13. Timeline
 14. Team Members
 15. Divider / Spacer
+16. Product Grid
+17. Product Showcase
+
+### Shop Feature
+- Product listings with categories and filters
+- Cart functionality with CartContext
+- Stripe checkout integration
+- Product detail pages
+
+### Navigation
+- Floating navbar (always island style with rounded corners)
+- Custom navigation management in settings
+- Dropdown support for nested navigation items
+- Dark mode toggle in navbar
+- Active page indicator with pill-shaped background
 
 ## Demo Content
 Template includes realistic demo content for "Horizon Community Foundation" - a fictional non-profit organization.

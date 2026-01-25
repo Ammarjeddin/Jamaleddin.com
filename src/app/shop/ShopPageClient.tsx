@@ -6,6 +6,7 @@ import { sortProducts } from "@/lib/types/product";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductFilters } from "@/components/shop/ProductFilters";
 import { ProductSort } from "@/components/shop/ProductSort";
+import { useDarkMode } from "@/contexts/DarkModeContext";
 
 interface ShopPageClientProps {
   initialProducts: Product[];
@@ -20,10 +21,14 @@ export function ShopPageClient({
   currency,
   gridColumns,
 }: ShopPageClientProps) {
+  const { isDarkMode } = useDarkMode();
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
   const [selectedProductType, setSelectedProductType] = useState<string | undefined>();
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sort, setSort] = useState<SortOption>("newest");
+
+  const textStyle = { color: isDarkMode ? "#cbd5e1" : "#4b5563" };
+  const mutedTextStyle = { color: isDarkMode ? "#94a3b8" : "#6b7280" };
 
   const filteredProducts = useMemo(() => {
     let filtered = [...initialProducts];
@@ -78,7 +83,7 @@ export function ShopPageClient({
       <div className="flex-1">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-          <p className="text-gray-600">
+          <p style={textStyle}>
             {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""}
           </p>
           <ProductSort value={sort} onChange={setSort} />
@@ -93,7 +98,7 @@ export function ShopPageClient({
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
+            <p className="text-lg" style={mutedTextStyle}>No products found matching your criteria.</p>
             <button
               onClick={() => {
                 setSelectedCategory(undefined);

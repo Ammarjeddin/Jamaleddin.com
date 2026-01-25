@@ -17,6 +17,7 @@ interface CardsGridProps {
   subheading?: string;
   columns?: "2" | "3" | "4";
   cards: Card[];
+  isFirstBlock?: boolean;
 }
 
 export function CardsGrid({
@@ -24,11 +25,12 @@ export function CardsGrid({
   subheading,
   columns = "3",
   cards,
+  isFirstBlock = false,
 }: CardsGridProps) {
   const columnClasses = {
-    "2": "md:grid-cols-2",
-    "3": "md:grid-cols-2 lg:grid-cols-3",
-    "4": "md:grid-cols-2 lg:grid-cols-4",
+    "2": "grid-cols-1 sm:grid-cols-2",
+    "3": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+    "4": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   };
 
   const getIcon = (iconName: string) => {
@@ -38,22 +40,22 @@ export function CardsGrid({
   };
 
   return (
-    <section className="section">
+    <section className={cn("py-12 sm:py-16 md:py-20 dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40 sm:pt-44 md:pt-48")}>
       <Container>
         {(heading || subheading) && (
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12">
             {heading && (
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">{heading}</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 dark:text-white">{heading}</h2>
             )}
             {subheading && (
-              <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-[var(--color-text-muted)] dark:text-slate-300 max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
           </div>
         )}
 
-        <div className={cn("grid gap-6", columnClasses[columns])}>
+        <div className={cn("grid gap-3 sm:gap-4 md:gap-6", columnClasses[columns])}>
           {cards.map((card, index) => {
             const CardWrapper = card.link ? Link : "div";
             const Icon = card.icon ? getIcon(card.icon) : null;
@@ -63,7 +65,8 @@ export function CardsGrid({
                 key={index}
                 href={card.link || "#"}
                 className={cn(
-                  "card overflow-hidden group",
+                  "bg-white rounded-lg shadow-md overflow-hidden group",
+                  "dark:shadow-lg dark:shadow-black/20",
                   card.link && "cursor-pointer"
                 )}
               >
@@ -77,17 +80,17 @@ export function CardsGrid({
                     />
                   </div>
                 )}
-                <div className="p-6">
+                <div className="p-3 sm:p-4 md:p-6">
                   {Icon && !card.image && (
-                    <div className="w-12 h-12 rounded-lg bg-[var(--color-primary)] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <Icon className="w-6 h-6 text-white" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-[var(--color-primary)] flex items-center justify-center mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                     </div>
                   )}
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-[var(--color-primary)] transition-colors">
+                  <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2 text-gray-900 group-hover:text-[var(--color-primary)] transition-colors">
                     {card.title}
                   </h3>
                   {card.description && (
-                    <p className="text-[var(--color-text-muted)]">
+                    <p className="text-sm sm:text-base text-gray-600">
                       {card.description}
                     </p>
                   )}

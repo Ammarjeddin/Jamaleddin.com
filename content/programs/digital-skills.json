@@ -3,16 +3,18 @@
   "description": "Bridging the digital divide with hands-on technology training for all ages and skill levels.",
   "icon": "laptop",
   "featured": true,
+  "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&q=80",
   "blocks": [
     {
       "_template": "heroBanner",
       "title": "Digital Skills Training",
       "subtitle": "Technology skills for the modern world, taught at your pace",
+      "backgroundImage": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80",
       "height": "medium"
     },
     {
       "_template": "imageTextLeft",
-      "image": "/images/demo/digital-skills.jpg",
+      "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
       "imageAlt": "Digital skills training session",
       "heading": "Bridging the Digital Divide",
       "content": "<p>In today's world, digital literacy is essential. Our Digital Skills program provides hands-on training for community members of all ages and experience levels.</p><p>From smartphone basics to job-ready computer skills, we meet you where you are and help you build confidence with technology.</p>",
@@ -28,17 +30,20 @@
         {
           "title": "Digital Basics",
           "description": "Smartphone use, email, internet safety, and social media basics for beginners.",
-          "icon": "smartphone"
+          "icon": "smartphone",
+          "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80"
         },
         {
           "title": "Computer Essentials",
           "description": "Word processing, spreadsheets, file management, and internet research.",
-          "icon": "monitor"
+          "icon": "monitor",
+          "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&q=80"
         },
         {
           "title": "Job-Ready Skills",
           "description": "Professional email, online job applications, video conferencing, and more.",
-          "icon": "briefcase"
+          "icon": "briefcase",
+          "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80"
         }
       ]
     },
@@ -51,6 +56,13 @@
         { "number": "45%", "label": "Found New Jobs" },
         { "number": "Free", "label": "All Courses" }
       ]
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+      "imageAlt": "One-on-one tech help session",
+      "heading": "Personalized Support",
+      "content": "<p>Every learner is different, which is why we offer multiple ways to get help with technology.</p><p>Join a structured workshop, attend drop-in Tech Help hours, or request one-on-one assistance for specific challenges. Our patient instructors and volunteers are here to help you succeed.</p>"
     },
     {
       "_template": "faq",
@@ -82,12 +94,14 @@
         {
           "quote": "At 52, I thought it was too late to learn computers. Now I video chat with my grandchildren every week and even applied for a job online!",
           "author": "Robert Chen",
-          "role": "Digital Basics Graduate"
+          "role": "Digital Basics Graduate",
+          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80"
         },
         {
           "quote": "The Job-Ready Skills course helped me update my resume and learn video conferencing. I got a remote job within two months!",
           "author": "Priya Sharma",
-          "role": "Job-Ready Skills Graduate"
+          "role": "Job-Ready Skills Graduate",
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80"
         }
       ]
     },
@@ -97,6 +111,7 @@
       "text": "New workshops start every month. Register today to secure your spot.",
       "buttonText": "View Upcoming Workshops",
       "buttonLink": "/events",
+      "backgroundImage": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80",
       "style": "primary"
     }
   ]

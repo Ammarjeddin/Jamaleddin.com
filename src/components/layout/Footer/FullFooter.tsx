@@ -112,7 +112,7 @@ export function FullFooter({ settings, navigation }: FullFooterProps) {
             <p className="text-gray-400 mb-4">
               Subscribe to our newsletter for updates and news.
             </p>
-            <form className="flex gap-2">
+            <form className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
                 placeholder="Your email"
@@ -120,7 +120,7 @@ export function FullFooter({ settings, navigation }: FullFooterProps) {
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary-dark)] transition-colors"
+                className="px-4 py-2 bg-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary-dark)] transition-colors whitespace-nowrap"
               >
                 Subscribe
               </button>

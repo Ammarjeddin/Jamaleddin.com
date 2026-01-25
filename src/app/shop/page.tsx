@@ -21,12 +21,12 @@ export default async function ShopPage() {
   const currency = shopSettings?.currency || "USD";
   const gridColumns = shopSettings?.gridColumns || "3";
 
-  const navigation = getNavigation(settings.template);
+  const navigation = getNavigation(settings.template, settings);
 
   return (
     <PageLayout settings={settings} navigation={navigation}>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white py-16">
+      <section className="-mt-20 pt-44 pb-16 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white">
         <Container>
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Shop</h1>
@@ -38,7 +38,7 @@ export default async function ShopPage() {
       </section>
 
       {/* Shop Content */}
-      <section className="section">
+      <section className="section dark:bg-slate-900">
         <Container>
           <ShopPageClient
             initialProducts={products}

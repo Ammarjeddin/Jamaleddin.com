@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils/cn";
 import { AddToCartButton } from "@/components/shop/AddToCartButton";
 import { getProduct } from "@/lib/products";
 import { formatPrice, getDiscountPercentage } from "@/lib/types/product";
@@ -10,6 +11,7 @@ interface ProductShowcaseProps {
   productSlug?: string;
   layout?: "left" | "right";
   backgroundColor?: "white" | "gray" | "primary";
+  isFirstBlock?: boolean;
 }
 
 export async function ProductShowcase({
@@ -17,17 +19,18 @@ export async function ProductShowcase({
   productSlug,
   layout = "left",
   backgroundColor = "white",
+  isFirstBlock = false,
 }: ProductShowcaseProps) {
   const product = productSlug ? await getProduct(productSlug) : null;
 
   const bgClass = {
-    white: "bg-white",
-    gray: "bg-gray-50",
+    white: "bg-white dark:bg-slate-900",
+    gray: "bg-gray-50 dark:bg-slate-800",
     primary: "bg-[var(--color-primary)] text-white",
   }[backgroundColor];
 
-  const textColorClass = backgroundColor === "primary" ? "text-white" : "text-gray-900";
-  const mutedTextClass = backgroundColor === "primary" ? "text-white/80" : "text-gray-600";
+  const textColorClass = backgroundColor === "primary" ? "text-white" : "text-gray-900 dark:text-white";
+  const mutedTextClass = backgroundColor === "primary" ? "text-white/80" : "text-gray-600 dark:text-gray-300";
 
   if (!product) {
     return null;
@@ -90,7 +93,7 @@ export async function ProductShowcase({
           className={`px-6 py-3 rounded-lg font-medium border text-center transition-colors ${
             backgroundColor === "primary"
               ? "border-white/30 text-white hover:bg-white/10"
-              : "border-gray-300 text-gray-700 hover:bg-gray-50"
+              : "border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700"
           }`}
         >
           View Details
@@ -100,7 +103,7 @@ export async function ProductShowcase({
   );
 
   return (
-    <section className={`section ${bgClass}`}>
+    <section className={cn("section", bgClass, isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {layout === "left" ? (

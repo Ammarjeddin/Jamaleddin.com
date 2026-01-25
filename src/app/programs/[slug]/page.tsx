@@ -33,7 +33,7 @@ export default async function ProgramPage({ params }: ProgramPageProps) {
     notFound();
   }
 
-  const navigation = getNavigation(settings.template);
+  const navigation = getNavigation(settings.template, settings);
 
   return (
     <PageLayout settings={settings} navigation={navigation}>

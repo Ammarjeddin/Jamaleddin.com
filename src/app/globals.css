@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable dark mode with .dark class selector (Tailwind v4) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Theme colors - set dynamically by ThemeProvider */
   --color-primary: #476A7D;
@@ -15,8 +18,11 @@
   --color-accent-dark: #d9a02e;
 
   --color-background: #F8FAF9;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
   --color-text: #1a1a1a;
   --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
 
   /* Font families - set by font classes */
   --font-heading: var(--font-sans);
@@ -38,6 +44,24 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Dark mode colors - Background goes dark, cards/surfaces stay WHITE */
+.dark {
+  --color-background: #0f172a;
+  /* Keep surfaces white for cards in dark mode */
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  /* Text for dark backgrounds */
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #334155;
+
+  /* Adjusted shadows for dark mode - slightly more visible */
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 8px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 20px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 25px 35px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
 }
 
 @theme inline {
@@ -137,12 +161,17 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
-/* Card styles */
+/* Card styles - Cards stay white in both modes */
 .card {
   background-color: white;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
+}
+
+.dark .card {
+  /* In dark mode, cards stay white with subtle shadow for depth */
+  box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
 }
 
 /* Link styles */
@@ -155,9 +184,11 @@ a:hover {
   color: var(--color-primary-dark);
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+/* Smooth scroll - applied via media query to avoid issues with hash navigation */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Focus styles for accessibility */

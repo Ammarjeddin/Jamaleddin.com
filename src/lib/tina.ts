@@ -19,6 +19,12 @@ export interface TemplateSettings {
   features?: TemplateFeatures;
 }
 
+export interface NavigationItem {
+  label: string;
+  href: string;
+  children?: NavigationItem[];
+}
+
 export interface SiteSettings {
   template?: TemplateSettings;
   siteName: string;
@@ -43,6 +49,7 @@ export interface SiteSettings {
     navbar?: string;
     footer?: string;
   };
+  navigation?: NavigationItem[];
   social?: {
     facebook?: string;
     instagram?: string;

@@ -10,6 +10,7 @@ interface CtaBoxProps {
   buttonLink: string;
   backgroundImage?: string;
   style?: "primary" | "secondary" | "accent" | "image";
+  isFirstBlock?: boolean;
 }
 
 export function CtaBox({
@@ -19,6 +20,7 @@ export function CtaBox({
   buttonLink,
   backgroundImage,
   style = "primary",
+  isFirstBlock = false,
 }: CtaBoxProps) {
   const styleClasses = {
     primary: "bg-[var(--color-primary)] text-white",
@@ -35,7 +37,7 @@ export function CtaBox({
   };
 
   return (
-    <section className={cn("relative overflow-hidden", styleClasses[style])}>
+    <section className={cn("relative overflow-hidden", styleClasses[style], isFirstBlock && "-mt-20 pt-40")}>
       {style === "image" && backgroundImage && (
         <>
           <Image

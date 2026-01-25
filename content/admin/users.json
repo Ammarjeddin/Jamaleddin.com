@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@example.com",
+      "passwordHash": "$2b$10$YP36QWrnNEXSMEZrOPr0fOBAqNYFdOoQqbwaVtDKNiAR9YVdXcMWy",
+      "role": "admin",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

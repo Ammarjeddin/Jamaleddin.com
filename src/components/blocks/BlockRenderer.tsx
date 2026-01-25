@@ -55,58 +55,62 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
 
         // Cast props to unknown first to satisfy TypeScript strict mode
         const blockProps = props as unknown;
+        
+        // Add negative margin to first block so it extends behind the navbar
+        const isFirstBlock = index === 0;
+        const firstBlockProps = isFirstBlock ? { ...(blockProps as object), isFirstBlock } : blockProps;
 
         switch (_template) {
           case "textBlock":
-            return <TextBlock key={index} {...(blockProps as React.ComponentProps<typeof TextBlock>)} />;
+            return <TextBlock key={index} {...(firstBlockProps as React.ComponentProps<typeof TextBlock>)} />;
 
           case "heroBanner":
-            return <HeroBanner key={index} {...(blockProps as React.ComponentProps<typeof HeroBanner>)} />;
+            return <HeroBanner key={index} {...(firstBlockProps as React.ComponentProps<typeof HeroBanner>)} />;
 
           case "imageTextLeft":
-            return <ImageTextLeft key={index} {...(blockProps as React.ComponentProps<typeof ImageTextLeft>)} />;
+            return <ImageTextLeft key={index} {...(firstBlockProps as React.ComponentProps<typeof ImageTextLeft>)} />;
 
           case "imageTextRight":
-            return <ImageTextRight key={index} {...(blockProps as React.ComponentProps<typeof ImageTextRight>)} />;
+            return <ImageTextRight key={index} {...(firstBlockProps as React.ComponentProps<typeof ImageTextRight>)} />;
 
           case "cardsGrid":
-            return <CardsGrid key={index} {...(blockProps as React.ComponentProps<typeof CardsGrid>)} />;
+            return <CardsGrid key={index} {...(firstBlockProps as React.ComponentProps<typeof CardsGrid>)} />;
 
           case "ctaBox":
-            return <CtaBox key={index} {...(blockProps as React.ComponentProps<typeof CtaBox>)} />;
+            return <CtaBox key={index} {...(firstBlockProps as React.ComponentProps<typeof CtaBox>)} />;
 
           case "faq":
-            return <Faq key={index} {...(blockProps as React.ComponentProps<typeof Faq>)} />;
+            return <Faq key={index} {...(firstBlockProps as React.ComponentProps<typeof Faq>)} />;
 
           case "imageGallery":
-            return <ImageGallery key={index} {...(blockProps as React.ComponentProps<typeof ImageGallery>)} />;
+            return <ImageGallery key={index} {...(firstBlockProps as React.ComponentProps<typeof ImageGallery>)} />;
 
           case "contactInfo":
-            return <ContactInfo key={index} {...(blockProps as React.ComponentProps<typeof ContactInfo>)} />;
+            return <ContactInfo key={index} {...(firstBlockProps as React.ComponentProps<typeof ContactInfo>)} />;
 
           case "stats":
-            return <Stats key={index} {...(blockProps as React.ComponentProps<typeof Stats>)} />;
+            return <Stats key={index} {...(firstBlockProps as React.ComponentProps<typeof Stats>)} />;
 
           case "testimonials":
-            return <Testimonials key={index} {...(blockProps as React.ComponentProps<typeof Testimonials>)} />;
+            return <Testimonials key={index} {...(firstBlockProps as React.ComponentProps<typeof Testimonials>)} />;
 
           case "video":
-            return <Video key={index} {...(blockProps as React.ComponentProps<typeof Video>)} />;
+            return <Video key={index} {...(firstBlockProps as React.ComponentProps<typeof Video>)} />;
 
           case "timeline":
-            return <Timeline key={index} {...(blockProps as React.ComponentProps<typeof Timeline>)} />;
+            return <Timeline key={index} {...(firstBlockProps as React.ComponentProps<typeof Timeline>)} />;
 
           case "team":
-            return <Team key={index} {...(blockProps as React.ComponentProps<typeof Team>)} />;
+            return <Team key={index} {...(firstBlockProps as React.ComponentProps<typeof Team>)} />;
 
           case "divider":
-            return <Divider key={index} {...(blockProps as React.ComponentProps<typeof Divider>)} />;
+            return <Divider key={index} {...(firstBlockProps as React.ComponentProps<typeof Divider>)} />;
 
           case "productGrid":
-            return <ProductGrid key={index} {...(blockProps as React.ComponentProps<typeof ProductGrid>)} />;
+            return <ProductGrid key={index} {...(firstBlockProps as React.ComponentProps<typeof ProductGrid>)} />;
 
           case "productShowcase":
-            return <ProductShowcase key={index} {...(blockProps as React.ComponentProps<typeof ProductShowcase>)} />;
+            return <ProductShowcase key={index} {...(firstBlockProps as React.ComponentProps<typeof ProductShowcase>)} />;
 
           default:
             console.warn(`Unknown block type: ${_template}`);

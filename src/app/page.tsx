@@ -37,7 +37,7 @@ export default async function Home() {
     },
   ];
 
-  const navigation = getNavigation(settings.template);
+  const navigation = getNavigation(settings.template, settings);
 
   return (
     <HomeLayout
@@ -46,9 +46,9 @@ export default async function Home() {
       content={homeContent || { hero: { slides: [{ title: settings.siteName, subtitle: settings.tagline }] } }}
     >
       {/* Stats Section */}
-      <section className="section bg-white">
+      <section className="section bg-white dark:bg-slate-900">
         <Container>
-          <h2 className="text-3xl font-bold text-center mb-12">Our Impact</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 dark:text-white">Our Impact</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { number: "2,500+", label: "People Served Annually" },
@@ -68,9 +68,9 @@ export default async function Home() {
       </section>
 
       {/* Programs Section */}
-      <section className="section">
+      <section className="section dark:bg-slate-900">
         <Container>
-          <h2 className="text-3xl font-bold text-center mb-4">Our Programs</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 dark:text-white">Our Programs</h2>
           <p className="text-center text-[var(--color-text-muted)] mb-12 max-w-2xl mx-auto">
             Discover how we&apos;re making a difference in our community
           </p>
@@ -78,7 +78,7 @@ export default async function Home() {
             {programs.map((program, index) => (
               <div
                 key={index}
-                className="card p-6 hover:shadow-lg transition-shadow cursor-pointer group"
+                className="card p-6 hover:shadow-lg transition-shadow cursor-pointer group dark:shadow-lg dark:shadow-black/20"
               >
                 <div
                   className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center group-hover:scale-110 transition-transform"
@@ -86,8 +86,8 @@ export default async function Home() {
                 >
                   <program.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{program.title}</h3>
-                <p className="text-[var(--color-text-muted)]">
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">{program.title}</h3>
+                <p className="text-gray-600">
                   {program.description}
                 </p>
               </div>
@@ -97,10 +97,10 @@ export default async function Home() {
       </section>
 
       {/* Testimonial Section */}
-      <section className="section bg-gray-50">
+      <section className="section bg-gray-50 dark:bg-slate-800">
         <Container size="narrow">
           <div className="text-center">
-            <blockquote className="text-2xl md:text-3xl font-medium text-[var(--color-text)] mb-6 leading-relaxed">
+            <blockquote className="text-2xl md:text-3xl font-medium text-gray-800 dark:text-white mb-6 leading-relaxed">
               &ldquo;The Youth Leadership Program changed my life. I gained confidence,
               skills, and a network of mentors who continue to support me today.&rdquo;
             </blockquote>
@@ -109,7 +109,7 @@ export default async function Home() {
                 MS
               </div>
               <div className="text-left">
-                <div className="font-semibold">Maria Santos</div>
+                <div className="font-semibold dark:text-white">Maria Santos</div>
                 <div className="text-sm text-[var(--color-text-muted)]">
                   Program Graduate, 2024
                 </div>

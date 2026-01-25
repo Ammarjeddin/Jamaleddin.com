@@ -4,7 +4,7 @@
     "features": {
       "shop": {
         "enabled": true,
-        "currency": "USD",
+        "currency": "CAD",
         "productsPerPage": 12,
         "gridColumns": "3"
       },
@@ -27,7 +27,7 @@
     "primaryColor": "#476A7D",
     "secondaryColor": "#A4C685",
     "accentColor": "#E8B54D",
-    "backgroundColor": "#F8FAF9",
+    "backgroundColor": "#ffffff",
     "textColor": "#1a1a1a"
   },
   "fonts": {
@@ -60,5 +60,6 @@
     "titleTemplate": "%s | Horizon Community Foundation",
     "defaultDescription": "Horizon Community Foundation empowers communities through education, mentorship, and engagement programs. Join us in creating lasting change.",
     "defaultOgImage": "/images/og-image.jpg"
-  }
+  },
+  "navigation": []
 }

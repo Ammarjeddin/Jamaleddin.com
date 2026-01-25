@@ -3,16 +3,18 @@
   "description": "Providing accessible learning opportunities for adults seeking to advance their careers and personal growth.",
   "icon": "graduation-cap",
   "featured": true,
+  "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80",
   "blocks": [
     {
       "_template": "heroBanner",
       "title": "Adult Education Program",
       "subtitle": "It's never too late to learn. Advance your career and personal growth with our accessible courses.",
+      "backgroundImage": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&q=80",
       "height": "medium"
     },
     {
       "_template": "imageTextLeft",
-      "image": "/images/demo/adult-education.jpg",
+      "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
       "imageAlt": "Adult students in a classroom",
       "heading": "Lifelong Learning",
       "content": "<p>Our Adult Education program provides accessible, affordable learning opportunities for community members looking to advance their careers, earn credentials, or pursue personal enrichment.</p><p>We offer flexible scheduling with evening and weekend classes, and many courses are available online.</p>",
@@ -28,32 +30,38 @@
         {
           "title": "GED Preparation",
           "description": "Comprehensive preparation for the GED exam with experienced instructors and practice tests.",
-          "icon": "book-open"
+          "icon": "book-open",
+          "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=80"
         },
         {
           "title": "English Language",
           "description": "ESL classes for all levels, from beginner to advanced conversation and writing.",
-          "icon": "globe"
+          "icon": "globe",
+          "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80"
         },
         {
           "title": "Career Skills",
           "description": "Resume writing, interview preparation, and professional development workshops.",
-          "icon": "briefcase"
+          "icon": "briefcase",
+          "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80"
         },
         {
           "title": "Financial Literacy",
           "description": "Budgeting, saving, credit management, and planning for the future.",
-          "icon": "dollar-sign"
+          "icon": "dollar-sign",
+          "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80"
         },
         {
           "title": "Health & Wellness",
           "description": "Nutrition, stress management, and healthy living workshops.",
-          "icon": "heart"
+          "icon": "heart",
+          "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80"
         },
         {
           "title": "Arts & Enrichment",
           "description": "Creative writing, art, music, and cultural appreciation classes.",
-          "icon": "palette"
+          "icon": "palette",
+          "image": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&q=80"
         }
       ]
     },
@@ -68,6 +76,13 @@
       ]
     },
     {
+      "_template": "imageTextRight",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+      "imageAlt": "Classroom learning environment",
+      "heading": "Supportive Learning Environment",
+      "content": "<p>Our experienced instructors create a welcoming, supportive atmosphere where adults can learn at their own pace without judgment.</p><p>We understand the challenges of balancing education with work and family responsibilities, which is why we offer flexible scheduling and childcare assistance for qualifying students.</p>"
+    },
+    {
       "_template": "testimonials",
       "heading": "Student Success Stories",
       "layout": "grid",
@@ -75,12 +90,14 @@
         {
           "quote": "After 30 years, I finally got my GED. The instructors at Horizon believed in me when I didn't believe in myself.",
           "author": "Margaret Johnson",
-          "role": "GED Graduate, 2024"
+          "role": "GED Graduate, 2024",
+          "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80"
         },
         {
           "quote": "The ESL program helped me improve my English and gain confidence. Now I can help my children with their homework!",
           "author": "Carlos Mendez",
-          "role": "ESL Program Participant"
+          "role": "ESL Program Participant",
+          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80"
         }
       ]
     },
@@ -96,6 +113,7 @@
       "text": "Contact us to learn about current course offerings and enrollment.",
       "buttonText": "Enroll Today",
       "buttonLink": "/contact",
+      "backgroundImage": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80",
       "style": "accent"
     }
   ]

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils/cn";
 
 interface ImageTextLeftProps {
   image: string;
@@ -9,6 +10,7 @@ interface ImageTextLeftProps {
   content?: string;
   buttonText?: string;
   buttonLink?: string;
+  isFirstBlock?: boolean;
 }
 
 export function ImageTextLeft({
@@ -18,13 +20,14 @@ export function ImageTextLeft({
   content,
   buttonText,
   buttonLink,
+  isFirstBlock = false,
 }: ImageTextLeftProps) {
   return (
-    <section className="section">
+    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image */}
-          <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg dark:shadow-black/30">
             <Image
               src={image}
               alt={imageAlt || heading}
@@ -35,10 +38,10 @@ export function ImageTextLeft({
 
           {/* Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">{heading}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 dark:text-white">{heading}</h2>
             {content && (
               <div
-                className="prose prose-lg text-[var(--color-text-muted)] mb-8"
+                className="prose prose-lg text-[var(--color-text-muted)] dark:prose-invert mb-8"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             )}

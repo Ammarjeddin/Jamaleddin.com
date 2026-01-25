@@ -6,16 +6,23 @@
       {
         "title": "Empowering Communities, One Step at a Time",
         "subtitle": "Join us in creating lasting change through education, mentorship, and community engagement.",
-        "backgroundImage": "/images/demo/hero-community.jpg",
+        "backgroundImage": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80",
         "buttonText": "Get Involved",
         "buttonLink": "/get-involved"
       },
       {
         "title": "Building Tomorrow's Leaders",
         "subtitle": "Our youth leadership program develops skills, confidence, and community connections.",
-        "backgroundImage": "/images/demo/hero-youth.jpg",
+        "backgroundImage": "https://images.unsplash.com/photo-1529390079861-591f38ca9d64?w=1920&q=80",
         "buttonText": "Learn More",
         "buttonLink": "/programs/youth-leadership"
+      },
+      {
+        "title": "Education for Everyone",
+        "subtitle": "Accessible learning opportunities that transform lives at any age.",
+        "backgroundImage": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&q=80",
+        "buttonText": "Explore Programs",
+        "buttonLink": "/programs"
       }
     ]
   },
@@ -40,27 +47,40 @@
           "title": "Youth Leadership",
           "description": "Developing the next generation of community leaders through mentorship, workshops, and real-world projects.",
           "icon": "users",
+          "image": "https://images.unsplash.com/photo-1529390079861-591f38ca9d64?w=600&q=80",
           "link": "/programs/youth-leadership"
         },
         {
           "title": "Adult Education",
           "description": "Providing accessible learning opportunities for adults seeking to advance their careers and personal growth.",
           "icon": "graduation-cap",
+          "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80",
           "link": "/programs/adult-education"
         },
         {
           "title": "Community Wellness",
           "description": "Promoting physical and mental health through fitness programs, counseling services, and wellness workshops.",
           "icon": "heart",
+          "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80",
           "link": "/programs/community-wellness"
         },
         {
           "title": "Digital Skills",
           "description": "Bridging the digital divide with hands-on technology training for all ages and skill levels.",
           "icon": "laptop",
+          "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&q=80",
           "link": "/programs/digital-skills"
         }
       ]
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&q=80",
+      "imageAlt": "Community members collaborating",
+      "heading": "Together We're Stronger",
+      "content": "<p>At Horizon Community Foundation, we believe in the power of community. When people come together to support one another, incredible things happen.</p><p>Join thousands of community members who have found their path through our programs.</p>",
+      "buttonText": "Learn About Us",
+      "buttonLink": "/about"
     },
     {
       "_template": "testimonials",
@@ -70,12 +90,14 @@
         {
           "quote": "The Youth Leadership Program changed my life. I gained confidence, skills, and a network of mentors who continue to support me today.",
           "author": "Maria Santos",
-          "role": "Program Graduate, 2024"
+          "role": "Program Graduate, 2024",
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80"
         },
         {
           "quote": "Thanks to the Digital Skills program, I was able to land my first tech job at 52. It's never too late to learn!",
           "author": "Robert Chen",
-          "role": "Digital Skills Graduate"
+          "role": "Digital Skills Graduate",
+          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80"
         }
       ]
     },
@@ -85,6 +107,7 @@
       "text": "Whether you want to volunteer, donate, or participate in our programs, there's a place for you at Horizon.",
       "buttonText": "Get Involved Today",
       "buttonLink": "/get-involved",
+      "backgroundImage": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1200&q=80",
       "style": "primary"
     }
   ]

@@ -17,12 +17,14 @@ interface TestimonialsProps {
   heading?: string;
   layout?: "carousel" | "grid";
   items: Testimonial[];
+  isFirstBlock?: boolean;
 }
 
 export function Testimonials({
   heading,
   layout = "carousel",
   items,
+  isFirstBlock = false,
 }: TestimonialsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -45,10 +47,10 @@ export function Testimonials({
   };
 
   return (
-    <section className="section bg-gray-50">
+    <section className={cn("section bg-gray-50 dark:bg-slate-800", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 dark:text-white">
             {heading}
           </h2>
         )}
@@ -65,7 +67,7 @@ export function Testimonials({
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <div className="text-center">
                       <Quote className="w-12 h-12 text-[var(--color-primary)]/20 mx-auto mb-6" />
-                      <blockquote className="text-xl md:text-2xl text-[var(--color-text)] mb-8 leading-relaxed">
+                      <blockquote className="text-xl md:text-2xl text-gray-800 dark:text-white mb-8 leading-relaxed">
                         &ldquo;{item.quote}&rdquo;
                       </blockquote>
                       <div className="flex items-center justify-center gap-4">
@@ -87,9 +89,9 @@ export function Testimonials({
                           </div>
                         )}
                         <div className="text-left">
-                          <div className="font-semibold">{item.author}</div>
+                          <div className="font-semibold dark:text-white">{item.author}</div>
                           {item.role && (
-                            <div className="text-sm text-[var(--color-text-muted)]">
+                            <div className="text-sm text-[var(--color-text-muted)] dark:text-slate-400">
                               {item.role}
                             </div>
                           )}
@@ -106,17 +108,17 @@ export function Testimonials({
               <>
                 <button
                   onClick={prevSlide}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors dark:shadow-black/20"
                   aria-label="Previous testimonial"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-6 h-6 text-gray-800" />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors dark:shadow-black/20"
                   aria-label="Next testimonial"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-6 h-6 text-gray-800" />
                 </button>
 
                 {/* Dots */}
@@ -146,7 +148,7 @@ export function Testimonials({
             {items.map((item, index) => (
               <div key={index} className="card p-6">
                 <Quote className="w-8 h-8 text-[var(--color-primary)]/20 mb-4" />
-                <blockquote className="text-[var(--color-text)] mb-6">
+                <blockquote className="text-[var(--color-text)] dark:text-white mb-6">
                   &ldquo;{item.quote}&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-3">
@@ -168,9 +170,9 @@ export function Testimonials({
                     </div>
                   )}
                   <div>
-                    <div className="font-semibold">{item.author}</div>
+                    <div className="font-semibold dark:text-white">{item.author}</div>
                     {item.role && (
-                      <div className="text-sm text-[var(--color-text-muted)]">
+                      <div className="text-sm text-[var(--color-text-muted)] dark:text-slate-400">
                         {item.role}
                       </div>
                     )}

@@ -5,6 +5,7 @@ import { getSiteSettings } from "@/lib/tina";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CartProvider } from "@/contexts/CartContext";
 import { CartDrawer } from "@/components/shop/CartDrawer";
+import { DarkModeProvider } from "@/contexts/DarkModeContext";
 
 // Default fonts (Modern pairing)
 const headingFont = Plus_Jakarta_Sans({
@@ -24,6 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = data.siteSettings;
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
     title: {
       default: settings.siteName || "Site Template",
       template: settings.seo?.titleTemplate || "%s | Site Template",
@@ -47,20 +49,22 @@ export default async function RootLayout({
   const currency = settings.template?.features?.shop?.currency || "USD";
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${headingFont.variable} ${bodyFont.variable} antialiased`}
       >
-        <ThemeProvider settings={settings}>
-          {shopEnabled ? (
-            <CartProvider>
-              {children}
-              <CartDrawer currency={currency} />
-            </CartProvider>
-          ) : (
-            children
-          )}
-        </ThemeProvider>
+        <DarkModeProvider>
+          <ThemeProvider settings={settings}>
+            {shopEnabled ? (
+              <CartProvider>
+                {children}
+                <CartDrawer currency={currency} />
+              </CartProvider>
+            ) : (
+              children
+            )}
+          </ThemeProvider>
+        </DarkModeProvider>
       </body>
     </html>
   );

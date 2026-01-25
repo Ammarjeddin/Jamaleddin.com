@@ -6,11 +6,12 @@
       "_template": "heroBanner",
       "title": "About Horizon Community Foundation",
       "subtitle": "Building stronger communities through education and empowerment since 2009",
+      "backgroundImage": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=1920&q=80",
       "height": "small"
     },
     {
       "_template": "imageTextRight",
-      "image": "/images/demo/about-mission.jpg",
+      "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
       "imageAlt": "Community members working together",
       "heading": "Our Mission",
       "content": "<p>Horizon Community Foundation is dedicated to empowering individuals and strengthening communities through education, mentorship, and engagement programs.</p><p>We believe that every person has the potential to thrive when given the right opportunities and support. Our programs are designed to break down barriers and create pathways to success for people of all ages and backgrounds.</p>",
@@ -34,35 +35,41 @@
         {
           "year": "2009",
           "title": "Foundation Established",
-          "description": "Horizon Community Foundation was founded by a group of dedicated community leaders who saw the need for accessible education and support programs."
+          "description": "Horizon Community Foundation was founded by a group of dedicated community leaders who saw the need for accessible education and support programs.",
+          "image": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400&q=80"
         },
         {
           "year": "2012",
           "title": "Youth Leadership Program Launched",
-          "description": "Our flagship youth program began, providing mentorship and leadership training to local high school students."
+          "description": "Our flagship youth program began, providing mentorship and leadership training to local high school students.",
+          "image": "https://images.unsplash.com/photo-1529390079861-591f38ca9d64?w=400&q=80"
         },
         {
           "year": "2016",
           "title": "Community Center Opens",
-          "description": "We opened our first dedicated community center, providing a hub for all our programs and events."
+          "description": "We opened our first dedicated community center, providing a hub for all our programs and events.",
+          "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80"
         },
         {
           "year": "2020",
           "title": "Digital Transformation",
-          "description": "Launched virtual programs and digital skills training to serve our community during challenging times."
+          "description": "Launched virtual programs and digital skills training to serve our community during challenging times.",
+          "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&q=80"
         },
         {
           "year": "2024",
           "title": "Expanding Our Reach",
-          "description": "Now serving over 2,500 community members annually with plans to expand to neighboring communities."
+          "description": "Now serving over 2,500 community members annually with plans to expand to neighboring communities.",
+          "image": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=400&q=80"
         }
       ]
     },
     {
-      "_template": "textBlock",
+      "_template": "imageTextLeft",
+      "image": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&q=80",
+      "imageAlt": "Team collaboration",
       "heading": "Our Values",
-      "content": "<p><strong>Community First:</strong> Every decision we make centers on the wellbeing of our community members.</p><p><strong>Accessibility:</strong> We believe everyone deserves access to quality education and support, regardless of their background.</p><p><strong>Empowerment:</strong> We don't just provide services – we equip people with skills and confidence to succeed independently.</p><p><strong>Collaboration:</strong> We work alongside community partners, businesses, and volunteers to maximize our impact.</p>",
-      "alignment": "left"
+      "content": "<p><strong>Community First:</strong> Every decision we make centers on the wellbeing of our community members.</p><p><strong>Accessibility:</strong> We believe everyone deserves access to quality education and support, regardless of their background.</p><p><strong>Empowerment:</strong> We don't just provide services - we equip people with skills and confidence to succeed independently.</p><p><strong>Collaboration:</strong> We work alongside community partners, businesses, and volunteers to maximize our impact.</p>"
     },
     {
       "_template": "team",
@@ -73,6 +80,7 @@
           "name": "Dr. Angela Morrison",
           "role": "Executive Director",
           "bio": "Leading Horizon since 2015, Angela brings 25 years of nonprofit and community development experience.",
+          "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=80",
           "email": "angela@horizonfoundation.org",
           "linkedin": "https://linkedin.com/in/angelamorrison"
         },
@@ -80,6 +88,7 @@
           "name": "Marcus Thompson",
           "role": "Director of Programs",
           "bio": "Marcus oversees all community programs and has grown our reach by 300% in five years.",
+          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
           "email": "marcus@horizonfoundation.org",
           "linkedin": "https://linkedin.com/in/marcusthompson"
         },
@@ -87,12 +96,14 @@
           "name": "Lisa Park",
           "role": "Community Outreach Manager",
           "bio": "Lisa builds partnerships and ensures our programs meet real community needs.",
+          "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&q=80",
           "email": "lisa@horizonfoundation.org"
         },
         {
           "name": "James Rodriguez",
           "role": "Youth Programs Coordinator",
           "bio": "A program alumnus himself, James is passionate about mentoring the next generation.",
+          "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&q=80",
           "email": "james@horizonfoundation.org"
         }
       ]
@@ -103,6 +114,7 @@
       "text": "Whether you volunteer, donate, or spread the word, you can help us build stronger communities.",
       "buttonText": "Get Involved",
       "buttonLink": "/get-involved",
+      "backgroundImage": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80",
       "style": "primary"
     }
   ]

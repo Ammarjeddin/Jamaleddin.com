@@ -1,15 +1,19 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
+import { verifyToken } from "@/lib/auth";
 import { getSiteSettings } from "@/lib/tina";
+import { Container } from "@/components/ui/Container";
+import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import {
   Settings,
   ShoppingBag,
   FileText,
   Image,
-  ArrowLeft,
-  ExternalLink,
   Layout,
   Palette,
+  Home,
+  Upload,
 } from "lucide-react";
 
 export const metadata = {
@@ -17,7 +21,20 @@ export const metadata = {
   description: "Manage your website content and settings.",
 };
 
+async function getUser() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("admin_token")?.value;
+  if (!token) return null;
+  return verifyToken(token);
+}
+
 export default async function DashboardPage() {
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/login?redirect=/dashboard");
+  }
+
   const { data } = await getSiteSettings();
   const settings = data.siteSettings;
 
@@ -26,45 +43,49 @@ export default async function DashboardPage() {
   const eventsEnabled = settings.template?.features?.events?.enabled !== false;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <Container>
-          <div className="py-6 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link
-                href="/"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                Back to Site
-              </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-            </div>
-          </div>
-        </Container>
-      </header>
+      <DashboardHeader username={user.username} />
 
       <main className="py-8">
         <Container>
           {/* Welcome Section */}
-          <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+          <div className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-2">
               Welcome to {settings.siteName} Admin
             </h2>
             <p className="text-gray-600">
               Manage your website content, settings, and features from here.
+              {user.role === "admin" && " You have full admin access."}
             </p>
           </div>
 
           {/* Quick Actions Grid */}
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Management</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Content Management</h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {/* TinaCMS - Pages */}
-            <a
-              href="/admin/index.html#/collections/pages"
-              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+            {/* Homepage */}
+            <Link
+              href="/dashboard/edit?collection=home&slug=index"
+              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
+                  <Home className="w-6 h-6 text-indigo-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Homepage</h4>
+                  <p className="text-sm text-gray-500">Edit homepage content</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600">
+                Update hero banner, featured sections, and homepage blocks.
+              </p>
+            </Link>
+
+            {/* Pages */}
+            <Link
+              href="/dashboard/pages"
+              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
@@ -78,12 +99,12 @@ export default async function DashboardPage() {
               <p className="text-sm text-gray-600">
                 Manage your website pages, add new content blocks, and update page information.
               </p>
-            </a>
+            </Link>
 
-            {/* TinaCMS - Site Settings */}
-            <a
-              href="/admin/index.html#/collections/siteSettings"
-              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+            {/* Site Settings */}
+            <Link
+              href="/dashboard/edit?collection=settings&slug=site"
+              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
@@ -97,12 +118,12 @@ export default async function DashboardPage() {
               <p className="text-sm text-gray-600">
                 Update site name, logo, colors, social links, and contact information.
               </p>
-            </a>
+            </Link>
 
-            {/* TinaCMS - Media */}
-            <a
-              href="/admin/index.html#/media"
-              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+            {/* Media Library */}
+            <Link
+              href="/dashboard/media"
+              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
@@ -116,33 +137,33 @@ export default async function DashboardPage() {
               <p className="text-sm text-gray-600">
                 Upload and manage images, documents, and other media files.
               </p>
-            </a>
+            </Link>
           </div>
 
           {/* Features Section */}
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Features</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Features</h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {/* Shop Admin - Only show if enabled */}
+            {/* Shop Admin */}
             {shopEnabled ? (
               <Link
-                href="/dashboard/shop"
-                className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
+                href="/dashboard/products"
+                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
                     <ShoppingBag className="w-6 h-6 text-orange-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Shop</h4>
-                    <p className="text-sm text-green-600">Enabled</p>
+                    <h4 className="font-semibold text-gray-900">Products</h4>
+                    <p className="text-sm text-green-600">Shop Enabled</p>
                   </div>
                 </div>
                 <p className="text-sm text-gray-600">
-                  View inventory, manage products, and track orders.
+                  Manage products, pricing, and inventory.
                 </p>
               </Link>
             ) : (
-              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 p-6">
+              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
                     <ShoppingBag className="w-6 h-6 text-gray-400" />
@@ -159,97 +180,105 @@ export default async function DashboardPage() {
             )}
 
             {/* Programs */}
-            <div className={`rounded-xl p-6 ${programsEnabled ? 'bg-white shadow-sm' : 'bg-gray-50 border-2 border-dashed border-gray-200'}`}>
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${programsEnabled ? 'bg-teal-100' : 'bg-gray-100'}`}>
-                  <Layout className={`w-6 h-6 ${programsEnabled ? 'text-teal-600' : 'text-gray-400'}`} />
-                </div>
-                <div>
-                  <h4 className={`font-semibold ${programsEnabled ? 'text-gray-900' : 'text-gray-500'}`}>Programs</h4>
-                  <p className={`text-sm ${programsEnabled ? 'text-green-600' : 'text-gray-400'}`}>
-                    {programsEnabled ? 'Enabled' : 'Disabled'}
-                  </p>
-                </div>
-              </div>
-              <p className={`text-sm ${programsEnabled ? 'text-gray-600' : 'text-gray-500'}`}>
-                {programsEnabled
-                  ? 'Manage programs via TinaCMS content editor.'
-                  : 'Enable programs in Site Settings to showcase your offerings.'}
-              </p>
-            </div>
-
-            {/* Events */}
-            <div className={`rounded-xl p-6 ${eventsEnabled ? 'bg-white shadow-sm' : 'bg-gray-50 border-2 border-dashed border-gray-200'}`}>
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${eventsEnabled ? 'bg-pink-100' : 'bg-gray-100'}`}>
-                  <Palette className={`w-6 h-6 ${eventsEnabled ? 'text-pink-600' : 'text-gray-400'}`} />
-                </div>
-                <div>
-                  <h4 className={`font-semibold ${eventsEnabled ? 'text-gray-900' : 'text-gray-500'}`}>Events</h4>
-                  <p className={`text-sm ${eventsEnabled ? 'text-green-600' : 'text-gray-400'}`}>
-                    {eventsEnabled ? 'Enabled' : 'Disabled'}
-                  </p>
-                </div>
-              </div>
-              <p className={`text-sm ${eventsEnabled ? 'text-gray-600' : 'text-gray-500'}`}>
-                {eventsEnabled
-                  ? 'Events feature is active on your site.'
-                  : 'Enable events in Site Settings to promote activities.'}
-              </p>
-            </div>
-          </div>
-
-          {/* External Links */}
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">External Tools</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <a
-              href="/admin/index.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
-                    <FileText className="w-6 h-6 text-indigo-600" />
+            {programsEnabled ? (
+              <Link
+                href="/dashboard/programs"
+                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-teal-200 transition-colors">
+                    <Layout className="w-6 h-6 text-teal-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">TinaCMS</h4>
-                    <p className="text-sm text-gray-500">Full admin panel</p>
+                    <h4 className="font-semibold text-gray-900">Programs</h4>
+                    <p className="text-sm text-green-600">Enabled</p>
                   </div>
-                </div>
-                <ExternalLink className="w-5 h-5 text-gray-400" />
-              </div>
-              <p className="text-sm text-gray-600">
-                Open the full TinaCMS admin interface for advanced editing.
-              </p>
-            </a>
-
-            {shopEnabled && (
-              <a
-                href="https://dashboard.stripe.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center group-hover:bg-violet-200 transition-colors">
-                      <ShoppingBag className="w-6 h-6 text-violet-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Stripe</h4>
-                      <p className="text-sm text-gray-500">Payments & orders</p>
-                    </div>
-                  </div>
-                  <ExternalLink className="w-5 h-5 text-gray-400" />
                 </div>
                 <p className="text-sm text-gray-600">
-                  View payments, manage orders, and access Stripe dashboard.
+                  Manage your programs and services.
                 </p>
-              </a>
+              </Link>
+            ) : (
+              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Layout className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-500">Programs</h4>
+                    <p className="text-sm text-gray-400">Disabled</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  Enable programs in Site Settings to showcase your offerings.
+                </p>
+              </div>
+            )}
+
+            {/* Events */}
+            {eventsEnabled ? (
+              <Link
+                href="/events"
+                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center group-hover:bg-pink-200 transition-colors">
+                    <Palette className="w-6 h-6 text-pink-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Events</h4>
+                    <p className="text-sm text-green-600">Enabled</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">
+                  View and manage your events calendar.
+                </p>
+              </Link>
+            ) : (
+              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Palette className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-500">Events</h4>
+                    <p className="text-sm text-gray-400">Disabled</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  Enable events in Site Settings to promote activities.
+                </p>
+              </div>
             )}
           </div>
+
+          {/* Publish Section (Admin only) */}
+          {user.role === "admin" && (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Publishing</h3>
+              <div className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 mb-8">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <Upload className="w-6 h-6 text-emerald-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Publish Changes</h4>
+                      <p className="text-sm text-gray-500">
+                        Push your content changes to the live site
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    href="/dashboard/publish"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                  >
+                    Review & Publish
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
         </Container>
       </main>
     </div>

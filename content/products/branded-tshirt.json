@@ -9,12 +9,12 @@
   },
   "images": [
     {
-      "src": "/images/products/tshirt-front.jpg",
+      "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",
       "alt": "Horizon Foundation T-Shirt front"
     },
     {
-      "src": "/images/products/tshirt-back.jpg",
-      "alt": "Horizon Foundation T-Shirt back"
+      "src": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80",
+      "alt": "Horizon Foundation T-Shirt detail"
     }
   ],
   "category": "Merchandise",

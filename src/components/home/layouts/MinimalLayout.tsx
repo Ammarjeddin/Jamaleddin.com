@@ -40,7 +40,7 @@ export function MinimalLayout({
 
       <main>
         {/* Text-only hero - minimal and clean */}
-        <section className="pt-32 pb-20 bg-white">
+        <section className="-mt-20 pt-48 pb-20 bg-white dark:bg-slate-900">
           <Container size="narrow">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)] mb-6 leading-tight">

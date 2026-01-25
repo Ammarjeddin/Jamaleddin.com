@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils/cn";
 import { Play } from "lucide-react";
 
 interface VideoProps {
@@ -10,6 +11,7 @@ interface VideoProps {
   videoUrl: string;
   thumbnail?: string;
   caption?: string;
+  isFirstBlock?: boolean;
 }
 
 function getVideoEmbedUrl(url: string): string | null {
@@ -40,7 +42,7 @@ function getVideoThumbnail(url: string): string | null {
   return null;
 }
 
-export function Video({ heading, videoUrl, thumbnail, caption }: VideoProps) {
+export function Video({ heading, videoUrl, thumbnail, caption, isFirstBlock = false }: VideoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const embedUrl = getVideoEmbedUrl(videoUrl);
@@ -51,15 +53,15 @@ export function Video({ heading, videoUrl, thumbnail, caption }: VideoProps) {
   }
 
   return (
-    <section className="section">
+    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
       <Container size="narrow">
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 dark:text-white">
             {heading}
           </h2>
         )}
 
-        <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg">
+        <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg dark:shadow-black/30">
           {isPlaying ? (
             <iframe
               src={embedUrl}
@@ -95,7 +97,7 @@ export function Video({ heading, videoUrl, thumbnail, caption }: VideoProps) {
         </div>
 
         {caption && (
-          <p className="text-center text-[var(--color-text-muted)] mt-4">
+          <p className="text-center text-[var(--color-text-muted)] dark:text-gray-400 mt-4">
             {caption}
           </p>
         )}

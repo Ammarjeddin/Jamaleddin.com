@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils/cn";
 import { Container } from "@/components/ui/Container";
 import { NavLinks } from "./NavLinks";
 import { MobileMenu } from "../MobileMenu";
 import { CartIcon } from "@/components/shop/CartIcon";
+import { DarkModeToggle } from "@/components/ui/DarkModeToggle";
 import type { NavItem } from "@/lib/navigation";
 import type { SiteSettings } from "@/lib/tina";
 
@@ -18,35 +17,11 @@ interface FloatingNavbarProps {
 }
 
 export function FloatingNavbar({ settings, navigation, showCart = false }: FloatingNavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-2"
-          : "bg-transparent py-4"
-      )}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 py-4">
       <Container>
-        <div
-          className={cn(
-            "flex items-center justify-between transition-all duration-300",
-            isScrolled
-              ? ""
-              : "bg-white/95 backdrop-blur-md rounded-full px-6 py-2 shadow-lg"
-          )}
-        >
+        <div className="flex items-center justify-between bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-full px-6 py-2 shadow-lg transition-all duration-300 mx-4 md:mx-8">
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             {settings.logo?.main ? (
@@ -58,7 +33,7 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
                 className="h-10 w-auto"
               />
             ) : (
-              <span className="text-xl font-bold text-[var(--color-primary)]">
+              <span className="text-xl font-bold text-[var(--color-primary)] dark:text-slate-100">
                 {settings.siteName}
               </span>
             )}
@@ -67,12 +42,13 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
           {/* Desktop Navigation */}
           <NavLinks items={navigation} />
 
-          {/* CTA Button, Cart & Mobile Menu */}
-          <div className="flex items-center gap-4">
+          {/* CTA Button, Cart, Dark Mode & Mobile Menu */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            <DarkModeToggle className="hidden sm:flex" />
             {showCart && <CartIcon />}
             <Link
               href="/get-involved"
-              className="hidden sm:inline-flex btn btn-primary text-sm"
+              className="hidden md:inline-flex btn btn-primary text-sm"
             >
               Get Involved
             </Link>

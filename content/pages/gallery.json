@@ -6,6 +6,7 @@
       "_template": "heroBanner",
       "title": "Photo Gallery",
       "subtitle": "Moments from our community programs and events",
+      "backgroundImage": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80",
       "height": "small"
     },
     {
@@ -14,44 +15,64 @@
       "layout": "masonry",
       "images": [
         {
-          "src": "/images/demo/gallery-1.jpg",
+          "src": "https://images.unsplash.com/photo-1529390079861-591f38ca9d64?w=800&q=80",
           "alt": "Youth Leadership graduation ceremony",
           "caption": "Youth Leadership Class of 2024 Graduation"
         },
         {
-          "src": "/images/demo/gallery-2.jpg",
-          "alt": "Community wellness event",
+          "src": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",
+          "alt": "Community wellness yoga session",
           "caption": "Annual Wellness Fair"
         },
         {
-          "src": "/images/demo/gallery-3.jpg",
+          "src": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&q=80",
           "alt": "Digital skills workshop",
           "caption": "Digital Skills Training Session"
         },
         {
-          "src": "/images/demo/gallery-4.jpg",
+          "src": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80",
           "alt": "Volunteer appreciation event",
           "caption": "Volunteer Appreciation Dinner"
         },
         {
-          "src": "/images/demo/gallery-5.jpg",
+          "src": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
           "alt": "Community garden project",
           "caption": "Community Garden Initiative"
         },
         {
-          "src": "/images/demo/gallery-6.jpg",
-          "alt": "Annual gala celebration",
-          "caption": "Spring Gala 2024"
+          "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+          "alt": "Workshop meeting session",
+          "caption": "Spring Workshop Series 2024"
         },
         {
-          "src": "/images/demo/gallery-7.jpg",
+          "src": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
           "alt": "Youth mentorship session",
           "caption": "Mentorship Program in Action"
         },
         {
-          "src": "/images/demo/gallery-8.jpg",
+          "src": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80",
           "alt": "Adult education class",
           "caption": "Adult Education Workshop"
+        },
+        {
+          "src": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&q=80",
+          "alt": "Community members celebrating",
+          "caption": "Community Celebration Event"
+        },
+        {
+          "src": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&q=80",
+          "alt": "Group collaboration session",
+          "caption": "Team Building Workshop"
+        },
+        {
+          "src": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80",
+          "alt": "Fitness wellness class",
+          "caption": "Morning Fitness Program"
+        },
+        {
+          "src": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+          "alt": "Technology training",
+          "caption": "Coding Bootcamp Session"
         }
       ]
     },

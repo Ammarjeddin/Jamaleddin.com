@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils/cn";
 import { Linkedin, Twitter, Mail } from "lucide-react";
 
 interface TeamMember {
@@ -16,19 +17,20 @@ interface TeamProps {
   heading?: string;
   subheading?: string;
   members: TeamMember[];
+  isFirstBlock?: boolean;
 }
 
-export function Team({ heading, subheading, members }: TeamProps) {
+export function Team({ heading, subheading, members, isFirstBlock = false }: TeamProps) {
   return (
-    <section className="section">
+    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         {(heading || subheading) && (
           <div className="text-center mb-12">
             {heading && (
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">{heading}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">{heading}</h2>
             )}
             {subheading && (
-              <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+              <p className="text-lg text-[var(--color-text-muted)] dark:text-slate-300 max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
@@ -37,7 +39,7 @@ export function Team({ heading, subheading, members }: TeamProps) {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {members.map((member, index) => (
-            <div key={index} className="card overflow-hidden group">
+            <div key={index} className="card overflow-hidden group dark:shadow-lg dark:shadow-black/20">
               {/* Photo */}
               <div className="relative aspect-square overflow-hidden bg-gray-100">
                 {member.photo ? (
@@ -99,14 +101,14 @@ export function Team({ heading, subheading, members }: TeamProps) {
 
               {/* Info */}
               <div className="p-5">
-                <h3 className="text-lg font-semibold">{member.name}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h3>
                 {member.role && (
                   <p className="text-[var(--color-primary)] text-sm mb-2">
                     {member.role}
                   </p>
                 )}
                 {member.bio && (
-                  <p className="text-sm text-[var(--color-text-muted)] line-clamp-3">
+                  <p className="text-sm text-[var(--color-text-muted)] dark:text-slate-400 line-clamp-3">
                     {member.bio}
                   </p>
                 )}

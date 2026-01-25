@@ -22,7 +22,7 @@ export default async function AboutPage() {
     notFound();
   }
 
-  const navigation = getNavigation(settings.template);
+  const navigation = getNavigation(settings.template, settings);
 
   return (
     <PageLayout settings={settings} navigation={navigation}>

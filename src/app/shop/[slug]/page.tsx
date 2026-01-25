@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const currency = settings.template?.features?.shop?.currency || "USD";
 
-  const navigation = getNavigation(settings.template);
+  const navigation = getNavigation(settings.template, settings);
 
   return (
     <PageLayout settings={settings} navigation={navigation}>

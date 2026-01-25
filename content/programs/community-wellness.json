@@ -3,16 +3,18 @@
   "description": "Promoting physical and mental health through fitness programs, counseling services, and wellness workshops.",
   "icon": "heart",
   "featured": true,
+  "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",
   "blocks": [
     {
       "_template": "heroBanner",
       "title": "Community Wellness Program",
       "subtitle": "Nurturing mind, body, and spirit for a healthier community",
+      "backgroundImage": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&q=80",
       "height": "medium"
     },
     {
       "_template": "imageTextRight",
-      "image": "/images/demo/wellness.jpg",
+      "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80",
       "imageAlt": "Community wellness activities",
       "heading": "Holistic Health for Everyone",
       "content": "<p>Our Community Wellness program takes a holistic approach to health, offering resources and activities that address physical fitness, mental health, nutrition, and social connection.</p><p>All activities are free or low-cost, making wellness accessible to everyone in our community.</p>",
@@ -27,24 +29,35 @@
         {
           "title": "Fitness Classes",
           "description": "Yoga, Zumba, walking groups, and strength training for all fitness levels.",
-          "icon": "activity"
+          "icon": "activity",
+          "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80"
         },
         {
           "title": "Mental Health",
           "description": "Support groups, counseling referrals, and stress management workshops.",
-          "icon": "brain"
+          "icon": "brain",
+          "image": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&q=80"
         },
         {
           "title": "Nutrition",
           "description": "Healthy cooking classes, nutrition education, and community meals.",
-          "icon": "apple"
+          "icon": "apple",
+          "image": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&q=80"
         },
         {
           "title": "Health Screenings",
           "description": "Free blood pressure checks, health fairs, and preventive care resources.",
-          "icon": "stethoscope"
+          "icon": "stethoscope",
+          "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&q=80"
         }
       ]
+    },
+    {
+      "_template": "imageTextLeft",
+      "image": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&q=80",
+      "imageAlt": "Group wellness activity",
+      "heading": "Wellness Through Connection",
+      "content": "<p>Research shows that social connection is just as important as exercise for overall health. Our wellness programs are designed to build community while improving physical and mental wellbeing.</p><p>Join a walking group, take a cooking class with neighbors, or find support from others on a similar health journey.</p>"
     },
     {
       "_template": "textBlock",
@@ -68,9 +81,10 @@
       "layout": "carousel",
       "items": [
         {
-          "quote": "The Saturday yoga class became my weekly reset. It's more than exercise – it's a community that supports each other.",
+          "quote": "The Saturday yoga class became my weekly reset. It's more than exercise - it's a community that supports each other.",
           "author": "Helen Garcia",
-          "role": "Yoga Participant"
+          "role": "Yoga Participant",
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80"
         },
         {
           "quote": "The mental health support group helped me through a really tough time. I found people who understood what I was going through.",
@@ -85,6 +99,7 @@
       "text": "No registration required for most activities. Just show up and join us!",
       "buttonText": "View Full Schedule",
       "buttonLink": "/events",
+      "backgroundImage": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80",
       "style": "secondary"
     }
   ]
