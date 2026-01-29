@@ -176,12 +176,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Link styles - use :where() for zero specificity so Tailwind utilities can override */
 :where(a) {
-  color: var(--color-primary);
+  color: inherit;
   text-decoration: none;
 }
 
 :where(a:hover) {
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
 }
 
 /* Smooth scroll - applied via media query to avoid issues with hash navigation */

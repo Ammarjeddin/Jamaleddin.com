@@ -20,6 +20,8 @@ import {
   ChevronDown,
   ChevronUp,
   Info,
+  FileEdit,
+  Upload,
 } from "lucide-react";
 
 interface SettingsEditorProps {
@@ -32,14 +34,18 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
   const [content, setContent] = useState(initialContent);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [savedAsDraft, setSavedAsDraft] = useState(false);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("general");
   const [showNavExamples, setShowNavExamples] = useState(false);
+  const [showSaveMenu, setShowSaveMenu] = useState(false);
 
-  const handleSave = async () => {
+  const handleSave = async (saveAsDraft: boolean = false) => {
     setSaving(true);
     setError("");
     setSaved(false);
+    setSavedAsDraft(false);
+    setShowSaveMenu(false);
 
     try {
       const response = await fetch("/api/content", {
@@ -49,6 +55,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
           path: filePath,
           content,
           commitMessage: "Update site settings",
+          saveAsDraft,
         }),
       });
 
@@ -58,9 +65,14 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
         throw new Error(data.error || "Failed to save");
       }
 
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
-      router.refresh();
+      if (saveAsDraft) {
+        setSavedAsDraft(true);
+        setTimeout(() => setSavedAsDraft(false), 3000);
+      } else {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+        router.refresh();
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
@@ -174,15 +186,49 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
           </div>
           <div className="flex items-center gap-3">
             {error && <span className="text-sm text-red-600">{error}</span>}
-            {saved && <span className="text-sm text-green-600">Saved!</span>}
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg disabled:opacity-50"
-            >
-              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-              Save Changes
-            </button>
+            {saved && <span className="text-sm text-green-600 font-medium">✓ Published</span>}
+            {savedAsDraft && <span className="text-sm text-blue-600 font-medium">✓ Draft saved</span>}
+            {/* Save Options Dropdown */}
+            <div className="relative">
+              <div className="flex">
+                <button
+                  onClick={() => handleSave(false)}
+                  disabled={saving}
+                  className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-l-lg transition-colors disabled:opacity-50"
+                  title="Save and publish immediately"
+                >
+                  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                  Publish
+                </button>
+                <button
+                  onClick={() => setShowSaveMenu(!showSaveMenu)}
+                  disabled={saving}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-2 rounded-r-lg border-l border-emerald-500 transition-colors disabled:opacity-50"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
+              {showSaveMenu && (
+                <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                  <button
+                    onClick={() => handleSave(false)}
+                    disabled={saving}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-t-lg"
+                  >
+                    <Upload className="w-4 h-4" />
+                    Save & Publish
+                  </button>
+                  <button
+                    onClick={() => handleSave(true)}
+                    disabled={saving}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-b-lg border-t border-gray-100"
+                  >
+                    <FileEdit className="w-4 h-4" />
+                    Save as Draft
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

@@ -14,6 +14,7 @@ import {
   Palette,
   Home,
   Upload,
+  Receipt,
 } from "lucide-react";
 
 export const metadata = {
@@ -175,6 +176,42 @@ export default async function DashboardPage() {
                 </div>
                 <p className="text-sm text-gray-500">
                   Enable the shop feature in Site Settings to sell products.
+                </p>
+              </div>
+            )}
+
+            {/* Orders */}
+            {shopEnabled ? (
+              <Link
+                href="/dashboard/orders"
+                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                    <Receipt className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Orders</h4>
+                    <p className="text-sm text-green-600">View Purchases</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">
+                  View customer orders, export data, and track sales.
+                </p>
+              </Link>
+            ) : (
+              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Receipt className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-500">Orders</h4>
+                    <p className="text-sm text-gray-400">Disabled</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  Enable the shop feature to view and manage orders.
                 </p>
               </div>
             )}

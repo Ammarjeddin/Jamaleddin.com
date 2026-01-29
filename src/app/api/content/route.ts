@@ -4,6 +4,12 @@ import fs from "fs";
 import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { saveFileToGitHub, isGitHubConfigured } from "@/lib/github";
+import {
+  saveDraft,
+  readDraft,
+  hasDraft,
+  getContentWithDraftPreference,
+} from "@/lib/content";
 
 // Helper to verify auth
 async function verifyAuth() {
@@ -13,7 +19,7 @@ async function verifyAuth() {
   return verifyToken(token);
 }
 
-// GET - Read content file
+// GET - Read content file (with draft preference option)
 export async function GET(request: Request) {
   const user = await verifyAuth();
   if (!user) {
@@ -22,6 +28,8 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const filePath = searchParams.get("path");
+  const preferDraft = searchParams.get("preferDraft") === "true";
+  const checkDraft = searchParams.get("checkDraft") === "true";
 
   if (!filePath) {
     return NextResponse.json({ error: "Path required" }, { status: 400 });
@@ -39,16 +47,49 @@ export async function GET(request: Request) {
   }
 
   try {
+    // If preferDraft is true, return draft if it exists, otherwise live
+    if (preferDraft) {
+      const { content, isDraft } = getContentWithDraftPreference(normalizedPath);
+      if (!content) {
+        return NextResponse.json({ error: "File not found" }, { status: 404 });
+      }
+      return NextResponse.json({
+        content,
+        isDraft,
+        hasDraft: isDraft || hasDraft(normalizedPath),
+      });
+    }
+
+    // If checkDraft is true, just check if draft exists
+    if (checkDraft) {
+      const draftExists = hasDraft(normalizedPath);
+      const draftContent = draftExists ? readDraft(normalizedPath) : null;
+      const fullPath = path.join(process.cwd(), normalizedPath);
+      const liveContent = fs.existsSync(fullPath)
+        ? JSON.parse(fs.readFileSync(fullPath, "utf-8"))
+        : null;
+
+      return NextResponse.json({
+        hasDraft: draftExists,
+        draftContent,
+        liveContent,
+      });
+    }
+
+    // Default: read live content only
     const fullPath = path.join(process.cwd(), normalizedPath);
     const content = fs.readFileSync(fullPath, "utf-8");
-    return NextResponse.json({ content: JSON.parse(content) });
+    return NextResponse.json({
+      content: JSON.parse(content),
+      hasDraft: hasDraft(normalizedPath),
+    });
   } catch (error) {
     console.error("Error reading content:", error);
     return NextResponse.json({ error: "File not found" }, { status: 404 });
   }
 }
 
-// PUT - Update content file
+// PUT - Update content file (with draft support)
 export async function PUT(request: Request) {
   const user = await verifyAuth();
   if (!user) {
@@ -56,7 +97,7 @@ export async function PUT(request: Request) {
   }
 
   try {
-    const { path: filePath, content, commitMessage } = await request.json();
+    const { path: filePath, content, commitMessage, saveAsDraft } = await request.json();
 
     if (!filePath || content === undefined) {
       return NextResponse.json(
@@ -77,10 +118,39 @@ export async function PUT(request: Request) {
     }
 
     const contentString = JSON.stringify(content, null, 2);
+
+    // If saveAsDraft is true, save to drafts folder only
+    if (saveAsDraft) {
+      saveDraft(normalizedPath, content);
+      return NextResponse.json({
+        success: true,
+        savedAsDraft: true,
+        savedToLive: false,
+      });
+    }
+
+    // Save directly to live (and clear any existing draft)
     const fullPath = path.join(process.cwd(), normalizedPath);
 
-    // Always save locally first
+    // Ensure directory exists
+    const dir = path.dirname(fullPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
     fs.writeFileSync(fullPath, contentString);
+
+    // Clear any existing draft since we're publishing directly
+    if (hasDraft(normalizedPath)) {
+      const draftPath = path.join(
+        process.cwd(),
+        "content/.drafts",
+        normalizedPath.replace(/^content\//, "")
+      );
+      if (fs.existsSync(draftPath)) {
+        fs.unlinkSync(draftPath);
+      }
+    }
 
     // If GitHub is configured, also save to draft branch
     if (isGitHubConfigured()) {
@@ -93,12 +163,19 @@ export async function PUT(request: Request) {
 
       return NextResponse.json({
         success: true,
+        savedAsDraft: false,
+        savedToLive: true,
         savedToGitHub: result.success,
         gitHubError: result.error,
       });
     }
 
-    return NextResponse.json({ success: true, savedToGitHub: false });
+    return NextResponse.json({
+      success: true,
+      savedAsDraft: false,
+      savedToLive: true,
+      savedToGitHub: false,
+    });
   } catch (error) {
     console.error("Error saving content:", error);
     return NextResponse.json(

@@ -40,6 +40,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# draft content (unpublished changes)
+content/.drafts/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

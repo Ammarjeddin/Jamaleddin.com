@@ -19,6 +19,8 @@ import {
   Tablet,
   Smartphone,
   Copy,
+  FileEdit,
+  Upload,
 } from "lucide-react";
 
 // Import all block components for live preview
@@ -222,20 +224,24 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
   const [content, setContent] = useState(initialContent);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [savedAsDraft, setSavedAsDraft] = useState(false);
   const [error, setError] = useState("");
   const [selectedBlock, setSelectedBlock] = useState<number | null>(null);
   const [showBlockPicker, setShowBlockPicker] = useState(false);
   const [insertIndex, setInsertIndex] = useState<number>(0);
   const [showPanel, setShowPanel] = useState(true);
   const [viewportSize, setViewportSize] = useState<"desktop" | "tablet" | "mobile">("desktop");
+  const [showSaveMenu, setShowSaveMenu] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const blocks = (content.blocks as Block[]) || [];
 
-  const handleSave = async () => {
+  const handleSave = async (saveAsDraft: boolean = false) => {
     setSaving(true);
     setError("");
     setSaved(false);
+    setSavedAsDraft(false);
+    setShowSaveMenu(false);
 
     try {
       const response = await fetch("/api/content", {
@@ -245,6 +251,7 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
           path: filePath,
           content,
           commitMessage: `Update ${collection}/${slug}`,
+          saveAsDraft,
         }),
       });
 
@@ -254,8 +261,13 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
         throw new Error(data.error || "Failed to save");
       }
 
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      if (saveAsDraft) {
+        setSavedAsDraft(true);
+        setTimeout(() => setSavedAsDraft(false), 3000);
+      } else {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
@@ -392,7 +404,8 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
 
         <div className="flex items-center gap-3">
           {error && <span className="text-sm text-red-600">{error}</span>}
-          {saved && <span className="text-sm text-green-600 font-medium">✓ Saved</span>}
+          {saved && <span className="text-sm text-green-600 font-medium">✓ Published</span>}
+          {savedAsDraft && <span className="text-sm text-blue-600 font-medium">✓ Draft saved</span>}
 
           <button
             onClick={() => setShowPanel(!showPanel)}
@@ -412,14 +425,47 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
             <Maximize2 className="w-4 h-4" />
           </a>
 
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
-          >
-            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-            <span className="hidden sm:inline">Save</span>
-          </button>
+          {/* Save Options Dropdown */}
+          <div className="relative">
+            <div className="flex">
+              <button
+                onClick={() => handleSave(false)}
+                disabled={saving}
+                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-l-lg transition-colors disabled:opacity-50"
+                title="Save and publish immediately"
+              >
+                {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                <span className="hidden sm:inline">Publish</span>
+              </button>
+              <button
+                onClick={() => setShowSaveMenu(!showSaveMenu)}
+                disabled={saving}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-2 rounded-r-lg border-l border-emerald-500 transition-colors disabled:opacity-50"
+              >
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            </div>
+            {showSaveMenu && (
+              <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                <button
+                  onClick={() => handleSave(false)}
+                  disabled={saving}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-t-lg"
+                >
+                  <Upload className="w-4 h-4" />
+                  Save & Publish
+                </button>
+                <button
+                  onClick={() => handleSave(true)}
+                  disabled={saving}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-b-lg border-t border-gray-100"
+                >
+                  <FileEdit className="w-4 h-4" />
+                  Save as Draft
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 

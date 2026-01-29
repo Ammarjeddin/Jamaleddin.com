@@ -76,7 +76,7 @@ export function TransparentNavbar({ settings, navigation, showCart = false }: Tr
           <NavLinks
             items={navigation}
             linkClassName={cn(
-              isScrolled ? "text-gray-700" : "text-white hover:text-white/80"
+              isScrolled ? "text-gray-700 dark:text-white" : "text-white hover:text-white/80"
             )}
           />
 

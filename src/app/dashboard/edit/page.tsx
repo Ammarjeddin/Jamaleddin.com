@@ -5,6 +5,7 @@ import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { VisualEditor } from "@/components/admin/VisualEditor";
 import { SettingsEditor } from "@/components/admin/SettingsEditor";
+import { ProductEditor } from "@/components/admin/ProductEditor";
 
 export const metadata = {
   title: "Edit Content - Admin Dashboard",
@@ -16,6 +17,32 @@ async function getUser() {
   const token = cookieStore.get("admin_token")?.value;
   if (!token) return null;
   return verifyToken(token);
+}
+
+function getExistingCategories(): string[] {
+  const productsDir = path.join(process.cwd(), "content/products");
+
+  if (!fs.existsSync(productsDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(productsDir).filter((f) => f.endsWith(".json"));
+  const categories = new Set<string>();
+
+  for (const file of files) {
+    try {
+      const content = JSON.parse(
+        fs.readFileSync(path.join(productsDir, file), "utf-8")
+      );
+      if (content.category) {
+        categories.add(content.category);
+      }
+    } catch {
+      // Skip invalid files
+    }
+  }
+
+  return Array.from(categories).sort();
 }
 
 interface PageProps {
@@ -69,6 +96,18 @@ export default async function EditPage({ searchParams }: PageProps) {
       <SettingsEditor
         initialContent={content}
         filePath={filePath}
+      />
+    );
+  }
+
+  // Use product editor for products
+  if (collection === "products") {
+    const existingCategories = getExistingCategories();
+    return (
+      <ProductEditor
+        initialProduct={content}
+        isNew={false}
+        existingCategories={existingCategories}
       />
     );
   }
