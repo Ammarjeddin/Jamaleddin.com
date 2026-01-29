@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
+import { getProduct } from "@/lib/products";
 import type { CartItem } from "@/lib/types/product";
 
 interface CheckoutRequestBody {
@@ -23,38 +24,47 @@ export async function POST(request: NextRequest) {
     // Get the origin from the request
     const origin = request.headers.get("origin") || "http://localhost:3000";
 
-    // Create line items for Stripe
-    const lineItems = items.map((item) => {
-      const { product, quantity } = item;
+    // Create line items for Stripe using server-side product data
+    const lineItems = await Promise.all(
+      items.map(async (item) => {
+        const { product: clientProduct, quantity } = item;
 
-      return {
-        price_data: {
-          currency: "usd", // Could be dynamic from settings
-          product_data: {
-            name: product.name,
-            description: product.description || undefined,
-            images: product.images?.map((img) => {
-              // Ensure absolute URLs for images
-              if (img.src.startsWith("http")) {
-                return img.src;
-              }
-              return `${origin}${img.src}`;
-            }),
-            metadata: {
-              productSlug: product.slug,
-              productType: product.productType,
-              sku: product.inventory?.sku || "",
+        // Look up the product server-side to prevent price manipulation
+        const product = await getProduct(clientProduct.slug);
+        if (!product) {
+          throw new Error(`Product not found: ${clientProduct.slug}`);
+        }
+
+        return {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: product.name,
+              description: product.description || undefined,
+              images: product.images?.map((img) => {
+                if (img.src.startsWith("http")) {
+                  return img.src;
+                }
+                return `${origin}${img.src}`;
+              }),
+              metadata: {
+                productSlug: product.slug,
+                productType: product.productType,
+                sku: product.inventory?.sku || "",
+              },
             },
+            unit_amount: Math.round(product.pricing.price * 100), // Server-side price in cents
           },
-          unit_amount: Math.round(product.pricing.price * 100), // Convert to cents
-        },
-        quantity,
-      };
-    });
+          quantity,
+        };
+      })
+    );
 
-    // Determine product types for shipping
-    const hasPhysicalProducts = items.some(
-      (item) => item.product.productType === "physical"
+    // Determine product types for shipping using server-side data
+    const productSlugs = items.map((item) => item.product.slug);
+    const serverProducts = await Promise.all(productSlugs.map((slug) => getProduct(slug)));
+    const hasPhysicalProducts = serverProducts.some(
+      (p) => p?.productType === "physical"
     );
 
     // Create Stripe checkout session
@@ -90,6 +100,13 @@ export async function POST(request: NextRequest) {
     console.error("Checkout error:", error);
 
     if (error instanceof Error) {
+      // Return 404 for product not found errors
+      if (error.message.startsWith("Product not found")) {
+        return NextResponse.json(
+          { error: error.message },
+          { status: 404 }
+        );
+      }
       return NextResponse.json(
         { error: error.message },
         { status: 500 }

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils/cn";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { useDarkMode } from "@/contexts/DarkModeContext";
 
 interface ContactInfoProps {
   heading?: string;
@@ -27,7 +26,6 @@ export function ContactInfo({
   address,
   isFirstBlock = false,
 }: ContactInfoProps) {
-  const { isDarkMode } = useDarkMode();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,40 +45,16 @@ export function ContactInfo({
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
-  // Dark mode styles
-  const labelStyle = { color: isDarkMode ? "#ffffff" : "#374151" };
-  const inputStyle = {
-    backgroundColor: isDarkMode ? "#1e293b" : "#ffffff",
-    color: isDarkMode ? "#ffffff" : "#1f2937",
-    borderColor: isDarkMode ? "#475569" : "#d1d5db",
-  };
-  const cardStyle = {
-    backgroundColor: isDarkMode ? "#1e293b" : "#ffffff",
-  };
-  const headingStyle = { color: isDarkMode ? "#ffffff" : "#111827" };
-  const textStyle = { color: isDarkMode ? "#e2e8f0" : "#4b5563" };
-  const sectionStyle = {
-    backgroundColor: isDarkMode ? "#0f172a" : undefined,
-  };
-  const iconContainerStyle = {
-    backgroundColor: isDarkMode ? "rgba(var(--color-primary-rgb), 0.2)" : "rgba(var(--color-primary-rgb), 0.1)",
-  };
-  const buttonStyle = {
-    backgroundColor: isDarkMode ? "var(--color-primary)" : undefined,
-    color: isDarkMode ? "#ffffff" : undefined,
-  };
-
   return (
-    <section 
-      className={cn("section", isFirstBlock && "-mt-20 pt-40")}
-      style={sectionStyle}
+    <section
+      className={cn(
+        "section bg-white dark:bg-slate-900",
+        isFirstBlock && "-mt-20 pt-40"
+      )}
     >
       <Container>
         {heading && (
-          <h2 
-            className="text-3xl md:text-4xl font-bold text-center mb-12"
-            style={headingStyle}
-          >
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
             {heading}
           </h2>
         )}
@@ -88,31 +62,19 @@ export function ContactInfo({
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           {showForm && (
-            <div 
-              className="card p-8"
-              style={cardStyle}
-            >
-              <h3 
-                className="text-2xl font-semibold mb-6"
-                style={headingStyle}
-              >
+            <div className="card p-8 bg-white dark:bg-slate-800">
+              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
                 Send us a message
               </h3>
               {isSubmitted ? (
                 <div className="text-center py-8">
-                  <div 
-                    className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ backgroundColor: isDarkMode ? "rgba(34, 197, 94, 0.2)" : "rgb(220, 252, 231)" }}
-                  >
-                    <Send className="w-8 h-8" style={{ color: isDarkMode ? "#4ade80" : "#16a34a" }} />
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-green-100 dark:bg-green-500/20">
+                    <Send className="w-8 h-8 text-green-600 dark:text-green-400" />
                   </div>
-                  <h4 
-                    className="text-xl font-semibold mb-2"
-                    style={headingStyle}
-                  >
+                  <h4 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                     Message Sent!
                   </h4>
-                  <p style={textStyle}>
+                  <p className="text-gray-600 dark:text-slate-300">
                     We&apos;ll get back to you as soon as possible.
                   </p>
                 </div>
@@ -120,10 +82,7 @@ export function ContactInfo({
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label 
-                        className="block text-sm font-medium mb-2"
-                        style={labelStyle}
-                      >
+                      <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
                         Name
                       </label>
                       <input
@@ -133,16 +92,12 @@ export function ContactInfo({
                           setFormData({ ...formData, name: e.target.value })
                         }
                         required
-                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
-                        style={inputStyle}
+                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
                         placeholder="Your name"
                       />
                     </div>
                     <div>
-                      <label 
-                        className="block text-sm font-medium mb-2"
-                        style={labelStyle}
-                      >
+                      <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
                         Email
                       </label>
                       <input
@@ -152,17 +107,13 @@ export function ContactInfo({
                           setFormData({ ...formData, email: e.target.value })
                         }
                         required
-                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
-                        style={inputStyle}
+                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
                   <div>
-                    <label 
-                      className="block text-sm font-medium mb-2"
-                      style={labelStyle}
-                    >
+                    <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
                       Subject
                     </label>
                     <input
@@ -172,16 +123,12 @@ export function ContactInfo({
                         setFormData({ ...formData, subject: e.target.value })
                       }
                       required
-                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
-                      style={inputStyle}
+                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
                       placeholder="How can we help?"
                     />
                   </div>
                   <div>
-                    <label 
-                      className="block text-sm font-medium mb-2"
-                      style={labelStyle}
-                    >
+                    <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
                       Message
                     </label>
                     <textarea
@@ -191,8 +138,7 @@ export function ContactInfo({
                       }
                       required
                       rows={5}
-                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none"
-                      style={inputStyle}
+                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
                       placeholder="Your message..."
                     />
                   </div>
@@ -200,7 +146,6 @@ export function ContactInfo({
                     type="submit"
                     disabled={isSubmitting}
                     className="btn btn-primary w-full disabled:opacity-50"
-                    style={buttonStyle}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
@@ -212,27 +157,17 @@ export function ContactInfo({
           {/* Contact Details & Map */}
           <div className="space-y-8">
             {/* Contact Details */}
-            <div 
-              className="card p-8"
-              style={cardStyle}
-            >
-              <h3 
-                className="text-2xl font-semibold mb-6"
-                style={headingStyle}
-              >
+            <div className="card p-8 bg-white dark:bg-slate-800">
+              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
                 Contact Details
               </h3>
               <div className="space-y-4">
                 {email && (
                   <a
                     href={`mailto:${email}`}
-                    className="flex items-center gap-4 hover:text-[var(--color-primary)] transition-colors"
-                    style={textStyle}
+                    className="flex items-center gap-4 text-gray-600 dark:text-slate-300 hover:text-[var(--color-primary)] transition-colors"
                   >
-                    <div 
-                      className="w-12 h-12 rounded-lg flex items-center justify-center"
-                      style={iconContainerStyle}
-                    >
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-[var(--color-primary)]/10 dark:bg-[var(--color-primary)]/20">
                       <Mail className="w-5 h-5 text-[var(--color-primary)]" />
                     </div>
                     <span>{email}</span>
@@ -241,27 +176,17 @@ export function ContactInfo({
                 {phone && (
                   <a
                     href={`tel:${phone.replace(/\D/g, "")}`}
-                    className="flex items-center gap-4 hover:text-[var(--color-primary)] transition-colors"
-                    style={textStyle}
+                    className="flex items-center gap-4 text-gray-600 dark:text-slate-300 hover:text-[var(--color-primary)] transition-colors"
                   >
-                    <div 
-                      className="w-12 h-12 rounded-lg flex items-center justify-center"
-                      style={iconContainerStyle}
-                    >
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-[var(--color-primary)]/10 dark:bg-[var(--color-primary)]/20">
                       <Phone className="w-5 h-5 text-[var(--color-primary)]" />
                     </div>
                     <span>{phone}</span>
                   </a>
                 )}
                 {address && (
-                  <div 
-                    className="flex items-start gap-4"
-                    style={textStyle}
-                  >
-                    <div 
-                      className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={iconContainerStyle}
-                    >
+                  <div className="flex items-start gap-4 text-gray-600 dark:text-slate-300">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-[var(--color-primary)]/10 dark:bg-[var(--color-primary)]/20">
                       <MapPin className="w-5 h-5 text-[var(--color-primary)]" />
                     </div>
                     <span className="whitespace-pre-line">{address}</span>
@@ -272,7 +197,7 @@ export function ContactInfo({
 
             {/* Map */}
             {showMap && mapEmbedUrl && (
-              <div className="card overflow-hidden" style={cardStyle}>
+              <div className="card overflow-hidden bg-white dark:bg-slate-800">
                 <iframe
                   src={mapEmbedUrl}
                   width="100%"

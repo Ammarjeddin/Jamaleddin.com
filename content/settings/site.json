@@ -36,7 +36,10 @@
   "layout": {
     "homepage": "standard",
     "navbar": "floating",
-    "footer": "full"
+    "footer": "full",
+    "navbarButton": {
+      "enabled": false
+    }
   },
   "social": {
     "facebook": "https://facebook.com/horizonfoundation",

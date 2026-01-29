@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -26,6 +26,7 @@ export function HeroSection({
   overlay = true,
 }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const heights = {
     small: "h-[40vh]",
@@ -34,26 +35,34 @@ export function HeroSection({
     full: "h-screen",
   };
 
+  const changeSlide = useCallback((newIndex: number) => {
+    if (isTransitioning || newIndex === currentSlide) return;
+    setIsTransitioning(true);
+    setCurrentSlide(newIndex);
+    // Allow transition to complete
+    setTimeout(() => setIsTransitioning(false), 1000);
+  }, [isTransitioning, currentSlide]);
+
   useEffect(() => {
     if (slides.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      changeSlide((currentSlide + 1) % slides.length);
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [slides.length, currentSlide, changeSlide]);
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index);
+    changeSlide(index);
   };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    changeSlide((currentSlide + 1) % slides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    changeSlide((currentSlide - 1 + slides.length) % slides.length);
   };
 
   if (!slides.length) return null;
@@ -62,40 +71,52 @@ export function HeroSection({
 
   return (
     <section className={cn("relative overflow-visible", heights[height])}>
-      {/* Background Image */}
-      {slide.backgroundImage ? (
-        <>
-          {/* Extended image area above hero - stretches upward behind navbar */}
-          <div className="absolute inset-x-0 -top-36 h-36 overflow-hidden z-0">
-            {/* Same image, but positioned to show top portion and heavily blurred */}
-            <div className="absolute inset-0 blur-3xl opacity-90">
-              <Image
-                src={slide.backgroundImage}
-                alt=""
-                fill
-                priority
-                className="object-cover object-top"
-                style={{ transform: 'scale(1.2)' }}
-              />
+      {/* Background Images - All slides rendered for smooth crossfade */}
+      {slides.map((s, index) => (
+        s.backgroundImage ? (
+          <div key={index} className="contents">
+            {/* Extended image area above hero - stretches upward behind navbar */}
+            <div
+              className={cn(
+                "absolute inset-x-0 -top-36 h-36 overflow-hidden z-0 transition-opacity duration-1000 ease-in-out",
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              )}
+            >
+              {/* Same image, but positioned to show top portion and heavily blurred */}
+              <div className="absolute inset-0 blur-3xl opacity-90">
+                <Image
+                  src={s.backgroundImage}
+                  alt=""
+                  fill
+                  priority={index === 0}
+                  className="object-cover object-top"
+                  style={{ transform: 'scale(1.2)' }}
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20" />
+
+            {/* Main hero image - covers whole section */}
+            <div
+              className={cn(
+                "absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out",
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              )}
+            >
+              <Image
+                src={s.backgroundImage}
+                alt={s.title}
+                fill
+                priority={index === 0}
+                className="object-cover"
+              />
+              {overlay && <div className="absolute inset-0 bg-black/40" />}
+            </div>
           </div>
-          
-          {/* Main hero image - covers whole section */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={slide.backgroundImage}
-              alt={slide.title}
-              fill
-              priority
-              className="object-cover"
-            />
-            {overlay && <div className="absolute inset-0 bg-black/40" />}
-          </div>
-        </>
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)]" />
-      )}
+        ) : index === currentSlide ? (
+          <div key={index} className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)]" />
+        ) : null
+      ))}
 
       {/* Content */}
       <div className="relative z-20 h-full flex items-center justify-center text-center text-white px-6">

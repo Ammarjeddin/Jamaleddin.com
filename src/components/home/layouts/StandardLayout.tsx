@@ -1,8 +1,5 @@
 import { HeroSection } from "../HeroSection";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import type { SiteSettings } from "@/lib/tina";
-import type { NavItem } from "@/lib/navigation";
+import type { SiteSettings } from "@/lib/content";
 
 interface HomeContent {
   hero?: {
@@ -18,14 +15,12 @@ interface HomeContent {
 
 interface StandardLayoutProps {
   settings: SiteSettings;
-  navigation: NavItem[];
   content: HomeContent;
   children: React.ReactNode;
 }
 
 export function StandardLayout({
   settings,
-  navigation,
   content,
   children,
 }: StandardLayoutProps) {
@@ -38,17 +33,11 @@ export function StandardLayout({
 
   return (
     <>
-      <Navbar settings={settings} navigation={navigation} variant="floating" />
+      {/* Hero - 60vh for standard layout */}
+      <HeroSection slides={heroSlides} height="medium" />
 
-      <main>
-        {/* Hero - 60vh for standard layout */}
-        <HeroSection slides={heroSlides} height="medium" />
-
-        {/* Page Content */}
-        <div className="pt-0">{children}</div>
-      </main>
-
-      <Footer settings={settings} navigation={navigation} />
+      {/* Page Content */}
+      <div className="pt-0">{children}</div>
     </>
   );
 }

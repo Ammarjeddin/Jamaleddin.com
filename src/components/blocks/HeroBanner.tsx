@@ -45,7 +45,7 @@ export function HeroBanner({
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20" />
           </div>
-          
+
           {/* Main hero image - covers whole section */}
           <div className="absolute inset-0 z-0">
             <Image

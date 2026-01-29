@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Facebook, Instagram, Twitter, Linkedin, Youtube, Settings } from "lucide-react";
-import type { SiteSettings } from "@/lib/tina";
+import type { SiteSettings } from "@/lib/content";
 import type { NavItem } from "@/lib/navigation";
 
 interface FullFooterProps {
@@ -25,7 +25,7 @@ export function FullFooter({ settings, navigation }: FullFooterProps) {
     <footer className="bg-gray-900 text-white">
       <Container>
         {/* Main Footer Content */}
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4">
@@ -106,26 +106,6 @@ export function FullFooter({ settings, navigation }: FullFooterProps) {
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Stay Updated</h3>
-            <p className="text-gray-400 mb-4">
-              Subscribe to our newsletter for updates and news.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-primary)]"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-[var(--color-primary)] rounded-md hover:bg-[var(--color-primary-dark)] transition-colors whitespace-nowrap"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
         </div>
 
         {/* Bottom Bar */}

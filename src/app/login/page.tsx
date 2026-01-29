@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, User, AlertCircle, Loader2 } from "lucide-react";
+import { ForceLightMode } from "@/components/admin/ForceLightMode";
 
 function LoginForm() {
   const router = useRouter();
@@ -178,8 +179,11 @@ function LoginLoading() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<LoginLoading />}>
-      <LoginForm />
-    </Suspense>
+    <>
+      <ForceLightMode />
+      <Suspense fallback={<LoginLoading />}>
+        <LoginForm />
+      </Suspense>
+    </>
   );
 }

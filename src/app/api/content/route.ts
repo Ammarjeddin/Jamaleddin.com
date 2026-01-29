@@ -131,6 +131,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid path" }, { status: 400 });
     }
 
+    // Don't allow creating files in admin directory
+    if (normalizedPath.includes("content/admin/")) {
+      return NextResponse.json({ error: "Access denied" }, { status: 403 });
+    }
+
     const fullPath = path.join(process.cwd(), normalizedPath);
 
     // Check if file already exists

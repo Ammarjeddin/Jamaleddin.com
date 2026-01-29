@@ -90,7 +90,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
   const contact = (content.contact as Record<string, string>) || {};
   const social = (content.social as Record<string, string>) || {};
   const logo = (content.logo as Record<string, string>) || {};
-  const layout = (content.layout as Record<string, string>) || {};
+  const layout = (content.layout as Record<string, unknown>) || {};
   const template = (content.template as Record<string, unknown>) || {};
   const features = (template.features as Record<string, unknown>) || {};
 
@@ -592,7 +592,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Homepage Style</label>
                   <select
-                    value={layout.homepage || "standard"}
+                    value={(layout.homepage as string) || "standard"}
                     onChange={(e) => updateNested("layout", "homepage", e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
@@ -605,7 +605,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Navbar Style</label>
                   <select
-                    value={layout.navbar || "floating"}
+                    value={(layout.navbar as string) || "floating"}
                     onChange={(e) => updateNested("layout", "navbar", e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
@@ -618,7 +618,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Footer Style</label>
                   <select
-                    value={layout.footer || "full"}
+                    value={(layout.footer as string) || "full"}
                     onChange={(e) => updateNested("layout", "footer", e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
@@ -626,6 +626,61 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                     <option value="centered">Centered</option>
                     <option value="minimal">Minimal</option>
                   </select>
+                </div>
+
+                {/* Navbar Button Settings */}
+                <div className="pt-6 border-t border-gray-200">
+                  <h3 className="text-md font-semibold text-gray-900 mb-4">Navbar Button</h3>
+                  <p className="text-sm text-gray-500 mb-4">
+                    Customize the call-to-action button that appears in your navigation bar.
+                  </p>
+
+                  <label className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer mb-4">
+                    <input
+                      type="checkbox"
+                      checked={(layout.navbarButton as Record<string, unknown>)?.enabled !== false}
+                      onChange={(e) => updateNested("layout", "navbarButton", {
+                        ...((layout.navbarButton as Record<string, unknown>) || {}),
+                        enabled: e.target.checked
+                      })}
+                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <div>
+                      <p className="font-medium text-gray-900">Show Navbar Button</p>
+                      <p className="text-sm text-gray-500">Display a CTA button in the navigation bar</p>
+                    </div>
+                  </label>
+
+                  {(layout.navbarButton as Record<string, unknown>)?.enabled !== false && (
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
+                        <input
+                          type="text"
+                          value={(layout.navbarButton as Record<string, string>)?.text || "Get Involved"}
+                          onChange={(e) => updateNested("layout", "navbarButton", {
+                            ...((layout.navbarButton as Record<string, unknown>) || {}),
+                            text: e.target.value
+                          })}
+                          placeholder="Get Involved"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
+                        <input
+                          type="text"
+                          value={(layout.navbarButton as Record<string, string>)?.href || "/get-involved"}
+                          onChange={(e) => updateNested("layout", "navbarButton", {
+                            ...((layout.navbarButton as Record<string, unknown>) || {}),
+                            href: e.target.value
+                          })}
+                          placeholder="/get-involved"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

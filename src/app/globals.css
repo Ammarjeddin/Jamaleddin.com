@@ -174,13 +174,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
 }
 
-/* Link styles */
-a {
+/* Link styles - use :where() for zero specificity so Tailwind utilities can override */
+:where(a) {
   color: var(--color-primary);
   text-decoration: none;
 }
 
-a:hover {
+:where(a:hover) {
   color: var(--color-primary-dark);
 }
 

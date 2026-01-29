@@ -4,25 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:tina": "tinacms dev -c \"next dev\"",
     "build": "next build",
-    "build:tina": "tinacms build && next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.6.4",
-    "@tinacms/cli": "^2.1.1",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
+    "jose": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.563.0",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "stripe": "^20.2.0",
-    "tailwind-merge": "^3.4.0",
-    "tinacms": "^3.3.1"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

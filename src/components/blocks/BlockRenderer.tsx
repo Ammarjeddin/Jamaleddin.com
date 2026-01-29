@@ -43,9 +43,11 @@ export interface Block {
 
 interface BlockRendererProps {
   blocks: Block[];
+  /** When true, skips the isFirstBlock styling (e.g. when blocks follow a hero section) */
+  hasHero?: boolean;
 }
 
-export function BlockRenderer({ blocks }: BlockRendererProps) {
+export function BlockRenderer({ blocks, hasHero = false }: BlockRendererProps) {
   if (!blocks || blocks.length === 0) return null;
 
   return (
@@ -55,9 +57,10 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
 
         // Cast props to unknown first to satisfy TypeScript strict mode
         const blockProps = props as unknown;
-        
+
         // Add negative margin to first block so it extends behind the navbar
-        const isFirstBlock = index === 0;
+        // Skip this when blocks follow a hero section
+        const isFirstBlock = index === 0 && !hasHero;
         const firstBlockProps = isFirstBlock ? { ...(blockProps as object), isFirstBlock } : blockProps;
 
         switch (_template) {

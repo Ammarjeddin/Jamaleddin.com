@@ -5,7 +5,6 @@ import Link from "next/link";
 import type { Product } from "@/lib/types/product";
 import { formatPrice, getDiscountPercentage, isInStock } from "@/lib/types/product";
 import { AddToCartButton } from "./AddToCartButton";
-import { useDarkMode } from "@/contexts/DarkModeContext";
 
 interface ProductCardProps {
   product: Product;
@@ -13,23 +12,13 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
-  const { isDarkMode } = useDarkMode();
   const imageUrl = product.images?.[0]?.src || "/images/placeholder-product.jpg";
   const imageAlt = product.images?.[0]?.alt || product.name;
   const discount = getDiscountPercentage(product);
   const inStock = isInStock(product);
 
-  const cardBgStyle = { backgroundColor: isDarkMode ? "#1e293b" : "#ffffff" };
-  const titleStyle = { color: isDarkMode ? "#ffffff" : "#111827" };
-  const categoryStyle = { color: isDarkMode ? "#94a3b8" : "#6b7280" };
-  const descriptionStyle = { color: isDarkMode ? "#cbd5e1" : "#4b5563" };
-  const priceStyle = { color: isDarkMode ? "#ffffff" : "#111827" };
-
   return (
-    <div 
-      className="group rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
-      style={cardBgStyle}
-    >
+    <div className="group rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden bg-white dark:bg-slate-800">
       {/* Image */}
       <Link href={`/shop/${product.slug}`} className="block relative aspect-square bg-gray-100">
         <Image
@@ -73,29 +62,26 @@ export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
       <div className="p-4">
         {/* Category */}
         {product.category && (
-          <p className="text-sm mb-1" style={categoryStyle}>{product.category}</p>
+          <p className="text-sm mb-1 text-gray-500 dark:text-slate-400">{product.category}</p>
         )}
 
         {/* Title */}
         <Link href={`/shop/${product.slug}`}>
-          <h3 
-            className="font-semibold group-hover:text-primary transition-colors line-clamp-2"
-            style={titleStyle}
-          >
+          <h3 className="font-semibold group-hover:text-primary transition-colors line-clamp-2 text-gray-900 dark:text-white">
             {product.name}
           </h3>
         </Link>
 
         {/* Description */}
         {product.description && (
-          <p className="text-sm mt-1 line-clamp-2" style={descriptionStyle}>
+          <p className="text-sm mt-1 line-clamp-2 text-gray-600 dark:text-slate-300">
             {product.description}
           </p>
         )}
 
         {/* Price */}
         <div className="flex items-center gap-2 mt-3">
-          <span className="text-lg font-bold" style={priceStyle}>
+          <span className="text-lg font-bold text-gray-900 dark:text-white">
             {formatPrice(product.pricing.price, currency)}
           </span>
           {product.pricing.compareAtPrice && (

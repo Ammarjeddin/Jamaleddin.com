@@ -8,7 +8,7 @@ import { MobileMenu } from "../MobileMenu";
 import { CartIcon } from "@/components/shop/CartIcon";
 import { DarkModeToggle } from "@/components/ui/DarkModeToggle";
 import type { NavItem } from "@/lib/navigation";
-import type { SiteSettings } from "@/lib/tina";
+import type { SiteSettings } from "@/lib/content";
 
 interface FloatingNavbarProps {
   settings: SiteSettings;
@@ -46,12 +46,14 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
           <div className="flex items-center gap-2 sm:gap-4">
             <DarkModeToggle className="hidden sm:flex" />
             {showCart && <CartIcon />}
-            <Link
-              href="/get-involved"
-              className="hidden md:inline-flex btn btn-primary text-sm"
-            >
-              Get Involved
-            </Link>
+            {settings.layout?.navbarButton?.enabled !== false && (
+              <Link
+                href={settings.layout?.navbarButton?.href || "/get-involved"}
+                className="hidden md:inline-flex btn btn-primary text-sm"
+              >
+                {settings.layout?.navbarButton?.text || "Get Involved"}
+              </Link>
+            )}
             <MobileMenu items={navigation} showCart={showCart} />
           </div>
         </div>

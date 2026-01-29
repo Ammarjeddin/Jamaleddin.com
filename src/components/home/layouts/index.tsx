@@ -1,8 +1,7 @@
 import { StandardLayout } from "./StandardLayout";
 import { HeroFullLayout } from "./HeroFullLayout";
 import { MinimalLayout } from "./MinimalLayout";
-import type { SiteSettings } from "@/lib/tina";
-import type { NavItem } from "@/lib/navigation";
+import type { SiteSettings } from "@/lib/content";
 
 interface HomeContent {
   hero?: {
@@ -18,7 +17,6 @@ interface HomeContent {
 
 interface HomeLayoutProps {
   settings: SiteSettings;
-  navigation: NavItem[];
   content: HomeContent;
   children: React.ReactNode;
   variant?: "standard" | "hero-full" | "minimal";
@@ -26,7 +24,6 @@ interface HomeLayoutProps {
 
 export function HomeLayout({
   settings,
-  navigation,
   content,
   children,
   variant,
@@ -38,7 +35,6 @@ export function HomeLayout({
       return (
         <HeroFullLayout
           settings={settings}
-          navigation={navigation}
           content={content}
         >
           {children}
@@ -48,7 +44,6 @@ export function HomeLayout({
       return (
         <MinimalLayout
           settings={settings}
-          navigation={navigation}
           content={content}
         >
           {children}
@@ -59,7 +54,6 @@ export function HomeLayout({
       return (
         <StandardLayout
           settings={settings}
-          navigation={navigation}
           content={content}
         >
           {children}

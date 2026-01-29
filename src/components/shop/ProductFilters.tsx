@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ChevronDown, X, Filter } from "lucide-react";
-import { useDarkMode } from "@/contexts/DarkModeContext";
 
 interface ProductFiltersProps {
   categories: string[];
@@ -29,7 +28,6 @@ export function ProductFilters({
   selectedProductType,
   onProductTypeChange,
 }: ProductFiltersProps) {
-  const { isDarkMode } = useDarkMode();
   const [isOpen, setIsOpen] = useState(false);
   const [openSections, setOpenSections] = useState<Set<string>>(
     new Set(["category", "price", "availability"])
@@ -56,10 +54,6 @@ export function ProductFilters({
   };
 
   const FilterContent = () => {
-    const textStyle = { color: isDarkMode ? "#ffffff" : "#374151" };
-    const mutedTextStyle = { color: isDarkMode ? "#94a3b8" : "#6b7280" };
-    const hoverBgClass = isDarkMode ? "hover:bg-slate-700" : "hover:bg-gray-100";
-    
     return (
       <div className="space-y-6">
         {/* Category Filter */}
@@ -67,8 +61,7 @@ export function ProductFilters({
           <div>
             <button
               onClick={() => toggleSection("category")}
-              className="flex items-center justify-between w-full text-left font-medium mb-3"
-              style={textStyle}
+              className="flex items-center justify-between w-full text-left font-medium mb-3 text-gray-700 dark:text-white"
             >
               Category
               <ChevronDown
@@ -84,9 +77,8 @@ export function ProductFilters({
                   className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${
                     !selectedCategory
                       ? "bg-primary/10 text-primary font-medium"
-                      : hoverBgClass
+                      : "text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
                   }`}
-                  style={!selectedCategory ? undefined : textStyle}
                 >
                   All Categories
                 </button>
@@ -97,9 +89,8 @@ export function ProductFilters({
                     className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${
                       selectedCategory === category
                         ? "bg-primary/10 text-primary font-medium"
-                        : hoverBgClass
+                        : "text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
                     }`}
-                    style={selectedCategory === category ? undefined : textStyle}
                   >
                     {category}
                   </button>
@@ -114,8 +105,7 @@ export function ProductFilters({
           <div>
             <button
               onClick={() => toggleSection("type")}
-              className="flex items-center justify-between w-full text-left font-medium mb-3"
-              style={textStyle}
+              className="flex items-center justify-between w-full text-left font-medium mb-3 text-gray-700 dark:text-white"
             >
               Product Type
               <ChevronDown
@@ -131,9 +121,8 @@ export function ProductFilters({
                   className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${
                     !selectedProductType
                       ? "bg-primary/10 text-primary font-medium"
-                      : hoverBgClass
+                      : "text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
                   }`}
-                  style={!selectedProductType ? undefined : textStyle}
                 >
                   All Types
                 </button>
@@ -144,9 +133,8 @@ export function ProductFilters({
                     className={`block w-full text-left px-3 py-2 rounded-lg transition-colors capitalize ${
                       selectedProductType === type
                         ? "bg-primary/10 text-primary font-medium"
-                        : hoverBgClass
+                        : "text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
                     }`}
-                    style={selectedProductType === type ? undefined : textStyle}
                   >
                     {type}
                   </button>
@@ -161,8 +149,7 @@ export function ProductFilters({
           <div>
             <button
               onClick={() => toggleSection("availability")}
-              className="flex items-center justify-between w-full text-left font-medium mb-3"
-              style={textStyle}
+              className="flex items-center justify-between w-full text-left font-medium mb-3 text-gray-700 dark:text-white"
             >
               Availability
               <ChevronDown
@@ -179,7 +166,7 @@ export function ProductFilters({
                   onChange={(e) => onInStockChange(e.target.checked)}
                   className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary"
                 />
-                <span style={textStyle}>In stock only</span>
+                <span className="text-gray-700 dark:text-white">In stock only</span>
               </label>
             )}
           </div>
@@ -189,8 +176,7 @@ export function ProductFilters({
         {hasActiveFilters && (
           <button
             onClick={clearAllFilters}
-            className="flex items-center gap-2 text-sm transition-colors"
-            style={mutedTextStyle}
+            className="flex items-center gap-2 text-sm transition-colors text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-white"
           >
             <X className="w-4 h-4" />
             Clear all filters
@@ -206,7 +192,7 @@ export function ProductFilters({
       <div className="lg:hidden mb-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-slate-600 rounded-lg dark:text-white"
+          className="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-slate-600 rounded-lg text-gray-700 dark:text-white"
         >
           <Filter className="w-5 h-5" />
           <span>Filters</span>
@@ -225,21 +211,14 @@ export function ProductFilters({
             className="absolute inset-0 bg-black/50"
             onClick={() => setIsOpen(false)}
           />
-          <div 
-            className="absolute right-0 top-0 h-full w-full max-w-sm p-6 overflow-y-auto"
-            style={{ backgroundColor: isDarkMode ? "#1e293b" : "#ffffff" }}
-          >
+          <div className="absolute right-0 top-0 h-full w-full max-w-sm p-6 overflow-y-auto bg-white dark:bg-slate-800">
             <div className="flex items-center justify-between mb-6">
-              <h2 
-                className="text-lg font-semibold"
-                style={{ color: isDarkMode ? "#ffffff" : "#111827" }}
-              >
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Filters
               </h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2"
-                style={{ color: isDarkMode ? "#94a3b8" : "#9ca3af" }}
+                className="p-2 text-gray-400 dark:text-slate-400"
               >
                 <X className="w-6 h-6" />
               </button>

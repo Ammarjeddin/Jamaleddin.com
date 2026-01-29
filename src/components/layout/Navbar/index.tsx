@@ -2,7 +2,7 @@ import { FloatingNavbar } from "./FloatingNavbar";
 import { FixedNavbar } from "./FixedNavbar";
 import { TransparentNavbar } from "./TransparentNavbar";
 import type { NavItem } from "@/lib/navigation";
-import type { SiteSettings } from "@/lib/tina";
+import type { SiteSettings } from "@/lib/content";
 
 interface NavbarProps {
   settings: SiteSettings;

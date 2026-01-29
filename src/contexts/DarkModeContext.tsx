@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from "react";
 
 interface DarkModeContextType {
   isDarkMode: boolean;
@@ -20,12 +20,16 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setMounted(true);
 
-    // Check localStorage first
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored !== null) {
-      setIsDarkMode(stored === "true");
-    } else {
-      // Fall back to system preference
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored !== null) {
+        setIsDarkMode(stored === "true");
+      } else {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        setIsDarkMode(prefersDark);
+      }
+    } catch {
+      // localStorage may be unavailable in private browsing or restricted environments
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       setIsDarkMode(prefersDark);
     }
@@ -41,24 +45,40 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
       document.documentElement.classList.remove("dark");
     }
 
-    // Save preference
-    localStorage.setItem(STORAGE_KEY, isDarkMode.toString());
+    try {
+      localStorage.setItem(STORAGE_KEY, isDarkMode.toString());
+    } catch {
+      // Silently fail if localStorage is unavailable
+    }
   }, [isDarkMode, mounted]);
 
-  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
-  const setDarkMode = (value: boolean) => setIsDarkMode(value);
+  const toggleDarkMode = useCallback(() => setIsDarkMode((prev) => !prev), []);
+  const setDarkMode = useCallback((value: boolean) => setIsDarkMode(value), []);
+
+  const value = useMemo(
+    () => ({ isDarkMode, toggleDarkMode, setDarkMode }),
+    [isDarkMode, toggleDarkMode, setDarkMode]
+  );
 
   return (
-    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode, setDarkMode }}>
+    <DarkModeContext.Provider value={value}>
       {children}
     </DarkModeContext.Provider>
   );
 }
 
-export function useDarkMode() {
+export function useDarkMode(): DarkModeContextType {
   const context = useContext(DarkModeContext);
   if (context === undefined) {
     throw new Error("useDarkMode must be used within a DarkModeProvider");
   }
   return context;
+}
+
+/**
+ * Safe version of useDarkMode that returns null when DarkModeProvider is absent.
+ * Use this in components that may render outside of DarkModeProvider.
+ */
+export function useDarkModeSafe(): DarkModeContextType | null {
+  return useContext(DarkModeContext) ?? null;
 }

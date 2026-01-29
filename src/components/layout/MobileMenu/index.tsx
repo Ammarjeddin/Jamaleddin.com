@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, ShoppingCart, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
+import { isNavItemActive } from "@/lib/navigation";
 import type { NavItem } from "@/lib/navigation";
-import { useCart } from "@/contexts/CartContext";
-import { useDarkMode } from "@/contexts/DarkModeContext";
+import { useCartSafe } from "@/contexts/CartContext";
+import { useDarkModeSafe } from "@/contexts/DarkModeContext";
 
 interface MobileMenuProps {
   items: NavItem[];
@@ -15,51 +16,26 @@ interface MobileMenuProps {
   showCart?: boolean;
 }
 
-// Helper function to check if a nav item is active
-function isNavItemActive(item: NavItem, pathname: string): boolean {
-  // For items with children, check if any child matches
-  if (item.children) {
-    return item.children.some((child) => {
-      if (child.href === "/") {
-        return pathname === "/";
-      }
-      return pathname === child.href || pathname.startsWith(child.href + "/");
-    });
-  }
-
-  // For home, only match exactly "/"
-  if (item.href === "/") {
-    return pathname === "/";
-  }
-
-  // For other items, match exact or nested routes
-  return pathname === item.href || pathname.startsWith(item.href + "/");
-}
-
 export function MobileMenu({ items, className, showCart = false }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
 
-  // Conditionally use cart hook only when shop is enabled
-  let cartContext: { itemCount: number; toggleCart: () => void } | null = null;
-  try {
-    if (showCart) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      cartContext = useCart();
-    }
-  } catch {
-    // Cart context not available
-  }
+  // Hooks called unconditionally at top of component
+  const cartContext = useCartSafe();
+  const darkModeContext = useDarkModeSafe();
 
-  // Dark mode
-  let darkModeContext: { isDarkMode: boolean; toggleDarkMode: () => void } | null = null;
-  try {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    darkModeContext = useDarkMode();
-  } catch {
-    // Dark mode context not available
-  }
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   const toggleSubmenu = (label: string) => {
     setOpenSubmenu(openSubmenu === label ? null : label);
@@ -107,7 +83,7 @@ export function MobileMenu({ items, className, showCart = false }: MobileMenuPro
                   <button
                     onClick={() => {
                       setIsOpen(false);
-                      cartContext?.toggleCart();
+                      cartContext.toggleCart();
                     }}
                     className="relative p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800"
                     aria-label={`Shopping cart with ${cartContext.itemCount} items`}

@@ -1,4 +1,4 @@
-import type { TemplateSettings, SiteSettings } from "./tina";
+import type { TemplateSettings, SiteSettings } from "./content";
 
 export interface NavItem {
   label: string;
@@ -74,6 +74,26 @@ export function getNavigation(template?: TemplateSettings, settings?: SiteSettin
   );
 
   return baseNav;
+}
+
+/**
+ * Check if a nav item is active based on the current pathname
+ */
+export function isNavItemActive(item: NavItem, pathname: string): boolean {
+  if (item.children) {
+    return item.children.some((child) => {
+      if (child.href === "/") {
+        return pathname === "/";
+      }
+      return pathname === child.href || pathname.startsWith(child.href + "/");
+    });
+  }
+
+  if (item.href === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === item.href || pathname.startsWith(item.href + "/");
 }
 
 /**

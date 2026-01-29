@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { verifyToken } from "@/lib/auth";
-import { getSiteSettings } from "@/lib/tina";
+import { getSiteSettings } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import {

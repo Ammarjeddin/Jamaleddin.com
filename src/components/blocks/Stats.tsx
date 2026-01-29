@@ -1,8 +1,5 @@
-"use client";
-
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils/cn";
-import { useDarkMode } from "@/contexts/DarkModeContext";
 import * as LucideIcons from "lucide-react";
 
 interface Stat {
@@ -18,8 +15,6 @@ interface StatsProps {
 }
 
 export function Stats({ heading, stats, isFirstBlock = false }: StatsProps) {
-  const { isDarkMode } = useDarkMode();
-
   const getIcon = (iconName?: string) => {
     if (!iconName) return null;
     const iconKey = iconName.charAt(0).toUpperCase() + iconName.slice(1).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
@@ -27,23 +22,16 @@ export function Stats({ heading, stats, isFirstBlock = false }: StatsProps) {
     return icons[iconKey] || null;
   };
 
-  // Inline styles for dark mode
-  const sectionStyle = { backgroundColor: isDarkMode ? "#0f172a" : "#ffffff" };
-  const headingStyle = { color: isDarkMode ? "#ffffff" : "#111827" };
-  const numberStyle = { color: isDarkMode ? "#60a5fa" : "var(--color-primary)" }; // Brighter blue in dark mode
-  const labelStyle = { color: isDarkMode ? "#cbd5e1" : "#6b7280" }; // Lighter labels in dark mode
-
   return (
     <section
-      className={cn("section", isFirstBlock && "-mt-20 pt-40")}
-      style={sectionStyle}
+      className={cn(
+        "section bg-white dark:bg-slate-900",
+        isFirstBlock && "-mt-20 pt-40"
+      )}
     >
       <Container>
         {heading && (
-          <h2
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12"
-            style={headingStyle}
-          >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900 dark:text-white">
             {heading}
           </h2>
         )}
@@ -59,16 +47,10 @@ export function Stats({ heading, stats, isFirstBlock = false }: StatsProps) {
                     <Icon className="w-5 h-5 md:w-7 md:h-7 text-[var(--color-primary)]" />
                   </div>
                 )}
-                <div
-                  className="text-2xl md:text-4xl lg:text-5xl font-bold mb-1 md:mb-2"
-                  style={numberStyle}
-                >
+                <div className="text-2xl md:text-4xl lg:text-5xl font-bold mb-1 md:mb-2 text-[var(--color-primary)] dark:text-blue-400">
                   {stat.number}
                 </div>
-                <div
-                  className="text-xs md:text-base"
-                  style={labelStyle}
-                >
+                <div className="text-xs md:text-base text-gray-500 dark:text-slate-300">
                   {stat.label}
                 </div>
               </div>

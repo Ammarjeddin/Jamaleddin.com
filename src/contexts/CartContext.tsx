@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useReducer, useEffect, useCallback } from "react";
+import React, { createContext, useContext, useReducer, useEffect, useCallback, useMemo } from "react";
 import type { Product, CartItem } from "@/lib/types/product";
 
 interface CartState {
@@ -99,6 +99,7 @@ interface CartContextValue {
   isOpen: boolean;
   itemCount: number;
   subtotal: number;
+  currency: string;
   addItem: (product: Product, quantity?: number, variantId?: string) => void;
   removeItem: (productSlug: string, variantId?: string) => void;
   updateQuantity: (productSlug: string, quantity: number, variantId?: string) => void;
@@ -111,7 +112,12 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
+interface CartProviderProps {
+  children: React.ReactNode;
+  currency?: string;
+}
+
+export function CartProvider({ children, currency = "USD" }: CartProviderProps) {
   const [state, dispatch] = useReducer(cartReducer, {
     items: [],
     isOpen: false,
@@ -184,32 +190,44 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [state.items]
   );
 
+  const value = useMemo(
+    () => ({
+      items: state.items,
+      isOpen: state.isOpen,
+      itemCount,
+      subtotal,
+      currency,
+      addItem,
+      removeItem,
+      updateQuantity,
+      clearCart,
+      toggleCart,
+      openCart,
+      closeCart,
+      getItemQuantity,
+    }),
+    [state.items, state.isOpen, itemCount, subtotal, currency, addItem, removeItem, updateQuantity, clearCart, toggleCart, openCart, closeCart, getItemQuantity]
+  );
+
   return (
-    <CartContext.Provider
-      value={{
-        items: state.items,
-        isOpen: state.isOpen,
-        itemCount,
-        subtotal,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-        toggleCart,
-        openCart,
-        closeCart,
-        getItemQuantity,
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );
 }
 
-export function useCart() {
+export function useCart(): CartContextValue {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart must be used within a CartProvider");
   }
   return context;
+}
+
+/**
+ * Safe version of useCart that returns null when CartProvider is absent.
+ * Use this in components that may render outside of CartProvider.
+ */
+export function useCartSafe(): CartContextValue | null {
+  return useContext(CartContext);
 }

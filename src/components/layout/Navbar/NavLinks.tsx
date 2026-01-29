@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
-import { useDarkMode } from "@/contexts/DarkModeContext";
+import { isNavItemActive } from "@/lib/navigation";
 import type { NavItem } from "@/lib/navigation";
 
 interface NavLinksProps {
@@ -14,37 +14,24 @@ interface NavLinksProps {
   linkClassName?: string;
 }
 
-// Helper function to check if a nav item is active
-function isNavItemActive(item: NavItem, pathname: string): boolean {
-  // For items with children, check if any child matches
-  if (item.children) {
-    return item.children.some((child) => {
-      if (child.href === "/") {
-        return pathname === "/";
-      }
-      return pathname === child.href || pathname.startsWith(child.href + "/");
-    });
-  }
-
-  // For home, only match exactly "/"
-  if (item.href === "/") {
-    return pathname === "/";
-  }
-
-  // For other items, match exact or nested routes
-  return pathname === item.href || pathname.startsWith(item.href + "/");
-}
-
 export function NavLinks({ items, className, linkClassName }: NavLinksProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
-  const { isDarkMode } = useDarkMode();
+  const navRef = useRef<HTMLElement>(null);
 
-  // Use inline style to force text color
-  const textStyle = { color: isDarkMode ? "#ffffff" : "#374151" };
+  // Close dropdown on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape" && openDropdown) {
+        setOpenDropdown(null);
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [openDropdown]);
 
   return (
-    <nav className={cn("hidden lg:flex items-center gap-1", className)}>
+    <nav ref={navRef} className={cn("hidden lg:flex items-center gap-1", className)}>
       {items.map((item) => {
         const isActive = isNavItemActive(item, pathname);
 
@@ -58,28 +45,30 @@ export function NavLinks({ items, className, linkClassName }: NavLinksProps) {
             {item.children ? (
               <>
                 <button
-                  style={textStyle}
                   className={cn(
-                    "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-colors",
+                    "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-colors text-gray-700 dark:text-white",
                     isActive && "bg-[var(--color-primary)]/10",
-                    !isActive && (isDarkMode ? "hover:bg-slate-800" : "hover:bg-gray-100"),
+                    !isActive && "hover:bg-gray-100 dark:hover:bg-slate-800",
                     linkClassName
                   )}
+                  aria-expanded={openDropdown === item.label}
+                  aria-haspopup="true"
+                  onFocus={() => item.children && setOpenDropdown(item.label)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setOpenDropdown(openDropdown === item.label ? null : item.label);
+                    }
+                  }}
                 >
                   {item.label}
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 {openDropdown === item.label && (
-                  <div
-                    className={cn(
-                      "absolute top-full left-0 pt-2 z-50"
-                    )}
-                  >
+                  <div className="absolute top-full left-0 pt-2 z-50">
                     <div
-                      className={cn(
-                        "w-56 rounded-xl shadow-xl border py-2",
-                        isDarkMode ? "bg-slate-800 border-slate-700" : "bg-white border-gray-200"
-                      )}
+                      className="w-56 rounded-xl shadow-xl border py-2 bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700"
+                      role="menu"
                     >
                       {item.children.map((child) => {
                         const isChildActive =
@@ -92,11 +81,10 @@ export function NavLinks({ items, className, linkClassName }: NavLinksProps) {
                           <Link
                             key={child.label}
                             href={child.href}
-                            style={{ color: isDarkMode ? "#ffffff" : "#374151" }}
+                            role="menuitem"
                             className={cn(
-                              "block px-4 py-3 text-sm transition-colors",
-                              isDarkMode ? "hover:bg-slate-700" : "hover:bg-gray-100",
-                              isChildActive && (isDarkMode ? "bg-slate-700" : "bg-gray-50")
+                              "block px-4 py-3 text-sm transition-colors text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700",
+                              isChildActive && "bg-gray-50 dark:bg-slate-700"
                             )}
                           >
                             {child.label}
@@ -110,11 +98,10 @@ export function NavLinks({ items, className, linkClassName }: NavLinksProps) {
             ) : (
               <Link
                 href={item.href}
-                style={textStyle}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full transition-colors",
+                  "px-4 py-2 text-sm font-medium rounded-full transition-colors text-gray-700 dark:text-white",
                   isActive && "bg-[var(--color-primary)]/10",
-                  !isActive && (isDarkMode ? "hover:bg-slate-800" : "hover:bg-gray-100"),
+                  !isActive && "hover:bg-gray-100 dark:hover:bg-slate-800",
                   linkClassName
                 )}
               >

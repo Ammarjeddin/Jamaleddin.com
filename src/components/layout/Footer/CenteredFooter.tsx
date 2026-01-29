@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Facebook, Instagram, Twitter, Linkedin, Youtube, Settings } from "lucide-react";
-import type { SiteSettings } from "@/lib/tina";
+import type { SiteSettings } from "@/lib/content";
 import type { NavItem } from "@/lib/navigation";
 
 interface CenteredFooterProps {

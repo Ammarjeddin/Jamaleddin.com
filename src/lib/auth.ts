@@ -3,7 +3,22 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-key-change-in-production";
+let _jwtSecret: string | null = null;
+
+function getJwtSecret(): string {
+  if (_jwtSecret) return _jwtSecret;
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("JWT_SECRET environment variable must be set in production");
+    }
+    console.warn("WARNING: Using fallback JWT secret. Set JWT_SECRET env var for production.");
+    _jwtSecret = "dev-only-fallback-secret-do-not-use-in-production";
+    return _jwtSecret;
+  }
+  _jwtSecret = secret;
+  return _jwtSecret;
+}
 const USERS_FILE = path.join(process.cwd(), "content/admin/users.json");
 
 export interface User {
@@ -89,13 +104,13 @@ export async function authenticateUser(
 
 // Generate JWT token
 export function generateToken(user: UserSession): string {
-  return jwt.sign(user, JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign(user, getJwtSecret(), { expiresIn: "7d" });
 }
 
 // Verify JWT token
 export function verifyToken(token: string): UserSession | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as UserSession;
+    return jwt.verify(token, getJwtSecret()) as UserSession;
   } catch {
     return null;
   }

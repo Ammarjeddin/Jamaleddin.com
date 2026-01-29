@@ -2,7 +2,6 @@
 
 import { ChevronDown } from "lucide-react";
 import type { SortOption } from "@/lib/types/product";
-import { useDarkMode } from "@/contexts/DarkModeContext";
 
 interface ProductSortProps {
   value: SortOption;
@@ -18,14 +17,6 @@ const sortOptions: { value: SortOption; label: string }[] = [
 ];
 
 export function ProductSort({ value, onChange }: ProductSortProps) {
-  const { isDarkMode } = useDarkMode();
-  
-  const selectStyle = {
-    backgroundColor: isDarkMode ? "#1e293b" : "#ffffff",
-    borderColor: isDarkMode ? "#475569" : "#e5e7eb",
-    color: isDarkMode ? "#ffffff" : "#374151",
-  };
-
   return (
     <div className="relative inline-block">
       <label htmlFor="sort-select" className="sr-only">
@@ -35,8 +26,7 @@ export function ProductSort({ value, onChange }: ProductSortProps) {
         id="sort-select"
         value={value}
         onChange={(e) => onChange(e.target.value as SortOption)}
-        className="appearance-none rounded-lg px-4 py-2 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer border"
-        style={selectStyle}
+        className="appearance-none rounded-lg px-4 py-2 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-600 text-gray-700 dark:text-white"
       >
         {sortOptions.map((option) => (
           <option key={option.value} value={option.value}>
@@ -44,10 +34,7 @@ export function ProductSort({ value, onChange }: ProductSortProps) {
           </option>
         ))}
       </select>
-      <ChevronDown 
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-        style={{ color: isDarkMode ? "#94a3b8" : "#6b7280" }}
-      />
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-gray-500 dark:text-slate-400" />
     </div>
   );
 }

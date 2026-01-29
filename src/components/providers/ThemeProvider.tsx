@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import type { SiteSettings } from "@/lib/hooks/useSiteSettings";
+import { useDarkMode } from "@/contexts/DarkModeContext";
+import type { SiteSettings } from "@/lib/content";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -9,6 +10,8 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children, settings }: ThemeProviderProps) {
+  const { isDarkMode } = useDarkMode();
+
   useEffect(() => {
     const root = document.documentElement;
 
@@ -18,7 +21,6 @@ export function ThemeProvider({ children, settings }: ThemeProviderProps) {
 
       if (primaryColor) {
         root.style.setProperty("--color-primary", primaryColor);
-        // Generate lighter/darker variants
         root.style.setProperty("--color-primary-light", adjustColor(primaryColor, 20));
         root.style.setProperty("--color-primary-dark", adjustColor(primaryColor, -20));
       }
@@ -32,15 +34,25 @@ export function ThemeProvider({ children, settings }: ThemeProviderProps) {
         root.style.setProperty("--color-accent-light", adjustColor(accentColor, 20));
         root.style.setProperty("--color-accent-dark", adjustColor(accentColor, -20));
       }
-      if (backgroundColor) {
-        root.style.setProperty("--color-background", backgroundColor);
-      }
-      if (textColor) {
-        root.style.setProperty("--color-text", textColor);
-        root.style.setProperty("--color-text-muted", adjustColor(textColor, 40));
+
+      // Only set background and text colors in light mode
+      // In dark mode, let Tailwind's .dark CSS rules take effect
+      if (!isDarkMode) {
+        if (backgroundColor) {
+          root.style.setProperty("--color-background", backgroundColor);
+        }
+        if (textColor) {
+          root.style.setProperty("--color-text", textColor);
+          root.style.setProperty("--color-text-muted", adjustColor(textColor, 40));
+        }
+      } else {
+        // Remove inline properties so .dark CSS rules apply
+        root.style.removeProperty("--color-background");
+        root.style.removeProperty("--color-text");
+        root.style.removeProperty("--color-text-muted");
       }
     }
-  }, [settings]);
+  }, [settings, isDarkMode]);
 
   return <>{children}</>;
 }
@@ -49,6 +61,11 @@ export function ThemeProvider({ children, settings }: ThemeProviderProps) {
 function adjustColor(hex: string, percent: number): string {
   // Remove # if present
   hex = hex.replace(/^#/, "");
+
+  // Normalize short hex (#RGB) to full (#RRGGBB)
+  if (hex.length === 3) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
 
   // Parse hex to RGB
   let r = parseInt(hex.substring(0, 2), 16);
