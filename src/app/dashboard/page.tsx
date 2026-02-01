@@ -15,6 +15,7 @@ import {
   Home,
   Upload,
   Receipt,
+  RefreshCw,
 } from "lucide-react";
 
 export const metadata = {
@@ -212,6 +213,42 @@ export default async function DashboardPage() {
                 </div>
                 <p className="text-sm text-gray-500">
                   Enable the shop feature to view and manage orders.
+                </p>
+              </div>
+            )}
+
+            {/* Subscriptions */}
+            {shopEnabled ? (
+              <Link
+                href="/dashboard/subscriptions"
+                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                    <RefreshCw className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Subscriptions</h4>
+                    <p className="text-sm text-green-600">Recurring Revenue</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">
+                  View active subscriptions, MRR, and manage recurring billing.
+                </p>
+              </Link>
+            ) : (
+              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <RefreshCw className="w-6 h-6 text-gray-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-500">Subscriptions</h4>
+                    <p className="text-sm text-gray-400">Disabled</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  Enable the shop feature to view and manage subscriptions.
                 </p>
               </div>
             )}

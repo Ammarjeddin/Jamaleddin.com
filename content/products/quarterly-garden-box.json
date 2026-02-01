@@ -1,0 +1,36 @@
+{
+  "name": "Quarterly Garden Box",
+  "slug": "quarterly-garden-box",
+  "description": "Receive seasonal seeds, gardening supplies, and educational materials delivered to your door every 3 months. Perfect for community garden enthusiasts!",
+  "productType": "physical",
+  "subscription": {
+    "interval": "month",
+    "intervalCount": 3
+  },
+  "pricing": {
+    "price": 49.99,
+    "taxable": true
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80",
+      "alt": "Gardening supplies and seeds"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800&q=80",
+      "alt": "Fresh vegetables from garden"
+    }
+  ],
+  "category": "Merchandise",
+  "tags": "subscription, garden, seeds, quarterly, box",
+  "physical": {
+    "weight": 32,
+    "requiresShipping": true
+  },
+  "seo": {
+    "metaTitle": "Quarterly Garden Box Subscription | Horizon Foundation",
+    "metaDescription": "Get seasonal seeds and supplies delivered every 3 months. Support community gardening while growing your own!"
+  },
+  "status": "active",
+  "featured": true
+}

@@ -22,6 +22,7 @@ import {
   ExternalLink,
   FileEdit,
   Upload,
+  RefreshCw,
 } from "lucide-react";
 
 interface ProductImage {
@@ -36,6 +37,12 @@ interface ProductVariant {
   priceAdjustment?: number;
 }
 
+interface SubscriptionDetails {
+  interval: "month" | "year";
+  intervalCount?: number;
+  trialDays?: number;
+}
+
 interface Product {
   name: string;
   slug: string;
@@ -46,6 +53,7 @@ interface Product {
     compareAtPrice?: number;
     taxable?: boolean;
   };
+  subscription?: SubscriptionDetails;
   images?: ProductImage[];
   category?: string;
   tags?: string;
@@ -628,6 +636,108 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                 />
                 <span className="text-sm font-medium text-gray-700">Charge tax on this product</span>
               </label>
+
+              {/* Subscription Settings */}
+              <div className="pt-6 border-t border-gray-200">
+                <div className="flex items-center gap-3 mb-4">
+                  <RefreshCw className="w-5 h-5 text-purple-600" />
+                  <h3 className="text-sm font-medium text-gray-700">Recurring Billing</h3>
+                </div>
+
+                <label className="flex items-center gap-3 cursor-pointer mb-4">
+                  <input
+                    type="checkbox"
+                    checked={!!product.subscription}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setProduct(prev => ({
+                          ...prev,
+                          subscription: { interval: "month", intervalCount: 1 },
+                        }));
+                      } else {
+                        setProduct(prev => {
+                          const { subscription, ...rest } = prev;
+                          return rest as Product;
+                        });
+                      }
+                    }}
+                    className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                  />
+                  <div>
+                    <span className="text-sm font-medium text-gray-700">Enable subscription billing</span>
+                    <p className="text-xs text-gray-500">Charge customers on a recurring basis</p>
+                  </div>
+                </label>
+
+                {product.subscription && (
+                  <div className="pl-8 space-y-4 bg-purple-50 p-4 rounded-lg border border-purple-200">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Billing Interval
+                        </label>
+                        <select
+                          value={product.subscription.interval}
+                          onChange={(e) => updateNestedField("subscription", "interval", e.target.value)}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
+                        >
+                          <option value="month">Monthly</option>
+                          <option value="year">Yearly</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Interval Count
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          max="12"
+                          value={product.subscription.intervalCount || 1}
+                          onChange={(e) => updateNestedField("subscription", "intervalCount", parseInt(e.target.value) || 1)}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                          {product.subscription.intervalCount === 1
+                            ? `Billed every ${product.subscription.interval}`
+                            : `Billed every ${product.subscription.intervalCount} ${product.subscription.interval}s`}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="max-w-xs">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Free Trial (days)
+                      </label>
+                      <input
+                        type="number"
+                        min="0"
+                        max="365"
+                        value={product.subscription.trialDays || ""}
+                        onChange={(e) => updateNestedField("subscription", "trialDays", parseInt(e.target.value) || undefined)}
+                        placeholder="No trial"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Optional: Offer a free trial period</p>
+                    </div>
+
+                    <div className="bg-white p-3 rounded-lg border border-purple-100">
+                      <p className="text-sm text-purple-800">
+                        <strong>Price Summary:</strong>{" "}
+                        ${product.pricing.price.toFixed(2)}
+                        {product.subscription.intervalCount === 1
+                          ? ` / ${product.subscription.interval}`
+                          : ` / ${product.subscription.intervalCount} ${product.subscription.interval}s`}
+                        {product.subscription.trialDays && (
+                          <span className="text-purple-600 ml-2">
+                            ({product.subscription.trialDays}-day free trial)
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* Variants */}
               <div className="pt-6 border-t border-gray-200">

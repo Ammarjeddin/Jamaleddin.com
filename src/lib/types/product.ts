@@ -1,5 +1,12 @@
 export type ProductType = "physical" | "digital" | "service";
 export type ProductStatus = "active" | "draft" | "archived";
+export type BillingInterval = "month" | "year";
+
+export interface SubscriptionDetails {
+  interval: BillingInterval;
+  intervalCount?: number; // e.g., 2 for "every 2 months"
+  trialDays?: number;
+}
 
 export interface ProductImage {
   src: string;
@@ -72,6 +79,7 @@ export interface Product {
   seo?: ProductSEO;
   status?: ProductStatus;
   featured?: boolean;
+  subscription?: SubscriptionDetails; // Optional - if present, product is a subscription
 }
 
 export interface CartItem {
@@ -154,4 +162,27 @@ export function sortProducts(products: Product[], sort: SortOption): Product[] {
     default:
       return sorted;
   }
+}
+
+// Check if product is a subscription
+export function isSubscriptionProduct(product: Product): boolean {
+  return !!product.subscription;
+}
+
+// Format subscription price with interval
+export function formatSubscriptionPrice(
+  price: number,
+  interval: BillingInterval,
+  intervalCount: number = 1,
+  currency: string = "USD"
+): string {
+  const formattedPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+  }).format(price);
+
+  if (intervalCount === 1) {
+    return `${formattedPrice}/${interval}`;
+  }
+  return `${formattedPrice}/${intervalCount} ${interval}s`;
 }

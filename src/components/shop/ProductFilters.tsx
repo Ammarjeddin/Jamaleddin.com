@@ -24,7 +24,7 @@ export function ProductFilters({
   onPriceRangeChange,
   inStockOnly = false,
   onInStockChange,
-  productTypes = ["physical", "digital", "service"],
+  productTypes = ["physical", "digital", "service", "subscription"],
   selectedProductType,
   onProductTypeChange,
 }: ProductFiltersProps) {

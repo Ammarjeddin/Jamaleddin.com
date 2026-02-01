@@ -1,0 +1,27 @@
+{
+  "name": "Monthly Supporter",
+  "slug": "monthly-support",
+  "description": "Support our mission with a monthly donation and get exclusive updates, early access to events, and a special supporter badge.",
+  "productType": "digital",
+  "subscription": {
+    "interval": "month"
+  },
+  "pricing": {
+    "price": 10,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&q=80",
+      "alt": "Hands joined together in support"
+    }
+  ],
+  "category": "Support",
+  "tags": "donation, recurring, support, membership",
+  "seo": {
+    "metaTitle": "Become a Monthly Supporter | Horizon Foundation",
+    "metaDescription": "Make a lasting impact with your monthly contribution. Get exclusive updates and early access to events."
+  },
+  "status": "active",
+  "featured": true
+}

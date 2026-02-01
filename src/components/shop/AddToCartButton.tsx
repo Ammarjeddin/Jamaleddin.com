@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingCart, Check, Loader2 } from "lucide-react";
+import { ShoppingCart, Check, Loader2, RefreshCw } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import type { Product } from "@/lib/types/product";
-import { isInStock } from "@/lib/types/product";
+import { isInStock, isSubscriptionProduct } from "@/lib/types/product";
 
 interface AddToCartButtonProps {
   product: Product;
@@ -25,6 +25,7 @@ export function AddToCartButton({
   const [status, setStatus] = useState<"idle" | "adding" | "added">("idle");
 
   const inStock = isInStock(product);
+  const isSubscription = isSubscriptionProduct(product);
 
   const handleAddToCart = async () => {
     if (!inStock || status !== "idle") return;
@@ -67,18 +68,22 @@ export function AddToCartButton({
       onClick={handleAddToCart}
       disabled={!inStock || status !== "idle"}
       className={`${baseStyles} ${variantStyles[variant]} ${stateStyles[status]} ${className}`}
-      aria-label={inStock ? "Add to cart" : "Out of stock"}
+      aria-label={inStock ? (isSubscription ? "Subscribe" : "Add to cart") : "Out of stock"}
     >
       {status === "idle" && (
         <>
-          <ShoppingCart className="w-4 h-4" />
-          <span>{inStock ? "Add to Cart" : "Out of Stock"}</span>
+          {isSubscription ? (
+            <RefreshCw className="w-4 h-4" />
+          ) : (
+            <ShoppingCart className="w-4 h-4" />
+          )}
+          <span>{inStock ? (isSubscription ? "Subscribe" : "Add to Cart") : "Out of Stock"}</span>
         </>
       )}
       {status === "adding" && (
         <>
           <Loader2 className="w-4 h-4 animate-spin" />
-          <span>Adding...</span>
+          <span>{isSubscription ? "Adding..." : "Adding..."}</span>
         </>
       )}
       {status === "added" && (

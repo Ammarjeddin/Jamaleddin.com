@@ -27,6 +27,8 @@ This template includes a complete demo site for "Horizon Community Foundation" -
 - **Shopping Cart** - Persistent cart with localStorage
 - **Stripe Checkout** - Secure payment processing with webhook verification
 - **Product Types** - Physical, digital, and service products
+- **Subscription Billing** - Recurring payments with Stripe (monthly/yearly)
+- **Customer Portal** - Stripe-hosted subscription management
 - **Inventory Tracking** - Stock management with "out of stock" display
 
 ### Admin Dashboard
@@ -35,6 +37,8 @@ This template includes a complete demo site for "Horizon Community Foundation" -
 - **Layout Settings** - Configure navbar variant, footer variant, homepage layout, and navbar button
 - **Feature Status** - Visual indicators for enabled/disabled features
 - **Shop Admin** - Inventory stats and product management (when enabled)
+- **Orders Management** - View orders with export to CSV/XLSX
+- **Subscriptions Dashboard** - Track MRR, active subscriptions, and churn
 - **JWT Authentication** - Secure login with rate limiting
 
 ## Quick Start
@@ -63,9 +67,11 @@ npm run dev
 ```
 ├── content/                 # Content files (JSON)
 │   ├── home/               # Homepage content
+│   ├── orders/             # Order records (auto-generated)
 │   ├── pages/              # Page content (about, contact, etc.)
 │   ├── products/           # Product content (when shop enabled)
 │   ├── programs/           # Program/service content
+│   ├── subscriptions/      # Subscription records (auto-generated)
 │   └── settings/           # Site settings
 │       └── site.json
 ├── docs/                    # Documentation
@@ -171,21 +177,42 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 
 ### Managing Products
 
-1. Go to Dashboard -> Shop
+1. Go to Dashboard -> Products
 2. Create products with:
    - Name, description, images
    - Pricing (price, compare-at price)
    - Product type (physical, digital, service)
+   - **Subscription billing** (monthly, yearly, or custom intervals)
+   - Free trial periods
    - Inventory tracking
    - Categories and tags
 
+### Subscription Products
+
+Enable recurring billing on any product:
+
+1. Go to Dashboard -> Products -> Edit Product
+2. Open the "Pricing" tab
+3. Enable "Recurring Billing"
+4. Choose billing interval (monthly/yearly)
+5. Optionally set interval count (e.g., "every 3 months")
+6. Optionally add a free trial period
+
+Subscriptions are managed through Stripe's Customer Portal, accessible via `/api/subscriptions/portal`.
+
 ### Shop Pages
 
-- `/shop` - Product listing with filters
+- `/shop` - Product listing with filters (including subscription filter)
 - `/shop/[slug]` - Product detail page
 - `/shop/cart` - Shopping cart
 - `/shop/checkout` - Stripe checkout redirect
 - `/shop/success` - Order confirmation
+
+### Admin Pages
+
+- `/dashboard/products` - Product management
+- `/dashboard/orders` - Order history and export
+- `/dashboard/subscriptions` - Subscription metrics and management
 
 ## Admin Dashboard
 

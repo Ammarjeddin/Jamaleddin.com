@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/types/product";
-import { formatPrice, getDiscountPercentage, isInStock } from "@/lib/types/product";
+import { formatPrice, getDiscountPercentage, isInStock, isSubscriptionProduct, formatSubscriptionPrice } from "@/lib/types/product";
 import { AddToCartButton } from "./AddToCartButton";
 
 interface ProductCardProps {
@@ -16,6 +16,7 @@ export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
   const imageAlt = product.images?.[0]?.alt || product.name;
   const discount = getDiscountPercentage(product);
   const inStock = isInStock(product);
+  const isSubscription = isSubscriptionProduct(product);
 
   return (
     <div className="group rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden bg-white dark:bg-slate-800">
@@ -31,6 +32,11 @@ export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
+          {isSubscription && (
+            <span className="bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded">
+              Subscription
+            </span>
+          )}
           {discount && (
             <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
               -{discount}%
@@ -82,7 +88,14 @@ export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
         {/* Price */}
         <div className="flex items-center gap-2 mt-3">
           <span className="text-lg font-bold text-gray-900 dark:text-white">
-            {formatPrice(product.pricing.price, currency)}
+            {isSubscription && product.subscription
+              ? formatSubscriptionPrice(
+                  product.pricing.price,
+                  product.subscription.interval,
+                  product.subscription.intervalCount || 1,
+                  currency
+                )
+              : formatPrice(product.pricing.price, currency)}
           </span>
           {product.pricing.compareAtPrice && (
             <span className="text-sm text-gray-400 line-through">

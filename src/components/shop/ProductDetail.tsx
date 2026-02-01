@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Minus, Plus, Package, Download, Calendar, Truck, Shield } from "lucide-react";
+import { Minus, Plus, Package, Download, Calendar, Truck, Shield, RefreshCw } from "lucide-react";
 import type { Product } from "@/lib/types/product";
-import { formatPrice, getDiscountPercentage, isInStock, getAvailableQuantity } from "@/lib/types/product";
+import { formatPrice, getDiscountPercentage, isInStock, getAvailableQuantity, isSubscriptionProduct, formatSubscriptionPrice } from "@/lib/types/product";
 import { AddToCartButton } from "./AddToCartButton";
 
 interface ProductDetailProps {
@@ -26,6 +26,7 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
   const discount = getDiscountPercentage(product);
   const inStock = isInStock(product);
   const availableQty = getAvailableQuantity(product);
+  const isSubscription = isSubscriptionProduct(product);
 
   const handleQuantityChange = (delta: number) => {
     setQuantity((prev) => {
@@ -59,6 +60,11 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
 
           {/* Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
+            {isSubscription && (
+              <span className="bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                Subscription
+              </span>
+            )}
             {discount && (
               <span className="bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
                 Save {discount}%
@@ -109,6 +115,12 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
             <ProductTypeIcon className="w-4 h-4" />
             {product.productType}
           </span>
+          {isSubscription && (
+            <span className="flex items-center gap-1 text-purple-700 bg-purple-100 px-2 py-1 rounded">
+              <RefreshCw className="w-4 h-4" />
+              Recurring
+            </span>
+          )}
         </div>
 
         {/* Title */}
@@ -119,7 +131,14 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
         {/* Price */}
         <div className="flex items-baseline gap-3">
           <span className="text-3xl font-bold text-gray-900">
-            {formatPrice(product.pricing.price, currency)}
+            {isSubscription && product.subscription
+              ? formatSubscriptionPrice(
+                  product.pricing.price,
+                  product.subscription.interval,
+                  product.subscription.intervalCount || 1,
+                  currency
+                )
+              : formatPrice(product.pricing.price, currency)}
           </span>
           {product.pricing.compareAtPrice && (
             <span className="text-xl text-gray-400 line-through">
@@ -127,6 +146,27 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
             </span>
           )}
         </div>
+
+        {/* Subscription Info */}
+        {isSubscription && product.subscription && (
+          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-purple-800 font-medium mb-2">
+              <RefreshCw className="w-5 h-5" />
+              <span>Subscription Details</span>
+            </div>
+            <ul className="text-sm text-purple-700 space-y-1">
+              <li>
+                Billed {product.subscription.intervalCount === 1
+                  ? (product.subscription.interval === "month" ? "monthly" : "yearly")
+                  : `every ${product.subscription.intervalCount} ${product.subscription.interval}s`}
+              </li>
+              {product.subscription.trialDays && (
+                <li>{product.subscription.trialDays}-day free trial</li>
+              )}
+              <li>Cancel anytime from your account</li>
+            </ul>
+          </div>
+        )}
 
         {/* Description */}
         {product.description && (

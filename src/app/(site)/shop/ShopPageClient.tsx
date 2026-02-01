@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import type { Product, SortOption } from "@/lib/types/product";
-import { sortProducts } from "@/lib/types/product";
+import { sortProducts, isSubscriptionProduct } from "@/lib/types/product";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductFilters } from "@/components/shop/ProductFilters";
 import { ProductSort } from "@/components/shop/ProductSort";
@@ -37,7 +37,11 @@ export function ShopPageClient({
 
     // Product type filter
     if (selectedProductType) {
-      filtered = filtered.filter((p) => p.productType === selectedProductType);
+      if (selectedProductType === "subscription") {
+        filtered = filtered.filter((p) => isSubscriptionProduct(p));
+      } else {
+        filtered = filtered.filter((p) => p.productType === selectedProductType && !isSubscriptionProduct(p));
+      }
     }
 
     // In stock filter

@@ -5,10 +5,18 @@ import {
   generateOrderId,
   saveOrder,
   getOrderBySessionId,
-  updateOrder,
   type Order,
   type OrderItem,
 } from "@/lib/orders";
+import {
+  generateSubscriptionId,
+  saveSubscription,
+  getSubscriptionByStripeId,
+  updateSubscription,
+  type Subscription,
+  type SubscriptionStatus,
+} from "@/lib/subscriptions";
+import type { BillingInterval } from "@/lib/types/product";
 
 export async function POST(request: NextRequest) {
   const stripe = getStripe();
@@ -149,6 +157,168 @@ export async function POST(request: NextRequest) {
       // Find and update the order if it exists
       // Note: This is a simplified approach - in production you might want to
       // look up by payment_intent instead
+      break;
+    }
+
+    // Subscription events
+    case "customer.subscription.created": {
+      const stripeSubscription = event.data.object;
+      console.log("Subscription created:", stripeSubscription.id);
+
+      // Check if subscription already exists (idempotency)
+      const existingSub = getSubscriptionByStripeId(stripeSubscription.id);
+      if (existingSub) {
+        console.log("Subscription already exists:", existingSub.id);
+        break;
+      }
+
+      try {
+        // Get customer details
+        const customerId = typeof stripeSubscription.customer === "string"
+          ? stripeSubscription.customer
+          : stripeSubscription.customer.id;
+        const customer = await stripe.customers.retrieve(customerId);
+        const customerData = customer as Stripe.Customer;
+
+        // Get product details from the first subscription item
+        const item = stripeSubscription.items.data[0];
+        const priceData = item?.price;
+        const productId = typeof priceData?.product === "string"
+          ? priceData.product
+          : priceData?.product?.id;
+        const product = productId ? await stripe.products.retrieve(productId) : null;
+
+        // Map Stripe status to our status
+        const statusMap: Record<string, SubscriptionStatus> = {
+          active: "active",
+          past_due: "past_due",
+          canceled: "canceled",
+          unpaid: "past_due",
+          trialing: "trialing",
+          incomplete: "past_due",
+          incomplete_expired: "canceled",
+          paused: "paused",
+        };
+
+        // Access the raw subscription data for period timestamps
+        const subData = stripeSubscription as unknown as {
+          current_period_start: number;
+          current_period_end: number;
+          trial_end: number | null;
+          canceled_at: number | null;
+        };
+
+        const subscription: Subscription = {
+          id: generateSubscriptionId(),
+          stripeSubscriptionId: stripeSubscription.id,
+          stripeCustomerId: customerId,
+          status: statusMap[stripeSubscription.status] || "active",
+          customer: {
+            email: customerData.email || "",
+            name: customerData.name || undefined,
+          },
+          productSlug: product?.metadata?.productSlug || product?.name || "unknown",
+          productName: product?.name || "Unknown Product",
+          amount: priceData?.unit_amount || 0,
+          currency: (priceData?.currency || "usd").toUpperCase(),
+          interval: (priceData?.recurring?.interval || "month") as BillingInterval,
+          intervalCount: priceData?.recurring?.interval_count || 1,
+          currentPeriodStart: new Date(subData.current_period_start * 1000).toISOString(),
+          currentPeriodEnd: new Date(subData.current_period_end * 1000).toISOString(),
+          trialEnd: subData.trial_end
+            ? new Date(subData.trial_end * 1000).toISOString()
+            : undefined,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          metadata: stripeSubscription.metadata || undefined,
+        };
+
+        saveSubscription(subscription);
+        console.log("Subscription saved:", subscription.id, "for", subscription.customer.email);
+      } catch (err) {
+        console.error("Failed to create subscription record:", err);
+      }
+      break;
+    }
+
+    case "customer.subscription.updated": {
+      const stripeSubscription = event.data.object;
+      console.log("Subscription updated:", stripeSubscription.id);
+
+      const localSub = getSubscriptionByStripeId(stripeSubscription.id);
+      if (localSub) {
+        // Map Stripe status to our status
+        const statusMap: Record<string, SubscriptionStatus> = {
+          active: "active",
+          past_due: "past_due",
+          canceled: "canceled",
+          unpaid: "past_due",
+          trialing: "trialing",
+          incomplete: "past_due",
+          incomplete_expired: "canceled",
+          paused: "paused",
+        };
+
+        // Access the raw subscription data for period timestamps
+        const subData = stripeSubscription as unknown as {
+          current_period_start: number;
+          current_period_end: number;
+          canceled_at: number | null;
+        };
+
+        updateSubscription(localSub.id, {
+          status: statusMap[stripeSubscription.status] || localSub.status,
+          currentPeriodStart: new Date(subData.current_period_start * 1000).toISOString(),
+          currentPeriodEnd: new Date(subData.current_period_end * 1000).toISOString(),
+          canceledAt: subData.canceled_at
+            ? new Date(subData.canceled_at * 1000).toISOString()
+            : undefined,
+        });
+        console.log("Subscription updated:", localSub.id);
+      }
+      break;
+    }
+
+    case "customer.subscription.deleted": {
+      const stripeSubscription = event.data.object;
+      console.log("Subscription deleted:", stripeSubscription.id);
+
+      const localSub = getSubscriptionByStripeId(stripeSubscription.id);
+      if (localSub) {
+        updateSubscription(localSub.id, {
+          status: "canceled",
+          canceledAt: new Date().toISOString(),
+        });
+        console.log("Subscription canceled:", localSub.id);
+      }
+      break;
+    }
+
+    case "invoice.paid": {
+      const invoice = event.data.object;
+      // Access subscription from raw data
+      const invoiceData = invoice as unknown as { subscription?: string };
+      console.log("Invoice paid:", invoice.id, "for subscription:", invoiceData.subscription);
+      // Could trigger fulfillment for physical subscription products here
+      break;
+    }
+
+    case "invoice.payment_failed": {
+      const invoice = event.data.object;
+      // Access subscription from raw data
+      const invoiceData = invoice as unknown as { subscription?: string };
+      console.log("Invoice payment failed:", invoice.id, "for subscription:", invoiceData.subscription);
+
+      // Update subscription status if it exists
+      if (invoiceData.subscription) {
+        const localSub = getSubscriptionByStripeId(invoiceData.subscription);
+        if (localSub) {
+          updateSubscription(localSub.id, {
+            status: "past_due",
+          });
+          console.log("Subscription marked as past_due:", localSub.id);
+        }
+      }
       break;
     }
 
