@@ -37,9 +37,9 @@ export function Team({ heading, subheading, members, isFirstBlock = false }: Tea
           </div>
         )}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {members.map((member, index) => (
-            <div key={index} className="card overflow-hidden group dark:shadow-lg dark:shadow-black/20">
+            <div key={index} className="card overflow-hidden group dark:shadow-lg dark:shadow-black/20 w-full sm:w-72">
               {/* Photo */}
               <div className="relative aspect-square overflow-hidden bg-gray-100">
                 {member.photo ? (
