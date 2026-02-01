@@ -4,7 +4,7 @@
     "features": {
       "shop": {
         "enabled": true,
-        "currency": "CAD",
+        "currency": "USD",
         "productsPerPage": 12,
         "gridColumns": "3"
       },
@@ -12,21 +12,21 @@
         "enabled": true
       },
       "events": {
-        "enabled": true
+        "enabled": false
       }
     }
   },
-  "siteName": "Horizon Community Foundation",
-  "tagline": "Building stronger communities through education and empowerment",
+  "siteName": "JAMALEDDIN LLC",
+  "tagline": "Consulting Agency",
   "logo": {
-    "main": "/images/logo.png",
-    "icon": "/images/favicon.png",
-    "light": "/images/logo-light.png"
+    "main": "/images/logo.jpg",
+    "icon": "/images/logo.jpg",
+    "light": "/images/logo.jpg"
   },
   "theme": {
-    "primaryColor": "#476A7D",
-    "secondaryColor": "#A4C685",
-    "accentColor": "#E8B54D",
+    "primaryColor": "#1a365d",
+    "secondaryColor": "#2563eb",
+    "accentColor": "#f59e0b",
     "backgroundColor": "#ffffff",
     "textColor": "#1a1a1a"
   },
@@ -38,21 +38,23 @@
     "navbar": "floating",
     "footer": "full",
     "navbarButton": {
-      "enabled": false
+      "enabled": true,
+      "text": "Get Started",
+      "link": "/contact"
     }
   },
   "social": {
-    "facebook": "https://facebook.com/horizonfoundation",
-    "instagram": "https://instagram.com/horizonfoundation",
-    "twitter": "https://twitter.com/horizonfdn",
-    "linkedin": "https://linkedin.com/company/horizon-foundation",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": "",
     "youtube": "",
     "tiktok": ""
   },
   "contact": {
-    "email": "hello@horizonfoundation.org",
-    "phone": "(555) 123-4567",
-    "address": "123 Community Way\nSpringfield, IL 62701"
+    "email": "contact@jamaleddin.com",
+    "phone": "",
+    "address": ""
   },
   "analytics": {
     "googleAnalyticsId": "",
@@ -60,9 +62,9 @@
     "plausibleDomain": ""
   },
   "seo": {
-    "titleTemplate": "%s | Horizon Community Foundation",
-    "defaultDescription": "Horizon Community Foundation empowers communities through education, mentorship, and engagement programs. Join us in creating lasting change.",
-    "defaultOgImage": "/images/og-image.jpg"
+    "titleTemplate": "%s | JAMALEDDIN LLC",
+    "defaultDescription": "JAMALEDDIN LLC - Professional consulting services to help your business grow.",
+    "defaultOgImage": "/images/logo.jpg"
   },
   "navigation": []
 }
