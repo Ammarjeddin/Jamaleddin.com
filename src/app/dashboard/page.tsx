@@ -16,6 +16,7 @@ import {
   Upload,
   Receipt,
   RefreshCw,
+  Plug,
 } from "lucide-react";
 
 export const metadata = {
@@ -350,6 +351,32 @@ export default async function DashboardPage() {
                     Review & Publish
                   </Link>
                 </div>
+              </div>
+            </>
+          )}
+
+          {/* Settings Section (Admin only) */}
+          {user.role === "admin" && (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Settings</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <Link
+                  href="/dashboard/integrations"
+                  className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
+                      <Plug className="w-6 h-6 text-indigo-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Integrations</h4>
+                      <p className="text-sm text-gray-500">API keys & services</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    View Stripe, authentication, and other integration status.
+                  </p>
+                </Link>
               </div>
             </>
           )}
