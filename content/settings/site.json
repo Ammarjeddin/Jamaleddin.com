@@ -16,7 +16,7 @@
       }
     }
   },
-  "siteName": "JAMALEDDIN LLC",
+  "siteName": "Jamaleddin LLC",
   "tagline": "Consulting Agency",
   "logo": {
     "main": "/images/logo.jpg",
@@ -62,8 +62,8 @@
     "plausibleDomain": ""
   },
   "seo": {
-    "titleTemplate": "%s | JAMALEDDIN LLC",
-    "defaultDescription": "JAMALEDDIN LLC - Professional consulting services to help your business grow.",
+    "titleTemplate": "%s | Jamaleddin LLC",
+    "defaultDescription": "Jamaleddin LLC - Professional consulting services to help your business grow.",
     "defaultOgImage": "/images/logo.jpg"
   },
   "navigation": []

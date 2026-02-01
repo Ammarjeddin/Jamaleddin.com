@@ -1,28 +1,28 @@
 {
-  "title": "Horizon Community Foundation",
-  "description": "Empowering communities through education, mentorship, and engagement programs. Join us in creating lasting change.",
+  "title": "Jamaleddin LLC",
+  "description": "Consulting agency providing strategic business, technology, and growth solutions.",
   "hero": {
     "slides": [
       {
-        "title": "Empowering Communities, One Step at a Time",
-        "subtitle": "Join us in creating lasting change through education, mentorship, and community engagement.",
-        "backgroundImage": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80",
-        "buttonText": "Get Involved",
-        "buttonLink": "/get-involved"
+        "title": "Empowering Your Business Growth",
+        "subtitle": "Jamaleddin LLC provides strategic consulting services to help businesses scale, innovate, and succeed in today's competitive landscape.",
+        "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80",
+        "buttonText": "Get Started",
+        "buttonLink": "/contact"
       },
       {
-        "title": "Building Tomorrow's Leaders",
-        "subtitle": "Our youth leadership program develops skills, confidence, and community connections.",
-        "backgroundImage": "https://images.unsplash.com/photo-1529390079861-591f38ca9d64?w=1920&q=80",
-        "buttonText": "Learn More",
-        "buttonLink": "/programs/youth-leadership"
-      },
-      {
-        "title": "Education for Everyone",
-        "subtitle": "Accessible learning opportunities that transform lives at any age.",
-        "backgroundImage": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&q=80",
-        "buttonText": "Explore Programs",
+        "title": "Technology & Innovation",
+        "subtitle": "Leverage cutting-edge technology solutions to transform your business operations and drive digital innovation.",
+        "backgroundImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+        "buttonText": "Our Services",
         "buttonLink": "/programs"
+      },
+      {
+        "title": "Strategic Partnership",
+        "subtitle": "Partner with experienced consultants who understand your industry and are committed to your success.",
+        "backgroundImage": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80",
+        "buttonText": "Contact Us",
+        "buttonLink": "/contact"
       }
     ]
   },
@@ -31,83 +31,98 @@
       "_template": "stats",
       "heading": "Our Impact",
       "stats": [
-        { "number": "2,500+", "label": "People Served Annually" },
-        { "number": "15", "label": "Years of Service" },
-        { "number": "50+", "label": "Community Partners" },
-        { "number": "95%", "label": "Program Satisfaction" }
+        { "number": "50+", "label": "Projects Completed" },
+        { "number": "95%", "label": "Client Satisfaction" },
+        { "number": "10+", "label": "Years Experience" },
+        { "number": "24/7", "label": "Support Available" }
       ]
     },
     {
       "_template": "cardsGrid",
-      "heading": "Our Programs",
-      "subheading": "Discover how we're making a difference in our community",
-      "columns": "4",
+      "heading": "Our Services",
+      "subheading": "Comprehensive consulting solutions tailored to your needs",
+      "columns": "3",
       "cards": [
         {
-          "title": "Youth Leadership",
-          "description": "Developing the next generation of community leaders through mentorship, workshops, and real-world projects.",
-          "icon": "users",
-          "image": "https://images.unsplash.com/photo-1529390079861-591f38ca9d64?w=600&q=80",
-          "link": "/programs/youth-leadership"
+          "title": "Business Strategy",
+          "description": "Develop comprehensive business strategies that align with your goals and drive sustainable growth.",
+          "icon": "briefcase",
+          "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80",
+          "link": "/programs"
         },
         {
-          "title": "Adult Education",
-          "description": "Providing accessible learning opportunities for adults seeking to advance their careers and personal growth.",
-          "icon": "graduation-cap",
-          "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80",
-          "link": "/programs/adult-education"
+          "title": "Technology Consulting",
+          "description": "Leverage technology to streamline operations, improve efficiency, and stay ahead of the competition.",
+          "icon": "code",
+          "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+          "link": "/programs"
         },
         {
-          "title": "Community Wellness",
-          "description": "Promoting physical and mental health through fitness programs, counseling services, and wellness workshops.",
-          "icon": "heart",
-          "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80",
-          "link": "/programs/community-wellness"
+          "title": "Growth Advisory",
+          "description": "Scale your business with data-driven insights and proven growth methodologies.",
+          "icon": "trending-up",
+          "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+          "link": "/programs"
+        }
+      ]
+    },
+    {
+      "_template": "team",
+      "heading": "Meet Our Team",
+      "subheading": "Expert consultants ready to help you succeed",
+      "columns": "2",
+      "members": [
+        {
+          "name": "Ammar Jamaleddin",
+          "role": "Founder & CEO",
+          "bio": "Experienced professional with background at Bosch USA and Goldman Sachs 10,000 Small Businesses program. Passionate about helping businesses grow through strategic consulting.",
+          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+          "linkedin": "https://www.linkedin.com/in/ammarjeddin/"
         },
         {
-          "title": "Digital Skills",
-          "description": "Bridging the digital divide with hands-on technology training for all ages and skill levels.",
-          "icon": "laptop",
-          "image": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&q=80",
-          "link": "/programs/digital-skills"
+          "name": "Abdul Aziz Jamal Eddin",
+          "role": "Technology Lead",
+          "bio": "Software engineer with experience at major tech companies. University of Michigan graduate specializing in platform development and AI/ML solutions.",
+          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+          "linkedin": "https://www.linkedin.com/in/ajedev/"
         }
       ]
     },
     {
       "_template": "imageTextRight",
-      "image": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&q=80",
-      "imageAlt": "Community members collaborating",
-      "heading": "Together We're Stronger",
-      "content": "<p>At Horizon Community Foundation, we believe in the power of community. When people come together to support one another, incredible things happen.</p><p>Join thousands of community members who have found their path through our programs.</p>",
-      "buttonText": "Learn About Us",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+      "imageAlt": "Team collaborating on strategy",
+      "heading": "Why Choose Us?",
+      "content": "<p>At Jamaleddin LLC, we combine strategic thinking with practical implementation. Our team brings diverse expertise from technology, business development, and industry leadership.</p><p>We don't just consult—we partner with you to ensure your success. Every engagement is tailored to your unique challenges and goals.</p>",
+      "buttonText": "Learn More",
       "buttonLink": "/about"
     },
     {
       "_template": "testimonials",
-      "heading": "What People Say",
+      "heading": "What Clients Say",
       "layout": "carousel",
       "items": [
         {
-          "quote": "The Youth Leadership Program changed my life. I gained confidence, skills, and a network of mentors who continue to support me today.",
-          "author": "Maria Santos",
-          "role": "Program Graduate, 2024",
-          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80"
+          "quote": "Jamaleddin LLC helped us transform our digital strategy and increase efficiency by 40%. Their hands-on approach made all the difference.",
+          "author": "Business Partner",
+          "role": "Technology Company",
+          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80"
         },
         {
-          "quote": "Thanks to the Digital Skills program, I was able to land my first tech job at 52. It's never too late to learn!",
-          "author": "Robert Chen",
-          "role": "Digital Skills Graduate",
-          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80"
+          "quote": "The strategic guidance we received was invaluable. They truly understand what it takes to scale a business in today's market.",
+          "author": "Startup Founder",
+          "role": "Healthcare Sector",
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80"
         }
       ]
     },
     {
       "_template": "ctaBox",
-      "heading": "Ready to Make a Difference?",
-      "text": "Whether you want to volunteer, donate, or participate in our programs, there's a place for you at Horizon.",
-      "buttonText": "Get Involved Today",
-      "buttonLink": "/get-involved",
-      "backgroundImage": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1200&q=80",
+      "heading": "Ready to Transform Your Business?",
+      "text": "Let's discuss how Jamaleddin LLC can help you achieve your business goals. Schedule a free consultation today.",
+      "buttonText": "Schedule Consultation",
+      "buttonLink": "/contact",
+      "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
       "style": "primary"
     }
   ]

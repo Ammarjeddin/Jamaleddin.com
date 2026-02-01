@@ -1,0 +1,73 @@
+{
+  "title": "Technology Consulting",
+  "description": "Leverage technology to streamline operations, improve efficiency, and stay ahead of the competition.",
+  "icon": "code",
+  "featured": true,
+  "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Technology Consulting",
+      "subtitle": "Digital transformation for the modern business",
+      "backgroundImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+      "height": "medium"
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+      "imageAlt": "Technology solutions",
+      "heading": "Technology That Drives Results",
+      "content": "<p>In today's digital landscape, the right technology decisions can make or break your business. We help you navigate the complex world of technology to find solutions that truly fit your needs.</p><p>From platform development to AI/ML integration, our team brings hands-on experience from leading tech companies to every engagement.</p>",
+      "buttonText": "Learn More",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Technology Services",
+      "columns": "3",
+      "cards": [
+        {
+          "title": "Platform Development",
+          "description": "Custom software solutions designed to scale with your business and integrate with your existing systems.",
+          "icon": "layers"
+        },
+        {
+          "title": "AI & Machine Learning",
+          "description": "Practical AI solutions that automate processes, provide insights, and create competitive advantages.",
+          "icon": "cpu"
+        },
+        {
+          "title": "Digital Transformation",
+          "description": "End-to-end digital transformation strategies that modernize operations and improve customer experience.",
+          "icon": "refresh-cw"
+        }
+      ]
+    },
+    {
+      "_template": "imageTextLeft",
+      "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
+      "imageAlt": "Development team",
+      "heading": "Expert Engineering",
+      "content": "<p>Our technology lead brings experience from major tech companies combined with a University of Michigan engineering background. We don't just recommend solutions—we can build them.</p><p>Whether you need a full custom platform or strategic guidance on technology investments, we have the expertise to deliver.</p>"
+    },
+    {
+      "_template": "stats",
+      "heading": "Technology Impact",
+      "stats": [
+        { "number": "40%", "label": "Efficiency Gains" },
+        { "number": "100+", "label": "Systems Integrated" },
+        { "number": "99.9%", "label": "Uptime Achieved" },
+        { "number": "24/7", "label": "Support Available" }
+      ]
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Ready to Transform Your Technology?",
+      "text": "Let's discuss how technology can accelerate your business growth.",
+      "buttonText": "Schedule Consultation",
+      "buttonLink": "/contact",
+      "backgroundImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
+      "style": "primary"
+    }
+  ]
+}

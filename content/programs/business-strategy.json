@@ -1,0 +1,73 @@
+{
+  "title": "Business Strategy",
+  "description": "Develop comprehensive business strategies that align with your goals and drive sustainable growth.",
+  "icon": "briefcase",
+  "featured": true,
+  "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Business Strategy Consulting",
+      "subtitle": "Strategic planning for sustainable growth",
+      "backgroundImage": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80",
+      "height": "medium"
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+      "imageAlt": "Strategic planning session",
+      "heading": "Strategic Vision to Execution",
+      "content": "<p>Every successful business needs a clear strategy. We work with you to develop comprehensive business plans that align your vision with actionable steps for growth.</p><p>Our approach combines rigorous analysis with practical insights, ensuring your strategy is both ambitious and achievable.</p>",
+      "buttonText": "Schedule Consultation",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Strategic Services",
+      "columns": "3",
+      "cards": [
+        {
+          "title": "Market Analysis",
+          "description": "In-depth market research and competitive analysis to identify opportunities and position your business for success.",
+          "icon": "search"
+        },
+        {
+          "title": "Business Planning",
+          "description": "Comprehensive business plans including financial projections, operational strategies, and growth roadmaps.",
+          "icon": "file-text"
+        },
+        {
+          "title": "Growth Strategy",
+          "description": "Scalable growth strategies that leverage your strengths and capitalize on market opportunities.",
+          "icon": "trending-up"
+        }
+      ]
+    },
+    {
+      "_template": "imageTextLeft",
+      "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80",
+      "imageAlt": "Business collaboration",
+      "heading": "Partnership Approach",
+      "content": "<p>We don't just deliver a strategy document and walk away. Our team partners with you through implementation, providing guidance, support, and adjustments as your business evolves.</p><p>With experience from Fortune 500 companies and successful startups, we bring proven methodologies adapted to your unique situation.</p>"
+    },
+    {
+      "_template": "stats",
+      "heading": "Our Track Record",
+      "stats": [
+        { "number": "50+", "label": "Strategies Delivered" },
+        { "number": "95%", "label": "Client Satisfaction" },
+        { "number": "40%", "label": "Avg. Growth Achieved" },
+        { "number": "10+", "label": "Years Experience" }
+      ]
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Ready to Define Your Strategy?",
+      "text": "Let's discuss your business goals and develop a strategy that drives results.",
+      "buttonText": "Get Started",
+      "buttonLink": "/contact",
+      "backgroundImage": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80",
+      "style": "primary"
+    }
+  ]
+}

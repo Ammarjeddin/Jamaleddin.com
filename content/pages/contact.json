@@ -1,46 +1,45 @@
 {
   "title": "Contact Us",
-  "description": "Get in touch with Horizon Community Foundation. We'd love to hear from you.",
+  "description": "Get in touch with Jamaleddin LLC. Let's discuss how we can help your business grow.",
   "blocks": [
     {
       "_template": "heroBanner",
       "title": "Contact Us",
-      "subtitle": "We'd love to hear from you",
+      "subtitle": "Let's start a conversation",
       "height": "small"
     },
     {
       "_template": "contactInfo",
       "heading": "Get in Touch",
       "showForm": true,
-      "showMap": true,
-      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1841902907894!2d-73.98784492426285!3d40.75797657138946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus",
-      "email": "hello@horizonfoundation.org",
-      "phone": "(555) 123-4567",
-      "address": "123 Community Way\nSpringfield, IL 62701"
+      "showMap": false,
+      "email": "contact@jamaleddin.com",
+      "phone": "",
+      "address": ""
     },
     {
       "_template": "faq",
       "heading": "Frequently Asked Questions",
       "items": [
         {
-          "question": "What are your office hours?",
-          "answer": "Our community center is open Monday through Friday, 9 AM to 6 PM, and Saturday, 9 AM to 2 PM. We're closed on Sundays and major holidays."
+          "question": "What services does Jamaleddin LLC offer?",
+          "answer": "We offer strategic business consulting, technology solutions, and growth advisory services. Our team specializes in helping businesses scale operations, implement technology solutions, and develop sustainable growth strategies."
         },
         {
-          "question": "How can I sign up for a program?",
-          "answer": "You can register for programs through our website or by visiting our community center. Some programs have specific enrollment periods, so contact us for current availability."
+          "question": "How does the consultation process work?",
+          "answer": "We start with a free initial consultation to understand your business challenges and goals. From there, we develop a customized engagement plan tailored to your specific needs, timeline, and budget."
         },
         {
-          "question": "Do you offer virtual programs?",
-          "answer": "Yes! We offer several programs in virtual format, including our Digital Skills workshops and some Adult Education classes. Check our Events page for current offerings."
+          "question": "What industries do you work with?",
+          "answer": "We work with businesses across various industries including technology, manufacturing, healthcare, and professional services. Our diverse experience allows us to bring cross-industry insights to every engagement."
         },
         {
-          "question": "How can my organization partner with Horizon?",
-          "answer": "We love partnering with local businesses and organizations! Contact us to discuss sponsorship opportunities, employee volunteer programs, or collaborative initiatives."
+          "question": "What is your typical engagement timeline?",
+          "answer": "Engagement timelines vary based on scope and complexity. Some projects can be completed in a few weeks, while comprehensive transformation initiatives may span several months. We'll provide clear timeline expectations during our initial consultation."
         },
         {
-          "question": "Are donations tax-deductible?",
-          "answer": "Yes, Horizon Community Foundation is a registered 501(c)(3) nonprofit organization. All donations are tax-deductible to the extent allowed by law."
+          "question": "Do you offer ongoing support after project completion?",
+          "answer": "Yes, we offer various support options including retainer arrangements, periodic check-ins, and on-demand advisory services to ensure continued success after project completion."
         }
       ]
     }
