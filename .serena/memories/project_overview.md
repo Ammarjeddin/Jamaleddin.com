@@ -1,7 +1,7 @@
 # Jamaleddin.com - Project Overview
 
 ## Purpose
-A consulting agency website for **Jamaleddin LLC** built with Next.js 16+ and React 19. Features a block-based CMS, e-commerce shop, and admin dashboard.
+A consulting agency website for **Jamaleddin LLC** built with Next.js 16+ and React 19. Features a block-based CMS, services/shop, and admin dashboard.
 
 ## Tech Stack
 - **Framework**: Next.js 16.1.4 (App Router)
@@ -14,23 +14,27 @@ A consulting agency website for **Jamaleddin LLC** built with Next.js 16+ and Re
 - **E-commerce**: Stripe Checkout Sessions (server-side redirect)
 - **Content**: File-based JSON in `content/` directory
 
+## Design System
+- **Theme**: Dark mode (Obsidian #030303 background)
+- **Accent Color**: Gold #E8B54D (#B8A04A in settings)
+- **Glass Morphism**: Semi-transparent cards with backdrop-blur
+- **Animations**: Dot pattern background with wave ripples, scroll-triggered navbar glow
+
 ## Site Configuration
 - **Site Name**: Jamaleddin LLC
 - **Tagline**: Consulting Agency
-- **Primary Color**: #1a365d (dark blue)
-- **Secondary Color**: #2563eb (bright blue)
-- **Accent Color**: #f59e0b (amber)
-- **Contact**: contact@jamaleddin.com
+- **Homepage**: Minimal layout
+- **Navbar**: Floating (frosted glass pill with gold glow animation)
+- **Footer**: Minimal
 
 ## Key Features
 
 ### Public Site (`/`)
-- Homepage with hero, blocks, and services
+- Homepage with hero and blocks
 - About page
 - Contact page
-- Programs/Services (business-strategy, technology-consulting, growth-advisory)
-- Shop with Stripe checkout
-- Gallery
+- Services (shop functionality)
+- Programs
 
 ### Admin Dashboard (`/dashboard`)
 - Visual editor with live preview
@@ -42,19 +46,8 @@ A consulting agency website for **Jamaleddin LLC** built with Next.js 16+ and Re
 - Orders tracking
 - Publishing workflow
 
-### Layout Configuration
-- **Homepage**: Standard layout
-- **Navbar**: Floating (frosted glass pill)
-- **Footer**: Full (4-column)
-- **CTA Button**: "Get Started" → /contact
-
 ### 17+ Block Types
 Text, HeroBanner, ImageTextLeft, ImageTextRight, CardsGrid, CtaBox, FAQ, ImageGallery, ContactInfo, Stats, Testimonials, Video, Timeline, Team, Divider, ProductGrid, ProductShowcase
-
-### Shop / E-Commerce
-- Product data from `content/products/*.json`
-- Cart: React Context + localStorage persistence
-- Stripe Checkout Sessions
 
 ### Content Structure
 ```
@@ -63,15 +56,25 @@ content/
 ├── settings/site.json
 ├── home/index.json
 ├── pages/about.json, contact.json
-└── programs/business-strategy.json, technology-consulting.json, growth-advisory.json
+├── programs/*.json
+└── products/*.json
 ```
 
 ### Route Architecture
 - **Route Group `(site)/`**: Public pages with Navbar + Footer
-- **Dashboard**: Separate layout, forces light mode
+- **Dashboard**: Separate layout, dark theme
 - **Login**: Standalone page
 
+## Mobile Optimization (Feb 2026)
+- Touch targets minimum 44px throughout
+- Responsive typography scaling
+- Touch feedback (active states)
+- Mobile menu with slide-in animation
+- Increased first section padding to prevent navbar overlap
+
 ## Architecture Notes
-- A comprehensive architectural review exists in `ARCHITECTURE_REVIEW.md`
-- Dark mode: Uses Tailwind `dark:` classes with flash-free implementation
-- All components using dark mode context have `"use client"` directive
+- Dark mode enforced site-wide
+- All components use Tailwind responsive prefixes (sm:, md:, lg:)
+- Glass morphism cards with `.glass-card` CSS class
+- Cart icon only shows when items in cart
+- Navbar CTA button disabled
