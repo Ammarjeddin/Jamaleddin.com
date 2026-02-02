@@ -47,17 +47,17 @@ export async function ProductGrid({
   }[columns];
 
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container>
         {(heading || subheading) && (
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12 px-4 sm:px-0">
             {heading && (
-              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text)]  mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-text)] mb-3 sm:mb-4">
                 {heading}
               </h2>
             )}
             {subheading && (
-              <p className="text-lg text-[var(--color-text-muted)]  max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
@@ -65,13 +65,13 @@ export async function ProductGrid({
         )}
 
         {products.length > 0 ? (
-          <div className={`grid ${gridColsClass} gap-6`}>
+          <div className={`grid ${gridColsClass} gap-4 sm:gap-6 px-4 sm:px-0`}>
             {products.map((product) => (
               <ProductCard key={product.slug} product={product} />
             ))}
           </div>
         ) : (
-          <p className="text-center text-[var(--color-text-muted)]  py-12">
+          <p className="text-center text-[var(--color-text-muted)] py-8 sm:py-12 px-4 sm:px-0">
             No products found.
           </p>
         )}

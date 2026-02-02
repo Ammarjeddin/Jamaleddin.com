@@ -58,15 +58,15 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
   const animationState = isScrolled && isScrolling ? 'navbar-scrolling' : isScrolled ? 'navbar-scrolled' : 'navbar-idle';
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 py-3 sm:py-4">
       <Container>
         {/* Animated Gold Border Wrapper - Animation activates while scrolling */}
-        <div className={`navbar-glow-wrapper mx-4 md:mx-8 ${animationState}`}>
+        <div className={`navbar-glow-wrapper mx-2 sm:mx-4 md:mx-8 ${animationState}`}>
           <div className="navbar-animated-border">
-            <div className="navbar-inner flex items-center justify-between px-6 py-2.5">
+            <div className="navbar-inner flex items-center justify-between px-3 sm:px-6 py-2 sm:py-2.5">
 
               {/* Logo */}
-              <Link href="/" className="flex items-center gap-3 relative z-10">
+              <Link href="/" className="flex items-center gap-2 sm:gap-3 relative z-10 min-h-[44px]">
                 <NavbarLogo
                   mainLogo={settings.logo?.main}
                   darkLogo={settings.logo?.dark}
@@ -78,12 +78,12 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
               <NavLinks items={navigation} />
 
               {/* CTA Button, Cart & Mobile Menu */}
-              <div className="flex items-center gap-2 sm:gap-4 relative z-10">
+              <div className="flex items-center gap-2 sm:gap-3 relative z-10">
                 {showCart && <CartIcon />}
                 {settings.layout?.navbarButton?.enabled !== false && (
                   <Link
                     href={settings.layout?.navbarButton?.href || "/contact"}
-                    className="hidden md:inline-flex btn btn-primary text-sm"
+                    className="hidden lg:inline-flex btn btn-primary text-sm px-4 py-2"
                   >
                     {settings.layout?.navbarButton?.text || "Get Involved"}
                   </Link>

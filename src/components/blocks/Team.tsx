@@ -22,26 +22,26 @@ interface TeamProps {
 
 export function Team({ heading, subheading, members, isFirstBlock = false }: TeamProps) {
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container>
         {(heading || subheading) && (
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12 px-4 sm:px-0">
             {heading && (
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--color-text)]">{heading}</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-[var(--color-text)]">{heading}</h2>
             )}
             {subheading && (
-              <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
           </div>
         )}
 
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0">
           {members.map((member, index) => (
             <div
               key={index}
-              className="team-card group w-full sm:w-72"
+              className="team-card group w-full"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Glow border effect */}
@@ -79,15 +79,15 @@ export function Team({ heading, subheading, members, isFirstBlock = false }: Tea
                   {/* Gradient overlay for text readability */}
                   <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-                  {/* Social overlay */}
+                  {/* Social overlay - Touch-friendly on mobile */}
                   {(member.linkedin || member.twitter || member.email) && (
-                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
+                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 group-hover:opacity-100 sm:group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 sm:gap-4">
                       {member.linkedin && (
                         <a
                           href={member.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all duration-300 hover:scale-110"
+                          className="min-w-[44px] min-h-[44px] w-11 h-11 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] active:scale-95 transition-all duration-300"
                           aria-label={`${member.name}'s LinkedIn`}
                         >
                           <Linkedin className="w-5 h-5 text-white" />
@@ -98,7 +98,7 @@ export function Team({ heading, subheading, members, isFirstBlock = false }: Tea
                           href={member.twitter}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all duration-300 hover:scale-110"
+                          className="min-w-[44px] min-h-[44px] w-11 h-11 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] active:scale-95 transition-all duration-300"
                           aria-label={`${member.name}'s Twitter`}
                         >
                           <Twitter className="w-5 h-5 text-white" />
@@ -107,7 +107,7 @@ export function Team({ heading, subheading, members, isFirstBlock = false }: Tea
                       {member.email && (
                         <a
                           href={`mailto:${member.email}`}
-                          className="w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all duration-300 hover:scale-110"
+                          className="min-w-[44px] min-h-[44px] w-11 h-11 sm:w-11 sm:h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] active:scale-95 transition-all duration-300"
                           aria-label={`Email ${member.name}`}
                         >
                           <Mail className="w-5 h-5 text-white" />

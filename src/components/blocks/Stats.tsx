@@ -26,7 +26,7 @@ export function Stats({ heading, stats, isFirstBlock = false }: StatsProps) {
     <section
       className={cn(
         "section glass",
-        isFirstBlock && "-mt-20 pt-40"
+        isFirstBlock && "-mt-20 pt-36 sm:pt-40"
       )}
     >
       <Container>

@@ -53,15 +53,15 @@ export function Video({ heading, videoUrl, thumbnail, caption, isFirstBlock = fa
   }
 
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container size="narrow">
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--color-text)]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 text-[var(--color-text)] px-4 sm:px-0">
             {heading}
           </h2>
         )}
 
-        <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg dark:shadow-black/30">
+        <div className="relative aspect-video rounded-lg sm:rounded-xl overflow-hidden shadow-lg dark:shadow-black/30 mx-4 sm:mx-0">
           {isPlaying ? (
             <iframe
               src={embedUrl}
@@ -86,10 +86,10 @@ export function Video({ heading, videoUrl, thumbnail, caption, isFirstBlock = fa
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)]" />
               )}
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 active:bg-black/50 transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="w-8 h-8 text-[var(--color-primary)] ml-1" />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 active:scale-95 transition-transform">
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--color-primary)] ml-0.5 sm:ml-1" />
                 </div>
               </div>
             </button>
@@ -97,7 +97,7 @@ export function Video({ heading, videoUrl, thumbnail, caption, isFirstBlock = fa
         </div>
 
         {caption && (
-          <p className="text-center text-[var(--color-text-muted)] dark:text-gray-400 mt-4">
+          <p className="text-center text-sm sm:text-base text-[var(--color-text-muted)] dark:text-gray-400 mt-3 sm:mt-4 px-4 sm:px-0">
             {caption}
           </p>
         )}

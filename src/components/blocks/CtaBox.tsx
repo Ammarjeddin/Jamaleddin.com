@@ -37,7 +37,7 @@ export function CtaBox({
   };
 
   return (
-    <section className={cn("relative overflow-hidden", styleClasses[style], isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("relative overflow-hidden", styleClasses[style], isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       {style === "image" && backgroundImage && (
         <>
           <Image

@@ -23,27 +23,27 @@ export function ImageTextRight({
   isFirstBlock = false,
 }: ImageTextRightProps) {
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center px-4 sm:px-0">
           {/* Content */}
           <div className="order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[var(--color-text)]">{heading}</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[var(--color-text)]">{heading}</h2>
             {content && (
               <div
-                className="prose prose-lg text-[var(--color-text-muted)] dark:prose-invert mb-8"
+                className="prose prose-sm sm:prose-lg text-[var(--color-text-muted)] dark:prose-invert mb-6 sm:mb-8"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
             )}
             {buttonText && buttonLink && (
-              <Link href={buttonLink} className="btn btn-primary">
+              <Link href={buttonLink} className="btn btn-primary w-full sm:w-auto">
                 {buttonText}
               </Link>
             )}
           </div>
 
           {/* Image */}
-          <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg dark:shadow-black/30 order-1 md:order-2">
+          <div className="relative aspect-[4/3] rounded-lg sm:rounded-xl overflow-hidden shadow-lg dark:shadow-black/30 order-1 md:order-2">
             <Image
               src={image}
               alt={imageAlt || heading}

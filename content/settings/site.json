@@ -39,7 +39,7 @@
     "navbar": "floating",
     "footer": "minimal",
     "navbarButton": {
-      "enabled": true,
+      "enabled": false,
       "text": "Get Started",
       "link": "/contact"
     }

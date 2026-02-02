@@ -276,6 +276,14 @@ html, body {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  /* Touch-friendly minimum size */
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Active state for touch feedback */
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-primary {
@@ -910,6 +918,22 @@ html, body {
   50% {
     box-shadow: 0 0 30px rgba(232, 181, 77, 0.4);
   }
+}
+
+/* Mobile menu slide-in animation */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.25s ease-out forwards;
 }
 
 .animate-fade-in {

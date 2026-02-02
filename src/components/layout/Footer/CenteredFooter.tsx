@@ -26,18 +26,18 @@ export function CenteredFooter({ settings, navigation }: CenteredFooterProps) {
       {/* Animated top border - matches navbar style */}
       <div className="footer-glow-border" />
 
-      <div className="footer-glass py-14">
+      <div className="footer-glass py-10 sm:py-14">
         <Container>
-          <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col items-center text-center px-4 sm:px-0">
             {/* Logo */}
-            <Link href="/" className="mb-8 group">
+            <Link href="/" className="mb-6 sm:mb-8 group">
               {settings.logo?.dark ? (
                 <Image
                   src={settings.logo.dark}
                   alt={settings.siteName}
                   width={180}
                   height={50}
-                  className="h-14 w-auto transition-transform group-hover:scale-105"
+                  className="h-10 sm:h-14 w-auto transition-transform group-hover:scale-105"
                 />
               ) : settings.logo?.light ? (
                 <Image
@@ -45,37 +45,37 @@ export function CenteredFooter({ settings, navigation }: CenteredFooterProps) {
                   alt={settings.siteName}
                   width={180}
                   height={50}
-                  className="h-14 w-auto transition-transform group-hover:scale-105"
+                  className="h-10 sm:h-14 w-auto transition-transform group-hover:scale-105"
                 />
               ) : (
-                <span className="text-3xl font-bold text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">
+                <span className="text-2xl sm:text-3xl font-bold text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">
                   {settings.siteName}
                 </span>
               )}
             </Link>
 
-            {/* Navigation Links */}
-            <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10">
+            {/* Navigation Links - Touch-friendly */}
+            <nav className="flex flex-wrap justify-center gap-x-4 sm:gap-x-8 gap-y-2 sm:gap-y-3 mb-8 sm:mb-10">
               {navigation.slice(0, 6).map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors font-medium"
+                  className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors font-medium text-sm sm:text-base py-1 min-h-[44px] sm:min-h-0 flex items-center"
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Social Links */}
-            <div className="flex gap-4 mb-10">
+            {/* Social Links - Touch-friendly */}
+            <div className="flex gap-3 mb-8 sm:mb-10">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-social-icon"
+                  className="footer-social-icon min-w-[44px] min-h-[44px] w-11 h-11"
                   aria-label={link.name}
                 >
                   <link.icon className="w-5 h-5" />
@@ -84,16 +84,16 @@ export function CenteredFooter({ settings, navigation }: CenteredFooterProps) {
             </div>
 
             {/* Divider with gold accent */}
-            <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent mb-8" />
+            <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent mb-6 sm:mb-8" />
 
             {/* Copyright & Admin */}
             <div className="flex items-center gap-4">
-              <p className="text-zinc-500 text-sm">
+              <p className="text-zinc-500 text-xs sm:text-sm">
                 &copy; {currentYear} {settings.siteName}. All rights reserved.
               </p>
               <Link
                 href="/dashboard"
-                className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
+                className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
                 title="Admin Dashboard"
               >
                 <Settings className="w-4 h-4" />
