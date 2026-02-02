@@ -26,7 +26,7 @@ export function NavbarLogo({ mainLogo, darkLogo, siteName, size = 40 }: NavbarLo
   // If we have a dark logo, show both and toggle visibility with CSS
   if (darkLogo) {
     return (
-      <>
+      <div className="flex items-center gap-2 sm:gap-3">
         <Image
           src={mainLogo}
           alt={siteName}
@@ -41,18 +41,36 @@ export function NavbarLogo({ mainLogo, darkLogo, siteName, size = 40 }: NavbarLo
           height={size}
           className={`h-10 w-auto transition-opacity ${isDarkMode ? 'block' : 'hidden'}`}
         />
-      </>
+        {/* Company name wordmark */}
+        <Image
+          src="/images/logoWord.png"
+          alt={`${siteName} wordmark`}
+          width={120}
+          height={32}
+          className="h-6 sm:h-7 w-auto"
+        />
+      </div>
     );
   }
 
   // Only main logo available
   return (
-    <Image
-      src={mainLogo}
-      alt={siteName}
-      width={size}
-      height={size}
-      className="h-10 w-auto"
-    />
+    <div className="flex items-center gap-2 sm:gap-3">
+      <Image
+        src={mainLogo}
+        alt={siteName}
+        width={size}
+        height={size}
+        className="h-10 w-auto"
+      />
+      {/* Company name wordmark */}
+      <Image
+        src="/images/logoWord.png"
+        alt={`${siteName} wordmark`}
+        width={120}
+        height={32}
+        className="h-6 sm:h-7 w-auto"
+      />
+    </div>
   );
 }
