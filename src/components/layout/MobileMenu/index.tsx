@@ -44,7 +44,7 @@ export function MobileMenu({ items, className, showCart = false }: MobileMenuPro
       {/* Hamburger Button - 44px minimum touch target */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[var(--color-accent)]/30 active:scale-95 transition-all"
+        className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-[rgba(10,10,10,0.8)] backdrop-blur-sm border border-white/20 hover:bg-[rgba(10,10,10,0.9)] hover:border-[var(--color-accent)]/30 active:scale-95 transition-all"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? (

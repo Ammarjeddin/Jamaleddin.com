@@ -93,12 +93,14 @@ export function ShopPageClient({
 
   return (
     <div>
-      {/* Access Code Search - Top of page */}
-      <div className="mb-8 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700">
+      {/* Access Code Search - Glass morphism styling */}
+      <div className="mb-8 p-5 glass-card rounded-xl border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-gray-500 dark:text-slate-400" />
-            <span className="text-sm font-medium text-[var(--color-text)]">Have an access code?</span>
+            <div className="w-8 h-8 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center">
+              <Lock className="w-4 h-4 text-[var(--color-accent)]" />
+            </div>
+            <span className="text-sm font-medium text-zinc-100">Have an access code?</span>
           </div>
           <div className="flex gap-2 flex-1 max-w-md">
             <input
@@ -107,34 +109,34 @@ export function ShopPageClient({
               onChange={(e) => setAccessCode(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAccessCodeSearch()}
               placeholder="Enter your access code"
-              className="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-[var(--color-text)] placeholder-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-primary"
+              className="flex-1 px-4 py-2.5 text-sm border border-white/10 rounded-xl bg-white/5 text-zinc-100 placeholder-zinc-500 focus:ring-2 focus:ring-[var(--color-accent)]/50 focus:border-[var(--color-accent)]/50 focus:outline-none transition-all"
             />
             <button
               onClick={handleAccessCodeSearch}
               disabled={searching || !accessCode.trim()}
-              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+              className="px-5 py-2.5 bg-[var(--color-accent)] text-black font-medium rounded-xl hover:bg-[var(--color-accent-light)] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
             >
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Search</span>
             </button>
           </div>
           {searchError && (
-            <p className="text-sm text-red-600 dark:text-red-400">{searchError}</p>
+            <p className="text-sm text-red-400">{searchError}</p>
           )}
         </div>
       </div>
 
       {/* Unlisted Product Result */}
       {unlistedProduct && (
-        <div className="mb-8 p-6 bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded-xl border border-primary/20">
+        <div className="mb-8 p-6 glass-card rounded-xl border border-[var(--color-accent)]/30 bg-gradient-to-r from-[var(--color-accent)]/5 to-[var(--color-accent)]/10">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-[var(--color-text)]">🔓 Exclusive Service Unlocked</h3>
+            <h3 className="text-lg font-semibold text-zinc-100">🔓 Exclusive Service Unlocked</h3>
             <button
               onClick={() => {
                 setUnlistedProduct(null);
                 setAccessCode("");
               }}
-              className="text-sm text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-300"
+              className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
             >
               Clear
             </button>
@@ -178,14 +180,14 @@ export function ShopPageClient({
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-lg text-gray-500 dark:text-slate-400">No products found matching your criteria.</p>
+            <p className="text-lg text-zinc-400">No products found matching your criteria.</p>
             <button
               onClick={() => {
                 setSelectedCategory(undefined);
                 setSelectedProductType(undefined);
                 setInStockOnly(false);
               }}
-              className="mt-4 text-primary hover:underline"
+              className="mt-4 text-[var(--color-accent)] hover:text-[var(--color-accent-light)] transition-colors"
             >
               Clear all filters
             </button>
