@@ -47,17 +47,17 @@ export async function ProductGrid({
   }[columns];
 
   return (
-    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         {(heading || subheading) && (
           <div className="text-center mb-12">
             {heading && (
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text)]  mb-4">
                 {heading}
               </h2>
             )}
             {subheading && (
-              <p className="text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto">
+              <p className="text-lg text-[var(--color-text-muted)]  max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
@@ -71,7 +71,7 @@ export async function ProductGrid({
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 dark:text-slate-400 py-12">
+          <p className="text-center text-[var(--color-text-muted)]  py-12">
             No products found.
           </p>
         )}

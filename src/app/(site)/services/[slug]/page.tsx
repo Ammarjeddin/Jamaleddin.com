@@ -52,16 +52,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const currency = settings.template?.features?.shop?.currency || "USD";
 
   return (
-    <section className="section">
+    <section className="section glass">
       <Container>
         {/* Breadcrumb */}
         <nav className="mb-8">
           <Link
-            href="/shop"
-            className="inline-flex items-center text-gray-600 hover:text-primary transition-colors"
+            href="/services"
+            className="inline-flex items-center text-[var(--color-text-muted)] hover:text-primary transition-colors"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
-            Back to Shop
+            Back to Services
           </Link>
         </nav>
 
@@ -70,11 +70,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         {/* Long Description */}
         {product.longDescription ? (
-          <div className="mt-12 pt-12 border-t border-gray-200">
-            <h2 className="text-2xl font-bold mb-6">Product Details</h2>
-            <div className="prose prose-lg max-w-none">
+          <div className="mt-12 pt-12 border-t border-gray-200 dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-6 text-[var(--color-text)]">Product Details</h2>
+            <div className="prose prose-lg max-w-none dark:prose-invert">
               {/* Rich text would be rendered here */}
-              <p className="text-gray-600">
+              <p className="text-[var(--color-text-muted)]">
                 Additional product details and specifications would appear here.
               </p>
             </div>

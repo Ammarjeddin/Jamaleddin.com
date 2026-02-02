@@ -10,6 +10,7 @@ import {
   Settings,
   ArrowLeft,
   ExternalLink,
+  Info,
 } from "lucide-react";
 
 export const metadata = {
@@ -35,31 +36,31 @@ export default async function ShopAdminPage() {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
-                href="/"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                href="/dashboard"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Back to Site
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Shop Dashboard</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Shop Dashboard</h1>
             </div>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/admin"
-                className="flex items-center gap-2 text-primary hover:underline"
-              >
-                <ExternalLink className="w-4 h-4" />
-                TinaCMS Admin
-              </Link>
-            </div>
+            <a
+              href="https://dashboard.stripe.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Stripe Dashboard
+            </a>
           </div>
         </Container>
       </header>
@@ -67,144 +68,144 @@ export default async function ShopAdminPage() {
       <main className="py-8">
         <Container>
           {/* Stats Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Package className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-blue flex items-center justify-center">
+                  <Package className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Total Products</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalProducts}</p>
+                  <p className="text-sm text-zinc-400">Total Products</p>
+                  <p className="text-2xl font-bold text-zinc-100">{totalProducts}</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-zinc-500 mt-2">
                 {activeProducts} active
               </p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <DollarSign className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-green flex items-center justify-center">
+                  <DollarSign className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Inventory Value</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-zinc-400">Inventory Value</p>
+                  <p className="text-2xl font-bold text-zinc-100">
                     {formatPrice(totalInventoryValue)}
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-zinc-500 mt-2">
                 Based on current stock
               </p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <AlertTriangle className="w-6 h-6 text-yellow-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-orange flex items-center justify-center">
+                  <AlertTriangle className="w-6 h-6 text-orange-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Low Stock</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-zinc-400">Low Stock</p>
+                  <p className="text-2xl font-bold text-zinc-100">
                     {lowStockProducts.length}
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-zinc-500 mt-2">
                 {outOfStockProducts.length} out of stock
               </p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-purple-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-purple flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Orders</p>
-                  <p className="text-2xl font-bold text-gray-900">—</p>
+                  <p className="text-sm text-zinc-400">Orders</p>
+                  <p className="text-2xl font-bold text-zinc-100">—</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-zinc-500 mt-2">
                 View in Stripe Dashboard
               </p>
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-6">
             {/* Products Table */}
-            <div className="lg:col-span-2 bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="p-6 border-b border-gray-200">
+            <div className="lg:col-span-2 dashboard-card rounded-2xl overflow-hidden">
+              <div className="p-5 border-b border-[var(--color-border)]">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Products</h2>
+                  <h2 className="text-lg font-semibold text-zinc-100">Products</h2>
                   <Link
-                    href="/admin"
-                    className="text-sm text-primary hover:underline"
+                    href="/dashboard/products"
+                    className="text-sm text-[var(--color-accent)] hover:underline"
                   >
-                    Manage in TinaCMS
+                    Manage Products
                   </Link>
                 </div>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-[var(--color-surface-elevated)]">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-5 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">
                         Product
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-5 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-5 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">
                         Price
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-5 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">
                         Stock
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-[var(--color-border)]">
                     {products.map((product) => (
-                      <tr key={product.slug} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                      <tr key={product.slug} className="hover:bg-[var(--color-surface-elevated)] transition-colors">
+                        <td className="px-5 py-4 whitespace-nowrap">
                           <div>
-                            <p className="font-medium text-gray-900">{product.name}</p>
-                            <p className="text-sm text-gray-500">{product.category}</p>
+                            <p className="font-medium text-zinc-100">{product.name}</p>
+                            <p className="text-sm text-zinc-500">{product.category}</p>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-5 py-4 whitespace-nowrap">
                           <span
                             className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                               product.status === "active"
-                                ? "bg-green-100 text-green-800"
+                                ? "bg-green-500/10 text-green-400 border border-green-500/20"
                                 : product.status === "draft"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-gray-100 text-gray-800"
+                                ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
+                                : "bg-zinc-500/10 text-zinc-400 border border-zinc-500/20"
                             }`}
                           >
                             {product.status || "active"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-gray-900">
+                        <td className="px-5 py-4 whitespace-nowrap text-zinc-100">
                           {formatPrice(product.pricing.price)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-5 py-4 whitespace-nowrap">
                           {product.inventory?.trackInventory ? (
                             <span
                               className={`text-sm ${
                                 (product.inventory.quantity ?? 0) === 0
-                                  ? "text-red-600 font-medium"
+                                  ? "text-red-400 font-medium"
                                   : (product.inventory.quantity ?? 0) <= 5
-                                  ? "text-yellow-600"
-                                  : "text-gray-900"
+                                  ? "text-yellow-400"
+                                  : "text-zinc-100"
                               }`}
                             >
                               {product.inventory.quantity ?? 0}
                             </span>
                           ) : (
-                            <span className="text-gray-400">∞</span>
+                            <span className="text-zinc-500">∞</span>
                           )}
                         </td>
                       </tr>
@@ -215,43 +216,43 @@ export default async function ShopAdminPage() {
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               {/* Quick Actions */}
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-                <div className="space-y-3">
+              <div className="dashboard-card rounded-xl p-5">
+                <h2 className="text-lg font-semibold text-zinc-100 mb-4">Quick Actions</h2>
+                <div className="space-y-2">
                   <Link
-                    href="/admin"
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    href="/dashboard/products"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors text-zinc-300 hover:text-zinc-100"
                   >
-                    <Settings className="w-5 h-5 text-gray-500" />
-                    <span>Manage Products in TinaCMS</span>
+                    <Settings className="w-5 h-5 text-zinc-500" />
+                    <span>Manage Products</span>
                   </Link>
                   <a
                     href="https://dashboard.stripe.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors text-zinc-300 hover:text-zinc-100"
                   >
-                    <DollarSign className="w-5 h-5 text-gray-500" />
+                    <DollarSign className="w-5 h-5 text-zinc-500" />
                     <span>View Stripe Dashboard</span>
-                    <ExternalLink className="w-4 h-4 text-gray-400 ml-auto" />
+                    <ExternalLink className="w-4 h-4 text-zinc-600 ml-auto" />
                   </a>
                 </div>
               </div>
 
               {/* Low Stock Alert */}
               {lowStockProducts.length > 0 && (
-                <div className="bg-yellow-50 rounded-xl p-6">
-                  <h2 className="text-lg font-semibold text-yellow-800 mb-4 flex items-center gap-2">
+                <div className="rounded-xl p-5 bg-yellow-500/10 border border-yellow-500/20">
+                  <h2 className="text-lg font-semibold text-yellow-400 mb-4 flex items-center gap-2">
                     <AlertTriangle className="w-5 h-5" />
                     Low Stock Alert
                   </h2>
                   <ul className="space-y-2">
                     {lowStockProducts.map((product) => (
-                      <li key={product.slug} className="text-sm text-yellow-700">
+                      <li key={product.slug} className="text-sm text-yellow-300">
                         <span className="font-medium">{product.name}</span>
-                        <span className="text-yellow-600">
+                        <span className="text-yellow-400/70">
                           {" "}
                           — {product.inventory?.quantity} left
                         </span>
@@ -263,14 +264,14 @@ export default async function ShopAdminPage() {
 
               {/* Out of Stock */}
               {outOfStockProducts.length > 0 && (
-                <div className="bg-red-50 rounded-xl p-6">
-                  <h2 className="text-lg font-semibold text-red-800 mb-4 flex items-center gap-2">
+                <div className="rounded-xl p-5 bg-red-500/10 border border-red-500/20">
+                  <h2 className="text-lg font-semibold text-red-400 mb-4 flex items-center gap-2">
                     <Package className="w-5 h-5" />
                     Out of Stock
                   </h2>
                   <ul className="space-y-2">
                     {outOfStockProducts.map((product) => (
-                      <li key={product.slug} className="text-sm text-red-700">
+                      <li key={product.slug} className="text-sm text-red-300">
                         {product.name}
                       </li>
                     ))}
@@ -279,13 +280,17 @@ export default async function ShopAdminPage() {
               )}
 
               {/* Info Box */}
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h3 className="font-semibold text-blue-900 mb-2">About This Dashboard</h3>
-                <p className="text-sm text-blue-700">
-                  This dashboard provides a quick overview of your shop inventory.
-                  For full product management, use TinaCMS. For order management
-                  and payments, use the Stripe Dashboard.
-                </p>
+              <div className="dashboard-card rounded-xl p-5 border-l-4 border-l-[var(--color-accent)]">
+                <div className="flex items-start gap-3">
+                  <Info className="w-5 h-5 text-[var(--color-accent)] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-semibold text-zinc-100 mb-1">About This Dashboard</h3>
+                    <p className="text-sm text-zinc-400">
+                      This dashboard provides a quick overview of your shop inventory.
+                      For order management and payments, use the Stripe Dashboard.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

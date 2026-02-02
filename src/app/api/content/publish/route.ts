@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/auth";
-import { publishDraftToMain, isGitHubConfigured } from "@/lib/github";
+import { publishContentToMain, isGitHubConfigured } from "@/lib/github";
 
 // Helper to verify auth
 async function verifyAuth() {
@@ -34,7 +34,7 @@ export async function POST() {
   }
 
   try {
-    const result = await publishDraftToMain();
+    const result = await publishContentToMain();
 
     if (!result.success) {
       return NextResponse.json(

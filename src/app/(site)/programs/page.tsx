@@ -34,7 +34,7 @@ export default async function ProgramsPage() {
       </section>
 
       {/* Programs Grid */}
-      <section className="section dark:bg-slate-900">
+      <section className="section glass">
         <Container>
           <div className="grid md:grid-cols-2 gap-8">
             {programs.map(({ slug, content }) => {
@@ -50,10 +50,10 @@ export default async function ProgramsPage() {
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold mb-2 text-gray-900 group-hover:text-[var(--color-primary)] transition-colors">
+                      <h2 className="text-2xl font-bold mb-2 text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors">
                         {content.title}
                       </h2>
-                      <p className="text-gray-600 mb-4">
+                      <p className="text-[var(--color-text-muted)] mb-4">
                         {content.description}
                       </p>
                       <span className="text-[var(--color-primary)] font-medium">
@@ -69,11 +69,11 @@ export default async function ProgramsPage() {
       </section>
 
       {/* CTA */}
-      <section className="section bg-gray-50 dark:bg-slate-800">
+      <section className="section glass">
         <Container>
           <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4 dark:text-white">Not Sure Which Program Is Right for You?</h2>
-            <p className="text-lg text-gray-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-[var(--color-text)]">Not Sure Which Program Is Right for You?</h2>
+            <p className="text-lg text-[var(--color-text-muted)] mb-8 max-w-2xl mx-auto">
               Contact us and we&apos;ll help you find the perfect fit based on your goals and schedule.
             </p>
             <Link href="/contact" className="btn btn-primary">

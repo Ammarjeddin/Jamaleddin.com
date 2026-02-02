@@ -26,7 +26,7 @@ export function ProductSort({ value, onChange }: ProductSortProps) {
         id="sort-select"
         value={value}
         onChange={(e) => onChange(e.target.value as SortOption)}
-        className="appearance-none rounded-lg px-4 py-2 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-600 text-gray-700 dark:text-white"
+        className="appearance-none rounded-lg px-4 py-2 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent cursor-pointer border bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-600 text-[var(--color-text)]"
       >
         {sortOptions.map((option) => (
           <option key={option.value} value={option.value}>

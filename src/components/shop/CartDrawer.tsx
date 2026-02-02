@@ -52,20 +52,20 @@ export function CartDrawer({ currency = "USD" }: CartDrawerProps) {
 
       {/* Drawer */}
       <div
-        className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-xl z-50 flex flex-col"
+        className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-slate-800 shadow-xl z-50 flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+          <h2 className="text-lg font-semibold text-[var(--color-text)] flex items-center gap-2">
             <ShoppingBag className="w-5 h-5" />
             Cart ({itemCount})
           </h2>
           <button
             onClick={closeCart}
-            className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+            className="p-2 text-gray-400 hover:text-[var(--color-text-muted)] transition-colors"
             aria-label="Close cart"
           >
             <X className="w-6 h-6" />
@@ -79,11 +79,11 @@ export function CartDrawer({ currency = "USD" }: CartDrawerProps) {
               <ShoppingBag className="w-16 h-16 text-gray-300 mb-4" />
               <p className="text-gray-500 mb-4">Your cart is empty</p>
               <Link
-                href="/shop"
+                href="/services"
                 onClick={closeCart}
                 className="text-primary hover:underline font-medium"
               >
-                Continue Shopping
+                Browse Services
               </Link>
             </div>
           ) : (
@@ -101,11 +101,11 @@ export function CartDrawer({ currency = "USD" }: CartDrawerProps) {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-gray-200 px-6 py-4 space-y-4">
+          <div className="border-t border-gray-200 dark:border-slate-700 px-6 py-4 space-y-4">
             {/* Subtotal */}
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Subtotal</span>
-              <span className="text-xl font-semibold text-gray-900">
+              <span className="text-[var(--color-text-muted)]">Subtotal</span>
+              <span className="text-xl font-semibold text-[var(--color-text)]">
                 {formatPrice(subtotal, currency)}
               </span>
             </div>
@@ -117,16 +117,16 @@ export function CartDrawer({ currency = "USD" }: CartDrawerProps) {
             {/* Actions */}
             <div className="space-y-2">
               <Link
-                href="/shop/checkout"
+                href="/services/checkout"
                 onClick={closeCart}
                 className="block w-full bg-primary text-white text-center py-3 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 Checkout
               </Link>
               <Link
-                href="/shop/cart"
+                href="/services/cart"
                 onClick={closeCart}
-                className="block w-full bg-gray-100 text-gray-900 text-center py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+                className="block w-full bg-gray-100 dark:bg-slate-700 text-[var(--color-text)] text-center py-3 px-4 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
               >
                 View Cart
               </Link>

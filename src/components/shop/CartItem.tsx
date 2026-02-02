@@ -40,7 +40,7 @@ export function CartItem({ item, currency = "USD" }: CartItemProps) {
     : null;
 
   return (
-    <div className="flex gap-4 py-4 border-b border-gray-200">
+    <div className="flex gap-4 py-4 border-b border-gray-200 dark:border-slate-700">
       {/* Product Image */}
       <div className="relative w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
         <Image
@@ -56,14 +56,14 @@ export function CartItem({ item, currency = "USD" }: CartItemProps) {
       <div className="flex-1 min-w-0">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-medium text-gray-900 truncate">{product.name}</h3>
+            <h3 className="font-medium text-[var(--color-text)] truncate">{product.name}</h3>
             {variantName && (
               <p className="text-sm text-gray-500">{variantName}</p>
             )}
           </div>
           <button
             onClick={handleRemove}
-            className="text-gray-400 hover:text-gray-600 p-1"
+            className="text-gray-400 dark:text-slate-500 hover:text-[var(--color-text-muted)] p-1"
             aria-label="Remove item"
           >
             <X className="w-4 h-4" />
@@ -72,10 +72,10 @@ export function CartItem({ item, currency = "USD" }: CartItemProps) {
 
         <div className="flex justify-between items-end mt-2">
           {/* Quantity Controls */}
-          <div className="flex items-center border border-gray-200 rounded-lg">
+          <div className="flex items-center border border-gray-200 dark:border-slate-600 rounded-lg">
             <button
               onClick={handleDecrement}
-              className="p-1.5 hover:bg-gray-100 transition-colors"
+              className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
               aria-label="Decrease quantity"
             >
               <Minus className="w-4 h-4" />
@@ -85,7 +85,7 @@ export function CartItem({ item, currency = "USD" }: CartItemProps) {
             </span>
             <button
               onClick={handleIncrement}
-              className="p-1.5 hover:bg-gray-100 transition-colors"
+              className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
               aria-label="Increase quantity"
             >
               <Plus className="w-4 h-4" />
@@ -93,7 +93,7 @@ export function CartItem({ item, currency = "USD" }: CartItemProps) {
           </div>
 
           {/* Item Total */}
-          <p className="font-semibold text-gray-900">
+          <p className="font-semibold text-[var(--color-text)]">
             {formatPrice(product.pricing.price * quantity, currency)}
           </p>
         </div>

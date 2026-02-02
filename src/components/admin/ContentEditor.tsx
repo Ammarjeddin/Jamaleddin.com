@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
@@ -15,6 +15,8 @@ import {
   ChevronUp,
   Eye,
   X,
+  Palette,
+  Image as ImageIcon,
 } from "lucide-react";
 
 interface ContentEditorProps {
@@ -24,9 +26,96 @@ interface ContentEditorProps {
   filePath: string;
 }
 
+interface BlockColorSettings {
+  light?: {
+    textColor?: string;
+    backgroundColor?: string;
+    headingColor?: string;
+  };
+  dark?: {
+    textColor?: string;
+    backgroundColor?: string;
+    headingColor?: string;
+  };
+}
+
 interface Block {
   _template: string;
+  colorSettings?: BlockColorSettings;
   [key: string]: unknown;
+}
+
+interface HeroSlide {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+interface HeroConfig {
+  slides: HeroSlide[];
+}
+
+// Debounced Input Component - prevents losing focus on every keystroke
+function DebouncedInput({
+  value,
+  onChange,
+  type = "text",
+  className,
+  placeholder,
+  rows,
+  ...props
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  type?: "text" | "url" | "email" | "tel" | "number";
+  className?: string;
+  placeholder?: string;
+  rows?: number;
+  [key: string]: unknown;
+}) {
+  const [localValue, setLocalValue] = useState(value);
+  const isFirstRender = useRef(true);
+
+  // Sync local value when external value changes (but not on first render)
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    setLocalValue(value);
+  }, [value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    setLocalValue(newValue);
+    onChange(newValue);
+  };
+
+  if (rows) {
+    return (
+      <textarea
+        value={localValue}
+        onChange={handleChange}
+        className={className}
+        placeholder={placeholder}
+        rows={rows}
+        {...props}
+      />
+    );
+  }
+
+  return (
+    <input
+      type={type}
+      value={localValue}
+      onChange={handleChange}
+      className={className}
+      placeholder={placeholder}
+      {...props}
+    />
+  );
 }
 
 // Block type definitions for the editor
@@ -180,36 +269,36 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
     : `/dashboard/${collection}`;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-40">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
           <div className="py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href={backLink}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="group flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
-                <ArrowLeft className="w-5 h-5" />
-                {collectionLabels[collection] || "Back"}
+                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+                <span className="text-sm font-medium">{collectionLabels[collection] || "Back"}</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-xl font-bold text-gray-900">
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-lg font-semibold text-zinc-100 tracking-tight">
                 {(content.title as string) || (content.name as string) || (content.siteName as string) || slug}
               </h1>
             </div>
             <div className="flex items-center gap-3">
               {error && (
-                <span className="text-sm text-red-600">{error}</span>
+                <span className="text-sm text-red-400 bg-red-500/10 px-3 py-1 rounded-lg">{error}</span>
               )}
               {saved && (
-                <span className="text-sm text-green-600">Saved!</span>
+                <span className="text-sm text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-lg">Saved!</span>
               )}
               <a
                 href={collection === "home" ? "/" : `/${collection === "settings" ? "" : collection + "/"}${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors px-4 py-2 border border-gray-300 rounded-lg"
+                className="flex items-center gap-2 text-zinc-400 hover:text-zinc-200 transition-colors px-4 py-2 border border-[var(--color-border)] hover:border-zinc-600 rounded-lg bg-[var(--color-surface)]"
               >
                 <Eye className="w-4 h-4" />
                 Preview
@@ -217,7 +306,7 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+                className="btn-accent flex items-center gap-2 py-2 px-4 rounded-lg font-medium disabled:opacity-50"
               >
                 {saving ? (
                   <>
@@ -240,28 +329,27 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
         <Container>
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Basic Fields */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h2>
+            <div className="dashboard-card rounded-2xl p-6">
+              <h2 className="text-lg font-semibold text-zinc-100 mb-4">Basic Information</h2>
               <div className="space-y-4">
                 {/* Title/Name field */}
                 {("title" in content || "name" in content || "siteName" in content) && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-zinc-300 mb-1">
                       {collection === "products" ? "Name" : collection === "settings" ? "Site Name" : "Title"}
                     </label>
-                    <input
-                      type="text"
+                    <DebouncedInput
                       value={
                         (content.title as string) ||
                         (content.name as string) ||
                         (content.siteName as string) ||
                         ""
                       }
-                      onChange={(e) => {
+                      onChange={(value) => {
                         const field = collection === "products" ? "name" : collection === "settings" ? "siteName" : "title";
-                        updateField(field, e.target.value);
+                        updateField(field, value);
                       }}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                      className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
                     />
                   </div>
                 )}
@@ -269,34 +357,42 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                 {/* Description/Tagline */}
                 {("description" in content || "tagline" in content) && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-zinc-300 mb-1">
                       {collection === "settings" ? "Tagline" : "Description"}
                     </label>
-                    <textarea
+                    <DebouncedInput
                       value={(content.description as string) || (content.tagline as string) || ""}
-                      onChange={(e) => {
+                      onChange={(value) => {
                         const field = collection === "settings" ? "tagline" : "description";
-                        updateField(field, e.target.value);
+                        updateField(field, value);
                       }}
                       rows={3}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none"
+                      className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all resize-none"
                     />
                   </div>
                 )}
               </div>
             </div>
 
+            {/* Hero Section Editor - Only show for pages with hero */}
+            {"hero" in content && (
+              <HeroEditor
+                hero={(content.hero as HeroConfig) || { slides: [] }}
+                onChange={(hero) => updateField("hero", hero)}
+              />
+            )}
+
             {/* Blocks Editor */}
             {Array.isArray(content.blocks) && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Content Blocks</h2>
+                  <h2 className="text-lg font-semibold text-zinc-100">Content Blocks</h2>
                   <button
                     onClick={() => {
                       setInsertIndex(blocks.length);
                       setShowBlockPicker(true);
                     }}
-                    className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm"
+                    className="flex items-center gap-2 text-[var(--color-accent)] hover:text-[var(--color-accent-light)] font-medium text-sm"
                   >
                     <Plus className="w-4 h-4" />
                     Add Block
@@ -304,14 +400,14 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                 </div>
 
                 {blocks.length === 0 ? (
-                  <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-                    <p className="text-gray-500 mb-4">No blocks yet. Add your first content block.</p>
+                  <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-12 text-center">
+                    <p className="text-zinc-400 mb-4">No blocks yet. Add your first content block.</p>
                     <button
                       onClick={() => {
                         setInsertIndex(0);
                         setShowBlockPicker(true);
                       }}
-                      className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                      className="inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] text-white font-medium py-2 px-4 rounded-lg transition-colors"
                     >
                       <Plus className="w-5 h-5" />
                       Add Block
@@ -320,18 +416,18 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                 ) : (
                   <div className="space-y-3">
                     {blocks.map((block, index) => (
-                      <div key={index} className="bg-white rounded-xl shadow-sm overflow-hidden">
+                      <div key={index} className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl overflow-hidden">
                         {/* Block Header */}
                         <div
-                          className="flex items-center justify-between p-4 bg-gray-50 cursor-pointer"
+                          className="flex items-center justify-between p-4 bg-[var(--color-surface-elevated)] cursor-pointer"
                           onClick={() => toggleBlockExpanded(index)}
                         >
                           <div className="flex items-center gap-3">
-                            <GripVertical className="w-5 h-5 text-gray-400" />
-                            <span className="font-medium text-gray-900">
+                            <GripVertical className="w-5 h-5 text-zinc-500" />
+                            <span className="font-medium text-zinc-100">
                               {BLOCK_TYPES.find((t) => t.type === block._template)?.label || block._template}
                             </span>
-                            <span className="text-sm text-gray-500">#{index + 1}</span>
+                            <span className="text-sm text-zinc-400">#{index + 1}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <button
@@ -340,7 +436,7 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                                 moveBlock(index, index - 1);
                               }}
                               disabled={index === 0}
-                              className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                              className="p-1 text-zinc-500 hover:text-zinc-400 disabled:opacity-30"
                             >
                               <ChevronUp className="w-5 h-5" />
                             </button>
@@ -350,7 +446,7 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                                 moveBlock(index, index + 1);
                               }}
                               disabled={index === blocks.length - 1}
-                              className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                              className="p-1 text-zinc-500 hover:text-zinc-400 disabled:opacity-30"
                             >
                               <ChevronDown className="w-5 h-5" />
                             </button>
@@ -359,7 +455,7 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                                 e.stopPropagation();
                                 removeBlock(index);
                               }}
-                              className="p-1 text-gray-400 hover:text-red-600"
+                              className="p-1 text-zinc-500 hover:text-red-600"
                             >
                               <Trash2 className="w-5 h-5" />
                             </button>
@@ -368,7 +464,7 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
 
                         {/* Block Content */}
                         {expandedBlocks.has(index) && (
-                          <div className="p-4 border-t border-gray-200">
+                          <div className="p-4 border-t border-[var(--color-border)]">
                             <BlockEditor
                               block={block}
                               onChange={(field, value) => updateBlockField(index, field, value)}
@@ -397,13 +493,13 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
 
       {/* Block Picker Modal */}
       {showBlockPicker && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
-            <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">Add Block</h3>
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
+            <div className="p-6 border-b border-[var(--color-border)] flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-zinc-100">Add Block</h3>
               <button
                 onClick={() => setShowBlockPicker(false)}
-                className="p-2 text-gray-400 hover:text-gray-600"
+                className="p-2 text-zinc-500 hover:text-zinc-400"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -414,10 +510,10 @@ export function ContentEditor({ collection, slug, initialContent, filePath }: Co
                   <button
                     key={blockType.type}
                     onClick={() => insertIndex !== null && addBlock(blockType.type, insertIndex)}
-                    className="text-left p-4 border border-gray-200 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
+                    className="text-left p-4 border border-[var(--color-border)] rounded-lg hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]/5 transition-colors"
                   >
-                    <h4 className="font-medium text-gray-900">{blockType.label}</h4>
-                    <p className="text-sm text-gray-500 mt-1">{blockType.description}</p>
+                    <h4 className="font-medium text-zinc-100">{blockType.label}</h4>
+                    <p className="text-sm text-zinc-400 mt-1">{blockType.description}</p>
                   </button>
                 ))}
               </div>
@@ -439,35 +535,31 @@ function BlockEditor({
 }) {
   const template = block._template;
 
+  // Color settings handler
+  const handleColorSettingsChange = (colorSettings: BlockColorSettings) => {
+    onChange("colorSettings", colorSettings);
+  };
+
   // Common fields for many block types
   const renderTextField = (field: string, label: string, multiline = false) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      {multiline ? (
-        <textarea
-          value={(block[field] as string) || ""}
-          onChange={(e) => onChange(field, e.target.value)}
-          rows={4}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none"
-        />
-      ) : (
-        <input
-          type="text"
-          value={(block[field] as string) || ""}
-          onChange={(e) => onChange(field, e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
-        />
-      )}
+      <label className="block text-sm font-medium text-zinc-300 mb-1">{label}</label>
+      <DebouncedInput
+        value={(block[field] as string) || ""}
+        onChange={(value) => onChange(field, value)}
+        rows={multiline ? 4 : undefined}
+        className={`w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none ${multiline ? "resize-none" : ""}`}
+      />
     </div>
   );
 
   const renderSelectField = (field: string, label: string, options: { value: string; label: string }[]) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-zinc-300 mb-1">{label}</label>
       <select
         value={(block[field] as string) || ""}
         onChange={(e) => onChange(field, e.target.value)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+        className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -492,6 +584,10 @@ function BlockEditor({
             { value: "large", label: "Large" },
             { value: "full", label: "Full Screen" },
           ])}
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
+          />
         </div>
       );
 
@@ -505,6 +601,10 @@ function BlockEditor({
             { value: "center", label: "Center" },
             { value: "right", label: "Right" },
           ])}
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
+          />
         </div>
       );
 
@@ -520,6 +620,10 @@ function BlockEditor({
             { value: "secondary", label: "Secondary" },
             { value: "accent", label: "Accent" },
           ])}
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
+          />
         </div>
       );
 
@@ -537,6 +641,10 @@ function BlockEditor({
             { value: "medium", label: "Medium" },
             { value: "large", label: "Large" },
           ])}
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
+          />
         </div>
       );
 
@@ -547,6 +655,10 @@ function BlockEditor({
           {renderTextField("videoUrl", "Video URL (YouTube/Vimeo)")}
           {renderTextField("thumbnail", "Thumbnail Image URL")}
           {renderTextField("caption", "Caption")}
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
+          />
         </div>
       );
 
@@ -560,13 +672,17 @@ function BlockEditor({
           {renderTextField("imageAlt", "Image Alt Text")}
           {renderTextField("buttonText", "Button Text")}
           {renderTextField("buttonLink", "Button Link")}
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
+          />
         </div>
       );
 
     default:
       return (
         <div className="space-y-4">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-zinc-400">
             Edit the raw JSON for this block type. Full visual editing coming soon.
           </p>
           <textarea
@@ -584,7 +700,11 @@ function BlockEditor({
               }
             }}
             rows={10}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none font-mono text-sm"
+            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none font-mono text-sm"
+          />
+          <ColorSettingsEditor
+            colorSettings={block.colorSettings}
+            onChange={handleColorSettingsChange}
           />
         </div>
       );
@@ -611,8 +731,8 @@ function SettingsEditor({
   return (
     <>
       {/* Theme Colors */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Theme Colors</h2>
+      <div className="dashboard-card rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-zinc-100 mb-4">Theme Colors</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
             { field: "primaryColor", label: "Primary Color" },
@@ -622,19 +742,19 @@ function SettingsEditor({
             { field: "textColor", label: "Text Color" },
           ].map(({ field, label }) => (
             <div key={field}>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+              <label className="block text-sm font-medium text-zinc-300 mb-1">{label}</label>
               <div className="flex items-center gap-2">
                 <input
                   type="color"
                   value={theme[field] || "#000000"}
                   onChange={(e) => updateNested("theme", field, e.target.value)}
-                  className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                  className="w-10 h-10 rounded border border-[var(--color-border)] cursor-pointer"
                 />
                 <input
                   type="text"
                   value={theme[field] || ""}
                   onChange={(e) => updateNested("theme", field, e.target.value)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                  className="flex-1 px-4 py-2 border border-[var(--color-border)] rounded-lg focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none"
                   placeholder="#000000"
                 />
               </div>
@@ -644,8 +764,8 @@ function SettingsEditor({
       </div>
 
       {/* Contact Info */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
+      <div className="dashboard-card rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-zinc-100 mb-4">Contact Information</h2>
         <div className="space-y-4">
           {[
             { field: "email", label: "Email", type: "email" },
@@ -653,12 +773,12 @@ function SettingsEditor({
             { field: "address", label: "Address", type: "text" },
           ].map(({ field, label, type }) => (
             <div key={field}>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+              <label className="block text-sm font-medium text-zinc-300 mb-1">{label}</label>
               <input
                 type={type}
                 value={contact[field] || ""}
                 onChange={(e) => updateNested("contact", field, e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
               />
             </div>
           ))}
@@ -666,8 +786,8 @@ function SettingsEditor({
       </div>
 
       {/* Social Links */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Social Media Links</h2>
+      <div className="dashboard-card rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-zinc-100 mb-4">Social Media Links</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
             "facebook",
@@ -678,12 +798,12 @@ function SettingsEditor({
             "tiktok",
           ].map((platform) => (
             <div key={platform}>
-              <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">{platform}</label>
+              <label className="block text-sm font-medium text-zinc-300 mb-1 capitalize">{platform}</label>
               <input
                 type="url"
                 value={social[platform] || ""}
                 onChange={(e) => updateNested("social", platform, e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
                 placeholder={`https://${platform}.com/...`}
               />
             </div>
@@ -713,27 +833,27 @@ function ProductEditor({
   return (
     <>
       {/* Pricing */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Pricing</h2>
+      <div className="dashboard-card rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-zinc-100 mb-4">Pricing</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <label className="block text-sm font-medium text-zinc-300 mb-1">Price</label>
             <input
               type="number"
               step="0.01"
               value={pricing.price || ""}
               onChange={(e) => updateNested("pricing", "price", parseFloat(e.target.value) || 0)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Compare at Price</label>
+            <label className="block text-sm font-medium text-zinc-300 mb-1">Compare at Price</label>
             <input
               type="number"
               step="0.01"
               value={pricing.compareAtPrice || ""}
               onChange={(e) => updateNested("pricing", "compareAtPrice", parseFloat(e.target.value) || 0)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
               placeholder="Original price (for sale items)"
             />
           </div>
@@ -741,8 +861,8 @@ function ProductEditor({
       </div>
 
       {/* Inventory */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Inventory</h2>
+      <div className="dashboard-card rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-zinc-100 mb-4">Inventory</h2>
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <input
@@ -750,27 +870,27 @@ function ProductEditor({
               id="trackInventory"
               checked={(inventory.trackInventory as boolean) || false}
               onChange={(e) => updateNested("inventory", "trackInventory", e.target.checked)}
-              className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              className="w-4 h-4 text-[var(--color-accent)] border-[var(--color-border)] rounded focus:ring-[var(--color-accent)]/30"
             />
-            <label htmlFor="trackInventory" className="text-sm text-gray-700">Track inventory</label>
+            <label htmlFor="trackInventory" className="text-sm text-zinc-300">Track inventory</label>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+              <label className="block text-sm font-medium text-zinc-300 mb-1">SKU</label>
               <input
                 type="text"
                 value={(inventory.sku as string) || ""}
                 onChange={(e) => updateNested("inventory", "sku", e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+              <label className="block text-sm font-medium text-zinc-300 mb-1">Quantity</label>
               <input
                 type="number"
                 value={(inventory.quantity as number) || ""}
                 onChange={(e) => updateNested("inventory", "quantity", parseInt(e.target.value) || 0)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
               />
             </div>
           </div>
@@ -778,15 +898,15 @@ function ProductEditor({
       </div>
 
       {/* Status */}
-      <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Status</h2>
+      <div className="dashboard-card rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-zinc-100 mb-4">Status</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Product Status</label>
+            <label className="block text-sm font-medium text-zinc-300 mb-1">Product Status</label>
             <select
               value={(content.status as string) || "active"}
               onChange={(e) => updateField("status", e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none transition-all"
             >
               <option value="active">Active</option>
               <option value="draft">Draft</option>
@@ -799,12 +919,289 @@ function ProductEditor({
               id="featured"
               checked={(content.featured as boolean) || false}
               onChange={(e) => updateField("featured", e.target.checked)}
-              className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              className="w-4 h-4 text-[var(--color-accent)] border-[var(--color-border)] rounded focus:ring-[var(--color-accent)]/30"
             />
-            <label htmlFor="featured" className="text-sm text-gray-700">Featured product</label>
+            <label htmlFor="featured" className="text-sm text-zinc-300">Featured product</label>
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+// Hero Section Editor Component
+function HeroEditor({
+  hero,
+  onChange,
+}: {
+  hero: HeroConfig;
+  onChange: (hero: HeroConfig) => void;
+}) {
+  const slides = hero?.slides || [];
+
+  const updateSlide = (index: number, field: string, value: string) => {
+    const newSlides = [...slides];
+    newSlides[index] = { ...newSlides[index], [field]: value };
+    onChange({ ...hero, slides: newSlides });
+  };
+
+  const addSlide = () => {
+    const newSlide: HeroSlide = {
+      title: "New Slide",
+      subtitle: "",
+      backgroundImage: "",
+      buttonText: "",
+      buttonLink: "",
+    };
+    onChange({ ...hero, slides: [...slides, newSlide] });
+  };
+
+  const removeSlide = (index: number) => {
+    if (!confirm("Are you sure you want to remove this slide?")) return;
+    const newSlides = slides.filter((_, i) => i !== index);
+    onChange({ ...hero, slides: newSlides });
+  };
+
+  const moveSlide = (from: number, to: number) => {
+    if (to < 0 || to >= slides.length) return;
+    const newSlides = [...slides];
+    const [removed] = newSlides.splice(from, 1);
+    newSlides.splice(to, 0, removed);
+    onChange({ ...hero, slides: newSlides });
+  };
+
+  return (
+    <div className="dashboard-card rounded-2xl p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-zinc-100 flex items-center gap-2">
+          <ImageIcon className="w-5 h-5" />
+          Hero Section
+        </h2>
+        <button
+          onClick={addSlide}
+          className="flex items-center gap-2 text-[var(--color-accent)] hover:text-[var(--color-accent-light)] font-medium text-sm"
+        >
+          <Plus className="w-4 h-4" />
+          Add Slide
+        </button>
+      </div>
+
+      {slides.length === 0 ? (
+        <div className="text-center py-8 text-zinc-400">
+          <p className="mb-4">No hero slides yet.</p>
+          <button
+            onClick={addSlide}
+            className="inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] text-white font-medium py-2 px-4 rounded-lg transition-colors"
+          >
+            <Plus className="w-5 h-5" />
+            Add First Slide
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {slides.map((slide, index) => (
+            <div key={index} className="border border-[var(--color-border)] rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="font-medium text-zinc-300">Slide {index + 1}</span>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => moveSlide(index, index - 1)}
+                    disabled={index === 0}
+                    className="p-1 text-zinc-500 hover:text-zinc-400 disabled:opacity-30"
+                  >
+                    <ChevronUp className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => moveSlide(index, index + 1)}
+                    disabled={index === slides.length - 1}
+                    className="p-1 text-zinc-500 hover:text-zinc-400 disabled:opacity-30"
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => removeSlide(index)}
+                    className="p-1 text-zinc-500 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-1">Title</label>
+                  <DebouncedInput
+                    value={slide.title || ""}
+                    onChange={(value) => updateSlide(index, "title", value)}
+                    className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none text-sm transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-1">Subtitle</label>
+                  <DebouncedInput
+                    value={slide.subtitle || ""}
+                    onChange={(value) => updateSlide(index, "subtitle", value)}
+                    rows={2}
+                    className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none text-sm resize-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-zinc-300 mb-1">Background Image URL</label>
+                  <DebouncedInput
+                    value={slide.backgroundImage || ""}
+                    onChange={(value) => updateSlide(index, "backgroundImage", value)}
+                    placeholder="https://..."
+                    className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none text-sm transition-all placeholder:text-zinc-500"
+                  />
+                  {slide.backgroundImage && (
+                    <div className="mt-2 relative h-24 rounded-lg overflow-hidden">
+                      <img
+                        src={slide.backgroundImage}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-300 mb-1">Button Text</label>
+                    <DebouncedInput
+                      value={slide.buttonText || ""}
+                      onChange={(value) => updateSlide(index, "buttonText", value)}
+                      className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none text-sm transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-300 mb-1">Button Link</label>
+                    <DebouncedInput
+                      value={slide.buttonLink || ""}
+                      onChange={(value) => updateSlide(index, "buttonLink", value)}
+                      placeholder="/contact"
+                      className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg bg-[var(--color-surface)] text-zinc-100 focus:ring-2 focus:ring-[var(--color-accent)]/30 focus:border-[var(--color-accent)] outline-none text-sm transition-all placeholder:text-zinc-500"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Color Settings Component for blocks
+function ColorSettingsEditor({
+  colorSettings,
+  onChange,
+}: {
+  colorSettings?: BlockColorSettings;
+  onChange: (settings: BlockColorSettings) => void;
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const settings = colorSettings || { light: {}, dark: {} };
+
+  const updateColor = (mode: "light" | "dark", field: string, value: string) => {
+    const newSettings = {
+      ...settings,
+      [mode]: {
+        ...settings[mode],
+        [field]: value || undefined,
+      },
+    };
+    // Clean up empty values
+    if (!value) {
+      delete newSettings[mode]![field as keyof typeof newSettings.light];
+    }
+    onChange(newSettings);
+  };
+
+  const hasColors = Boolean(
+    settings.light?.textColor ||
+    settings.light?.backgroundColor ||
+    settings.light?.headingColor ||
+    settings.dark?.textColor ||
+    settings.dark?.backgroundColor ||
+    settings.dark?.headingColor
+  );
+
+  return (
+    <div className="border-t border-[var(--color-border)] pt-4 mt-4">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-zinc-100"
+      >
+        <Palette className="w-4 h-4" />
+        Color Settings
+        {hasColors && <span className="w-2 h-2 rounded-full bg-primary-500" />}
+        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+      </button>
+
+      {isExpanded && (
+        <div className="mt-4 space-y-4">
+          {/* Light Mode Colors */}
+          <div>
+            <h4 className="text-sm font-medium text-zinc-400 mb-2">Light Mode</h4>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { field: "textColor", label: "Text" },
+                { field: "headingColor", label: "Heading" },
+                { field: "backgroundColor", label: "Background" },
+              ].map(({ field, label }) => (
+                <div key={field}>
+                  <label className="block text-xs text-zinc-400 mb-1">{label}</label>
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="color"
+                      value={settings.light?.[field as keyof typeof settings.light] || "#000000"}
+                      onChange={(e) => updateColor("light", field, e.target.value)}
+                      className="w-8 h-8 rounded border border-[var(--color-border)] cursor-pointer"
+                    />
+                    <DebouncedInput
+                      value={settings.light?.[field as keyof typeof settings.light] || ""}
+                      onChange={(value) => updateColor("light", field, value)}
+                      className="flex-1 px-2 py-1 border border-[var(--color-border)] rounded text-xs"
+                      placeholder="Default"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dark Mode Colors */}
+          <div>
+            <h4 className="text-sm font-medium text-zinc-400 mb-2">Dark Mode</h4>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { field: "textColor", label: "Text" },
+                { field: "headingColor", label: "Heading" },
+                { field: "backgroundColor", label: "Background" },
+              ].map(({ field, label }) => (
+                <div key={field}>
+                  <label className="block text-xs text-zinc-400 mb-1">{label}</label>
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="color"
+                      value={settings.dark?.[field as keyof typeof settings.dark] || "#ffffff"}
+                      onChange={(e) => updateColor("dark", field, e.target.value)}
+                      className="w-8 h-8 rounded border border-[var(--color-border)] cursor-pointer"
+                    />
+                    <DebouncedInput
+                      value={settings.dark?.[field as keyof typeof settings.dark] || ""}
+                      onChange={(value) => updateColor("dark", field, value)}
+                      className="flex-1 px-2 py-1 border border-[var(--color-border)] rounded text-xs"
+                      placeholder="Default"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

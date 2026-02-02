@@ -32,7 +32,7 @@ export function MinimalLayout({
   return (
     <>
       {/* Text-only hero - minimal and clean */}
-      <section className="-mt-20 pt-48 pb-20 bg-white dark:bg-slate-900">
+      <section className="-mt-20 pt-48 pb-20">
         <Container size="narrow">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)] mb-6 leading-tight">
@@ -58,7 +58,7 @@ export function MinimalLayout({
       </section>
 
       {/* Page Content with clean spacing */}
-      <div className="bg-[var(--color-background)]">{children}</div>
+      <div>{children}</div>
     </>
   );
 }

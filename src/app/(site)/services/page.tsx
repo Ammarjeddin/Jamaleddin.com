@@ -5,8 +5,8 @@ import { ShopPageClient } from "./ShopPageClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Shop",
-  description: "Browse our products and support our mission.",
+  title: "Services",
+  description: "Browse our professional consulting services.",
 };
 
 export default async function ShopPage() {
@@ -25,16 +25,16 @@ export default async function ShopPage() {
       <section className="-mt-20 pt-44 pb-16 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white">
         <Container>
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Shop</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Services</h1>
             <p className="text-xl opacity-90 max-w-2xl mx-auto">
-              Support our mission with every purchase
+              Professional consulting services to grow your business
             </p>
           </div>
         </Container>
       </section>
 
       {/* Shop Content */}
-      <section className="section dark:bg-slate-900">
+      <section className="section glass">
         <Container>
           <ShopPageClient
             initialProducts={products}

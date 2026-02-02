@@ -79,6 +79,7 @@ export interface Product {
   seo?: ProductSEO;
   status?: ProductStatus;
   featured?: boolean;
+  unlisted?: boolean; // Hidden from listings but accessible via direct link/code
   subscription?: SubscriptionDetails; // Optional - if present, product is a subscription
 }
 

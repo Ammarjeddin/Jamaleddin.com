@@ -12,19 +12,19 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+      <div className="min-h-screen glass">
         <Container>
           <div className="py-20 text-center">
             <ShoppingBag className="w-24 h-24 text-gray-300 dark:text-slate-600 mx-auto mb-6" />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Your cart is empty</h1>
-            <p className="text-gray-600 dark:text-slate-300 mb-8">
+            <h1 className="text-3xl font-bold text-[var(--color-text)] mb-4">Your cart is empty</h1>
+            <p className="text-[var(--color-text-muted)] mb-8">
               Looks like you haven&apos;t added any items to your cart yet.
             </p>
             <Link
-              href="/shop"
+              href="/services"
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
-              Continue Shopping
+              Browse Services
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -34,16 +34,16 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
+    <div className="min-h-screen glass py-12">
       <Container>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Shopping Cart</h1>
+        <h1 className="text-3xl font-bold text-[var(--color-text)] mb-8">Shopping Cart</h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden dark:shadow-lg dark:shadow-black/20">
               {/* Header */}
-              <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-gray-200 text-sm font-medium text-gray-500">
+              <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-gray-200 text-sm font-medium text-[var(--color-text-muted)]">
                 <div className="col-span-6">Product</div>
                 <div className="col-span-2 text-center">Quantity</div>
                 <div className="col-span-2 text-right">Price</div>
@@ -75,13 +75,13 @@ export default function CartPage() {
                       </div>
                       <div>
                         <Link
-                          href={`/shop/${item.product.slug}`}
-                          className="font-medium text-gray-900 hover:text-primary transition-colors"
+                          href={`/services/${item.product.slug}`}
+                          className="font-medium text-[var(--color-text)] hover:text-primary transition-colors"
                         >
                           {item.product.name}
                         </Link>
                         {variantName && (
-                          <p className="text-sm text-gray-500">{variantName}</p>
+                          <p className="text-sm text-[var(--color-text-muted)]">{variantName}</p>
                         )}
                         <button
                           onClick={() => removeItem(item.product.slug, item.variantId)}
@@ -122,14 +122,14 @@ export default function CartPage() {
 
                     {/* Price */}
                     <div className="md:col-span-2 text-right">
-                      <span className="md:hidden text-sm text-gray-500 mr-2">Price:</span>
+                      <span className="md:hidden text-sm text-[var(--color-text-muted)] mr-2">Price:</span>
                       {formatPrice(item.product.pricing.price, currency)}
                     </div>
 
                     {/* Total */}
                     <div className="md:col-span-2 text-right flex items-center justify-end gap-4">
                       <span>
-                        <span className="md:hidden text-sm text-gray-500 mr-2">Total:</span>
+                        <span className="md:hidden text-sm text-[var(--color-text-muted)] mr-2">Total:</span>
                         <span className="font-semibold">
                           {formatPrice(item.product.pricing.price * item.quantity, currency)}
                         </span>
@@ -150,15 +150,15 @@ export default function CartPage() {
               <div className="p-4 flex justify-between items-center">
                 <button
                   onClick={clearCart}
-                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-sm text-[var(--color-text-muted)] hover:text-gray-700 transition-colors"
                 >
                   Clear Cart
                 </button>
                 <Link
-                  href="/shop"
+                  href="/services"
                   className="text-sm text-primary hover:underline"
                 >
-                  Continue Shopping
+                  Browse Services
                 </Link>
               </div>
             </div>
@@ -167,38 +167,38 @@ export default function CartPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-sm p-6 sticky top-4 dark:shadow-lg dark:shadow-black/20">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
+              <h2 className="text-lg font-semibold text-[var(--color-text)] mb-4">Order Summary</h2>
 
               <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-[var(--color-text-muted)]">
                   <span>Items ({itemCount})</span>
                   <span>{formatPrice(subtotal, currency)}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-[var(--color-text-muted)]">
                   <span>Shipping</span>
                   <span className="text-sm">Calculated at checkout</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-[var(--color-text-muted)]">
                   <span>Tax</span>
                   <span className="text-sm">Calculated at checkout</span>
                 </div>
               </div>
 
               <div className="border-t border-gray-200 pt-4 mb-6">
-                <div className="flex justify-between text-lg font-semibold text-gray-900">
+                <div className="flex justify-between text-lg font-semibold text-[var(--color-text)]">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotal, currency)}</span>
                 </div>
               </div>
 
               <Link
-                href="/shop/checkout"
+                href="/services/checkout"
                 className="block w-full bg-primary text-white text-center py-3 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 Proceed to Checkout
               </Link>
 
-              <p className="text-xs text-gray-500 text-center mt-4">
+              <p className="text-xs text-[var(--color-text-muted)] text-center mt-4">
                 Secure checkout powered by Stripe
               </p>
             </div>

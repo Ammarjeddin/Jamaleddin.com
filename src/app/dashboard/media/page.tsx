@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { Container } from "@/components/ui/Container";
-import { ArrowLeft, Image, Upload, Folder } from "lucide-react";
+import { ArrowLeft, Image, Upload, Folder, Info } from "lucide-react";
 
 export const metadata = {
   title: "Media Library - Admin Dashboard",
@@ -87,23 +87,23 @@ export default async function MediaLibraryPage() {
   const images = files.filter((f) => f.type === "image");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Dashboard
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Media Library</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Media Library</h1>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-zinc-500">
               {files.length} files
             </div>
           </div>
@@ -113,56 +113,57 @@ export default async function MediaLibraryPage() {
       <main className="py-8">
         <Container>
           {/* Info Box */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8">
+          <div className="dashboard-card rounded-xl p-4 mb-8 border-l-4 border-l-[var(--color-accent)]">
             <div className="flex items-start gap-3">
-              <Folder className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <Info className="w-5 h-5 text-[var(--color-accent)] flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-medium text-blue-900">Media Storage</h3>
-                <p className="text-sm text-blue-700 mt-1">
-                  Media files are stored in the <code className="bg-blue-100 px-1 rounded">/public/uploads</code> and{" "}
-                  <code className="bg-blue-100 px-1 rounded">/public/images</code> directories.
-                  To add files, place them directly in these folders or use the upload feature below.
+                <h3 className="font-medium text-zinc-100">Media Storage</h3>
+                <p className="text-sm text-zinc-400 mt-1">
+                  Media files are stored in <code className="bg-[var(--color-surface-elevated)] text-[var(--color-accent)] px-1.5 py-0.5 rounded text-xs">/public/uploads</code> and{" "}
+                  <code className="bg-[var(--color-surface-elevated)] text-[var(--color-accent)] px-1.5 py-0.5 rounded text-xs">/public/images</code> directories.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Upload Section - Coming Soon */}
-          <div className="bg-white rounded-xl shadow-sm p-8 mb-8 border-2 border-dashed border-gray-300">
+          {/* Upload Section */}
+          <div className="dashboard-card rounded-xl p-8 mb-8 border-2 border-dashed border-[var(--color-border)]">
             <div className="text-center">
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="font-medium text-gray-900 mb-2">Upload Files</h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <div className="w-14 h-14 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                <Upload className="w-7 h-7 text-[var(--color-accent)]" />
+              </div>
+              <h3 className="font-medium text-zinc-100 mb-2">Upload Files</h3>
+              <p className="text-sm text-zinc-400 mb-4">
                 Drag and drop files here, or click to select files
               </p>
-              <p className="text-xs text-gray-400">
-                Upload feature coming soon. For now, add files directly to <code>/public/uploads</code>
+              <p className="text-xs text-zinc-600">
+                Upload feature coming soon. For now, add files directly to <code className="text-[var(--color-accent)]">/public/uploads</code>
               </p>
             </div>
           </div>
 
           {/* Image Grid */}
           {images.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Image className="w-8 h-8 text-gray-400" />
+            <div className="dashboard-card rounded-2xl p-12 text-center">
+              <div className="w-16 h-16 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                <Image className="w-8 h-8 text-[var(--color-accent)]" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No media files yet</h2>
-              <p className="text-gray-600">
-                Add images to <code className="bg-gray-100 px-1 rounded">/public/uploads</code> or{" "}
-                <code className="bg-gray-100 px-1 rounded">/public/images</code>
+              <h2 className="text-xl font-semibold text-zinc-100 mb-2">No media files yet</h2>
+              <p className="text-zinc-400">
+                Add images to <code className="text-[var(--color-accent)]">/public/uploads</code> or{" "}
+                <code className="text-[var(--color-accent)]">/public/images</code>
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="p-4 border-b border-gray-200">
-                <h2 className="font-semibold text-gray-900">Images ({images.length})</h2>
+            <div className="dashboard-card rounded-2xl overflow-hidden">
+              <div className="p-4 border-b border-[var(--color-border)]">
+                <h2 className="font-semibold text-zinc-100">Images ({images.length})</h2>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
                 {images.map((file) => (
                   <div
                     key={file.url}
-                    className="group relative aspect-square bg-gray-100 rounded-lg overflow-hidden"
+                    className="group relative aspect-square bg-[var(--color-surface-elevated)] rounded-lg overflow-hidden border border-[var(--color-border)]"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -170,14 +171,14 @@ export default async function MediaLibraryPage() {
                       alt={file.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2">
-                      <p className="text-white text-xs text-center truncate w-full mb-1">{file.name}</p>
-                      <p className="text-white/70 text-xs">{formatFileSize(file.size)}</p>
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2">
+                      <p className="text-zinc-100 text-xs text-center truncate w-full mb-1">{file.name}</p>
+                      <p className="text-zinc-400 text-xs">{formatFileSize(file.size)}</p>
                       <button
                         onClick={() => {
                           navigator.clipboard.writeText(file.url);
                         }}
-                        className="mt-2 px-3 py-1 bg-white/20 hover:bg-white/30 text-white text-xs rounded transition-colors"
+                        className="mt-2 px-3 py-1.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-light)] text-black text-xs font-medium rounded transition-colors"
                       >
                         Copy URL
                       </button>

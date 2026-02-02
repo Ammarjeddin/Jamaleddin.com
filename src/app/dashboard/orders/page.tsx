@@ -30,21 +30,21 @@ export default async function OrdersPage() {
   const stats = getOrderStats();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Dashboard
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Orders</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Orders</h1>
             </div>
           </div>
         </Container>
@@ -53,55 +53,55 @@ export default async function OrdersPage() {
       <main className="py-8">
         <Container>
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Package className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-blue flex items-center justify-center">
+                  <Package className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Total Orders</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalOrders}</p>
+                  <p className="text-sm text-zinc-400">Total Orders</p>
+                  <p className="text-2xl font-bold text-zinc-100">{stats.totalOrders}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <DollarSign className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-green flex items-center justify-center">
+                  <DollarSign className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Total Revenue</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-zinc-400">Total Revenue</p>
+                  <p className="text-2xl font-bold text-zinc-100">
                     {formatOrderPrice(stats.totalRevenue)}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-purple-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-purple flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Last 30 Days</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-zinc-400">Last 30 Days</p>
+                  <p className="text-2xl font-bold text-zinc-100">
                     {formatOrderPrice(stats.recentRevenue)}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                  <ShoppingBag className="w-6 h-6 text-orange-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-orange flex items-center justify-center">
+                  <ShoppingBag className="w-6 h-6 text-orange-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Avg. Order Value</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-zinc-400">Avg. Order Value</p>
+                  <p className="text-2xl font-bold text-zinc-100">
                     {formatOrderPrice(stats.averageOrderValue)}
                   </p>
                 </div>
@@ -111,12 +111,12 @@ export default async function OrdersPage() {
 
           {/* Orders Table */}
           {orders.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Package className="w-8 h-8 text-gray-400" />
+            <div className="dashboard-card rounded-2xl p-12 text-center">
+              <div className="w-16 h-16 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                <Package className="w-8 h-8 text-[var(--color-accent)]" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No orders yet</h2>
-              <p className="text-gray-600">
+              <h2 className="text-xl font-semibold text-zinc-100 mb-2">No orders yet</h2>
+              <p className="text-zinc-400">
                 Orders will appear here when customers complete purchases.
               </p>
             </div>

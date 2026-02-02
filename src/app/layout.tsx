@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CartProvider } from "@/contexts/CartContext";
 import { CartDrawer } from "@/components/shop/CartDrawer";
 import { DarkModeProvider } from "@/contexts/DarkModeContext";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 // Default fonts (Modern pairing)
 const headingFont = Plus_Jakarta_Sans({
@@ -48,23 +49,15 @@ export default async function RootLayout({
   const shopEnabled = settings.template?.features?.shop?.enabled === true;
   const currency = settings.template?.features?.shop?.currency || "USD";
 
-  // Inline script to prevent dark mode flash - runs before React hydrates
+  // Inline script to set dark mode - this site uses dark mode only
   const darkModeScript = `
     (function() {
-      try {
-        var stored = localStorage.getItem('site-template-dark-mode');
-        var isDark = stored !== null
-          ? stored === 'true'
-          : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (isDark) {
-          document.documentElement.classList.add('dark');
-        }
-      } catch (e) {}
+      document.documentElement.classList.add('dark');
     })();
   `;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: darkModeScript }} />
       </head>
@@ -73,6 +66,12 @@ export default async function RootLayout({
       >
         <DarkModeProvider>
           <ThemeProvider settings={settings}>
+            <DotPattern
+              baseColor="#B8A04A"
+              glowColor="#E8B54D"
+              gap={48}
+              dotSize={3}
+            />
             {shopEnabled ? (
               <CartProvider currency={currency}>
                 {children}

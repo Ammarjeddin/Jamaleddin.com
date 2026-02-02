@@ -18,6 +18,7 @@ import {
   ShoppingBag,
   Home,
   Layout,
+  Info,
 } from "lucide-react";
 
 interface DraftInfo {
@@ -227,29 +228,29 @@ export default function PublishPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Dashboard
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Publish Changes</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Publish Changes</h1>
             </div>
             <button
               onClick={fetchDrafts}
               disabled={loading}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
             >
               <RefreshCw className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
-              Refresh
+              <span className="hidden sm:inline">Refresh</span>
             </button>
           </div>
         </Container>
@@ -259,17 +260,17 @@ export default function PublishPage() {
         <Container>
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Info Card */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="dashboard-card rounded-xl p-5">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <FileEdit className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 rounded-xl icon-container-emerald flex items-center justify-center flex-shrink-0">
+                  <FileEdit className="w-6 h-6 text-emerald-400" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold text-gray-900">
+                  <h2 className="text-lg font-semibold text-zinc-100">
                     Draft & Publish Workflow
                   </h2>
-                  <p className="text-gray-600 mt-1">
-                    When you save content as a <strong>draft</strong>, changes are stored
+                  <p className="text-zinc-400 mt-1">
+                    When you save content as a <strong className="text-zinc-200">draft</strong>, changes are stored
                     separately and won&apos;t appear on your live site. Review your changes
                     below and publish when you&apos;re ready.
                   </p>
@@ -280,35 +281,35 @@ export default function PublishPage() {
             {/* Result Message */}
             {result && (
               <div
-                className={`rounded-xl p-6 ${
+                className={`rounded-xl p-5 ${
                   result.success
-                    ? "bg-green-50 border border-green-200"
-                    : "bg-red-50 border border-red-200"
+                    ? "bg-green-500/10 border border-green-500/20"
+                    : "bg-red-500/10 border border-red-500/20"
                 }`}
               >
                 <div className="flex items-start gap-4">
                   {result.success ? (
-                    <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
+                    <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
                   ) : (
-                    <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0" />
+                    <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
                   )}
                   <div>
                     <h3
                       className={`font-semibold ${
-                        result.success ? "text-green-800" : "text-red-800"
+                        result.success ? "text-green-400" : "text-red-400"
                       }`}
                     >
                       {result.success ? "Success" : "Error"}
                     </h3>
                     <p
                       className={`mt-1 ${
-                        result.success ? "text-green-700" : "text-red-700"
+                        result.success ? "text-green-300/80" : "text-red-300/80"
                       }`}
                     >
                       {result.message}
                     </p>
                     {result.details && result.details.length > 0 && (
-                      <ul className="mt-2 text-sm list-disc list-inside text-red-600">
+                      <ul className="mt-2 text-sm list-disc list-inside text-red-300/70">
                         {result.details.map((d, i) => (
                           <li key={i}>{d}</li>
                         ))}
@@ -320,12 +321,12 @@ export default function PublishPage() {
             )}
 
             {/* Pending Drafts */}
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="p-6 border-b border-gray-200">
+            <div className="dashboard-card rounded-2xl overflow-hidden">
+              <div className="p-5 border-b border-[var(--color-border)]">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-semibold text-gray-900">Pending Changes</h3>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <h3 className="font-semibold text-zinc-100">Pending Changes</h3>
+                    <p className="text-sm text-zinc-500 mt-1">
                       {drafts.length === 0
                         ? "No pending drafts"
                         : `${drafts.length} draft${drafts.length !== 1 ? "s" : ""} awaiting publication`}
@@ -335,7 +336,7 @@ export default function PublishPage() {
                     <button
                       onClick={handlePublishAll}
                       disabled={publishing}
-                      className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center gap-2 btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {publishing ? (
                         <>
@@ -355,23 +356,23 @@ export default function PublishPage() {
 
               {loading ? (
                 <div className="p-12 text-center">
-                  <Loader2 className="w-8 h-8 animate-spin text-gray-400 mx-auto" />
-                  <p className="text-gray-500 mt-2">Loading drafts...</p>
+                  <Loader2 className="w-8 h-8 animate-spin text-zinc-500 mx-auto" />
+                  <p className="text-zinc-500 mt-2">Loading drafts...</p>
                 </div>
               ) : drafts.length === 0 ? (
                 <div className="p-12 text-center">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle className="w-8 h-8 text-gray-400" />
+                  <div className="w-16 h-16 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-8 h-8 text-[var(--color-accent)]" />
                   </div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-2">
+                  <h4 className="text-lg font-medium text-zinc-100 mb-2">
                     All changes published
                   </h4>
-                  <p className="text-gray-500">
+                  <p className="text-zinc-500">
                     Your site is up to date. No pending drafts to publish.
                   </p>
                 </div>
               ) : (
-                <div className="divide-y divide-gray-200">
+                <div className="divide-y divide-[var(--color-border)]">
                   {drafts.map((draft) => {
                     const IconComponent =
                       COLLECTION_ICONS[draft.collection] || FileText;
@@ -381,28 +382,28 @@ export default function PublishPage() {
                     return (
                       <div
                         key={draft.filePath}
-                        className="p-4 hover:bg-gray-50 transition-colors"
+                        className="p-4 hover:bg-[var(--color-surface-elevated)] transition-colors"
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                              <IconComponent className="w-5 h-5 text-blue-600" />
+                            <div className="w-10 h-10 rounded-xl icon-container-blue flex items-center justify-center">
+                              <IconComponent className="w-5 h-5 text-blue-400" />
                             </div>
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="font-medium text-gray-900">
+                                <span className="font-medium text-zinc-100">
                                   {draft.title || draft.slug}
                                 </span>
-                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
+                                <span className="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/20">
                                   {collectionLabel}
                                 </span>
                                 {!draft.hasLive && (
-                                  <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                                  <span className="text-xs bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full border border-green-500/20">
                                     New
                                   </span>
                                 )}
                               </div>
-                              <p className="text-sm text-gray-500">
+                              <p className="text-sm text-zinc-500">
                                 Modified {formatDate(draft.draftModified)}
                               </p>
                             </div>
@@ -410,7 +411,7 @@ export default function PublishPage() {
                           <div className="flex items-center gap-2">
                             <Link
                               href={getEditLink(draft)}
-                              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                              className="p-2 text-zinc-500 hover:text-zinc-300 hover:bg-[var(--color-surface-elevated)] rounded-lg transition-colors"
                               title="Edit"
                             >
                               <Eye className="w-5 h-5" />
@@ -418,7 +419,7 @@ export default function PublishPage() {
                             <button
                               onClick={() => handleDiscardDraft(draft.filePath)}
                               disabled={discardingFile === draft.filePath}
-                              className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                              className="p-2 text-zinc-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors disabled:opacity-50"
                               title="Discard draft"
                             >
                               {discardingFile === draft.filePath ? (
@@ -430,7 +431,7 @@ export default function PublishPage() {
                             <button
                               onClick={() => handlePublishSingle(draft.filePath)}
                               disabled={publishingFile === draft.filePath}
-                              className="flex items-center gap-1 px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 font-medium rounded-lg transition-colors disabled:opacity-50"
+                              className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-medium rounded-lg transition-colors disabled:opacity-50 border border-emerald-500/20"
                             >
                               {publishingFile === draft.filePath ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -449,33 +450,36 @@ export default function PublishPage() {
             </div>
 
             {/* Help Section */}
-            <div className="bg-gray-50 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-3">How it works</h3>
-              <div className="space-y-3 text-sm text-gray-600">
+            <div className="dashboard-card rounded-xl p-5 border-l-4 border-l-[var(--color-accent)]">
+              <div className="flex items-start gap-3 mb-4">
+                <Info className="w-5 h-5 text-[var(--color-accent)] flex-shrink-0 mt-0.5" />
+                <h3 className="font-semibold text-zinc-100">How it works</h3>
+              </div>
+              <div className="space-y-3 text-sm text-zinc-400 ml-8">
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-medium">
+                  <div className="w-6 h-6 bg-[var(--color-accent)]/10 text-[var(--color-accent)] rounded-full flex items-center justify-center flex-shrink-0 text-xs font-medium border border-[var(--color-accent)]/20">
                     1
                   </div>
                   <p>
-                    <strong>Save as Draft</strong> — When editing content, click
+                    <strong className="text-zinc-200">Save as Draft</strong> — When editing content, click
                     &quot;Save Draft&quot; to save your changes without making them live.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-medium">
+                  <div className="w-6 h-6 bg-[var(--color-accent)]/10 text-[var(--color-accent)] rounded-full flex items-center justify-center flex-shrink-0 text-xs font-medium border border-[var(--color-accent)]/20">
                     2
                   </div>
                   <p>
-                    <strong>Review Changes</strong> — All your drafts appear on this
+                    <strong className="text-zinc-200">Review Changes</strong> — All your drafts appear on this
                     page. You can review, edit, or discard them.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-medium">
+                  <div className="w-6 h-6 bg-[var(--color-accent)]/10 text-[var(--color-accent)] rounded-full flex items-center justify-center flex-shrink-0 text-xs font-medium border border-[var(--color-accent)]/20">
                     3
                   </div>
                   <p>
-                    <strong>Publish</strong> — When ready, publish individual
+                    <strong className="text-zinc-200">Publish</strong> — When ready, publish individual
                     changes or all at once to make them live on your site.
                   </p>
                 </div>

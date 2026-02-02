@@ -58,7 +58,7 @@ export function getNavigation(template?: TemplateSettings, settings?: SiteSettin
 
   // Add Shop if enabled
   if (template?.features?.shop?.enabled) {
-    baseNav.push({ label: "Shop", href: "/shop" });
+    baseNav.push({ label: "Services", href: "/services" });
   }
 
   // Add Events if enabled

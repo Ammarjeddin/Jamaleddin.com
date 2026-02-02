@@ -39,10 +39,10 @@ export function ImageGallery({
     );
 
   return (
-    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[var(--color-text)]">
             {heading}
           </h2>
         )}
@@ -54,15 +54,16 @@ export function ImageGallery({
               <button
                 key={index}
                 onClick={() => openLightbox(index)}
-                className="relative aspect-square overflow-hidden rounded-lg group"
+                className="relative aspect-square overflow-hidden rounded-xl group ring-1 ring-white/10 hover:ring-[var(--color-accent)]/40 transition-all duration-300"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <Image
                   src={image.src}
                   alt={image.alt || `Gallery image ${index + 1}`}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             ))}
           </div>
@@ -75,15 +76,16 @@ export function ImageGallery({
               <button
                 key={index}
                 onClick={() => openLightbox(index)}
-                className="relative w-full overflow-hidden rounded-lg group break-inside-avoid"
+                className="relative w-full overflow-hidden rounded-xl group break-inside-avoid ring-1 ring-white/10 hover:ring-[var(--color-accent)]/40 transition-all duration-300"
               >
                 <Image
                   src={image.src}
                   alt={image.alt || `Gallery image ${index + 1}`}
                   width={400}
                   height={300 + (index % 3) * 100}
-                  className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             ))}
           </div>
@@ -97,14 +99,15 @@ export function ImageGallery({
                 <button
                   key={index}
                   onClick={() => openLightbox(index)}
-                  className="relative flex-shrink-0 w-72 aspect-[4/3] overflow-hidden rounded-lg snap-start group"
+                  className="relative flex-shrink-0 w-72 aspect-[4/3] overflow-hidden rounded-xl snap-start group ring-1 ring-white/10 hover:ring-[var(--color-accent)]/40 transition-all duration-300"
                 >
                   <Image
                     src={image.src}
                     alt={image.alt || `Gallery image ${index + 1}`}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </button>
               ))}
             </div>
@@ -113,29 +116,29 @@ export function ImageGallery({
 
         {/* Lightbox */}
         {lightboxIndex !== null && (
-          <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+          <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center">
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              className="absolute top-4 right-4 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all"
               aria-label="Close lightbox"
             >
-              <X className="w-8 h-8" />
+              <X className="w-6 h-6" />
             </button>
 
             <button
               onClick={prevImage}
-              className="absolute left-4 p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              className="absolute left-4 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-8 h-8" />
+              <ChevronLeft className="w-6 h-6" />
             </button>
 
             <button
               onClick={nextImage}
-              className="absolute right-4 p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              className="absolute right-4 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] transition-all"
               aria-label="Next image"
             >
-              <ChevronRight className="w-8 h-8" />
+              <ChevronRight className="w-6 h-6" />
             </button>
 
             <div className="relative max-w-5xl max-h-[80vh] w-full h-full m-8">
@@ -146,7 +149,7 @@ export function ImageGallery({
                 className="object-contain"
               />
               {images[lightboxIndex].caption && (
-                <p className="absolute bottom-0 left-0 right-0 text-center text-white bg-black/50 py-3 px-4">
+                <p className="absolute bottom-0 left-0 right-0 text-center text-zinc-100 bg-black/70 backdrop-blur-sm py-3 px-4 rounded-b-lg">
                   {images[lightboxIndex].caption}
                 </p>
               )}

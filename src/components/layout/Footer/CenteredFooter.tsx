@@ -22,71 +22,86 @@ export function CenteredFooter({ settings, navigation }: CenteredFooterProps) {
   ].filter((link) => link.url);
 
   return (
-    <footer className="bg-gray-900 text-white py-12">
-      <Container>
-        <div className="flex flex-col items-center text-center">
-          {/* Logo */}
-          <Link href="/" className="mb-6">
-            {settings.logo?.light ? (
-              <Image
-                src={settings.logo.light}
-                alt={settings.siteName}
-                width={150}
-                height={40}
-                className="h-12 w-auto"
-              />
-            ) : (
-              <span className="text-2xl font-bold">{settings.siteName}</span>
-            )}
-          </Link>
+    <footer className="footer-section relative z-10">
+      {/* Animated top border - matches navbar style */}
+      <div className="footer-glow-border" />
 
-          {/* Navigation Links */}
-          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8">
-            {navigation.slice(0, 6).map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Social Links */}
-          <div className="flex gap-4 mb-8">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[var(--color-primary)] transition-colors"
-                aria-label={link.name}
-              >
-                <link.icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
-
-          {/* Divider */}
-          <div className="w-full max-w-md h-px bg-gray-800 mb-6" />
-
-          {/* Copyright & Admin */}
-          <div className="flex items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              &copy; {currentYear} {settings.siteName}. All rights reserved.
-            </p>
-            <Link
-              href="/dashboard"
-              className="text-gray-400 hover:text-white transition-colors"
-              title="Admin Dashboard"
-            >
-              <Settings className="w-4 h-4" />
+      <div className="footer-glass py-14">
+        <Container>
+          <div className="flex flex-col items-center text-center">
+            {/* Logo */}
+            <Link href="/" className="mb-8 group">
+              {settings.logo?.dark ? (
+                <Image
+                  src={settings.logo.dark}
+                  alt={settings.siteName}
+                  width={180}
+                  height={50}
+                  className="h-14 w-auto transition-transform group-hover:scale-105"
+                />
+              ) : settings.logo?.light ? (
+                <Image
+                  src={settings.logo.light}
+                  alt={settings.siteName}
+                  width={180}
+                  height={50}
+                  className="h-14 w-auto transition-transform group-hover:scale-105"
+                />
+              ) : (
+                <span className="text-3xl font-bold text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">
+                  {settings.siteName}
+                </span>
+              )}
             </Link>
+
+            {/* Navigation Links */}
+            <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10">
+              {navigation.slice(0, 6).map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors font-medium"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Social Links */}
+            <div className="flex gap-4 mb-10">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-icon"
+                  aria-label={link.name}
+                >
+                  <link.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+
+            {/* Divider with gold accent */}
+            <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent mb-8" />
+
+            {/* Copyright & Admin */}
+            <div className="flex items-center gap-4">
+              <p className="text-zinc-500 text-sm">
+                &copy; {currentYear} {settings.siteName}. All rights reserved.
+              </p>
+              <Link
+                href="/dashboard"
+                className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
+                title="Admin Dashboard"
+              >
+                <Settings className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </footer>
   );
 }

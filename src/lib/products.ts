@@ -35,7 +35,7 @@ export async function getAllProducts(): Promise<Product[]> {
 
 export async function getActiveProducts(): Promise<Product[]> {
   const products = await getAllProducts();
-  return products.filter((p) => p.status === "active");
+  return products.filter((p) => p.status === "active" && !p.unlisted);
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {

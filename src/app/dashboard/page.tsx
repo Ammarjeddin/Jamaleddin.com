@@ -11,13 +11,16 @@ import {
   FileText,
   Image,
   Layout,
-  Palette,
   Home,
-  Upload,
   Receipt,
   RefreshCw,
   Plug,
+  Rocket,
+  Calendar,
+  ArrowUpRight,
+  Sparkles,
 } from "lucide-react";
+import { DeployButton } from "@/components/admin/DeployButton";
 
 export const metadata = {
   title: "Admin Dashboard",
@@ -29,6 +32,96 @@ async function getUser() {
   const token = cookieStore.get("admin_token")?.value;
   if (!token) return null;
   return verifyToken(token);
+}
+
+// Dashboard Card Component
+function DashboardCard({
+  href,
+  icon: Icon,
+  iconColor,
+  title,
+  subtitle,
+  description,
+  badge,
+  badgeColor = "green",
+  disabled = false,
+  index = 0,
+}: {
+  href: string;
+  icon: React.ElementType;
+  iconColor: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  badge?: string;
+  badgeColor?: "green" | "gray";
+  disabled?: boolean;
+  index?: number;
+}) {
+  const iconContainerClass = `icon-container-${iconColor}`;
+  const staggerClass = `stagger-${Math.min(index + 1, 6)}`;
+
+  if (disabled) {
+    return (
+      <div
+        className={`feature-disabled rounded-2xl p-6 opacity-60 animate-fade-in ${staggerClass}`}
+      >
+        <div className="flex items-start gap-4">
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${iconContainerClass}`}>
+            <Icon className="w-6 h-6 text-zinc-500" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <h4 className="font-semibold text-zinc-500">{title}</h4>
+              <span className="status-disabled">{badge || "Disabled"}</span>
+            </div>
+            <p className="text-sm text-zinc-600">{subtitle}</p>
+          </div>
+        </div>
+        <p className="text-sm text-zinc-600 mt-4 leading-relaxed">{description}</p>
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      className={`dashboard-card group rounded-2xl p-6 block transition-all duration-300 animate-fade-in ${staggerClass}`}
+    >
+      <div className="flex items-start gap-4">
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${iconContainerClass}`}>
+          <Icon className={`w-6 h-6 text-${iconColor}-400`} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <h4 className="font-semibold text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">{title}</h4>
+            {badge && (
+              <span className={badgeColor === "green" ? "status-enabled" : "status-disabled"}>
+                {badge}
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-zinc-400">{subtitle}</p>
+        </div>
+        <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-[var(--color-accent)] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </div>
+      <p className="text-sm text-zinc-500 mt-4 leading-relaxed group-hover:text-zinc-400 transition-colors">{description}</p>
+    </Link>
+  );
+}
+
+// Section Title Component
+function SectionTitle({ children, icon: Icon }: { children: React.ReactNode; icon?: React.ElementType }) {
+  return (
+    <div className="flex items-center gap-3 mb-6">
+      {Icon && (
+        <div className="w-8 h-8 rounded-lg bg-[var(--color-accent)]/10 flex items-center justify-center">
+          <Icon className="w-4 h-4 text-[var(--color-accent)]" />
+        </div>
+      )}
+      <h3 className="text-lg font-semibold text-zinc-100 tracking-tight">{children}</h3>
+    </div>
+  );
 }
 
 export default async function DashboardPage() {
@@ -46,338 +139,186 @@ export default async function DashboardPage() {
   const eventsEnabled = settings.template?.features?.events?.enabled !== false;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
       <DashboardHeader username={user.username} />
 
-      <main className="py-8">
+      <main className="py-10">
         <Container>
           {/* Welcome Section */}
-          <div className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              Welcome to {settings.siteName} Admin
-            </h2>
-            <p className="text-gray-600">
-              Manage your website content, settings, and features from here.
-              {user.role === "admin" && " You have full admin access."}
-            </p>
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--color-surface)] via-[var(--color-surface-elevated)] to-[var(--color-surface)] border border-[var(--color-border)] p-8 mb-10 animate-fade-in">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[var(--color-accent)]/3 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-[var(--color-accent)]" />
+                </div>
+                <span className="text-sm font-medium text-[var(--color-accent)]">Dashboard</span>
+              </div>
+              <h2 className="text-2xl font-bold text-zinc-100 mb-2 tracking-tight">
+                Welcome back to {settings.siteName}
+              </h2>
+              <p className="text-zinc-400 max-w-2xl">
+                Manage your website content, configure settings, and monitor your business from this central hub.
+                {user.role === "admin" && (
+                  <span className="text-[var(--color-accent)]"> You have full admin access.</span>
+                )}
+              </p>
+            </div>
           </div>
 
-          {/* Quick Actions Grid */}
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Content Management</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {/* Homepage */}
-            <Link
-              href="/dashboard/edit?collection=home&slug=index"
-              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
-                  <Home className="w-6 h-6 text-indigo-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Homepage</h4>
-                  <p className="text-sm text-gray-500">Edit homepage content</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600">
-                Update hero banner, featured sections, and homepage blocks.
-              </p>
-            </Link>
-
-            {/* Pages */}
-            <Link
-              href="/dashboard/pages"
-              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                  <FileText className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Pages</h4>
-                  <p className="text-sm text-gray-500">Edit page content</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600">
-                Manage your website pages, add new content blocks, and update page information.
-              </p>
-            </Link>
-
-            {/* Site Settings */}
-            <Link
-              href="/dashboard/edit?collection=settings&slug=site"
-              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-                  <Settings className="w-6 h-6 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Site Settings</h4>
-                  <p className="text-sm text-gray-500">Branding & configuration</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600">
-                Update site name, logo, colors, social links, and contact information.
-              </p>
-            </Link>
-
-            {/* Media Library */}
-            <Link
-              href="/dashboard/media"
-              className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
-                  <Image className="w-6 h-6 text-green-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Media Library</h4>
-                  <p className="text-sm text-gray-500">Images & files</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600">
-                Upload and manage images, documents, and other media files.
-              </p>
-            </Link>
-          </div>
+          {/* Content Management Section */}
+          <section className="mb-12">
+            <SectionTitle icon={FileText}>Content Management</SectionTitle>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <DashboardCard
+                href="/dashboard/edit?collection=home&slug=index"
+                icon={Home}
+                iconColor="indigo"
+                title="Homepage"
+                subtitle="Edit homepage content"
+                description="Update hero banner, featured sections, and homepage blocks."
+                index={0}
+              />
+              <DashboardCard
+                href="/dashboard/pages"
+                icon={FileText}
+                iconColor="blue"
+                title="Pages"
+                subtitle="Edit page content"
+                description="Manage your website pages, add new content blocks, and update page information."
+                index={1}
+              />
+              <DashboardCard
+                href="/dashboard/edit?collection=settings&slug=site"
+                icon={Settings}
+                iconColor="purple"
+                title="Site Settings"
+                subtitle="Branding & configuration"
+                description="Update site name, logo, colors, social links, and contact information."
+                index={2}
+              />
+              <DashboardCard
+                href="/dashboard/media"
+                icon={Image}
+                iconColor="green"
+                title="Media Library"
+                subtitle="Images & files"
+                description="Upload and manage images, documents, and other media files."
+                index={3}
+              />
+            </div>
+          </section>
 
           {/* Features Section */}
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Features</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {/* Shop Admin */}
-            {shopEnabled ? (
-              <Link
+          <section className="mb-12">
+            <SectionTitle icon={Layout}>Features</SectionTitle>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <DashboardCard
                 href="/dashboard/products"
-                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
-                    <ShoppingBag className="w-6 h-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Products</h4>
-                    <p className="text-sm text-green-600">Shop Enabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">
-                  Manage products, pricing, and inventory.
-                </p>
-              </Link>
-            ) : (
-              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <ShoppingBag className="w-6 h-6 text-gray-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-500">Shop</h4>
-                    <p className="text-sm text-gray-400">Disabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Enable the shop feature in Site Settings to sell products.
-                </p>
-              </div>
-            )}
-
-            {/* Orders */}
-            {shopEnabled ? (
-              <Link
+                icon={ShoppingBag}
+                iconColor="orange"
+                title="Products"
+                subtitle="Manage inventory"
+                description="Manage products, pricing, and inventory."
+                badge={shopEnabled ? "Enabled" : "Disabled"}
+                badgeColor={shopEnabled ? "green" : "gray"}
+                disabled={!shopEnabled}
+                index={0}
+              />
+              <DashboardCard
                 href="/dashboard/orders"
-                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
-                    <Receipt className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Orders</h4>
-                    <p className="text-sm text-green-600">View Purchases</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">
-                  View customer orders, export data, and track sales.
-                </p>
-              </Link>
-            ) : (
-              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Receipt className="w-6 h-6 text-gray-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-500">Orders</h4>
-                    <p className="text-sm text-gray-400">Disabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Enable the shop feature to view and manage orders.
-                </p>
-              </div>
-            )}
-
-            {/* Subscriptions */}
-            {shopEnabled ? (
-              <Link
+                icon={Receipt}
+                iconColor="emerald"
+                title="Orders"
+                subtitle="View purchases"
+                description="View customer orders, export data, and track sales."
+                badge={shopEnabled ? "Enabled" : "Disabled"}
+                badgeColor={shopEnabled ? "green" : "gray"}
+                disabled={!shopEnabled}
+                index={1}
+              />
+              <DashboardCard
                 href="/dashboard/subscriptions"
-                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-                    <RefreshCw className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Subscriptions</h4>
-                    <p className="text-sm text-green-600">Recurring Revenue</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">
-                  View active subscriptions, MRR, and manage recurring billing.
-                </p>
-              </Link>
-            ) : (
-              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <RefreshCw className="w-6 h-6 text-gray-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-500">Subscriptions</h4>
-                    <p className="text-sm text-gray-400">Disabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Enable the shop feature to view and manage subscriptions.
-                </p>
-              </div>
-            )}
-
-            {/* Programs */}
-            {programsEnabled ? (
-              <Link
+                icon={RefreshCw}
+                iconColor="purple"
+                title="Subscriptions"
+                subtitle="Recurring revenue"
+                description="View active subscriptions, MRR, and manage recurring billing."
+                badge={shopEnabled ? "Enabled" : "Disabled"}
+                badgeColor={shopEnabled ? "green" : "gray"}
+                disabled={!shopEnabled}
+                index={2}
+              />
+              <DashboardCard
                 href="/dashboard/programs"
-                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-teal-200 transition-colors">
-                    <Layout className="w-6 h-6 text-teal-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Programs</h4>
-                    <p className="text-sm text-green-600">Enabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">
-                  Manage your programs and services.
-                </p>
-              </Link>
-            ) : (
-              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Layout className="w-6 h-6 text-gray-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-500">Programs</h4>
-                    <p className="text-sm text-gray-400">Disabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Enable programs in Site Settings to showcase your offerings.
-                </p>
-              </div>
-            )}
-
-            {/* Events */}
-            {eventsEnabled ? (
-              <Link
+                icon={Layout}
+                iconColor="teal"
+                title="Programs"
+                subtitle="Services & offerings"
+                description="Manage your programs and services."
+                badge={programsEnabled ? "Enabled" : "Disabled"}
+                badgeColor={programsEnabled ? "green" : "gray"}
+                disabled={!programsEnabled}
+                index={3}
+              />
+              <DashboardCard
                 href="/events"
-                className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center group-hover:bg-pink-200 transition-colors">
-                    <Palette className="w-6 h-6 text-pink-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Events</h4>
-                    <p className="text-sm text-green-600">Enabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600">
-                  View and manage your events calendar.
-                </p>
-              </Link>
-            ) : (
-              <div className="bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-300 p-6 dark:shadow-slate-700/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Palette className="w-6 h-6 text-gray-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-500">Events</h4>
-                    <p className="text-sm text-gray-400">Disabled</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Enable events in Site Settings to promote activities.
-                </p>
-              </div>
-            )}
-          </div>
+                icon={Calendar}
+                iconColor="pink"
+                title="Events"
+                subtitle="Calendar & activities"
+                description="View and manage your events calendar."
+                badge={eventsEnabled ? "Enabled" : "Disabled"}
+                badgeColor={eventsEnabled ? "green" : "gray"}
+                disabled={!eventsEnabled}
+                index={4}
+              />
+            </div>
+          </section>
 
-          {/* Publish Section (Admin only) */}
+          {/* Admin Section */}
           {user.role === "admin" && (
             <>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Publishing</h3>
-              <div className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 mb-8">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                      <Upload className="w-6 h-6 text-emerald-600" />
+              {/* Deployment Section */}
+              <section className="mb-12">
+                <SectionTitle icon={Rocket}>Deployment</SectionTitle>
+                <div className="dashboard-card rounded-2xl p-6 animate-fade-in">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div className="flex items-center gap-4">
+                      <div className="icon-container-emerald w-14 h-14 rounded-xl flex items-center justify-center">
+                        <Rocket className="w-7 h-7 text-emerald-400" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-zinc-100 text-lg">Deploy to Live</h4>
+                        <p className="text-sm text-zinc-400 mt-1">
+                          Push all saved content changes to the live website
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Publish Changes</h4>
-                      <p className="text-sm text-gray-500">
-                        Push your content changes to the live site
-                      </p>
-                    </div>
+                    <DeployButton />
                   </div>
-                  <Link
-                    href="/dashboard/publish"
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
-                  >
-                    Review & Publish
-                  </Link>
                 </div>
-              </div>
-            </>
-          )}
+              </section>
 
-          {/* Settings Section (Admin only) */}
-          {user.role === "admin" && (
-            <>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Settings</h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <Link
-                  href="/dashboard/integrations"
-                  className="bg-white rounded-xl shadow-sm dark:shadow-slate-700/20 p-6 hover:shadow-md transition-shadow group"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
-                      <Plug className="w-6 h-6 text-indigo-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Integrations</h4>
-                      <p className="text-sm text-gray-500">API keys & services</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    View Stripe, authentication, and other integration status.
-                  </p>
-                </Link>
-              </div>
+              {/* Settings Section */}
+              <section className="mb-12">
+                <SectionTitle icon={Settings}>Settings</SectionTitle>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  <DashboardCard
+                    href="/dashboard/integrations"
+                    icon={Plug}
+                    iconColor="indigo"
+                    title="Integrations"
+                    subtitle="API keys & services"
+                    description="View Stripe, authentication, and other integration status."
+                    index={0}
+                  />
+                </div>
+              </section>
             </>
           )}
         </Container>

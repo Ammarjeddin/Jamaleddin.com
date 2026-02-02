@@ -1,12 +1,12 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { NavLinks } from "./NavLinks";
+import { NavbarLogo } from "./NavbarLogo";
 import { MobileMenu } from "../MobileMenu";
 import { CartIcon } from "@/components/shop/CartIcon";
-import { DarkModeToggle } from "@/components/ui/DarkModeToggle";
 import type { NavItem } from "@/lib/navigation";
 import type { SiteSettings } from "@/lib/content";
 
@@ -17,44 +17,80 @@ interface FloatingNavbarProps {
 }
 
 export function FloatingNavbar({ settings, navigation, showCart = false }: FloatingNavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const scrollThreshold = 50;
+
+      // Determine if user has scrolled past threshold
+      setIsScrolled(scrollY > scrollThreshold);
+
+      // Set scrolling state to true
+      setIsScrolling(true);
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Set timeout to detect when scrolling stops (150ms delay)
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Determine animation state
+  const animationState = isScrolled && isScrolling ? 'navbar-scrolling' : isScrolled ? 'navbar-scrolled' : 'navbar-idle';
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 py-4">
       <Container>
-        <div className="flex items-center justify-between bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-full px-6 py-2 shadow-lg transition-all duration-300 mx-4 md:mx-8">
+        {/* Animated Gold Border Wrapper - Animation activates while scrolling */}
+        <div className={`navbar-glow-wrapper mx-4 md:mx-8 ${animationState}`}>
+          <div className="navbar-animated-border">
+            <div className="navbar-inner flex items-center justify-between px-6 py-2.5">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            {settings.logo?.main ? (
-              <Image
-                src={settings.logo.main}
-                alt={settings.siteName}
-                width={40}
-                height={40}
-                className="h-10 w-auto"
-              />
-            ) : (
-              <span className="text-xl font-bold text-[var(--color-primary)] dark:text-slate-100">
-                {settings.siteName}
-              </span>
-            )}
-          </Link>
-
-          {/* Desktop Navigation */}
-          <NavLinks items={navigation} />
-
-          {/* CTA Button, Cart, Dark Mode & Mobile Menu */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            <DarkModeToggle className="hidden sm:flex" />
-            {showCart && <CartIcon />}
-            {settings.layout?.navbarButton?.enabled !== false && (
-              <Link
-                href={settings.layout?.navbarButton?.href || "/get-involved"}
-                className="hidden md:inline-flex btn btn-primary text-sm"
-              >
-                {settings.layout?.navbarButton?.text || "Get Involved"}
+              {/* Logo */}
+              <Link href="/" className="flex items-center gap-3 relative z-10">
+                <NavbarLogo
+                  mainLogo={settings.logo?.main}
+                  darkLogo={settings.logo?.dark}
+                  siteName={settings.siteName}
+                />
               </Link>
-            )}
-            <MobileMenu items={navigation} showCart={showCart} />
+
+              {/* Desktop Navigation */}
+              <NavLinks items={navigation} />
+
+              {/* CTA Button, Cart & Mobile Menu */}
+              <div className="flex items-center gap-2 sm:gap-4 relative z-10">
+                {showCart && <CartIcon />}
+                {settings.layout?.navbarButton?.enabled !== false && (
+                  <Link
+                    href={settings.layout?.navbarButton?.href || "/contact"}
+                    className="hidden md:inline-flex btn btn-primary text-sm"
+                  >
+                    {settings.layout?.navbarButton?.text || "Get Involved"}
+                  </Link>
+                )}
+                <MobileMenu items={navigation} showCart={showCart} />
+              </div>
+            </div>
           </div>
         </div>
       </Container>

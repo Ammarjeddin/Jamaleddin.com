@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { Container } from "@/components/ui/Container";
-import { ArrowLeft, Layout, Plus, Edit } from "lucide-react";
+import { ArrowLeft, Layout, Plus, ChevronRight } from "lucide-react";
 
 export const metadata = {
   title: "Programs - Admin Dashboard",
@@ -63,27 +63,27 @@ export default async function ProgramsListPage() {
   const programs = getPrograms();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Dashboard
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Programs</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Programs</h1>
             </div>
             <Link
               href="/dashboard/programs/new"
-              className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              className="flex items-center gap-2 btn btn-primary text-sm"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-4 h-4" />
               New Program
             </Link>
           </div>
@@ -93,44 +93,44 @@ export default async function ProgramsListPage() {
       <main className="py-8">
         <Container>
           {programs.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Layout className="w-8 h-8 text-gray-400" />
+            <div className="dashboard-card rounded-2xl p-12 text-center">
+              <div className="w-16 h-16 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                <Layout className="w-8 h-8 text-[var(--color-accent)]" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No programs yet</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-xl font-semibold text-zinc-100 mb-2">No programs yet</h2>
+              <p className="text-zinc-400 mb-6">
                 Create your first program to get started.
               </p>
               <Link
                 href="/dashboard/programs/new"
-                className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 btn btn-primary"
               >
                 <Plus className="w-5 h-5" />
                 Create Program
               </Link>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="divide-y divide-gray-200">
+            <div className="dashboard-card rounded-2xl overflow-hidden">
+              <div className="divide-y divide-[var(--color-border)]">
                 {programs.map((program) => (
                   <Link
                     key={program.slug}
                     href={`/dashboard/edit?collection=programs&slug=${program.slug}`}
-                    className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors group"
+                    className="flex items-center justify-between p-4 hover:bg-[var(--color-surface-elevated)] transition-colors group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-teal-200 transition-colors">
-                        <Layout className="w-5 h-5 text-teal-600" />
+                      <div className="w-10 h-10 rounded-xl icon-container-teal flex items-center justify-center transition-transform group-hover:scale-105">
+                        <Layout className="w-5 h-5 text-teal-400" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-900">{program.title}</h3>
+                        <h3 className="font-medium text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">{program.title}</h3>
                         {program.description && (
-                          <p className="text-sm text-gray-500 line-clamp-1">{program.description}</p>
+                          <p className="text-sm text-zinc-500 line-clamp-1">{program.description}</p>
                         )}
-                        <p className="text-xs text-gray-400 mt-0.5">/programs/{program.slug}</p>
+                        <p className="text-xs text-zinc-600 mt-0.5">/programs/{program.slug}</p>
                       </div>
                     </div>
-                    <Edit className="w-5 h-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" />
                   </Link>
                 ))}
               </div>

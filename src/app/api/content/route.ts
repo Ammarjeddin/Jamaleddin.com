@@ -155,7 +155,7 @@ export async function PUT(request: Request) {
     // If GitHub is configured, also save to draft branch
     if (isGitHubConfigured()) {
       const message = commitMessage || `Update ${path.basename(normalizedPath)}`;
-      const result = await saveFileToGitHub(normalizedPath, contentString, message, "draft");
+      const result = await saveFileToGitHub(normalizedPath, contentString, message);
 
       if (!result.success) {
         console.warn("GitHub save failed, but local save succeeded:", result.error);
@@ -232,7 +232,7 @@ export async function POST(request: Request) {
     // Save to GitHub draft branch if configured
     if (isGitHubConfigured()) {
       const message = commitMessage || `Create ${path.basename(normalizedPath)}`;
-      const result = await saveFileToGitHub(normalizedPath, contentString, message, "draft");
+      const result = await saveFileToGitHub(normalizedPath, contentString, message);
 
       return NextResponse.json({
         success: true,

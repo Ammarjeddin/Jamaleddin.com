@@ -78,6 +78,7 @@ interface Product {
   };
   status: "active" | "draft" | "archived";
   featured?: boolean;
+  unlisted?: boolean;
 }
 
 interface ProductEditorProps {
@@ -115,6 +116,7 @@ const DEFAULT_PRODUCT: Product = {
   },
   status: "draft",
   featured: false,
+  unlisted: false,
 };
 
 export function ProductEditor({ initialProduct, isNew = false, existingCategories = [] }: ProductEditorProps) {
@@ -131,8 +133,8 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
   const [showSaveMenu, setShowSaveMenu] = useState(false);
 
   const productUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/shop/${product.slug}`
-    : `/shop/${product.slug}`;
+    ? `${window.location.origin}/services/${product.slug}`
+    : `/services/${product.slug}`;
 
   const copyProductLink = async () => {
     try {
@@ -359,7 +361,7 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                 )}
               </button>
               <a
-                href={`/shop/${product.slug}`}
+                href={`/services/${product.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 px-3 py-2 border border-l-0 border-gray-300 rounded-r-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
@@ -582,6 +584,19 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                 <div>
                   <span className="text-sm font-medium text-gray-700">Featured Product</span>
                   <p className="text-xs text-gray-500">Display this product prominently</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={product.unlisted || false}
+                  onChange={(e) => updateField("unlisted", e.target.checked)}
+                  className="w-5 h-5 text-amber-600 border-gray-300 rounded focus:ring-amber-500"
+                />
+                <div>
+                  <span className="text-sm font-medium text-gray-700">Unlisted Product</span>
+                  <p className="text-xs text-gray-500">Hidden from shop, accessible via direct link only</p>
                 </div>
               </label>
             </div>
@@ -1058,7 +1073,7 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                     {product.seo?.metaTitle || product.name || "Product Title"}
                   </p>
                   <p className="text-green-700 text-sm">
-                    yoursite.com/shop/{product.slug || "product-slug"}
+                    yoursite.com/services/{product.slug || "product-slug"}
                   </p>
                   <p className="text-gray-600 text-sm mt-1">
                     {product.seo?.metaDescription || product.description || "Product description will appear here..."}

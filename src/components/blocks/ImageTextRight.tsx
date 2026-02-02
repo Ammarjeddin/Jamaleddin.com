@@ -23,12 +23,12 @@ export function ImageTextRight({
   isFirstBlock = false,
 }: ImageTextRightProps) {
   return (
-    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
       <Container>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 dark:text-white">{heading}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[var(--color-text)]">{heading}</h2>
             {content && (
               <div
                 className="prose prose-lg text-[var(--color-text-muted)] dark:prose-invert mb-8"

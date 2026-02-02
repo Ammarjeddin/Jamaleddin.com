@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { Container } from "@/components/ui/Container";
-import { ArrowLeft, FileText, Plus, Edit } from "lucide-react";
+import { ArrowLeft, FileText, Plus, Edit, ChevronRight } from "lucide-react";
 
 export const metadata = {
   title: "Pages - Admin Dashboard",
@@ -61,27 +61,27 @@ export default async function PagesListPage() {
   const pages = getPages();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Dashboard
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Pages</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Pages</h1>
             </div>
             <Link
               href="/dashboard/pages/new"
-              className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              className="flex items-center gap-2 btn btn-primary text-sm"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-4 h-4" />
               New Page
             </Link>
           </div>
@@ -91,44 +91,44 @@ export default async function PagesListPage() {
       <main className="py-8">
         <Container>
           {pages.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FileText className="w-8 h-8 text-gray-400" />
+            <div className="dashboard-card rounded-2xl p-12 text-center">
+              <div className="w-16 h-16 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                <FileText className="w-8 h-8 text-[var(--color-accent)]" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No pages yet</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-xl font-semibold text-zinc-100 mb-2">No pages yet</h2>
+              <p className="text-zinc-400 mb-6">
                 Create your first page to get started.
               </p>
               <Link
                 href="/dashboard/pages/new"
-                className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 btn btn-primary"
               >
                 <Plus className="w-5 h-5" />
                 Create Page
               </Link>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="divide-y divide-gray-200">
+            <div className="dashboard-card rounded-2xl overflow-hidden">
+              <div className="divide-y divide-[var(--color-border)]">
                 {pages.map((page) => (
                   <Link
                     key={page.slug}
                     href={`/dashboard/edit?collection=pages&slug=${page.slug}`}
-                    className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors group"
+                    className="flex items-center justify-between p-4 hover:bg-[var(--color-surface-elevated)] transition-colors group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                        <FileText className="w-5 h-5 text-blue-600" />
+                      <div className="w-10 h-10 rounded-xl icon-container-blue flex items-center justify-center transition-transform group-hover:scale-105">
+                        <FileText className="w-5 h-5 text-blue-400" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-900">{page.title}</h3>
+                        <h3 className="font-medium text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">{page.title}</h3>
                         {page.description && (
-                          <p className="text-sm text-gray-500 line-clamp-1">{page.description}</p>
+                          <p className="text-sm text-zinc-500 line-clamp-1">{page.description}</p>
                         )}
-                        <p className="text-xs text-gray-400 mt-0.5">/{page.slug}</p>
+                        <p className="text-xs text-zinc-600 mt-0.5">/{page.slug}</p>
                       </div>
                     </div>
-                    <Edit className="w-5 h-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" />
                   </Link>
                 ))}
               </div>

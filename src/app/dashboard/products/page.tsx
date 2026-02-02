@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { Container } from "@/components/ui/Container";
-import { ArrowLeft, ShoppingBag, Plus, Edit } from "lucide-react";
+import { ArrowLeft, ShoppingBag, Plus, ChevronRight } from "lucide-react";
 
 export const metadata = {
   title: "Products - Admin Dashboard",
@@ -70,27 +70,27 @@ export default async function ProductsListPage() {
   const products = getProducts();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-xl">
         <Container>
-          <div className="py-6 flex items-center justify-between">
+          <div className="py-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center gap-2 text-zinc-400 hover:text-[var(--color-accent)] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Dashboard
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <span className="text-gray-300">|</span>
-              <h1 className="text-2xl font-bold text-gray-900">Products</h1>
+              <div className="h-5 w-px bg-[var(--color-border)]" />
+              <h1 className="text-xl font-semibold text-zinc-100">Products</h1>
             </div>
             <Link
               href="/dashboard/products/new"
-              className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              className="flex items-center gap-2 btn btn-primary text-sm"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-4 h-4" />
               New Product
             </Link>
           </div>
@@ -100,54 +100,54 @@ export default async function ProductsListPage() {
       <main className="py-8">
         <Container>
           {products.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingBag className="w-8 h-8 text-gray-400" />
+            <div className="dashboard-card rounded-2xl p-12 text-center">
+              <div className="w-16 h-16 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-4">
+                <ShoppingBag className="w-8 h-8 text-[var(--color-accent)]" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No products yet</h2>
-              <p className="text-gray-600 mb-6">
+              <h2 className="text-xl font-semibold text-zinc-100 mb-2">No products yet</h2>
+              <p className="text-zinc-400 mb-6">
                 Create your first product to start selling.
               </p>
               <Link
                 href="/dashboard/products/new"
-                className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 btn btn-primary"
               >
                 <Plus className="w-5 h-5" />
                 Create Product
               </Link>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="divide-y divide-gray-200">
+            <div className="dashboard-card rounded-2xl overflow-hidden">
+              <div className="divide-y divide-[var(--color-border)]">
                 {products.map((product) => (
                   <Link
                     key={product.slug}
                     href={`/dashboard/edit?collection=products&slug=${product.slug}`}
-                    className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors group"
+                    className="flex items-center justify-between p-4 hover:bg-[var(--color-surface-elevated)] transition-colors group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
-                        <ShoppingBag className="w-5 h-5 text-orange-600" />
+                      <div className="w-10 h-10 rounded-xl icon-container-orange flex items-center justify-center transition-transform group-hover:scale-105">
+                        <ShoppingBag className="w-5 h-5 text-orange-400" />
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-900">{product.name}</h3>
+                        <h3 className="font-medium text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors">{product.name}</h3>
                         <div className="flex items-center gap-2 mt-0.5">
                           {product.price !== undefined && (
-                            <span className="text-sm text-gray-600">{formatPrice(product.price)}</span>
+                            <span className="text-sm text-zinc-400">{formatPrice(product.price)}</span>
                           )}
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             product.status === "active"
-                              ? "bg-green-100 text-green-700"
+                              ? "bg-green-500/10 text-green-400 border border-green-500/20"
                               : product.status === "draft"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-gray-100 text-gray-600"
+                              ? "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
+                              : "bg-zinc-500/10 text-zinc-400 border border-zinc-500/20"
                           }`}>
                             {product.status || "active"}
                           </span>
                         </div>
                       </div>
                     </div>
-                    <Edit className="w-5 h-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ChevronRight className="w-5 h-5 text-zinc-600 group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" />
                   </Link>
                 ))}
               </div>

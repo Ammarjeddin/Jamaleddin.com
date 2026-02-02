@@ -4,8 +4,9 @@
  */
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_OWNER = process.env.GITHUB_OWNER;
-const GITHUB_REPO = process.env.GITHUB_REPO;
+const GITHUB_OWNER = process.env.GITHUB_OWNER || "Ammarjeddin";
+const GITHUB_REPO = process.env.GITHUB_REPO || "Jamaleddin.com";
+const GITHUB_CONTENT_BRANCH = process.env.GITHUB_CONTENT_BRANCH || "content";
 const GITHUB_API = "https://api.github.com";
 
 export interface GitHubFile {
@@ -22,7 +23,12 @@ export interface CommitResult {
 
 // Check if GitHub is configured
 export function isGitHubConfigured(): boolean {
-  return !!(GITHUB_TOKEN && GITHUB_OWNER && GITHUB_REPO);
+  return !!GITHUB_TOKEN;
+}
+
+// Get the content branch name
+export function getContentBranch(): string {
+  return GITHUB_CONTENT_BRANCH;
 }
 
 // Get file from GitHub
@@ -67,7 +73,7 @@ export async function saveFileToGitHub(
   filePath: string,
   content: string,
   message: string,
-  branch: string = "draft",
+  branch: string = GITHUB_CONTENT_BRANCH,
   sha?: string
 ): Promise<CommitResult> {
   if (!isGitHubConfigured()) {
@@ -187,8 +193,8 @@ export async function ensureBranchExists(branch: string): Promise<boolean> {
   }
 }
 
-// Merge draft branch to main (publish)
-export async function publishDraftToMain(): Promise<CommitResult> {
+// Merge content branch to main (deploy to live)
+export async function publishContentToMain(): Promise<CommitResult> {
   if (!isGitHubConfigured()) {
     return { success: false, error: "GitHub not configured" };
   }
@@ -205,9 +211,50 @@ export async function publishDraftToMain(): Promise<CommitResult> {
         },
         body: JSON.stringify({
           base: "main",
-          head: "draft",
-          commit_message: "Publish content changes from draft",
+          head: GITHUB_CONTENT_BRANCH,
+          commit_message: "Deploy content changes to production",
         }),
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      // Handle "already up to date" case
+      if (response.status === 204 || error.message?.includes("nothing to merge")) {
+        return { success: true, sha: "already-up-to-date" };
+      }
+      throw new Error(error.message || `GitHub API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return { success: true, sha: data.sha };
+  } catch (error) {
+    console.error("Error deploying content:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+
+// Get pending changes (commits on content branch not in main)
+export async function getPendingChanges(): Promise<{
+  success: boolean;
+  commits?: Array<{ sha: string; message: string; date: string; author: string }>;
+  error?: string;
+}> {
+  if (!isGitHubConfigured()) {
+    return { success: false, error: "GitHub not configured" };
+  }
+
+  try {
+    const response = await fetch(
+      `${GITHUB_API}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/compare/main...${GITHUB_CONTENT_BRANCH}`,
+      {
+        headers: {
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+        },
       }
     );
 
@@ -217,9 +264,16 @@ export async function publishDraftToMain(): Promise<CommitResult> {
     }
 
     const data = await response.json();
-    return { success: true, sha: data.sha };
+    const commits = data.commits?.map((c: { sha: string; commit: { message: string; author: { name: string; date: string } } }) => ({
+      sha: c.sha.substring(0, 7),
+      message: c.commit.message,
+      date: c.commit.author.date,
+      author: c.commit.author.name,
+    })) || [];
+
+    return { success: true, commits };
   } catch (error) {
-    console.error("Error publishing draft:", error);
+    console.error("Error getting pending changes:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
@@ -264,7 +318,7 @@ export async function listFilesInDirectory(
 export async function deleteFileFromGitHub(
   filePath: string,
   message: string,
-  branch: string = "draft"
+  branch: string = GITHUB_CONTENT_BRANCH
 ): Promise<CommitResult> {
   if (!isGitHubConfigured()) {
     return { success: false, error: "GitHub not configured" };

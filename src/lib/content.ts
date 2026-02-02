@@ -36,6 +36,7 @@ export interface SiteSettings {
   tagline?: string;
   logo?: {
     main?: string;
+    dark?: string;
     icon?: string;
     light?: string;
   };

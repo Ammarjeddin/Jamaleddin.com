@@ -40,22 +40,22 @@ export function CardsGrid({
   };
 
   return (
-    <section className={cn("py-12 sm:py-16 md:py-20 dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40 sm:pt-44 md:pt-48")}>
+    <section className={cn("py-12 sm:py-16 md:py-20 glass", isFirstBlock && "-mt-20 pt-40 sm:pt-44 md:pt-48")}>
       <Container>
         {(heading || subheading) && (
           <div className="text-center mb-8 sm:mb-12">
             {heading && (
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 dark:text-white">{heading}</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-[var(--color-text)]">{heading}</h2>
             )}
             {subheading && (
-              <p className="text-base sm:text-lg text-[var(--color-text-muted)] dark:text-slate-300 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
                 {subheading}
               </p>
             )}
           </div>
         )}
 
-        <div className={cn("grid gap-3 sm:gap-4 md:gap-6", columnClasses[columns])}>
+        <div className={cn("grid gap-4 sm:gap-5 md:gap-6", columnClasses[columns])}>
           {cards.map((card, index) => {
             const CardWrapper = card.link ? Link : "div";
             const Icon = card.icon ? getIcon(card.icon) : null;
@@ -65,35 +65,42 @@ export function CardsGrid({
                 key={index}
                 href={card.link || "#"}
                 className={cn(
-                  "bg-white rounded-lg shadow-md overflow-hidden group",
-                  "dark:shadow-lg dark:shadow-black/20",
+                  "glass-card group",
                   card.link && "cursor-pointer"
                 )}
+                style={{ animationDelay: `${index * 80}ms` }}
               >
-                {card.image && (
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={card.image}
-                      alt={card.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div className="p-3 sm:p-4 md:p-6">
-                  {Icon && !card.image && (
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-[var(--color-primary)] flex items-center justify-center mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform">
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+                {/* Gold glow border */}
+                <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-[var(--color-accent)]/20 via-transparent to-[var(--color-accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="glass-card-inner">
+                  {card.image && (
+                    <div className="relative aspect-video overflow-hidden">
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     </div>
                   )}
-                  <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2 text-gray-900 group-hover:text-[var(--color-primary)] transition-colors">
-                    {card.title}
-                  </h3>
-                  {card.description && (
-                    <p className="text-sm sm:text-base text-gray-600">
-                      {card.description}
-                    </p>
-                  )}
+                  <div className="relative p-4 sm:p-5 md:p-6">
+                    {Icon && !card.image && (
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 group-hover:border-[var(--color-accent)]/40 transition-all duration-300">
+                        <Icon className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[var(--color-accent)]" />
+                      </div>
+                    )}
+                    <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2 text-zinc-100 group-hover:text-[var(--color-accent)] transition-colors duration-300">
+                      {card.title}
+                    </h3>
+                    {card.description && (
+                      <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+                        {card.description}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </CardWrapper>
             );

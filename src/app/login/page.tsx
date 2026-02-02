@@ -46,7 +46,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 relative z-10">
       <div className="w-full max-w-md">
         {/* Logo/Title */}
         <div className="text-center mb-8">
@@ -156,7 +156,7 @@ function LoginForm() {
 
 function LoginLoading() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 relative z-10">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">

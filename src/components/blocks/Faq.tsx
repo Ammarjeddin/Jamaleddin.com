@@ -24,10 +24,10 @@ export function Faq({ heading, items, isFirstBlock = false }: FaqProps) {
   };
 
   return (
-    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
       <Container size="narrow">
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[var(--color-text)]">
             {heading}
           </h2>
         )}
@@ -36,22 +36,33 @@ export function Faq({ heading, items, isFirstBlock = false }: FaqProps) {
           {items.map((item, index) => (
             <div
               key={index}
-              className="border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden dark:shadow-lg dark:shadow-black/20"
+              className="faq-item"
+              data-open={openIndex === index}
+              style={{ animationDelay: `${index * 60}ms` }}
             >
               <button
                 onClick={() => toggleItem(index)}
-                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-gray-50 transition-colors dark:bg-slate-800 dark:hover:bg-slate-700"
+                className="w-full flex items-center justify-between p-5 text-left transition-colors hover:bg-white/[0.02]"
                 aria-expanded={openIndex === index}
               >
-                <span className="font-semibold text-lg pr-8 text-gray-900 dark:text-white">
+                <span className="font-semibold text-lg pr-8 text-zinc-100">
                   {item.question}
                 </span>
-                <ChevronDown
-                  className={cn(
-                    "w-5 h-5 text-[var(--color-primary)] transition-transform flex-shrink-0",
-                    openIndex === index && "rotate-180"
-                  )}
-                />
+                <div className={cn(
+                  "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300",
+                  openIndex === index
+                    ? "bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30"
+                    : "bg-white/5 border border-white/10"
+                )}>
+                  <ChevronDown
+                    className={cn(
+                      "w-5 h-5 transition-all duration-300 flex-shrink-0",
+                      openIndex === index
+                        ? "rotate-180 text-[var(--color-accent)]"
+                        : "text-zinc-400"
+                    )}
+                  />
+                </div>
               </button>
               <div
                 className={cn(
@@ -60,7 +71,7 @@ export function Faq({ heading, items, isFirstBlock = false }: FaqProps) {
                 )}
               >
                 <div
-                  className="p-5 pt-0 text-[var(--color-text-muted)] dark:text-slate-300 prose prose-lg dark:prose-invert"
+                  className="p-5 pt-0 text-zinc-400 prose prose-lg prose-invert prose-p:text-zinc-400 prose-a:text-[var(--color-accent)] prose-strong:text-zinc-200"
                   dangerouslySetInnerHTML={{ __html: item.answer }}
                 />
               </div>

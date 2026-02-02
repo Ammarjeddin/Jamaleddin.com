@@ -13,38 +13,43 @@ export function MinimalFooter({ settings, navigation }: MinimalFooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white py-6">
-      <Container>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm">
-            &copy; {currentYear} {settings.siteName}. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6 text-sm text-gray-400">
-            {navigation.slice(0, 4).map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="hover:text-white transition-colors"
-              >
-                {item.label}
+    <footer className="footer-section relative z-10">
+      {/* Animated top border - matches navbar style */}
+      <div className="footer-glow-border" />
+
+      <div className="footer-glass py-6">
+        <Container>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-zinc-500 text-sm">
+              &copy; {currentYear} {settings.siteName}. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6 text-sm text-zinc-400">
+              {navigation.slice(0, 4).map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="hover:text-[var(--color-accent)] transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link href="/privacy" className="hover:text-[var(--color-accent)] transition-colors">
+                Privacy
               </Link>
-            ))}
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms
-            </Link>
-            <Link
-              href="/dashboard"
-              className="hover:text-white transition-colors"
-              title="Admin Dashboard"
-            >
-              <Settings className="w-4 h-4" />
-            </Link>
+              <Link href="/terms" className="hover:text-[var(--color-accent)] transition-colors">
+                Terms
+              </Link>
+              <Link
+                href="/dashboard"
+                className="hover:text-[var(--color-accent)] transition-colors"
+                title="Admin Dashboard"
+              >
+                <Settings className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </footer>
   );
 }

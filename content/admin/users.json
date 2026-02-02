@@ -3,8 +3,8 @@
     {
       "id": "1",
       "username": "admin",
-      "email": "admin@example.com",
-      "passwordHash": "$2b$10$YP36QWrnNEXSMEZrOPr0fOBAqNYFdOoQqbwaVtDKNiAR9YVdXcMWy",
+      "email": "admin@jamaleddin.com",
+      "passwordHash": "$2b$10$z1T3GyeVuqBdCC82RZeu1uynUbgXq1SaSHR/98OPK7SM8YtxLyzhO",
       "role": "admin",
       "createdAt": "2024-01-01T00:00:00.000Z"
     }

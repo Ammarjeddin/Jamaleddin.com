@@ -9,7 +9,7 @@
         "gridColumns": "3"
       },
       "programs": {
-        "enabled": true
+        "enabled": false
       },
       "events": {
         "enabled": false
@@ -19,14 +19,15 @@
   "siteName": "Jamaleddin LLC",
   "tagline": "Consulting Agency",
   "logo": {
-    "main": "/images/logo.jpg",
-    "icon": "/images/logo.jpg",
-    "light": "/images/logo.jpg"
+    "main": "/images/LogoTrans.png",
+    "dark": "/images/LogoTransDark.png",
+    "icon": "/images/LogoTrans.png",
+    "light": "/images/LogoTrans.png"
   },
   "theme": {
-    "primaryColor": "#1a365d",
-    "secondaryColor": "#2563eb",
-    "accentColor": "#f59e0b",
+    "primaryColor": "#1A1A1A",
+    "secondaryColor": "#B8A04A",
+    "accentColor": "#B8A04A",
     "backgroundColor": "#ffffff",
     "textColor": "#1a1a1a"
   },
@@ -34,9 +35,9 @@
     "pairing": "modern"
   },
   "layout": {
-    "homepage": "standard",
+    "homepage": "minimal",
     "navbar": "floating",
-    "footer": "full",
+    "footer": "minimal",
     "navbarButton": {
       "enabled": true,
       "text": "Get Started",
@@ -52,9 +53,9 @@
     "tiktok": ""
   },
   "contact": {
-    "email": "contact@jamaleddin.com",
-    "phone": "",
-    "address": ""
+    "email": "info@jamaleddin.com",
+    "phone": "3137822483",
+    "address": "32825 Manor Park Garden City MI 48135"
   },
   "analytics": {
     "googleAnalyticsId": "",
@@ -64,7 +65,24 @@
   "seo": {
     "titleTemplate": "%s | Jamaleddin LLC",
     "defaultDescription": "Jamaleddin LLC - Professional consulting services to help your business grow.",
-    "defaultOgImage": "/images/logo.jpg"
+    "defaultOgImage": "/images/LogoTrans.png"
   },
-  "navigation": []
+  "navigation": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Services",
+      "href": "/services"
+    },
+    {
+      "label": "About Us",
+      "href": "/about"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ]
 }

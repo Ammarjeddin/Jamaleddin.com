@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from "react";
+import { createContext, useContext, useEffect, ReactNode } from "react";
 
 interface DarkModeContextType {
   isDarkMode: boolean;
@@ -10,55 +10,33 @@ interface DarkModeContextType {
 
 const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
 
-const STORAGE_KEY = "site-template-dark-mode";
-
+/**
+ * DarkModeProvider - DARK MODE ONLY
+ * This site uses dark mode exclusively. The context is kept for API compatibility
+ * but all toggle/set operations are no-ops.
+ */
 export function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  // Initialize from localStorage and system preference
+  // Ensure dark class is always present
   useEffect(() => {
-    setMounted(true);
-
+    document.documentElement.classList.add("dark");
+    // Remove any light mode artifacts from localStorage
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored !== null) {
-        setIsDarkMode(stored === "true");
-      } else {
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        setIsDarkMode(prefersDark);
-      }
+      localStorage.removeItem("site-template-dark-mode");
     } catch {
-      // localStorage may be unavailable in private browsing or restricted environments
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setIsDarkMode(prefersDark);
+      // Silently fail
     }
   }, []);
 
-  // Apply dark mode class to document
-  useEffect(() => {
-    if (!mounted) return;
-
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
-    try {
-      localStorage.setItem(STORAGE_KEY, isDarkMode.toString());
-    } catch {
-      // Silently fail if localStorage is unavailable
-    }
-  }, [isDarkMode, mounted]);
-
-  const toggleDarkMode = useCallback(() => setIsDarkMode((prev) => !prev), []);
-  const setDarkMode = useCallback((value: boolean) => setIsDarkMode(value), []);
-
-  const value = useMemo(
-    () => ({ isDarkMode, toggleDarkMode, setDarkMode }),
-    [isDarkMode, toggleDarkMode, setDarkMode]
-  );
+  // Fixed dark mode value - no toggling allowed
+  const value: DarkModeContextType = {
+    isDarkMode: true,
+    toggleDarkMode: () => {
+      // No-op: dark mode only
+    },
+    setDarkMode: () => {
+      // No-op: dark mode only
+    },
+  };
 
   return (
     <DarkModeContext.Provider value={value}>
@@ -76,9 +54,14 @@ export function useDarkMode(): DarkModeContextType {
 }
 
 /**
- * Safe version of useDarkMode that returns null when DarkModeProvider is absent.
- * Use this in components that may render outside of DarkModeProvider.
+ * Safe version of useDarkMode that returns a default dark mode state
+ * when DarkModeProvider is absent.
  */
-export function useDarkModeSafe(): DarkModeContextType | null {
-  return useContext(DarkModeContext) ?? null;
+export function useDarkModeSafe(): DarkModeContextType {
+  const context = useContext(DarkModeContext);
+  return context ?? {
+    isDarkMode: true,
+    toggleDarkMode: () => {},
+    setDarkMode: () => {},
+  };
 }

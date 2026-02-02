@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils/cn";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
 
 interface ContactInfoProps {
   heading?: string;
@@ -48,33 +48,33 @@ export function ContactInfo({
   return (
     <section
       className={cn(
-        "section bg-white dark:bg-slate-900",
+        "section glass",
         isFirstBlock && "-mt-20 pt-40"
       )}
     >
       <Container>
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[var(--color-text)]">
             {heading}
           </h2>
         )}
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Form */}
           {showForm && (
-            <div className="card p-8 bg-white dark:bg-slate-800">
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
+            <div className="contact-card p-8">
+              <h3 className="text-2xl font-semibold mb-6 text-zinc-100">
                 Send us a message
               </h3>
               {isSubmitted ? (
                 <div className="text-center py-8">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-green-100 dark:bg-green-500/20">
-                    <Send className="w-8 h-8 text-green-600 dark:text-green-400" />
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-green-500/20 border border-green-500/30">
+                    <CheckCircle className="w-8 h-8 text-green-400" />
                   </div>
-                  <h4 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                  <h4 className="text-xl font-semibold mb-2 text-zinc-100">
                     Message Sent!
                   </h4>
-                  <p className="text-gray-600 dark:text-slate-300">
+                  <p className="text-zinc-400">
                     We&apos;ll get back to you as soon as possible.
                   </p>
                 </div>
@@ -82,7 +82,7 @@ export function ContactInfo({
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
+                      <label className="block text-sm font-medium mb-2 text-zinc-300">
                         Name
                       </label>
                       <input
@@ -92,12 +92,12 @@ export function ContactInfo({
                           setFormData({ ...formData, name: e.target.value })
                         }
                         required
-                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
+                        className="glass-input w-full px-4 py-3 rounded-lg focus:outline-none"
                         placeholder="Your name"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
+                      <label className="block text-sm font-medium mb-2 text-zinc-300">
                         Email
                       </label>
                       <input
@@ -107,13 +107,13 @@ export function ContactInfo({
                           setFormData({ ...formData, email: e.target.value })
                         }
                         required
-                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
+                        className="glass-input w-full px-4 py-3 rounded-lg focus:outline-none"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
+                    <label className="block text-sm font-medium mb-2 text-zinc-300">
                       Subject
                     </label>
                     <input
@@ -123,12 +123,12 @@ export function ContactInfo({
                         setFormData({ ...formData, subject: e.target.value })
                       }
                       required
-                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
+                      className="glass-input w-full px-4 py-3 rounded-lg focus:outline-none"
                       placeholder="How can we help?"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-white">
+                    <label className="block text-sm font-medium mb-2 text-zinc-300">
                       Message
                     </label>
                     <textarea
@@ -138,7 +138,7 @@ export function ContactInfo({
                       }
                       required
                       rows={5}
-                      className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none bg-white dark:bg-slate-700 text-gray-900 dark:text-white border-gray-300 dark:border-slate-600"
+                      className="glass-input w-full px-4 py-3 rounded-lg focus:outline-none resize-none"
                       placeholder="Your message..."
                     />
                   </div>
@@ -147,7 +147,17 @@ export function ContactInfo({
                     disabled={isSubmitting}
                     className="btn btn-primary w-full disabled:opacity-50"
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending...
+                      </span>
+                    ) : (
+                      <span className="flex items-center justify-center gap-2">
+                        <Send className="w-4 h-4" />
+                        Send Message
+                      </span>
+                    )}
                   </button>
                 </form>
               )}
@@ -155,20 +165,20 @@ export function ContactInfo({
           )}
 
           {/* Contact Details & Map */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Contact Details */}
-            <div className="card p-8 bg-white dark:bg-slate-800">
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
+            <div className="contact-card p-8">
+              <h3 className="text-2xl font-semibold mb-6 text-zinc-100">
                 Contact Details
               </h3>
               <div className="space-y-4">
                 {email && (
                   <a
                     href={`mailto:${email}`}
-                    className="flex items-center gap-4 text-gray-600 dark:text-slate-300 hover:text-[var(--color-primary)] transition-colors"
+                    className="flex items-center gap-4 text-zinc-400 hover:text-[var(--color-accent)] transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-[var(--color-primary)]/10 dark:bg-[var(--color-primary)]/20">
-                      <Mail className="w-5 h-5 text-[var(--color-primary)]" />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 group-hover:border-[var(--color-accent)]/40 transition-colors">
+                      <Mail className="w-5 h-5 text-[var(--color-accent)]" />
                     </div>
                     <span>{email}</span>
                   </a>
@@ -176,20 +186,20 @@ export function ContactInfo({
                 {phone && (
                   <a
                     href={`tel:${phone.replace(/\D/g, "")}`}
-                    className="flex items-center gap-4 text-gray-600 dark:text-slate-300 hover:text-[var(--color-primary)] transition-colors"
+                    className="flex items-center gap-4 text-zinc-400 hover:text-[var(--color-accent)] transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-[var(--color-primary)]/10 dark:bg-[var(--color-primary)]/20">
-                      <Phone className="w-5 h-5 text-[var(--color-primary)]" />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 group-hover:border-[var(--color-accent)]/40 transition-colors">
+                      <Phone className="w-5 h-5 text-[var(--color-accent)]" />
                     </div>
                     <span>{phone}</span>
                   </a>
                 )}
                 {address && (
-                  <div className="flex items-start gap-4 text-gray-600 dark:text-slate-300">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-[var(--color-primary)]/10 dark:bg-[var(--color-primary)]/20">
-                      <MapPin className="w-5 h-5 text-[var(--color-primary)]" />
+                  <div className="flex items-start gap-4 text-zinc-400">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/20">
+                      <MapPin className="w-5 h-5 text-[var(--color-accent)]" />
                     </div>
-                    <span className="whitespace-pre-line">{address}</span>
+                    <span className="whitespace-pre-line pt-3">{address}</span>
                   </div>
                 )}
               </div>
@@ -197,7 +207,7 @@ export function ContactInfo({
 
             {/* Map */}
             {showMap && mapEmbedUrl && (
-              <div className="card overflow-hidden bg-white dark:bg-slate-800">
+              <div className="contact-card overflow-hidden">
                 <iframe
                   src={mapEmbedUrl}
                   width="100%"
@@ -207,6 +217,7 @@ export function ContactInfo({
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Location Map"
+                  className="opacity-80"
                 />
               </div>
             )}

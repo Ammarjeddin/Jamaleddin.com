@@ -28,16 +28,6 @@
   },
   "blocks": [
     {
-      "_template": "stats",
-      "heading": "Our Impact",
-      "stats": [
-        { "number": "50+", "label": "Projects Completed" },
-        { "number": "95%", "label": "Client Satisfaction" },
-        { "number": "10+", "label": "Years Experience" },
-        { "number": "24/7", "label": "Support Available" }
-      ]
-    },
-    {
       "_template": "cardsGrid",
       "heading": "Our Services",
       "subheading": "Comprehensive consulting solutions tailored to your needs",
@@ -123,7 +113,7 @@
       "buttonText": "Schedule Consultation",
       "buttonLink": "/contact",
       "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
-      "style": "primary"
+      "style": "secondary"
     }
   ]
 }

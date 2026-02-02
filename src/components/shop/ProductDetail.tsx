@@ -109,9 +109,9 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
         {/* Category & Type */}
         <div className="flex items-center gap-3 text-sm">
           {product.category && (
-            <span className="text-gray-500">{product.category}</span>
+            <span className="text-[var(--color-text-muted)]">{product.category}</span>
           )}
-          <span className="flex items-center gap-1 text-gray-600 bg-gray-100 px-2 py-1 rounded capitalize">
+          <span className="flex items-center gap-1 text-[var(--color-text-muted)] bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded capitalize">
             <ProductTypeIcon className="w-4 h-4" />
             {product.productType}
           </span>
@@ -124,13 +124,13 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl lg:text-4xl font-bold text-[var(--color-text)]">
           {product.name}
         </h1>
 
         {/* Price */}
         <div className="flex items-baseline gap-3">
-          <span className="text-3xl font-bold text-gray-900">
+          <span className="text-3xl font-bold text-[var(--color-text)]">
             {isSubscription && product.subscription
               ? formatSubscriptionPrice(
                   product.pricing.price,
@@ -170,13 +170,13 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
 
         {/* Description */}
         {product.description && (
-          <p className="text-gray-600 text-lg">{product.description}</p>
+          <p className="text-[var(--color-text-muted)] text-lg whitespace-pre-line">{product.description}</p>
         )}
 
         {/* Variants */}
         {product.variants && product.variants.length > 0 && (
           <div className="space-y-3">
-            <label className="block font-medium text-gray-900">
+            <label className="block font-medium text-[var(--color-text)]">
               Select Option
             </label>
             <div className="flex flex-wrap gap-2">
@@ -250,14 +250,14 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
 
         {/* Product Type Specific Info */}
         {product.productType === "physical" && product.physical?.requiresShipping && (
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
             <Truck className="w-5 h-5" />
             <span>Shipping calculated at checkout</span>
           </div>
         )}
 
         {product.productType === "digital" && (
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
             <Download className="w-5 h-5" />
             <span>
               Instant download
@@ -268,15 +268,15 @@ export function ProductDetail({ product, currency = "USD" }: ProductDetailProps)
         )}
 
         {product.productType === "service" && product.service?.duration && (
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
             <Calendar className="w-5 h-5" />
             <span>Duration: {product.service.duration}</span>
           </div>
         )}
 
         {/* Trust Badges */}
-        <div className="flex items-center gap-4 pt-4 border-t border-gray-200">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+        <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
             <Shield className="w-5 h-5 text-green-600" />
             <span>Secure checkout</span>
           </div>

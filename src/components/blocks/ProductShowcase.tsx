@@ -24,13 +24,13 @@ export async function ProductShowcase({
   const product = productSlug ? await getProduct(productSlug) : null;
 
   const bgClass = {
-    white: "bg-white dark:bg-slate-900",
-    gray: "bg-gray-50 dark:bg-slate-800",
+    white: "",
+    gray: "",
     primary: "bg-[var(--color-primary)] text-white",
   }[backgroundColor];
 
-  const textColorClass = backgroundColor === "primary" ? "text-white" : "text-gray-900 dark:text-white";
-  const mutedTextClass = backgroundColor === "primary" ? "text-white/80" : "text-gray-600 dark:text-gray-300";
+  const textColorClass = backgroundColor === "primary" ? "text-white" : "text-[var(--color-text)] ";
+  const mutedTextClass = backgroundColor === "primary" ? "text-white/80" : "text-[var(--color-text-muted)] dark:text-gray-300";
 
   if (!product) {
     return null;
@@ -65,7 +65,7 @@ export async function ProductShowcase({
         </p>
       )}
 
-      <Link href={`/shop/${product.slug}`}>
+      <Link href={`/services/${product.slug}`}>
         <h2 className={`text-3xl md:text-4xl font-bold ${textColorClass} hover:opacity-80 transition-opacity`}>
           {product.name}
         </h2>
@@ -89,11 +89,11 @@ export async function ProductShowcase({
       <div className="flex flex-col sm:flex-row gap-4">
         <AddToCartButton product={product} variant="default" />
         <Link
-          href={`/shop/${product.slug}`}
+          href={`/services/${product.slug}`}
           className={`px-6 py-3 rounded-lg font-medium border text-center transition-colors ${
             backgroundColor === "primary"
               ? "border-white/30 text-white hover:bg-white/10"
-              : "border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700"
+              : "border-gray-300 dark:border-slate-600 text-[var(--color-text)]  hover:bg-gray-50 dark:hover:bg-slate-700"
           }`}
         >
           View Details

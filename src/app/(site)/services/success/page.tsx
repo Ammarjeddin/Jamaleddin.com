@@ -45,7 +45,7 @@ function SuccessContent() {
     return (
       <div className="max-w-2xl mx-auto text-center">
         <Loader2 className="w-12 h-12 text-gray-400 animate-spin mx-auto mb-4" />
-        <p className="text-lg text-gray-600">Verifying your order...</p>
+        <p className="text-lg text-[var(--color-text-muted)]">Verifying your order...</p>
       </div>
     );
   }
@@ -56,17 +56,17 @@ function SuccessContent() {
         <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-8">
           <AlertCircle className="w-12 h-12 text-red-500" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-bold text-[var(--color-text)] mb-4">
           Something went wrong
         </h1>
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-[var(--color-text-muted)] mb-8">
           We couldn&apos;t verify your order. If you were charged, please contact support.
         </p>
         <Link
-          href="/shop"
+          href="/services"
           className="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
         >
-          Return to Shop
+          Return to Services
         </Link>
       </div>
     );
@@ -80,11 +80,11 @@ function SuccessContent() {
       </div>
 
       {/* Heading */}
-      <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+      <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-text)] mb-4">
         Thank you for your order!
       </h1>
 
-      <p className="text-lg text-gray-600 mb-8">
+      <p className="text-lg text-[var(--color-text-muted)] mb-8">
         Your order has been placed successfully. We&apos;ll send you an email confirmation shortly.
       </p>
 
@@ -93,9 +93,9 @@ function SuccessContent() {
         <div className="bg-white rounded-xl p-6 text-left shadow-sm">
           <div className="flex items-center gap-3 mb-3">
             <Mail className="w-6 h-6 text-primary" />
-            <h3 className="font-semibold text-gray-900">Confirmation Email</h3>
+            <h3 className="font-semibold text-[var(--color-text)]">Confirmation Email</h3>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[var(--color-text-muted)]">
             A confirmation email with your order details has been sent to your email address.
           </p>
         </div>
@@ -103,9 +103,9 @@ function SuccessContent() {
         <div className="bg-white rounded-xl p-6 text-left shadow-sm">
           <div className="flex items-center gap-3 mb-3">
             <Package className="w-6 h-6 text-primary" />
-            <h3 className="font-semibold text-gray-900">Order Processing</h3>
+            <h3 className="font-semibold text-[var(--color-text)]">Order Processing</h3>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[var(--color-text-muted)]">
             We&apos;re preparing your order. Physical items typically ship within 2-3 business days.
           </p>
         </div>
@@ -113,13 +113,13 @@ function SuccessContent() {
 
       {/* What's Next */}
       <div className="bg-white rounded-xl p-8 shadow-sm mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">What happens next?</h2>
+        <h2 className="text-xl font-semibold text-[var(--color-text)] mb-4">What happens next?</h2>
         <ul className="text-left space-y-3">
           <li className="flex items-start gap-3">
             <span className="flex items-center justify-center w-6 h-6 bg-primary text-white rounded-full text-sm font-medium flex-shrink-0">
               1
             </span>
-            <span className="text-gray-600">
+            <span className="text-[var(--color-text-muted)]">
               You&apos;ll receive an email confirmation with your order details and receipt.
             </span>
           </li>
@@ -127,7 +127,7 @@ function SuccessContent() {
             <span className="flex items-center justify-center w-6 h-6 bg-primary text-white rounded-full text-sm font-medium flex-shrink-0">
               2
             </span>
-            <span className="text-gray-600">
+            <span className="text-[var(--color-text-muted)]">
               For digital products, you&apos;ll receive download links in your confirmation email.
             </span>
           </li>
@@ -135,7 +135,7 @@ function SuccessContent() {
             <span className="flex items-center justify-center w-6 h-6 bg-primary text-white rounded-full text-sm font-medium flex-shrink-0">
               3
             </span>
-            <span className="text-gray-600">
+            <span className="text-[var(--color-text-muted)]">
               For physical products, we&apos;ll send tracking information once your order ships.
             </span>
           </li>
@@ -145,15 +145,15 @@ function SuccessContent() {
       {/* CTA Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Link
-          href="/shop"
+          href="/services"
           className="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
         >
-          Continue Shopping
+          Browse Services
           <ArrowRight className="w-4 h-4" />
         </Link>
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+          className="inline-flex items-center justify-center gap-2 bg-gray-100 text-[var(--color-text)] px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
         >
           Return to Home
         </Link>
@@ -164,13 +164,13 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-20">
+    <div className="min-h-screen glass py-20">
       <Container>
         <Suspense
           fallback={
             <div className="max-w-2xl mx-auto text-center">
               <Loader2 className="w-12 h-12 text-gray-400 animate-spin mx-auto mb-4" />
-              <p className="text-lg text-gray-600">Loading...</p>
+              <p className="text-lg text-[var(--color-text-muted)]">Loading...</p>
             </div>
           }
         >

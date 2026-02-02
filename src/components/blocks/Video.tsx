@@ -53,10 +53,10 @@ export function Video({ heading, videoUrl, thumbnail, caption, isFirstBlock = fa
   }
 
   return (
-    <section className={cn("section dark:bg-slate-900", isFirstBlock && "-mt-20 pt-40")}>
+    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-40")}>
       <Container size="narrow">
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--color-text)]">
             {heading}
           </h2>
         )}
