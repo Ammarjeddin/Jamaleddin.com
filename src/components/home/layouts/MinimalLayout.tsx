@@ -32,7 +32,7 @@ export function MinimalLayout({
   return (
     <>
       {/* Text-only hero - minimal and clean */}
-      <section className="-mt-20 pt-36 sm:pt-40 md:pt-48 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-0">
+      <section className="-mt-20 pt-44 sm:pt-40 md:pt-48 pb-12 sm:pb-16 md:pb-20 px-4 sm:px-0">
         <Container size="narrow">
           <div className="text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)] mb-4 sm:mb-6 leading-tight">
