@@ -128,10 +128,10 @@ export function FullFooter({ settings, navigation }: FullFooterProps) {
               &copy; {currentYear} {settings.siteName}. All rights reserved.
             </p>
             <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-zinc-400">
-              <Link href="/privacy" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
+              <Link href="/legal" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
                 Privacy
               </Link>
-              <Link href="/terms" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
+              <Link href="/legal#terms-of-service" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
                 Terms
               </Link>
               <Link

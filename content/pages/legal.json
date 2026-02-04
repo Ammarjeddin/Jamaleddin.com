@@ -1,0 +1,39 @@
+{
+  "title": "Privacy Policy & Terms of Service",
+  "description": "Privacy policy and terms of service for Jamaleddin software solutions and services.",
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Privacy & Terms",
+      "subtitle": "Our commitment to protecting your privacy and the terms governing our services.",
+      "height": "small",
+      "textAlign": "center"
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Privacy Policy",
+      "alignment": "left",
+      "content": "<p><strong>Last Updated:</strong> February 2026</p><p>Jamaleddin (\"we\", \"our\", or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or engage our services.</p><h3>Information We Collect</h3><p><strong>Personal Information:</strong> When you contact us, request a quote, or engage our services, we may collect your name, email address, phone number, company name, and project details.</p><p><strong>Usage Data:</strong> We automatically collect certain information when you visit our website, including your IP address, browser type, operating system, referring URLs, and pages visited.</p><h3>How We Use Your Information</h3><p>We use the information we collect to:</p><ul><li>Respond to your inquiries and provide customer support</li><li>Deliver the services you have requested</li><li>Send you project updates and communications</li><li>Improve our website and services</li><li>Comply with legal obligations</li></ul><h3>Information Sharing</h3><p>We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted service providers who assist us in operating our website and conducting our business, provided they agree to keep this information confidential.</p><h3>Data Security</h3><p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p><h3>Your Rights</h3><p>You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at hello@jamaleddin.com.</p><h3>Cookies</h3><p>Our website may use cookies to enhance your browsing experience. You can choose to disable cookies through your browser settings, though this may affect some functionality.</p>"
+    },
+    {
+      "_template": "divider",
+      "style": "line"
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Terms of Service",
+      "alignment": "left",
+      "content": "<p><strong>Last Updated:</strong> February 2026</p><p>These Terms of Service (\"Terms\") govern your use of Jamaleddin's website and services. By accessing our website or engaging our services, you agree to be bound by these Terms.</p><h3>Services</h3><p>Jamaleddin provides software development services including but not limited to AI solutions, web applications, mobile applications, SaaS platforms, and technology consulting. All services are provided based on individual project agreements and statements of work.</p><h3>Project Agreements</h3><p>Each project engagement is governed by a separate agreement that outlines scope, timeline, deliverables, and pricing. These project-specific terms take precedence over these general Terms where applicable.</p><h3>Intellectual Property</h3><p><strong>Client Work:</strong> Unless otherwise agreed in writing, upon full payment, clients receive ownership of the custom code and deliverables created specifically for their project.</p><p><strong>Pre-existing Materials:</strong> We retain ownership of our pre-existing tools, libraries, frameworks, and methodologies that may be incorporated into your project.</p><h3>Payment Terms</h3><p>Payment terms are specified in individual project agreements. Unless otherwise stated, invoices are due within 30 days of receipt. Late payments may be subject to interest charges.</p><h3>Warranties and Disclaimers</h3><p>We warrant that our services will be performed in a professional and workmanlike manner. We do not guarantee that software will be error-free. Our liability is limited to the amount paid for the specific services in question.</p><h3>Limitation of Liability</h3><p>To the maximum extent permitted by law, Jamaleddin shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services.</p><h3>Confidentiality</h3><p>Both parties agree to maintain the confidentiality of any proprietary or sensitive information shared during the course of engagement.</p><h3>Termination</h3><p>Either party may terminate a project engagement in accordance with the terms specified in the project agreement. Upon termination, payment is due for all work completed to date.</p><h3>Governing Law</h3><p>These Terms are governed by the laws of the State of Michigan, United States. Any disputes shall be resolved in the courts of Michigan.</p>"
+    },
+    {
+      "_template": "divider",
+      "style": "line"
+    },
+    {
+      "_template": "textBlock",
+      "heading": "Contact Us",
+      "alignment": "center",
+      "content": "<p>If you have any questions about our Privacy Policy or Terms of Service, please contact us:</p><p><strong>Email:</strong> hello@jamaleddin.com<br/><strong>Location:</strong> Garden City, Michigan</p>"
+    }
+  ]
+}

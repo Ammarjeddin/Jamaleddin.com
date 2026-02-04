@@ -33,10 +33,10 @@ export function MinimalFooter({ settings, navigation }: MinimalFooterProps) {
                   {item.label}
                 </Link>
               ))}
-              <Link href="/privacy" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
+              <Link href="/legal" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
                 Privacy
               </Link>
-              <Link href="/terms" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
+              <Link href="/legal#terms-of-service" className="hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
                 Terms
               </Link>
               <Link

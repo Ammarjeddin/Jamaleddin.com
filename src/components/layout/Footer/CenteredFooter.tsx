@@ -86,11 +86,17 @@ export function CenteredFooter({ settings, navigation }: CenteredFooterProps) {
             {/* Divider with gold accent */}
             <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent mb-6 sm:mb-8" />
 
-            {/* Copyright & Admin */}
-            <div className="flex items-center gap-4">
-              <p className="text-zinc-500 text-xs sm:text-sm">
+            {/* Copyright & Links */}
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm">
+              <p className="text-zinc-500">
                 &copy; {currentYear} {settings.siteName}. All rights reserved.
               </p>
+              <Link href="/legal" className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
+                Privacy
+              </Link>
+              <Link href="/legal#terms-of-service" className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors py-1 min-h-[44px] sm:min-h-0 flex items-center">
+                Terms
+              </Link>
               <Link
                 href="/dashboard"
                 className="text-zinc-400 hover:text-[var(--color-accent)] transition-colors min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
