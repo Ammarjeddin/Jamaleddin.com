@@ -45,7 +45,7 @@ export function Team({ heading, subheading, members, isFirstBlock = false, layou
         <div className={cn(
           "px-4 sm:px-0",
           isFeatured
-            ? "flex flex-col md:flex-row justify-center items-stretch gap-6 lg:gap-10 max-w-5xl mx-auto"
+            ? "flex flex-col md:flex-row justify-center items-stretch gap-6 lg:gap-10 max-w-6xl mx-auto"
             : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         )}>
           {members.map((member, index) => (
@@ -53,7 +53,7 @@ export function Team({ heading, subheading, members, isFirstBlock = false, layou
               key={index}
               className={cn(
                 "team-card group",
-                isFeatured ? "w-full md:w-[420px] flex-shrink-0" : "w-full"
+                isFeatured ? "w-full md:w-[480px] flex-shrink-0" : "w-full"
               )}
               style={{ animationDelay: `${index * 100}ms` }}
             >
@@ -61,7 +61,7 @@ export function Team({ heading, subheading, members, isFirstBlock = false, layou
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-[var(--color-accent)]/30 via-transparent to-[var(--color-accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Card inner */}
-              <div className="relative rounded-2xl overflow-hidden bg-[rgba(10,10,10,0.4)] backdrop-blur-xl border border-white/[0.08] group-hover:border-[var(--color-accent)]/30 transition-all duration-500 group-hover:bg-[rgba(10,10,10,0.55)]">
+              <div className="relative h-full flex flex-col rounded-2xl overflow-hidden bg-[rgba(10,10,10,0.4)] backdrop-blur-xl border border-white/[0.08] group-hover:border-[var(--color-accent)]/30 transition-all duration-500 group-hover:bg-[rgba(10,10,10,0.55)]">
                 {/* Subtle inner glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
 
@@ -132,7 +132,7 @@ export function Team({ heading, subheading, members, isFirstBlock = false, layou
 
                 {/* Info section with glass effect */}
                 <div className={cn(
-                  "relative bg-gradient-to-b from-transparent via-[rgba(10,10,10,0.3)] to-[rgba(10,10,10,0.5)]",
+                  "relative flex-grow bg-gradient-to-b from-transparent via-[rgba(10,10,10,0.3)] to-[rgba(10,10,10,0.5)]",
                   isFeatured ? "p-6" : "p-5"
                 )}>
                   <h3 className={cn(
