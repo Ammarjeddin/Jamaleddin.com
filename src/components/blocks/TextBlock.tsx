@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/Container";
+import { SafeHtml } from "@/components/ui/SafeHtml";
 import { cn } from "@/lib/utils/cn";
 
 interface TextBlockProps {
@@ -23,9 +24,9 @@ export function TextBlock({ heading, content, alignment = "left", isFirstBlock =
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[var(--color-text)]">{heading}</h2>
           )}
           {content && (
-            <div
+            <SafeHtml
+              html={content}
               className="prose prose-sm sm:prose-lg max-w-none text-[var(--color-text-muted)] dark:prose-invert"
-              dangerouslySetInnerHTML={{ __html: content }}
             />
           )}
         </div>

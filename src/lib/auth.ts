@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 
+import crypto from "crypto";
+
 let _jwtSecret: string | null = null;
 
 function getJwtSecret(): string {
@@ -12,8 +14,10 @@ function getJwtSecret(): string {
     if (process.env.NODE_ENV === "production") {
       throw new Error("JWT_SECRET environment variable must be set in production");
     }
-    console.warn("WARNING: Using fallback JWT secret. Set JWT_SECRET env var for production.");
-    _jwtSecret = "dev-only-fallback-secret-do-not-use-in-production";
+    // SECURITY: Generate unique random secret per instance instead of hardcoded value
+    // This prevents token reuse across server restarts in development
+    console.warn("WARNING: Using generated JWT secret. Set JWT_SECRET env var for production.");
+    _jwtSecret = crypto.randomBytes(32).toString("hex");
     return _jwtSecret;
   }
   _jwtSecret = secret;
@@ -71,16 +75,8 @@ export async function authenticateUser(
   username: string,
   password: string
 ): Promise<UserSession | null> {
-  // Local development fallback
-  const isLocalDev = process.env.NODE_ENV === "development";
-  if (isLocalDev && username === "admin" && password === "admin") {
-    return {
-      id: "dev-admin",
-      username: "admin",
-      email: "admin@localhost",
-      role: "admin",
-    };
-  }
+  // SECURITY: Development backdoor removed - always check users.json
+  // To add a dev user, run: npm run create-admin (or add to users.json)
 
   const { users } = getUsers();
   const user = users.find((u) => u.username === username);

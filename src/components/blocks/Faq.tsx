@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
+import { SafeHtml } from "@/components/ui/SafeHtml";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
@@ -70,9 +71,9 @@ export function Faq({ heading, items, isFirstBlock = false }: FaqProps) {
                   openIndex === index ? "max-h-[500px]" : "max-h-0"
                 )}
               >
-                <div
+                <SafeHtml
+                  html={item.answer}
                   className="p-4 sm:p-5 pt-0 text-zinc-400 prose prose-sm sm:prose-lg prose-invert prose-p:text-zinc-400 prose-a:text-[var(--color-accent)] prose-strong:text-zinc-200"
-                  dangerouslySetInnerHTML={{ __html: item.answer }}
                 />
               </div>
             </div>

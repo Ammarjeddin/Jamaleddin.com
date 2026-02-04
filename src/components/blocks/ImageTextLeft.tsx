@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { SafeHtml } from "@/components/ui/SafeHtml";
 import { cn } from "@/lib/utils/cn";
 
 interface ImageTextLeftProps {
@@ -40,9 +41,9 @@ export function ImageTextLeft({
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[var(--color-text)]">{heading}</h2>
             {content && (
-              <div
+              <SafeHtml
+                html={content}
                 className="prose prose-sm sm:prose-lg text-[var(--color-text-muted)] dark:prose-invert mb-6 sm:mb-8"
-                dangerouslySetInnerHTML={{ __html: content }}
               />
             )}
             {buttonText && buttonLink && (

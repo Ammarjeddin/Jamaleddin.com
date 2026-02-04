@@ -26,6 +26,11 @@ export default async function OrdersPage() {
     redirect("/login?redirect=/dashboard/orders");
   }
 
+  // SECURITY: Only admins can view orders (contains customer PII and financial data)
+  if (user.role !== "admin") {
+    redirect("/dashboard");
+  }
+
   const orders = getAllOrders();
   const stats = getOrderStats();
 
