@@ -169,20 +169,20 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-zinc-900">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-white dark:bg-zinc-800 border-b border-gray-200 dark:border-zinc-700 sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 text-gray-600 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-white"
             >
               <ArrowLeft className="w-5 h-5" />
               Dashboard
             </Link>
-            <span className="text-gray-300">|</span>
-            <h1 className="font-semibold text-gray-900">Site Settings</h1>
+            <span className="text-gray-300 dark:text-zinc-600">|</span>
+            <h1 className="font-semibold text-gray-900 dark:text-white">Site Settings</h1>
           </div>
           <div className="flex items-center gap-3">
             {error && <span className="text-sm text-red-600">{error}</span>}
@@ -209,11 +209,11 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 </button>
               </div>
               {showSaveMenu && (
-                <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-zinc-800 rounded-lg shadow-lg border border-gray-200 dark:border-zinc-700 z-50">
                   <button
                     onClick={() => handleSave(false)}
                     disabled={saving}
-                    className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-t-lg"
+                    className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-zinc-700 rounded-t-lg"
                   >
                     <Upload className="w-4 h-4" />
                     Save & Publish
@@ -221,7 +221,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                   <button
                     onClick={() => handleSave(true)}
                     disabled={saving}
-                    className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-b-lg border-t border-gray-100"
+                    className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-zinc-700 rounded-b-lg border-t border-gray-100 dark:border-zinc-700"
                   >
                     <FileEdit className="w-4 h-4" />
                     Save as Draft
@@ -244,8 +244,8 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       activeTab === tab.id
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-600 hover:bg-gray-100"
+                        ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400"
+                        : "text-gray-600 dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-zinc-800"
                     }`}
                   >
                     <tab.icon className="w-4 h-4" />
@@ -257,51 +257,51 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
           </nav>
 
           {/* Content */}
-          <div className="flex-1 bg-white rounded-xl shadow-sm p-6">
+          <div className="flex-1 bg-white dark:bg-zinc-800 rounded-xl shadow-sm p-6">
             {/* General Settings */}
             {activeTab === "general" && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">General Settings</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">General Settings</h2>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Site Name</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Site Name</label>
                   <input
                     type="text"
                     value={(content.siteName as string) || ""}
                     onChange={(e) => updateField("siteName", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tagline</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Tagline</label>
                   <input
                     type="text"
                     value={(content.tagline as string) || ""}
                     onChange={(e) => updateField("tagline", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Main Logo</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Main Logo</label>
                     <input
                       type="text"
                       value={logo.main || ""}
                       onChange={(e) => updateNested("logo", "main", e.target.value)}
                       placeholder="/images/logo.png"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Light Logo (for dark backgrounds)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Light Logo (for dark backgrounds)</label>
                     <input
                       type="text"
                       value={logo.light || ""}
                       onChange={(e) => updateNested("logo", "light", e.target.value)}
                       placeholder="/images/logo-light.png"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                     />
                   </div>
                 </div>
@@ -313,8 +313,8 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
               <div className="space-y-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h2 className="text-lg font-semibold text-gray-900">Navigation Menu</h2>
-                    <p className="text-sm text-gray-500">Customize your site&apos;s navigation links</p>
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Navigation Menu</h2>
+                    <p className="text-sm text-gray-500 dark:text-zinc-400">Customize your site&apos;s navigation links</p>
                   </div>
                   <button
                     onClick={addNavItem}
@@ -347,45 +347,45 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                         Here are example navigation items from a typical nonprofit or community site:
                       </p>
                       <div className="space-y-2 text-sm">
-                        <div className="flex items-center gap-2 text-gray-700">
+                        <div className="flex items-center gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">Home</span>
                           <span className="text-gray-400">&rarr;</span>
-                          <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/</code>
+                          <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/</code>
                         </div>
-                        <div className="flex items-start gap-2 text-gray-700">
+                        <div className="flex items-start gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">Programs</span>
                           <span className="text-gray-400">&rarr;</span>
                           <div>
-                            <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/programs</code>
+                            <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/programs</code>
                             <div className="mt-1 ml-2 text-xs text-gray-500">
                               <span className="text-gray-400">Dropdown:</span> Youth Leadership, Adult Education, Community Wellness, Digital Skills
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-700">
+                        <div className="flex items-center gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">Shop</span>
                           <span className="text-gray-400">&rarr;</span>
-                          <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/shop</code>
+                          <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/shop</code>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-700">
+                        <div className="flex items-center gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">About</span>
                           <span className="text-gray-400">&rarr;</span>
-                          <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/about</code>
+                          <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/about</code>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-700">
+                        <div className="flex items-center gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">Gallery</span>
                           <span className="text-gray-400">&rarr;</span>
-                          <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/gallery</code>
+                          <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/gallery</code>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-700">
+                        <div className="flex items-center gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">Get Involved</span>
                           <span className="text-gray-400">&rarr;</span>
-                          <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/get-involved</code>
+                          <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/get-involved</code>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-700">
+                        <div className="flex items-center gap-2 text-gray-700 dark:text-zinc-300">
                           <span className="font-medium w-24">Contact</span>
                           <span className="text-gray-400">&rarr;</span>
-                          <code className="bg-gray-100 px-2 py-0.5 rounded text-xs">/contact</code>
+                          <code className="bg-gray-100 dark:bg-zinc-600 px-2 py-0.5 rounded text-xs dark:text-zinc-300">/contact</code>
                         </div>
                       </div>
                       <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded text-xs text-amber-800">
@@ -397,7 +397,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 </div>
 
                 {navigation.length === 0 ? (
-                  <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+                  <div className="text-center py-12 bg-gray-50 dark:bg-zinc-700 rounded-lg border-2 border-dashed border-gray-200 dark:border-zinc-600">
                     <Navigation className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                     <p className="text-gray-500 mb-4">No custom navigation items</p>
                     <p className="text-sm text-gray-400 mb-4">
@@ -414,13 +414,13 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 ) : (
                   <div className="space-y-3">
                     {navigation.map((item, index) => (
-                      <div key={index} className="bg-gray-50 rounded-lg p-4">
+                      <div key={index} className="bg-gray-50 dark:bg-zinc-700 rounded-lg p-4">
                         <div className="flex items-start gap-3">
                           <div className="flex flex-col gap-1 pt-2">
                             <button
                               onClick={() => moveNavItem(index, "up")}
                               disabled={index === 0}
-                              className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                              className="p-1 text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 disabled:opacity-30"
                             >
                               <ChevronUp className="w-4 h-4" />
                             </button>
@@ -428,7 +428,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                             <button
                               onClick={() => moveNavItem(index, "down")}
                               disabled={index === navigation.length - 1}
-                              className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                              className="p-1 text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 disabled:opacity-30"
                             >
                               <ChevronDown className="w-4 h-4" />
                             </button>
@@ -437,30 +437,30 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                           <div className="flex-1 space-y-3">
                             <div className="grid grid-cols-2 gap-3">
                               <div>
-                                <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+                                <label className="block text-xs font-medium text-gray-600 dark:text-zinc-400 mb-1">Label</label>
                                 <input
                                   type="text"
                                   value={item.label}
                                   onChange={(e) => updateNavItem(index, "label", e.target.value)}
                                   placeholder="Link text"
-                                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                                 />
                               </div>
                               <div>
-                                <label className="block text-xs font-medium text-gray-600 mb-1">URL</label>
+                                <label className="block text-xs font-medium text-gray-600 dark:text-zinc-400 mb-1">URL</label>
                                 <input
                                   type="text"
                                   value={item.href}
                                   onChange={(e) => updateNavItem(index, "href", e.target.value)}
                                   placeholder="/page-url"
-                                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                  className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                                 />
                               </div>
                             </div>
 
                             {/* Sub-items */}
                             {item.children && item.children.length > 0 && (
-                              <div className="ml-4 pl-4 border-l-2 border-gray-200 space-y-2">
+                              <div className="ml-4 pl-4 border-l-2 border-gray-200 dark:border-zinc-600 space-y-2">
                                 <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Dropdown Items</p>
                                 {item.children.map((child, childIndex) => (
                                   <div key={childIndex} className="flex items-center gap-2">
@@ -469,14 +469,14 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                                       value={child.label}
                                       onChange={(e) => updateChildNavItem(index, childIndex, "label", e.target.value)}
                                       placeholder="Sub-link text"
-                                      className="flex-1 px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                      className="flex-1 px-2 py-1.5 text-sm border border-gray-300 dark:border-zinc-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                                     />
                                     <input
                                       type="text"
                                       value={child.href}
                                       onChange={(e) => updateChildNavItem(index, childIndex, "href", e.target.value)}
                                       placeholder="/sub-page"
-                                      className="flex-1 px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                      className="flex-1 px-2 py-1.5 text-sm border border-gray-300 dark:border-zinc-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                                     />
                                     <button
                                       onClick={() => removeChildNavItem(index, childIndex)}
@@ -509,8 +509,8 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                   </div>
                 )}
 
-                <div className="pt-4 border-t border-gray-200">
-                  <p className="text-sm text-gray-500">
+                <div className="pt-4 border-t border-gray-200 dark:border-zinc-700">
+                  <p className="text-sm text-gray-500 dark:text-zinc-400">
                     <strong>Tip:</strong> If navigation is empty, the site will use automatic navigation based on enabled features (Programs, Shop, Events, etc.).
                   </p>
                 </div>
@@ -520,7 +520,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
             {/* Theme Settings */}
             {activeTab === "theme" && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Theme & Colors</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Theme & Colors</h2>
 
                 <div className="grid grid-cols-2 gap-4">
                   {[
@@ -531,19 +531,19 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                     { field: "textColor", label: "Text Color" },
                   ].map(({ field, label }) => (
                     <div key={field}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">{label}</label>
                       <div className="flex items-center gap-2">
                         <input
                           type="color"
                           value={theme[field] || "#000000"}
                           onChange={(e) => updateNested("theme", field, e.target.value)}
-                          className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                          className="w-10 h-10 rounded border border-gray-300 dark:border-zinc-600 cursor-pointer"
                         />
                         <input
                           type="text"
                           value={theme[field] || ""}
                           onChange={(e) => updateNested("theme", field, e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
+                          className="flex-1 px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm bg-white dark:bg-zinc-700 dark:text-white"
                           placeholder="#000000"
                         />
                       </div>
@@ -551,12 +551,12 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                   ))}
                 </div>
 
-                <div className="pt-4 border-t border-gray-200">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Font Pairing</label>
+                <div className="pt-4 border-t border-gray-200 dark:border-zinc-700">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Font Pairing</label>
                   <select
                     value={(content.fonts as Record<string, string>)?.pairing || "modern"}
                     onChange={(e) => updateNested("fonts", "pairing", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   >
                     <option value="modern">Modern (Inter + Source Sans)</option>
                     <option value="classic">Classic (Merriweather + Open Sans)</option>
@@ -569,35 +569,35 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
             {/* Contact Settings */}
             {activeTab === "contact" && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h2>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Email Address</label>
                   <input
                     type="email"
                     value={contact.email || ""}
                     onChange={(e) => updateNested("contact", "email", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Phone Number</label>
                   <input
                     type="tel"
                     value={contact.phone || ""}
                     onChange={(e) => updateNested("contact", "phone", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Address</label>
                   <textarea
                     value={contact.address || ""}
                     onChange={(e) => updateNested("contact", "address", e.target.value)}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none bg-white dark:bg-zinc-700 dark:text-white"
                   />
                 </div>
               </div>
@@ -606,7 +606,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
             {/* Social Settings */}
             {activeTab === "social" && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Social Media Links</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Social Media Links</h2>
 
                 {[
                   { field: "facebook", label: "Facebook", placeholder: "https://facebook.com/..." },
@@ -617,13 +617,13 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                   { field: "tiktok", label: "TikTok", placeholder: "https://tiktok.com/..." },
                 ].map(({ field, label, placeholder }) => (
                   <div key={field}>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">{label}</label>
                     <input
                       type="url"
                       value={social[field] || ""}
                       onChange={(e) => updateNested("social", field, e.target.value)}
                       placeholder={placeholder}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                     />
                   </div>
                 ))}
@@ -633,14 +633,14 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
             {/* Layout Settings */}
             {activeTab === "layout" && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Layout Options</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Layout Options</h2>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Homepage Style</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Homepage Style</label>
                   <select
                     value={(layout.homepage as string) || "standard"}
                     onChange={(e) => updateNested("layout", "homepage", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   >
                     <option value="standard">Standard</option>
                     <option value="minimal">Minimal</option>
@@ -649,11 +649,11 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Navbar Style</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Navbar Style</label>
                   <select
                     value={(layout.navbar as string) || "floating"}
                     onChange={(e) => updateNested("layout", "navbar", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   >
                     <option value="floating">Floating</option>
                     <option value="fixed">Fixed</option>
@@ -662,11 +662,11 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Footer Style</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Footer Style</label>
                   <select
                     value={(layout.footer as string) || "full"}
                     onChange={(e) => updateNested("layout", "footer", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                   >
                     <option value="full">Full</option>
                     <option value="centered">Centered</option>
@@ -675,13 +675,13 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                 </div>
 
                 {/* Navbar Button Settings */}
-                <div className="pt-6 border-t border-gray-200">
-                  <h3 className="text-md font-semibold text-gray-900 mb-4">Navbar Button</h3>
+                <div className="pt-6 border-t border-gray-200 dark:border-zinc-700">
+                  <h3 className="text-md font-semibold text-gray-900 dark:text-white mb-4">Navbar Button</h3>
                   <p className="text-sm text-gray-500 mb-4">
                     Customize the call-to-action button that appears in your navigation bar.
                   </p>
 
-                  <label className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer mb-4">
+                  <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg cursor-pointer mb-4">
                     <input
                       type="checkbox"
                       checked={(layout.navbarButton as Record<string, unknown>)?.enabled !== false}
@@ -689,18 +689,18 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                         ...((layout.navbarButton as Record<string, unknown>) || {}),
                         enabled: e.target.checked
                       })}
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="w-5 h-5 text-blue-600 border-gray-300 dark:border-zinc-600 rounded focus:ring-blue-500 dark:bg-zinc-700"
                     />
                     <div>
-                      <p className="font-medium text-gray-900">Show Navbar Button</p>
-                      <p className="text-sm text-gray-500">Display a CTA button in the navigation bar</p>
+                      <p className="font-medium text-gray-900 dark:text-white">Show Navbar Button</p>
+                      <p className="text-sm text-gray-500 dark:text-zinc-400">Display a CTA button in the navigation bar</p>
                     </div>
                   </label>
 
                   {(layout.navbarButton as Record<string, unknown>)?.enabled !== false && (
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Button Text</label>
                         <input
                           type="text"
                           value={(layout.navbarButton as Record<string, string>)?.text || "Get Involved"}
@@ -709,11 +709,11 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                             text: e.target.value
                           })}
                           placeholder="Get Involved"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Button Link</label>
                         <input
                           type="text"
                           value={(layout.navbarButton as Record<string, string>)?.href || "/get-involved"}
@@ -722,7 +722,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                             href: e.target.value
                           })}
                           placeholder="/get-involved"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                         />
                       </div>
                     </div>
@@ -734,10 +734,10 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
             {/* Features Settings */}
             {activeTab === "features" && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Feature Toggles</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Feature Toggles</h2>
 
                 <div className="space-y-4">
-                  <label className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg cursor-pointer">
                     <input
                       type="checkbox"
                       checked={(features.shop as Record<string, unknown>)?.enabled === true}
@@ -745,55 +745,55 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                         ...((features.shop as Record<string, unknown>) || {}),
                         enabled: e.target.checked
                       })}
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="w-5 h-5 text-blue-600 border-gray-300 dark:border-zinc-600 rounded focus:ring-blue-500 dark:bg-zinc-700"
                     />
                     <div>
-                      <p className="font-medium text-gray-900">Shop / E-commerce</p>
-                      <p className="text-sm text-gray-500">Enable product listings and checkout</p>
+                      <p className="font-medium text-gray-900 dark:text-white">Shop / E-commerce</p>
+                      <p className="text-sm text-gray-500 dark:text-zinc-400">Enable product listings and checkout</p>
                     </div>
                   </label>
 
-                  <label className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg cursor-pointer">
                     <input
                       type="checkbox"
                       checked={(features.programs as Record<string, unknown>)?.enabled !== false}
                       onChange={(e) => updateDeepNested("template", "features", "programs", { enabled: e.target.checked })}
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="w-5 h-5 text-blue-600 border-gray-300 dark:border-zinc-600 rounded focus:ring-blue-500 dark:bg-zinc-700"
                     />
                     <div>
-                      <p className="font-medium text-gray-900">Programs</p>
-                      <p className="text-sm text-gray-500">Display programs and services</p>
+                      <p className="font-medium text-gray-900 dark:text-white">Programs</p>
+                      <p className="text-sm text-gray-500 dark:text-zinc-400">Display programs and services</p>
                     </div>
                   </label>
 
-                  <label className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg cursor-pointer">
                     <input
                       type="checkbox"
                       checked={(features.events as Record<string, unknown>)?.enabled !== false}
                       onChange={(e) => updateDeepNested("template", "features", "events", { enabled: e.target.checked })}
-                      className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="w-5 h-5 text-blue-600 border-gray-300 dark:border-zinc-600 rounded focus:ring-blue-500 dark:bg-zinc-700"
                     />
                     <div>
-                      <p className="font-medium text-gray-900">Events</p>
-                      <p className="text-sm text-gray-500">Show events calendar</p>
+                      <p className="font-medium text-gray-900 dark:text-white">Events</p>
+                      <p className="text-sm text-gray-500 dark:text-zinc-400">Show events calendar</p>
                     </div>
                   </label>
                 </div>
 
                 {(features.shop as Record<string, unknown>)?.enabled === true && (
                   <div className="pt-4 border-t border-gray-200 space-y-4">
-                    <h3 className="font-medium text-gray-900">Shop Settings</h3>
+                    <h3 className="font-medium text-gray-900 dark:text-white">Shop Settings</h3>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Currency</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Currency</label>
                         <select
                           value={(features.shop as Record<string, unknown>)?.currency as string || "USD"}
                           onChange={(e) => updateDeepNested("template", "features", "shop", {
                             ...((features.shop as Record<string, unknown>) || {}),
                             currency: e.target.value
                           })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                         >
                           <option value="USD">USD ($)</option>
                           <option value="EUR">EUR (€)</option>
@@ -804,7 +804,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Products Per Page</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Products Per Page</label>
                         <input
                           type="number"
                           value={(features.shop as Record<string, unknown>)?.productsPerPage as number || 12}
@@ -812,7 +812,7 @@ export function SettingsEditor({ initialContent, filePath }: SettingsEditorProps
                             ...((features.shop as Record<string, unknown>) || {}),
                             productsPerPage: parseInt(e.target.value) || 12
                           })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                         />
                       </div>
                     </div>
