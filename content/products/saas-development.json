@@ -1,0 +1,36 @@
+{
+  "name": "SaaS Platform Development",
+  "slug": "saas-development",
+  "description": "Turn your software idea into a scalable subscription business. We architect and build complete SaaS platforms from the ground up—multi-tenant systems, billing integration, user management, analytics dashboards, and everything in between. Built for scale from day one.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "alt": "SaaS platform dashboard"
+    }
+  ],
+  "category": "Development",
+  "tags": "saas, platform, subscription, cloud, startup",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-SAAS-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "SaaS Platform Development | Jamaleddin",
+    "metaDescription": "Full-scale SaaS development from architecture to launch. Multi-tenant systems, billing, user management, and scalable infrastructure built for growth."
+  },
+  "status": "active",
+  "featured": true,
+  "unlisted": false
+}

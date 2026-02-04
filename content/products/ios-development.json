@@ -1,0 +1,36 @@
+{
+  "name": "iOS Application Development",
+  "slug": "ios-development",
+  "description": "Reach your audience on the platform they use most. We build native iOS applications with Swift and SwiftUI—smooth, intuitive apps that leverage Apple's latest technologies. From consumer apps to enterprise solutions, we deliver polished experiences that users love.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+      "alt": "iOS mobile application development"
+    }
+  ],
+  "category": "Development",
+  "tags": "ios, mobile, swift, apple, app",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-IOS-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "iOS Application Development | Jamaleddin",
+    "metaDescription": "Native iOS development with Swift and SwiftUI. Smooth, intuitive mobile applications that leverage Apple's latest technologies and delight users."
+  },
+  "status": "active",
+  "featured": true,
+  "unlisted": false
+}

@@ -1,27 +1,27 @@
 {
-  "title": "Jamaleddin LLC",
-  "description": "Consulting agency providing strategic business, technology, and growth solutions.",
+  "title": "Jamaleddin",
+  "description": "Premium software solutions powering the next generation of digital experiences.",
   "hero": {
     "slides": [
       {
-        "title": "Empowering Your Business Growth",
-        "subtitle": "Jamaleddin LLC provides strategic consulting services to help businesses scale, innovate, and succeed in today's competitive landscape.",
-        "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80",
-        "buttonText": "Get Started",
-        "buttonLink": "/contact"
-      },
-      {
-        "title": "Technology & Innovation",
-        "subtitle": "Leverage cutting-edge technology solutions to transform your business operations and drive digital innovation.",
+        "title": "Building Tomorrow's Digital Landscape",
+        "subtitle": "We craft intelligent software solutions that transform ideas into powerful digital experiences. From AI-powered systems to custom applications, we bring your vision to life.",
         "backgroundImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
-        "buttonText": "Our Services",
-        "buttonLink": "/programs"
+        "buttonText": "Explore Services",
+        "buttonLink": "/services"
       },
       {
-        "title": "Strategic Partnership",
-        "subtitle": "Partner with experienced consultants who understand your industry and are committed to your success.",
-        "backgroundImage": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80",
-        "buttonText": "Contact Us",
+        "title": "Intelligence Meets Innovation",
+        "subtitle": "Harness the power of artificial intelligence with custom RAG systems, intelligent microservices, and AI-driven automation tailored to your business needs.",
+        "backgroundImage": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&q=80",
+        "buttonText": "AI Solutions",
+        "buttonLink": "/services"
+      },
+      {
+        "title": "From Concept to Launch",
+        "subtitle": "Whether it's a stunning website, a native iOS app, or a complete SaaS platform—we engineer solutions that scale with your ambitions.",
+        "backgroundImage": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80",
+        "buttonText": "Start Your Project",
         "buttonLink": "/contact"
       }
     ]
@@ -29,91 +29,127 @@
   "blocks": [
     {
       "_template": "cardsGrid",
-      "heading": "Our Services",
-      "subheading": "Comprehensive consulting solutions tailored to your needs",
+      "heading": "What We Build",
+      "subheading": "End-to-end software solutions designed to elevate your business",
+      "columns": "4",
+      "cards": [
+        {
+          "title": "AI & Intelligent Systems",
+          "description": "Custom AI implementations, RAG architectures, and intelligent microservices that bring machine learning to your workflows.",
+          "icon": "brain",
+          "link": "/services"
+        },
+        {
+          "title": "Web Experiences",
+          "description": "Distinctive websites and web applications that stand out. No templates—every build is crafted from scratch.",
+          "icon": "globe",
+          "link": "/services"
+        },
+        {
+          "title": "Mobile Applications",
+          "description": "Native iOS development delivering smooth, intuitive apps that users love to engage with.",
+          "icon": "smartphone",
+          "link": "/services"
+        },
+        {
+          "title": "SaaS Platforms",
+          "description": "Full-scale software-as-a-service development from architecture to deployment and beyond.",
+          "icon": "cloud",
+          "link": "/services"
+        }
+      ]
+    },
+    {
+      "_template": "imageTextRight",
+      "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
+      "imageAlt": "Code on screen",
+      "heading": "Engineering Excellence",
+      "content": "<p>We don't just write code—we architect solutions. Every project starts with deep understanding of your objectives, followed by meticulous planning and execution.</p><p>Our stack is modern, our practices are proven, and our commitment to quality is unwavering. From startups to established enterprises, we deliver software that performs.</p>",
+      "buttonText": "Our Approach",
+      "buttonLink": "/about"
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Beyond Development",
+      "subheading": "Strategic services that drive digital success",
       "columns": "3",
       "cards": [
         {
-          "title": "Business Strategy",
-          "description": "Develop comprehensive business strategies that align with your goals and drive sustainable growth.",
-          "icon": "briefcase",
-          "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80",
-          "link": "/programs"
+          "title": "E-Commerce Strategy",
+          "description": "Optimize your online presence with data-driven SEO, conversion optimization, and platform consulting.",
+          "icon": "shopping-cart",
+          "link": "/services"
         },
         {
-          "title": "Technology Consulting",
-          "description": "Leverage technology to streamline operations, improve efficiency, and stay ahead of the competition.",
-          "icon": "code",
-          "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
-          "link": "/programs"
+          "title": "Business Intelligence",
+          "description": "Strategic consulting to align technology investments with business outcomes and growth objectives.",
+          "icon": "bar-chart-2",
+          "link": "/services"
         },
         {
-          "title": "Growth Advisory",
-          "description": "Scale your business with data-driven insights and proven growth methodologies.",
-          "icon": "trending-up",
-          "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
-          "link": "/programs"
+          "title": "Automation & Integration",
+          "description": "Streamline operations with custom automation solutions that connect your tools and eliminate manual work.",
+          "icon": "zap",
+          "link": "/services"
+        }
+      ]
+    },
+    {
+      "_template": "stats",
+      "heading": "The Numbers",
+      "stats": [
+        {
+          "number": "5+",
+          "label": "Projects Shipped",
+          "icon": "package"
+        },
+        {
+          "number": "99%",
+          "label": "Client Retention",
+          "icon": "users"
+        },
+        {
+          "number": "24/7",
+          "label": "Support Available",
+          "icon": "headphones"
+        },
+        {
+          "number": "∞",
+          "label": "Possibilities",
+          "icon": "sparkles"
         }
       ]
     },
     {
       "_template": "team",
-      "heading": "Meet Our Team",
-      "subheading": "Expert consultants ready to help you succeed",
+      "heading": "The Team",
+      "subheading": "Engineers and strategists building the future",
       "columns": "2",
       "members": [
         {
           "name": "Ammar Jamaleddin",
-          "role": "Founder & CEO",
-          "bio": "Experienced professional with background at Bosch USA and Goldman Sachs 10,000 Small Businesses program. Passionate about helping businesses grow through strategic consulting.",
+          "role": "Founder & Business Lead",
+          "bio": "Former Bosch USA professional and Goldman Sachs 10KSB graduate. Ammar bridges the gap between business vision and technical execution, ensuring every project delivers real value.",
           "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
           "linkedin": "https://www.linkedin.com/in/ammarjeddin/"
         },
         {
           "name": "Abdul Aziz Jamal Eddin",
-          "role": "Technology Lead",
-          "bio": "Software engineer with experience at major tech companies. University of Michigan graduate specializing in platform development and AI/ML solutions.",
+          "role": "Lead Engineer",
+          "bio": "University of Michigan graduate with experience at major tech companies. Specializes in AI/ML systems, platform architecture, and building software that scales.",
           "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
           "linkedin": "https://www.linkedin.com/in/ajedev/"
         }
       ]
     },
     {
-      "_template": "imageTextRight",
-      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
-      "imageAlt": "Team collaborating on strategy",
-      "heading": "Why Choose Us?",
-      "content": "<p>At Jamaleddin LLC, we combine strategic thinking with practical implementation. Our team brings diverse expertise from technology, business development, and industry leadership.</p><p>We don't just consult—we partner with you to ensure your success. Every engagement is tailored to your unique challenges and goals.</p>",
-      "buttonText": "Learn More",
-      "buttonLink": "/about"
-    },
-    {
-      "_template": "testimonials",
-      "heading": "What Clients Say",
-      "layout": "carousel",
-      "items": [
-        {
-          "quote": "Jamaleddin LLC helped us transform our digital strategy and increase efficiency by 40%. Their hands-on approach made all the difference.",
-          "author": "Business Partner",
-          "role": "Technology Company",
-          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80"
-        },
-        {
-          "quote": "The strategic guidance we received was invaluable. They truly understand what it takes to scale a business in today's market.",
-          "author": "Startup Founder",
-          "role": "Healthcare Sector",
-          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80"
-        }
-      ]
-    },
-    {
       "_template": "ctaBox",
-      "heading": "Ready to Transform Your Business?",
-      "text": "Let's discuss how Jamaleddin LLC can help you achieve your business goals. Schedule a free consultation today.",
-      "buttonText": "Schedule Consultation",
+      "heading": "Let's Build Something Great",
+      "text": "Have a project in mind? We'd love to hear about it. Schedule a free discovery call and let's explore what's possible.",
+      "buttonText": "Get in Touch",
       "buttonLink": "/contact",
-      "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
-      "style": "secondary"
+      "backgroundImage": "https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?w=1200&q=80",
+      "style": "primary"
     }
   ]
 }

@@ -1,0 +1,36 @@
+{
+  "name": "Custom Software & Automation",
+  "slug": "custom-software",
+  "description": "Eliminate repetitive tasks and streamline your operations with custom-built software solutions. From internal tools to complex integrations, we create bespoke applications that fit your exact workflow. Connect your systems, automate processes, and free your team to focus on what matters.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
+      "alt": "Custom software development"
+    }
+  ],
+  "category": "Development",
+  "tags": "automation, integration, custom, workflow, tools",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-CUS-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "Custom Software & Automation | Jamaleddin",
+    "metaDescription": "Bespoke software solutions and workflow automation. Internal tools, system integrations, and custom applications tailored to your business processes."
+  },
+  "status": "active",
+  "featured": false,
+  "unlisted": false
+}

@@ -1,45 +1,50 @@
 {
   "title": "Contact Us",
-  "description": "Get in touch with Jamaleddin LLC. Let's discuss how we can help your business grow.",
+  "description": "Ready to build something amazing? Let's talk about your project.",
   "blocks": [
     {
       "_template": "heroBanner",
-      "title": "Contact Us",
-      "subtitle": "Let's start a conversation",
+      "title": "Let's Talk",
+      "subtitle": "Tell us about your project and we'll get back to you within 24 hours",
+      "backgroundImage": "https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?w=1920&q=80",
       "height": "small"
     },
     {
       "_template": "contactInfo",
-      "heading": "Get in Touch",
+      "heading": "Start a Conversation",
       "showForm": true,
       "showMap": false,
-      "email": "contact@jamaleddin.com",
+      "email": "hello@jamaleddin.com",
       "phone": "",
-      "address": ""
+      "address": "Garden City, Michigan"
     },
     {
       "_template": "faq",
-      "heading": "Frequently Asked Questions",
+      "heading": "Common Questions",
       "items": [
         {
-          "question": "What services does Jamaleddin LLC offer?",
-          "answer": "We offer strategic business consulting, technology solutions, and growth advisory services. Our team specializes in helping businesses scale operations, implement technology solutions, and develop sustainable growth strategies."
+          "question": "What types of projects do you take on?",
+          "answer": "We handle a wide range of software projects—from AI-powered systems and custom web applications to native iOS apps and full SaaS platforms. Whether you need a complete build from scratch or want to enhance existing systems, we can help."
         },
         {
-          "question": "How does the consultation process work?",
-          "answer": "We start with a free initial consultation to understand your business challenges and goals. From there, we develop a customized engagement plan tailored to your specific needs, timeline, and budget."
+          "question": "How does your development process work?",
+          "answer": "We start with a discovery call to understand your goals and requirements. Then we provide a detailed proposal with scope, timeline, and investment. Once approved, we work in iterative sprints with regular check-ins so you're never in the dark about progress."
         },
         {
-          "question": "What industries do you work with?",
-          "answer": "We work with businesses across various industries including technology, manufacturing, healthcare, and professional services. Our diverse experience allows us to bring cross-industry insights to every engagement."
+          "question": "Do you offer fixed-price or hourly engagements?",
+          "answer": "Both. For well-defined projects, we offer fixed-price quotes so you know exactly what to expect. For ongoing development or projects with evolving requirements, hourly or retainer arrangements often make more sense. We'll recommend the best fit for your situation."
         },
         {
-          "question": "What is your typical engagement timeline?",
-          "answer": "Engagement timelines vary based on scope and complexity. Some projects can be completed in a few weeks, while comprehensive transformation initiatives may span several months. We'll provide clear timeline expectations during our initial consultation."
+          "question": "How long does a typical project take?",
+          "answer": "It varies widely by scope. A marketing website might take 2-4 weeks, while a custom SaaS platform could span several months. During our discovery call, we'll provide realistic timelines based on your specific requirements."
         },
         {
-          "question": "Do you offer ongoing support after project completion?",
-          "answer": "Yes, we offer various support options including retainer arrangements, periodic check-ins, and on-demand advisory services to ensure continued success after project completion."
+          "question": "What happens after launch?",
+          "answer": "We don't disappear after deployment. We offer ongoing support, maintenance, and enhancement packages to keep your software running smoothly. Many clients work with us on a retainer basis for continuous improvements and new features."
+        },
+        {
+          "question": "Can you work with our existing team?",
+          "answer": "Absolutely. We frequently collaborate with in-house developers, designers, and product managers. Whether you need us to lead the project or augment your existing team, we adapt to what works best for you."
         }
       ]
     }

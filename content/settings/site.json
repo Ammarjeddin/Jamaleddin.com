@@ -16,8 +16,8 @@
       }
     }
   },
-  "siteName": "Jamaleddin LLC",
-  "tagline": "Consulting Agency",
+  "siteName": "Jamaleddin",
+  "tagline": "Software Solutions",
   "logo": {
     "main": "/images/LogoTrans.png",
     "dark": "/images/LogoTransDark.png",
@@ -48,14 +48,14 @@
     "facebook": "",
     "instagram": "",
     "twitter": "",
-    "linkedin": "",
+    "linkedin": "https://www.linkedin.com/company/jamaleddin",
     "youtube": "",
     "tiktok": ""
   },
   "contact": {
-    "email": "info@jamaleddin.com",
+    "email": "hello@jamaleddin.com",
     "phone": "3137822483",
-    "address": "32825 Manor Park Garden City MI 48135"
+    "address": "Garden City, Michigan"
   },
   "analytics": {
     "googleAnalyticsId": "",
@@ -63,8 +63,8 @@
     "plausibleDomain": ""
   },
   "seo": {
-    "titleTemplate": "%s | Jamaleddin LLC",
-    "defaultDescription": "Jamaleddin LLC - Professional consulting services to help your business grow.",
+    "titleTemplate": "%s | Jamaleddin",
+    "defaultDescription": "Jamaleddin builds intelligent software solutions—AI systems, web applications, mobile apps, and custom platforms that power your business forward.",
     "defaultOgImage": "/images/LogoTrans.png"
   },
   "navigation": [
@@ -77,7 +77,7 @@
       "href": "/services"
     },
     {
-      "label": "About Us",
+      "label": "About",
       "href": "/about"
     },
     {

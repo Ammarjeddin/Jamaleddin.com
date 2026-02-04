@@ -65,7 +65,7 @@ export function CardsGrid({
                 key={index}
                 href={card.link || "#"}
                 className={cn(
-                  "glass-card group",
+                  "glass-card group h-full flex flex-col",
                   card.link && "cursor-pointer"
                 )}
                 style={{ animationDelay: `${index * 80}ms` }}
@@ -73,9 +73,9 @@ export function CardsGrid({
                 {/* Gold glow border */}
                 <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-[var(--color-accent)]/20 via-transparent to-[var(--color-accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="glass-card-inner">
+                <div className="glass-card-inner h-full flex flex-col">
                   {card.image && (
-                    <div className="relative aspect-video overflow-hidden">
+                    <div className="relative aspect-video overflow-hidden flex-shrink-0">
                       <Image
                         src={card.image}
                         alt={card.title}
@@ -86,9 +86,9 @@ export function CardsGrid({
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     </div>
                   )}
-                  <div className="relative p-4 sm:p-5 md:p-6">
+                  <div className="relative p-4 sm:p-5 md:p-6 flex flex-col flex-1">
                     {Icon && !card.image && (
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 group-hover:border-[var(--color-accent)]/40 transition-all duration-300">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 group-hover:border-[var(--color-accent)]/40 transition-all duration-300 flex-shrink-0">
                         <Icon className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[var(--color-accent)]" />
                       </div>
                     )}
@@ -96,7 +96,7 @@ export function CardsGrid({
                       {card.title}
                     </h3>
                     {card.description && (
-                      <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
+                      <p className="text-sm sm:text-base text-zinc-400 leading-relaxed flex-1">
                         {card.description}
                       </p>
                     )}

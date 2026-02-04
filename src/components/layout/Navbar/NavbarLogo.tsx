@@ -41,13 +41,15 @@ export function NavbarLogo({ mainLogo, darkLogo, siteName, size = 40 }: NavbarLo
           height={size}
           className={`h-10 w-auto transition-opacity ${isDarkMode ? 'block' : 'hidden'}`}
         />
-        {/* Company name wordmark */}
+        {/* Company name wordmark - use higher resolution for crisp rendering */}
         <Image
           src="/images/logoWord.png"
           alt={`${siteName} wordmark`}
-          width={120}
-          height={32}
-          className="h-6 sm:h-7 w-auto"
+          width={400}
+          height={48}
+          quality={100}
+          priority
+          className="h-5 sm:h-6 w-auto"
         />
       </div>
     );
@@ -63,13 +65,15 @@ export function NavbarLogo({ mainLogo, darkLogo, siteName, size = 40 }: NavbarLo
         height={size}
         className="h-10 w-auto"
       />
-      {/* Company name wordmark */}
+      {/* Company name wordmark - use higher resolution for crisp rendering */}
       <Image
         src="/images/logoWord.png"
         alt={`${siteName} wordmark`}
-        width={120}
-        height={32}
-        className="h-6 sm:h-7 w-auto"
+        width={400}
+        height={48}
+        quality={100}
+        priority
+        className="h-5 sm:h-6 w-auto"
       />
     </div>
   );

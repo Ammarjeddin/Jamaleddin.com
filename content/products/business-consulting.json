@@ -1,0 +1,36 @@
+{
+  "name": "Business & Technology Consulting",
+  "slug": "business-consulting",
+  "description": "Bridge the gap between business goals and technology solutions. Our consulting services help you make informed decisions about digital transformation, technology investments, and operational optimization. We align your tech strategy with your growth objectives.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+      "alt": "Business strategy and consulting"
+    }
+  ],
+  "category": "Consulting",
+  "tags": "consulting, strategy, business, digital-transformation",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-CON-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "Business & Technology Consulting | Jamaleddin",
+    "metaDescription": "Strategic consulting to align technology investments with business outcomes. Digital transformation guidance from experienced professionals."
+  },
+  "status": "active",
+  "featured": false,
+  "unlisted": false
+}

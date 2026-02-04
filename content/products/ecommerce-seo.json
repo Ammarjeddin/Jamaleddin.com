@@ -1,0 +1,36 @@
+{
+  "name": "E-Commerce & SEO Strategy",
+  "slug": "ecommerce-seo",
+  "description": "Maximize your online revenue with expert e-commerce consulting and search engine optimization. We analyze your digital storefront, optimize for conversions, and implement data-driven SEO strategies that drive organic traffic and boost your bottom line.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+      "alt": "E-commerce and digital marketing"
+    }
+  ],
+  "category": "Consulting",
+  "tags": "ecommerce, seo, marketing, optimization, analytics",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-ECO-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "E-Commerce & SEO Strategy | Jamaleddin",
+    "metaDescription": "Expert e-commerce consulting and SEO optimization. Drive organic traffic, improve conversions, and grow your online revenue with data-driven strategies."
+  },
+  "status": "active",
+  "featured": false,
+  "unlisted": false
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Web Application Development",
+  "slug": "web-applications",
+  "description": "Powerful web applications that work anywhere, on any device. We build responsive, feature-rich web apps using modern frameworks like React, Next.js, and Node.js. Real-time collaboration, complex dashboards, data visualization—whatever your users need, we can build it.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+      "alt": "Web application development"
+    }
+  ],
+  "category": "Development",
+  "tags": "webapp, react, nextjs, fullstack, dashboard",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-APP-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "Web Application Development | Jamaleddin",
+    "metaDescription": "Modern web applications built with React, Next.js, and Node.js. Responsive, feature-rich apps for dashboards, collaboration, and complex business needs."
+  },
+  "status": "active",
+  "featured": false,
+  "unlisted": false
+}

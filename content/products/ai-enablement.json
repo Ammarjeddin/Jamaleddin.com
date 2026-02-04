@@ -1,0 +1,36 @@
+{
+  "name": "AI Enablement & Intelligent Systems",
+  "slug": "ai-enablement",
+  "description": "Transform your business with cutting-edge artificial intelligence. We design and implement custom AI solutions including retrieval-augmented generation (RAG) systems, intelligent microservices, chatbots, and ML-powered automation. From proof-of-concept to production deployment, we handle the full AI lifecycle.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "alt": "AI and machine learning visualization"
+    }
+  ],
+  "category": "Development",
+  "tags": "ai, machine-learning, rag, automation, microservices",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-AI-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "AI Enablement & Intelligent Systems | Jamaleddin",
+    "metaDescription": "Custom AI solutions including RAG systems, intelligent microservices, and ML-powered automation. Transform your business with production-ready artificial intelligence."
+  },
+  "status": "active",
+  "featured": true,
+  "unlisted": false
+}

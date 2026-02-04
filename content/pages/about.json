@@ -1,57 +1,85 @@
 {
   "title": "About Us",
-  "description": "Learn about Jamaleddin LLC's mission, values, and the team behind our consulting services.",
+  "description": "Meet the team behind Jamaleddin—engineers and strategists passionate about building exceptional software.",
   "blocks": [
     {
       "_template": "heroBanner",
-      "title": "About Jamaleddin LLC",
-      "subtitle": "Strategic consulting for businesses ready to grow",
-      "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80",
+      "title": "Who We Are",
+      "subtitle": "A software company built on precision, creativity, and relentless execution",
+      "backgroundImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80",
       "height": "small"
     },
     {
       "_template": "imageTextRight",
-      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
-      "imageAlt": "Team collaboration on strategy",
-      "heading": "Our Mission",
-      "content": "<p>Jamaleddin LLC was founded with a simple mission: to help businesses unlock their full potential through strategic consulting and technology-driven solutions.</p><p>We partner with companies of all sizes to solve complex challenges, streamline operations, and drive sustainable growth. Our approach combines industry expertise with innovative thinking to deliver measurable results.</p>",
-      "buttonText": "Our Services",
-      "buttonLink": "/programs"
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80",
+      "imageAlt": "Team working on software",
+      "heading": "Our Story",
+      "content": "<p>Jamaleddin was founded on a simple belief: great software should be accessible to businesses of all sizes. We saw too many companies struggling with outdated systems, cookie-cutter solutions, and technology that didn't fit their needs.</p><p>So we built something different—a team that combines deep technical expertise with real business understanding. We don't just deliver code; we deliver solutions that move the needle.</p>",
+      "buttonText": "See Our Work",
+      "buttonLink": "/services"
+    },
+    {
+      "_template": "cardsGrid",
+      "heading": "Our Expertise",
+      "subheading": "What we bring to every project",
+      "columns": "4",
+      "cards": [
+        {
+          "title": "AI & Machine Learning",
+          "description": "From intelligent chatbots to complex RAG systems, we build AI that actually works in production.",
+          "icon": "brain"
+        },
+        {
+          "title": "Full-Stack Development",
+          "description": "Modern web and mobile applications built with scalable architectures and clean code.",
+          "icon": "layers"
+        },
+        {
+          "title": "Cloud Infrastructure",
+          "description": "Robust deployment strategies, DevOps practices, and infrastructure that scales.",
+          "icon": "cloud"
+        },
+        {
+          "title": "Strategic Consulting",
+          "description": "Technology roadmaps and digital strategy aligned with your business goals.",
+          "icon": "compass"
+        }
+      ]
     },
     {
       "_template": "stats",
-      "heading": "Why Clients Choose Us",
+      "heading": "By The Numbers",
       "stats": [
-        { "number": "50+", "label": "Projects Delivered", "icon": "briefcase" },
-        { "number": "95%", "label": "Client Satisfaction", "icon": "heart" },
-        { "number": "10+", "label": "Years Experience", "icon": "calendar" },
-        { "number": "40%", "label": "Avg. Efficiency Gain", "icon": "trending-up" }
+        { "number": "50+", "label": "Projects Delivered", "icon": "check-circle" },
+        { "number": "8+", "label": "Industries Served", "icon": "briefcase" },
+        { "number": "99%", "label": "On-Time Delivery", "icon": "clock" },
+        { "number": "100%", "label": "Client Satisfaction", "icon": "star" }
       ]
     },
     {
       "_template": "imageTextLeft",
-      "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
-      "imageAlt": "Team working together",
-      "heading": "Our Values",
-      "content": "<p><strong>Partnership:</strong> We don't just consult—we become an extension of your team, invested in your success.</p><p><strong>Innovation:</strong> We leverage the latest technologies and methodologies to deliver cutting-edge solutions.</p><p><strong>Results-Driven:</strong> Every engagement is measured by tangible outcomes and business impact.</p><p><strong>Integrity:</strong> We build long-term relationships through honest communication and reliable delivery.</p>"
+      "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+      "imageAlt": "Strategic planning session",
+      "heading": "How We Work",
+      "content": "<p><strong>Discovery:</strong> We start by understanding your business, your users, and your goals. No assumptions—just deep listening.</p><p><strong>Architecture:</strong> Before writing a single line of code, we design systems that are built to last and scale.</p><p><strong>Execution:</strong> Iterative development with constant communication. You're never in the dark about progress.</p><p><strong>Launch & Beyond:</strong> We don't disappear after deployment. Ongoing support and optimization are part of the package.</p>"
     },
     {
       "_template": "team",
-      "heading": "Our Leadership Team",
-      "subheading": "Experienced professionals dedicated to your success",
+      "heading": "Meet The Team",
+      "subheading": "The people behind the pixels",
       "members": [
         {
           "name": "Ammar Jamaleddin",
-          "role": "Founder & CEO",
-          "bio": "Ammar brings extensive experience from Bosch USA and is a graduate of the Goldman Sachs 10,000 Small Businesses program. He founded Jamaleddin LLC to help businesses achieve their growth potential through strategic consulting and hands-on partnership.",
+          "role": "Founder & Business Lead",
+          "bio": "Ammar brings a unique blend of corporate experience (Bosch USA) and entrepreneurial drive (Goldman Sachs 10KSB graduate). He ensures every project aligns with real business outcomes, not just technical specs.",
           "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
           "email": "ammar@jamaleddin.com",
           "linkedin": "https://www.linkedin.com/in/ammarjeddin/"
         },
         {
           "name": "Abdul Aziz Jamal Eddin",
-          "role": "Technology Lead",
-          "bio": "Abdul Aziz is a software engineer with experience at leading tech companies. A University of Michigan graduate, he specializes in platform development, AI/ML solutions, and building scalable technology systems.",
+          "role": "Lead Engineer",
+          "bio": "A University of Michigan Computer Science graduate with experience at leading tech companies. AZ specializes in AI systems, platform architecture, and turning complex requirements into elegant solutions.",
           "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
           "email": "az@jamaleddin.com",
           "linkedin": "https://www.linkedin.com/in/ajedev/"
@@ -60,11 +88,11 @@
     },
     {
       "_template": "ctaBox",
-      "heading": "Ready to Partner With Us?",
-      "text": "Let's discuss how Jamaleddin LLC can help transform your business. Schedule a free consultation today.",
+      "heading": "Ready to Start?",
+      "text": "Whether you have a detailed spec or just a rough idea, we're here to help bring it to life. Let's talk.",
       "buttonText": "Contact Us",
       "buttonLink": "/contact",
-      "backgroundImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+      "backgroundImage": "https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?w=1200&q=80",
       "style": "primary"
     }
   ]

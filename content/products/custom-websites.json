@@ -1,0 +1,36 @@
+{
+  "name": "Custom Website Development",
+  "slug": "custom-websites",
+  "description": "Stand out from the crowd with a website that's uniquely yours. We craft distinctive, high-performance websites from scratch—no templates, no compromises. Built with modern frameworks, optimized for speed, and designed to convert visitors into customers.",
+  "productType": "service",
+  "pricing": {
+    "price": 0,
+    "taxable": false
+  },
+  "images": [
+    {
+      "src": "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+      "alt": "Web development and design"
+    }
+  ],
+  "category": "Development",
+  "tags": "web, website, frontend, design, responsive",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "SVC-WEB-001",
+    "allowBackorder": true
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": false
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "Custom Website Development | Jamaleddin",
+    "metaDescription": "Distinctive, high-performance websites built from scratch. No templates—every site is crafted uniquely for your brand and optimized for conversions."
+  },
+  "status": "active",
+  "featured": true,
+  "unlisted": false
+}
