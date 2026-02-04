@@ -65,7 +65,7 @@ export async function ProductShowcase({
         </p>
       )}
 
-      <Link href={`/services/${product.slug}`} className="block min-h-[44px] flex items-center">
+      <Link href={`/shop/${product.slug}`} className="block min-h-[44px] flex items-center">
         <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${textColorClass} hover:opacity-80 active:opacity-70 transition-opacity`}>
           {product.name}
         </h2>
@@ -89,7 +89,7 @@ export async function ProductShowcase({
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <AddToCartButton product={product} variant="default" />
         <Link
-          href={`/services/${product.slug}`}
+          href={`/shop/${product.slug}`}
           className={`px-5 sm:px-6 py-3 rounded-lg font-medium border text-center transition-colors min-h-[44px] flex items-center justify-center active:scale-[0.98] ${
             backgroundColor === "primary"
               ? "border-white/30 text-white hover:bg-white/10"

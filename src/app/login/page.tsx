@@ -137,7 +137,7 @@ function LoginForm() {
           {process.env.NODE_ENV === "development" && (
             <div className="mt-6 pt-6 border-t border-gray-200">
               <p className="text-xs text-gray-500 text-center">
-                Development mode: Use <span className="font-mono bg-gray-100 px-1 rounded">admin</span> / <span className="font-mono bg-gray-100 px-1 rounded">admin</span>
+                Development mode: Use <span className="font-mono bg-gray-100 px-1 rounded">admin</span> / <span className="font-mono bg-gray-100 px-1 rounded">admin123</span>
               </p>
             </div>
           )}

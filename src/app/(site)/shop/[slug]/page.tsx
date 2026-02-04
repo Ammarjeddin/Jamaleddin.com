@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const currency = settings.template?.features?.shop?.currency || "USD";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jamaleddin.com";
-  const serviceUrl = `${siteUrl}/services/${product.slug}`;
+  const serviceUrl = `${siteUrl}/shop/${product.slug}`;
 
   return (
     <section className="section glass">
@@ -75,11 +75,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
         {/* Breadcrumb */}
         <nav className="mb-8">
           <Link
-            href="/services"
+            href="/shop"
             className="inline-flex items-center text-[var(--color-text-muted)] hover:text-primary transition-colors"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
-            Back to Services
+            Back to Shop
           </Link>
         </nav>
 

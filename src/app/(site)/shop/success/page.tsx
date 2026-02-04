@@ -63,7 +63,7 @@ function SuccessContent() {
           We couldn&apos;t verify your order. If you were charged, please contact support.
         </p>
         <Link
-          href="/services"
+          href="/shop"
           className="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
         >
           Return to Services
@@ -145,7 +145,7 @@ function SuccessContent() {
       {/* CTA Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Link
-          href="/services"
+          href="/shop"
           className="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
         >
           Browse Services

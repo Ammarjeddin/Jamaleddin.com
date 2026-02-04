@@ -4,7 +4,7 @@
       "id": "1",
       "username": "admin",
       "email": "admin@jamaleddin.com",
-      "passwordHash": "$2b$10$z1T3GyeVuqBdCC82RZeu1uynUbgXq1SaSHR/98OPK7SM8YtxLyzhO",
+      "passwordHash": "$2b$10$BNvc6AghDRhQzFK0ezGrd.np3/C1hGabLt..qQ55EQOAvxTaxRniG",
       "role": "admin",
       "createdAt": "2024-01-01T00:00:00.000Z"
     }

@@ -21,7 +21,7 @@ export default function CartPage() {
               Looks like you haven&apos;t added any items to your cart yet.
             </p>
             <Link
-              href="/services"
+              href="/shop"
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
               Browse Services
@@ -75,7 +75,7 @@ export default function CartPage() {
                       </div>
                       <div>
                         <Link
-                          href={`/services/${item.product.slug}`}
+                          href={`/shop/${item.product.slug}`}
                           className="font-medium text-[var(--color-text)] hover:text-primary transition-colors"
                         >
                           {item.product.name}
@@ -155,7 +155,7 @@ export default function CartPage() {
                   Clear Cart
                 </button>
                 <Link
-                  href="/services"
+                  href="/shop"
                   className="text-sm text-primary hover:underline"
                 >
                   Browse Services
@@ -192,7 +192,7 @@ export default function CartPage() {
               </div>
 
               <Link
-                href="/services/checkout"
+                href="/shop/checkout"
                 className="block w-full bg-primary text-white text-center py-3 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 Proceed to Checkout

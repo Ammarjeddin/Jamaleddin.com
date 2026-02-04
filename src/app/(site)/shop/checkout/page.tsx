@@ -19,7 +19,7 @@ export default function CheckoutPage() {
             <h1 className="text-3xl font-bold text-[var(--color-text)] mb-4">Your cart is empty</h1>
             <p className="text-[var(--color-text-muted)] mb-8">Add some items to continue to checkout.</p>
             <Link
-              href="/services"
+              href="/shop"
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
               Browse Products
@@ -35,7 +35,7 @@ export default function CheckoutPage() {
       <Container>
         {/* Back Link */}
         <Link
-          href="/services/cart"
+          href="/shop/cart"
           className="inline-flex items-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] mb-8"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />

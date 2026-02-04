@@ -63,7 +63,7 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
         {/* Animated Gold Border Wrapper - Animation activates while scrolling */}
         <div className={`navbar-glow-wrapper mx-2 sm:mx-4 md:mx-8 ${animationState}`}>
           <div className="navbar-animated-border">
-            <div className="navbar-inner flex items-center justify-between px-3 sm:px-6 py-2 sm:py-2.5">
+            <div className="navbar-inner flex items-center px-3 sm:px-6 py-2 sm:py-2.5">
 
               {/* Logo */}
               <Link href="/" className="flex items-center gap-2 sm:gap-3 relative z-10 min-h-[44px]">
@@ -74,11 +74,14 @@ export function FloatingNavbar({ settings, navigation, showCart = false }: Float
                 />
               </Link>
 
-              {/* Desktop Navigation */}
+              {/* Spacer to push nav links to the right */}
+              <div className="flex-1" />
+
+              {/* Desktop Navigation - Right aligned */}
               <NavLinks items={navigation} />
 
               {/* CTA Button, Cart & Mobile Menu */}
-              <div className="flex items-center gap-2 sm:gap-3 relative z-10">
+              <div className="flex items-center gap-2 sm:gap-3 relative z-10 ml-2 sm:ml-4">
                 {showCart && <CartIcon />}
                 {settings.layout?.navbarButton?.enabled !== false && (
                   <Link

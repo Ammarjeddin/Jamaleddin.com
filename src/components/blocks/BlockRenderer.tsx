@@ -13,9 +13,9 @@ import { Video } from "./Video";
 import { Timeline } from "./Timeline";
 import { Team } from "./Team";
 import { Divider } from "./Divider";
-import { ProductGrid } from "./ProductGrid";
-import { ProductShowcase } from "./ProductShowcase";
 import { ClientBlockWrapper } from "./ClientBlockWrapper";
+// Note: ProductGrid and ProductShowcase are excluded - they use fs and must be rendered
+// separately in page components that need them, not through this dynamic block renderer
 
 // Block type definitions
 export type BlockType =
@@ -195,12 +195,11 @@ function renderBlock(block: Block, index: number, hasHero: boolean) {
       break;
 
     case "productGrid":
-      content = <ProductGrid {...(firstBlockProps as React.ComponentProps<typeof ProductGrid>)} />;
-      break;
-
     case "productShowcase":
-      content = <ProductShowcase {...(firstBlockProps as React.ComponentProps<typeof ProductShowcase>)} />;
-      break;
+      // These blocks use fs module and cannot be rendered through BlockRenderer
+      // They should be rendered directly in page components that need them
+      console.warn(`Block type "${_template}" requires server-side fs access and cannot be rendered through BlockRenderer`);
+      return null;
 
     default:
       console.warn(`Unknown block type: ${_template}`);

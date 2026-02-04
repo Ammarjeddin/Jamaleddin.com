@@ -25,7 +25,7 @@ export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
 
       <div className="glass-card-inner">
         {/* Image - Touch area */}
-        <Link href={`/services/${product.slug}`} className="block relative aspect-square overflow-hidden active:opacity-90 transition-opacity">
+        <Link href={`/shop/${product.slug}`} className="block relative aspect-square overflow-hidden active:opacity-90 transition-opacity">
           {/* Background for loading state */}
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface-elevated)]" />
 
@@ -82,7 +82,7 @@ export function ProductCard({ product, currency = "USD" }: ProductCardProps) {
           )}
 
           {/* Title */}
-          <Link href={`/services/${product.slug}`} className="block min-h-[44px] flex items-center">
+          <Link href={`/shop/${product.slug}`} className="block min-h-[44px] flex items-center">
             <h3 className="font-semibold group-hover:text-[var(--color-accent)] transition-colors duration-300 line-clamp-2 text-zinc-100 text-sm sm:text-base">
               {product.name}
             </h3>
