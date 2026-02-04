@@ -24,11 +24,11 @@ export function ImageTextRight({
   isFirstBlock = false,
 }: ImageTextRightProps) {
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
+    <section className={cn("section", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container>
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center px-4 sm:px-0">
           {/* Content */}
-          <div className="order-2 md:order-1">
+          <div className="order-2 md:order-1 glass-text">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[var(--color-text)]">{heading}</h2>
             {content && (
               <SafeHtml

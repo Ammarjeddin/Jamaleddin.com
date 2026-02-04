@@ -40,7 +40,7 @@ export function CardsGrid({
   };
 
   return (
-    <section className={cn("py-12 sm:py-16 md:py-20 glass", isFirstBlock && "-mt-20 pt-40 sm:pt-44 md:pt-48")}>
+    <section className={cn("py-12 sm:py-16 md:py-20", isFirstBlock && "-mt-20 pt-40 sm:pt-44 md:pt-48")}>
       <Container>
         {(heading || subheading) && (
           <div className="text-center mb-8 sm:mb-12">

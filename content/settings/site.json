@@ -9,7 +9,7 @@
         "gridColumns": "3"
       },
       "programs": {
-        "enabled": false
+        "enabled": true
       },
       "events": {
         "enabled": false

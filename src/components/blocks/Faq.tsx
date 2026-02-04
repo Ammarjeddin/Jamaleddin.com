@@ -25,7 +25,7 @@ export function Faq({ heading, items, isFirstBlock = false }: FaqProps) {
   };
 
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
+    <section className={cn("section", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container size="narrow">
         {heading && (
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-[var(--color-text)] px-4 sm:px-0">

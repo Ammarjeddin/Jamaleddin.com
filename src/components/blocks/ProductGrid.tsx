@@ -47,7 +47,7 @@ export async function ProductGrid({
   }[columns];
 
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
+    <section className={cn("section", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container>
         {(heading || subheading) && (
           <div className="text-center mb-8 sm:mb-12 px-4 sm:px-0">

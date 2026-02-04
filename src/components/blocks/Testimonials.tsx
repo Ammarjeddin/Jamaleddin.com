@@ -47,7 +47,7 @@ export function Testimonials({
   };
 
   return (
-    <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
+    <section className={cn("section", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
       <Container>
         {heading && (
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-[var(--color-text)] px-4 sm:px-0">
@@ -65,7 +65,7 @@ export function Testimonials({
               >
                 {items.map((item, index) => (
                   <div key={index} className="w-full flex-shrink-0 px-2 sm:px-4">
-                    <div className="text-center">
+                    <div className="text-center glass-text">
                       <Quote className="w-10 h-10 sm:w-12 sm:h-12 text-[var(--color-accent)]/30 mx-auto mb-4 sm:mb-6" />
                       <blockquote className="text-lg sm:text-xl md:text-2xl text-zinc-100 mb-6 sm:mb-8 leading-relaxed">
                         &ldquo;{item.quote}&rdquo;

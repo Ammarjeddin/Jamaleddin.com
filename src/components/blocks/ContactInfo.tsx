@@ -48,7 +48,7 @@ export function ContactInfo({
   return (
     <section
       className={cn(
-        "section glass",
+        "section",
         isFirstBlock && "-mt-20 pt-36 sm:pt-40"
       )}
     >
