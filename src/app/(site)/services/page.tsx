@@ -1,5 +1,5 @@
 import { getPageContent } from "@/lib/content";
-import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { BlockRenderer, type Block } from "@/components/blocks/BlockRenderer";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -26,6 +26,6 @@ export default async function ServicesPage() {
   }
 
   return (
-    <BlockRenderer blocks={page.blocks || []} />
+    <BlockRenderer blocks={(page.blocks || []) as Block[]} />
   );
 }
