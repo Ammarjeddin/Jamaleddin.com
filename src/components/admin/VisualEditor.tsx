@@ -360,45 +360,45 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
   }, {} as Record<string, typeof BLOCK_TYPES>);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
+    <div className="h-screen flex flex-col bg-gray-100 dark:bg-zinc-900">
       {/* Top Toolbar */}
-      <header className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between z-50 shadow-sm">
+      <header className="bg-white dark:bg-zinc-800 border-b border-gray-200 dark:border-zinc-700 px-4 py-2 flex items-center justify-between z-50 shadow-sm">
         <div className="flex items-center gap-4">
           <Link
             href={backLink}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center gap-2 text-gray-600 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="hidden sm:inline">{collectionLabels[collection]}</span>
           </Link>
-          <div className="h-6 w-px bg-gray-300" />
-          <h1 className="font-semibold text-gray-900 truncate max-w-[200px]">
+          <div className="h-6 w-px bg-gray-300 dark:bg-zinc-600" />
+          <h1 className="font-semibold text-gray-900 dark:text-white truncate max-w-[200px]">
             {(content.title as string) || (content.name as string) || slug}
           </h1>
         </div>
 
         {/* Viewport Switcher */}
-        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+        <div className="flex items-center gap-1 bg-gray-100 dark:bg-zinc-700 rounded-lg p-1">
           <button
             onClick={() => setViewportSize("desktop")}
-            className={`p-2 rounded transition-colors ${viewportSize === "desktop" ? "bg-white shadow-sm" : "hover:bg-gray-200"}`}
+            className={`p-2 rounded transition-colors ${viewportSize === "desktop" ? "bg-white dark:bg-zinc-600 shadow-sm" : "hover:bg-gray-200 dark:hover:bg-zinc-600"}`}
             title="Desktop"
           >
-            <Monitor className="w-4 h-4" />
+            <Monitor className="w-4 h-4 dark:text-zinc-200" />
           </button>
           <button
             onClick={() => setViewportSize("tablet")}
-            className={`p-2 rounded transition-colors ${viewportSize === "tablet" ? "bg-white shadow-sm" : "hover:bg-gray-200"}`}
+            className={`p-2 rounded transition-colors ${viewportSize === "tablet" ? "bg-white dark:bg-zinc-600 shadow-sm" : "hover:bg-gray-200 dark:hover:bg-zinc-600"}`}
             title="Tablet"
           >
-            <Tablet className="w-4 h-4" />
+            <Tablet className="w-4 h-4 dark:text-zinc-200" />
           </button>
           <button
             onClick={() => setViewportSize("mobile")}
-            className={`p-2 rounded transition-colors ${viewportSize === "mobile" ? "bg-white shadow-sm" : "hover:bg-gray-200"}`}
+            className={`p-2 rounded transition-colors ${viewportSize === "mobile" ? "bg-white dark:bg-zinc-600 shadow-sm" : "hover:bg-gray-200 dark:hover:bg-zinc-600"}`}
             title="Mobile"
           >
-            <Smartphone className="w-4 h-4" />
+            <Smartphone className="w-4 h-4 dark:text-zinc-200" />
           </button>
         </div>
 
@@ -409,20 +409,20 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
 
           <button
             onClick={() => setShowPanel(!showPanel)}
-            className={`p-2 rounded-lg border transition-colors ${showPanel ? "bg-gray-100 border-gray-300" : "border-gray-200 hover:bg-gray-50"}`}
+            className={`p-2 rounded-lg border transition-colors ${showPanel ? "bg-gray-100 dark:bg-zinc-700 border-gray-300 dark:border-zinc-600" : "border-gray-200 dark:border-zinc-600 hover:bg-gray-50 dark:hover:bg-zinc-700"}`}
             title={showPanel ? "Hide Panel" : "Show Panel"}
           >
-            {showPanel ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            {showPanel ? <EyeOff className="w-4 h-4 dark:text-zinc-200" /> : <Eye className="w-4 h-4 dark:text-zinc-200" />}
           </button>
 
           <a
             href={collection === "home" ? "/" : `/${collection === "settings" ? "" : collection + "/"}${slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+            className="p-2 rounded-lg border border-gray-200 dark:border-zinc-600 hover:bg-gray-50 dark:hover:bg-zinc-700 transition-colors"
             title="Preview in new tab"
           >
-            <Maximize2 className="w-4 h-4" />
+            <Maximize2 className="w-4 h-4 dark:text-zinc-200" />
           </a>
 
           {/* Save Options Dropdown */}
@@ -446,11 +446,11 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
               </button>
             </div>
             {showSaveMenu && (
-              <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+              <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-zinc-800 rounded-lg shadow-lg border border-gray-200 dark:border-zinc-700 z-50">
                 <button
                   onClick={() => handleSave(false)}
                   disabled={saving}
-                  className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-t-lg"
+                  className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-zinc-700 rounded-t-lg"
                 >
                   <Upload className="w-4 h-4" />
                   Save & Publish
@@ -458,7 +458,7 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
                 <button
                   onClick={() => handleSave(true)}
                   disabled={saving}
-                  className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 hover:bg-gray-50 rounded-b-lg border-t border-gray-100"
+                  className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-zinc-700 rounded-b-lg border-t border-gray-100 dark:border-zinc-700"
                 >
                   <FileEdit className="w-4 h-4" />
                   Save as Draft
@@ -472,10 +472,10 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden">
         {/* Live Preview */}
-        <div className="flex-1 overflow-auto bg-gray-200 p-4">
+        <div className="flex-1 overflow-auto bg-gray-200 dark:bg-zinc-800 p-4">
           <div
             ref={previewRef}
-            className="mx-auto bg-white min-h-full shadow-xl transition-all duration-300 rounded-lg overflow-hidden"
+            className="mx-auto bg-zinc-900 min-h-full shadow-xl transition-all duration-300 rounded-lg overflow-hidden dark"
             style={{
               width: viewportWidths[viewportSize],
               maxWidth: "100%",
@@ -484,14 +484,14 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
             {/* Page Title/Description for non-home pages */}
             {collection !== "home" && collection !== "settings" && (
               <div
-                className={`p-8 bg-gradient-to-r from-gray-50 to-gray-100 border-b cursor-pointer transition-all ${
-                  selectedBlock === -1 ? "ring-2 ring-blue-500 ring-inset" : "hover:bg-gray-100"
+                className={`p-8 bg-gradient-to-r from-zinc-800 to-zinc-900 border-b border-zinc-700 cursor-pointer transition-all ${
+                  selectedBlock === -1 ? "ring-2 ring-blue-500 ring-inset" : "hover:bg-zinc-800"
                 }`}
                 onClick={() => setSelectedBlock(-1)}
               >
                 <div className="max-w-3xl">
                   <h1
-                    className="text-3xl md:text-4xl font-bold text-gray-900 outline-none"
+                    className="text-3xl md:text-4xl font-bold text-white outline-none"
                     contentEditable
                     suppressContentEditableWarning
                     onBlur={(e) => {
@@ -503,7 +503,7 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
                   </h1>
                   {(content.description as string) ? (
                     <p
-                      className="mt-3 text-lg text-gray-600 outline-none"
+                      className="mt-3 text-lg text-zinc-400 outline-none"
                       contentEditable
                       suppressContentEditableWarning
                       onBlur={(e) => {
@@ -520,11 +520,11 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
             {/* Blocks */}
             {blocks.length === 0 ? (
               <div className="p-16 text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Plus className="w-8 h-8 text-gray-400" />
+                <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Plus className="w-8 h-8 text-zinc-500" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No content blocks yet</h3>
-                <p className="text-gray-500 mb-6">Add your first block to start building this page</p>
+                <h3 className="text-lg font-medium text-white mb-2">No content blocks yet</h3>
+                <p className="text-zinc-400 mb-6">Add your first block to start building this page</p>
                 <button
                   onClick={() => {
                     setInsertIndex(0);
@@ -564,13 +564,13 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
                       onClick={() => setSelectedBlock(index)}
                     >
                       {/* Block Controls Overlay */}
-                      <div className={`absolute top-2 right-2 z-10 flex items-center gap-1 bg-white rounded-lg shadow-lg border border-gray-200 p-1 transition-opacity ${
+                      <div className={`absolute top-2 right-2 z-10 flex items-center gap-1 bg-white dark:bg-zinc-700 rounded-lg shadow-lg border border-gray-200 dark:border-zinc-600 p-1 transition-opacity ${
                         selectedBlock === index ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                       }`}>
                         <button
                           onClick={(e) => { e.stopPropagation(); moveBlock(index, index - 1); }}
                           disabled={index === 0}
-                          className="p-1.5 hover:bg-gray-100 rounded disabled:opacity-30 transition-colors"
+                          className="p-1.5 hover:bg-gray-100 dark:hover:bg-zinc-600 rounded disabled:opacity-30 transition-colors dark:text-zinc-200"
                           title="Move up"
                         >
                           <ChevronUp className="w-4 h-4" />
@@ -578,22 +578,22 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
                         <button
                           onClick={(e) => { e.stopPropagation(); moveBlock(index, index + 1); }}
                           disabled={index === blocks.length - 1}
-                          className="p-1.5 hover:bg-gray-100 rounded disabled:opacity-30 transition-colors"
+                          className="p-1.5 hover:bg-gray-100 dark:hover:bg-zinc-600 rounded disabled:opacity-30 transition-colors dark:text-zinc-200"
                           title="Move down"
                         >
                           <ChevronDown className="w-4 h-4" />
                         </button>
-                        <div className="w-px h-4 bg-gray-200" />
+                        <div className="w-px h-4 bg-gray-200 dark:bg-zinc-500" />
                         <button
                           onClick={(e) => { e.stopPropagation(); duplicateBlock(index); }}
-                          className="p-1.5 hover:bg-gray-100 rounded transition-colors"
+                          className="p-1.5 hover:bg-gray-100 dark:hover:bg-zinc-600 rounded transition-colors dark:text-zinc-200"
                           title="Duplicate block"
                         >
                           <Copy className="w-4 h-4" />
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); removeBlock(index); }}
-                          className="p-1.5 hover:bg-red-100 hover:text-red-600 rounded transition-colors"
+                          className="p-1.5 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/50 rounded transition-colors dark:text-zinc-200"
                           title="Delete block"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -635,19 +635,26 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
 
         {/* Right Panel - Block Editor */}
         {showPanel && selectedBlock !== null && (
-          <div className="w-96 bg-white border-l border-gray-200 flex flex-col h-full">
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between bg-gray-50 flex-shrink-0">
-              <h3 className="font-semibold text-gray-900">
-                {selectedBlock === -1
-                  ? "Page Settings"
-                  : BLOCK_TYPES.find(t => t.type === blocks[selectedBlock]?._template)?.label || "Edit Block"
-                }
-              </h3>
+          <div className="w-[480px] bg-white dark:bg-zinc-800 border-l border-gray-200 dark:border-zinc-700 flex flex-col h-full">
+            <div className="p-4 border-b border-gray-200 dark:border-zinc-700 flex items-center justify-between bg-gray-50 dark:bg-zinc-900 flex-shrink-0">
+              <div>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  {selectedBlock === -1
+                    ? "Page Settings"
+                    : BLOCK_TYPES.find(t => t.type === blocks[selectedBlock]?._template)?.label || "Edit Block"
+                  }
+                </h3>
+                {selectedBlock !== -1 && (
+                  <p className="text-xs text-gray-500 dark:text-zinc-400 mt-0.5">
+                    {BLOCK_TYPES.find(t => t.type === blocks[selectedBlock]?._template)?.description || "Configure this block"}
+                  </p>
+                )}
+              </div>
               <button
                 onClick={() => setSelectedBlock(null)}
-                className="p-1.5 hover:bg-gray-200 rounded transition-colors"
+                className="p-1.5 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded transition-colors"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4 dark:text-zinc-300" />
               </button>
             </div>
             <div className="p-4 flex-1 overflow-y-auto min-h-0">
@@ -668,28 +675,28 @@ export function VisualEditor({ collection, slug, initialContent, filePath }: Vis
       {/* Block Picker Modal */}
       {showBlockPicker && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto" onClick={() => setShowBlockPicker(false)}>
-          <div className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl my-4 flex flex-col" style={{ maxHeight: 'calc(100vh - 2rem)' }} onClick={e => e.stopPropagation()}>
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
-              <h3 className="text-lg font-semibold">Add Block</h3>
-              <button onClick={() => setShowBlockPicker(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <X className="w-5 h-5" />
+          <div className="bg-white dark:bg-zinc-800 rounded-2xl max-w-2xl w-full shadow-2xl my-4 flex flex-col" style={{ maxHeight: 'calc(100vh - 2rem)' }} onClick={e => e.stopPropagation()}>
+            <div className="p-4 border-b border-gray-200 dark:border-zinc-700 flex items-center justify-between flex-shrink-0">
+              <h3 className="text-lg font-semibold dark:text-white">Add Block</h3>
+              <button onClick={() => setShowBlockPicker(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded-lg transition-colors">
+                <X className="w-5 h-5 dark:text-zinc-300" />
               </button>
             </div>
             <div className="p-4 overflow-y-auto flex-1 min-h-0">
               {Object.entries(blocksByCategory).map(([category, categoryBlocks]) => (
                 <div key={category} className="mb-6 last:mb-0">
-                  <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 sticky top-0 bg-white py-1">{category}</h4>
+                  <h4 className="text-xs font-semibold text-gray-500 dark:text-zinc-400 uppercase tracking-wider mb-3 sticky top-0 bg-white dark:bg-zinc-800 py-1">{category}</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {categoryBlocks.map((blockType) => (
                       <button
                         key={blockType.type}
                         onClick={() => addBlock(blockType.type, insertIndex)}
-                        className="flex items-start gap-3 p-3 text-left border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all group"
+                        className="flex items-start gap-3 p-3 text-left border border-gray-200 dark:border-zinc-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all group"
                       >
                         <span className="text-2xl flex-shrink-0">{blockType.icon}</span>
                         <div className="min-w-0">
-                          <span className="font-medium text-sm text-gray-900 group-hover:text-blue-700">{blockType.label}</span>
-                          <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{blockType.description}</p>
+                          <span className="font-medium text-sm text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400">{blockType.label}</span>
+                          <p className="text-xs text-gray-500 dark:text-zinc-400 mt-0.5 line-clamp-2">{blockType.description}</p>
                         </div>
                       </button>
                     ))}
@@ -776,34 +783,34 @@ function PageSettingsEditor({
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
           {collection === "products" ? "Product Name" : "Page Title"}
         </label>
         <input
           type="text"
           value={(content.title as string) || (content.name as string) || ""}
           onChange={(e) => updateField(collection === "products" ? "name" : "title", e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white dark:bg-zinc-700 dark:text-white"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Description</label>
         <textarea
           value={(content.description as string) || ""}
           onChange={(e) => updateField("description", e.target.value)}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white"
           placeholder="Brief description for SEO and previews"
         />
       </div>
       {collection === "programs" && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Icon</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Icon</label>
           <input
             type="text"
             value={(content.icon as string) || ""}
             onChange={(e) => updateField("icon", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white dark:bg-zinc-700 dark:text-white"
             placeholder="e.g., book, users, star"
           />
         </div>
@@ -827,14 +834,14 @@ function BlockFieldEditor({
   // Reusable field components
   const TextField = ({ field, label, placeholder = "", multiline = false }: { field: string; label: string; placeholder?: string; multiline?: boolean }) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">{label}</label>
       {multiline ? (
         <textarea
           value={(block[field] as string) || ""}
           onChange={(e) => onChange(field, e.target.value)}
           rows={4}
           placeholder={placeholder}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
         />
       ) : (
         <input
@@ -842,7 +849,7 @@ function BlockFieldEditor({
           value={(block[field] as string) || ""}
           onChange={(e) => onChange(field, e.target.value)}
           placeholder={placeholder}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
         />
       )}
     </div>
@@ -850,11 +857,11 @@ function BlockFieldEditor({
 
   const SelectField = ({ field, label, options }: { field: string; label: string; options: { value: string; label: string }[] }) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">{label}</label>
       <select
         value={(block[field] as string) || options[0]?.value || ""}
         onChange={(e) => onChange(field, e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white"
+        className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white dark:bg-zinc-700 dark:text-white"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -869,27 +876,27 @@ function BlockFieldEditor({
         type="checkbox"
         checked={(block[field] as boolean) || false}
         onChange={(e) => onChange(field, e.target.checked)}
-        className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+        className="mt-1 w-4 h-4 text-blue-600 border-gray-300 dark:border-zinc-600 rounded focus:ring-blue-500 dark:bg-zinc-700"
       />
       <div>
-        <span className="text-sm font-medium text-gray-700">{label}</span>
-        {description && <p className="text-xs text-gray-500">{description}</p>}
+        <span className="text-sm font-medium text-gray-700 dark:text-zinc-300">{label}</span>
+        {description && <p className="text-xs text-gray-500 dark:text-zinc-400">{description}</p>}
       </div>
     </label>
   );
 
   const ImageField = ({ field, label }: { field: string; label: string }) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">{label}</label>
       <input
         type="text"
         value={(block[field] as string) || ""}
         onChange={(e) => onChange(field, e.target.value)}
         placeholder="/images/your-image.jpg"
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+        className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
       />
       {(block[field] as string) ? (
-        <div className="mt-2 relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+        <div className="mt-2 relative aspect-video bg-gray-100 dark:bg-zinc-700 rounded-lg overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={block[field] as string} alt="" className="w-full h-full object-cover" />
         </div>
@@ -899,14 +906,14 @@ function BlockFieldEditor({
 
   const NumberField = ({ field, label, min, max }: { field: string; label: string; min?: number; max?: number }) => (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">{label}</label>
       <input
         type="number"
         value={(block[field] as number) || ""}
         onChange={(e) => onChange(field, parseInt(e.target.value) || 0)}
         min={min}
         max={max}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+        className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm bg-white dark:bg-zinc-700 dark:text-white"
       />
     </div>
   );
@@ -1015,7 +1022,7 @@ function BlockFieldEditor({
         <div className="space-y-4">
           <TextField field="heading" label="Heading" />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Statistics</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Statistics</label>
             <ArrayEditor
               items={(block.stats as Array<{ number: string; label: string; icon?: string }>) || []}
               onChange={(items) => onChange("stats", items)}
@@ -1026,21 +1033,21 @@ function BlockFieldEditor({
                     value={item.number || ""}
                     onChange={(e) => updateItem({ ...item, number: e.target.value })}
                     placeholder="Number (e.g., 100+)"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <input
                     type="text"
                     value={item.label || ""}
                     onChange={(e) => updateItem({ ...item, label: e.target.value })}
                     placeholder="Label (e.g., Happy Customers)"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <input
                     type="text"
                     value={item.icon || ""}
                     onChange={(e) => updateItem({ ...item, icon: e.target.value })}
                     placeholder="Icon (e.g., users, star, heart)"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                 </div>
               )}
@@ -1055,7 +1062,7 @@ function BlockFieldEditor({
         <div className="space-y-4">
           <TextField field="heading" label="Heading" />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Questions</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Questions</label>
             <ArrayEditor
               items={(block.items as Array<{ question: string; answer: string }>) || []}
               onChange={(items) => onChange("items", items)}
@@ -1066,14 +1073,14 @@ function BlockFieldEditor({
                     value={item.question || ""}
                     onChange={(e) => updateItem({ ...item, question: e.target.value })}
                     placeholder="Question"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <textarea
                     value={item.answer || ""}
                     onChange={(e) => updateItem({ ...item, answer: e.target.value })}
                     placeholder="Answer"
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                 </div>
               )}
@@ -1094,7 +1101,7 @@ function BlockFieldEditor({
             { value: "4", label: "4 Columns" },
           ]} />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Cards</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Cards</label>
             <ArrayEditor
               items={(block.cards as Array<{ title: string; description: string; icon?: string; image?: string; link?: string }>) || []}
               onChange={(items) => onChange("cards", items)}
@@ -1105,14 +1112,14 @@ function BlockFieldEditor({
                     value={item.title || ""}
                     onChange={(e) => updateItem({ ...item, title: e.target.value })}
                     placeholder="Card Title"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <textarea
                     value={item.description || ""}
                     onChange={(e) => updateItem({ ...item, description: e.target.value })}
                     placeholder="Card Description"
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <div className="grid grid-cols-2 gap-2">
                     <input
@@ -1120,14 +1127,14 @@ function BlockFieldEditor({
                       value={item.icon || ""}
                       onChange={(e) => updateItem({ ...item, icon: e.target.value })}
                       placeholder="Icon name"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
                       value={item.link || ""}
                       onChange={(e) => updateItem({ ...item, link: e.target.value })}
                       placeholder="Link URL"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                   </div>
                 </div>
@@ -1147,7 +1154,7 @@ function BlockFieldEditor({
             { value: "carousel", label: "Carousel" },
           ]} />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Testimonials</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Testimonials</label>
             <ArrayEditor
               items={(block.items as Array<{ quote: string; author: string; role?: string; avatar?: string }>) || []}
               onChange={(items) => onChange("items", items)}
@@ -1158,7 +1165,7 @@ function BlockFieldEditor({
                     onChange={(e) => updateItem({ ...item, quote: e.target.value })}
                     placeholder="Testimonial quote"
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <div className="grid grid-cols-2 gap-2">
                     <input
@@ -1166,14 +1173,14 @@ function BlockFieldEditor({
                       value={item.author || ""}
                       onChange={(e) => updateItem({ ...item, author: e.target.value })}
                       placeholder="Author name"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
                       value={item.role || ""}
                       onChange={(e) => updateItem({ ...item, role: e.target.value })}
                       placeholder="Role / Company"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                   </div>
                   <input
@@ -1181,7 +1188,7 @@ function BlockFieldEditor({
                     value={item.avatar || ""}
                     onChange={(e) => updateItem({ ...item, avatar: e.target.value })}
                     placeholder="Avatar image URL"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                 </div>
               )}
@@ -1197,7 +1204,7 @@ function BlockFieldEditor({
           <TextField field="heading" label="Heading" />
           <TextField field="subheading" label="Subheading" />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Team Members</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Team Members</label>
             <ArrayEditor
               items={(block.members as Array<{ name: string; role?: string; photo?: string; bio?: string; email?: string; linkedin?: string; twitter?: string }>) || []}
               onChange={(items) => onChange("members", items)}
@@ -1209,14 +1216,14 @@ function BlockFieldEditor({
                       value={item.name || ""}
                       onChange={(e) => updateItem({ ...item, name: e.target.value })}
                       placeholder="Name"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
                       value={item.role || ""}
                       onChange={(e) => updateItem({ ...item, role: e.target.value })}
                       placeholder="Role / Title"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                   </div>
                   <input
@@ -1224,14 +1231,14 @@ function BlockFieldEditor({
                     value={item.photo || ""}
                     onChange={(e) => updateItem({ ...item, photo: e.target.value })}
                     placeholder="Photo URL"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <textarea
                     value={item.bio || ""}
                     onChange={(e) => updateItem({ ...item, bio: e.target.value })}
                     placeholder="Short bio"
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <div className="grid grid-cols-3 gap-2">
                     <input
@@ -1239,21 +1246,21 @@ function BlockFieldEditor({
                       value={item.email || ""}
                       onChange={(e) => updateItem({ ...item, email: e.target.value })}
                       placeholder="Email"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
                       value={item.linkedin || ""}
                       onChange={(e) => updateItem({ ...item, linkedin: e.target.value })}
                       placeholder="LinkedIn"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
                       value={item.twitter || ""}
                       onChange={(e) => updateItem({ ...item, twitter: e.target.value })}
                       placeholder="Twitter"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                   </div>
                 </div>
@@ -1269,7 +1276,7 @@ function BlockFieldEditor({
         <div className="space-y-4">
           <TextField field="heading" label="Heading" />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Timeline Events</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Timeline Events</label>
             <ArrayEditor
               items={(block.items as Array<{ year: string; title: string; description?: string; image?: string }>) || []}
               onChange={(items) => onChange("items", items)}
@@ -1281,7 +1288,7 @@ function BlockFieldEditor({
                       value={item.year || ""}
                       onChange={(e) => updateItem({ ...item, year: e.target.value })}
                       placeholder="Year"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
@@ -1296,14 +1303,14 @@ function BlockFieldEditor({
                     onChange={(e) => updateItem({ ...item, description: e.target.value })}
                     placeholder="Event description"
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm resize-none bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <input
                     type="text"
                     value={item.image || ""}
                     onChange={(e) => updateItem({ ...item, image: e.target.value })}
                     placeholder="Image URL (optional)"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                 </div>
               )}
@@ -1323,7 +1330,7 @@ function BlockFieldEditor({
             { value: "carousel", label: "Carousel" },
           ]} />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Images</label>
             <ArrayEditor
               items={(block.images as Array<{ src: string; alt?: string; caption?: string }>) || []}
               onChange={(items) => onChange("images", items)}
@@ -1334,7 +1341,7 @@ function BlockFieldEditor({
                     value={item.src || ""}
                     onChange={(e) => updateItem({ ...item, src: e.target.value })}
                     placeholder="Image URL"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                   />
                   <div className="grid grid-cols-2 gap-2">
                     <input
@@ -1342,14 +1349,14 @@ function BlockFieldEditor({
                       value={item.alt || ""}
                       onChange={(e) => updateItem({ ...item, alt: e.target.value })}
                       placeholder="Alt text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                     <input
                       type="text"
                       value={item.caption || ""}
                       onChange={(e) => updateItem({ ...item, caption: e.target.value })}
                       placeholder="Caption"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm bg-white dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
                     />
                   </div>
                   {item.src && (
@@ -1375,8 +1382,8 @@ function BlockFieldEditor({
           {(block.showMap as boolean) && (
             <TextField field="mapEmbedUrl" label="Map Embed URL" placeholder="Google Maps embed URL" />
           )}
-          <div className="pt-2 border-t border-gray-200">
-            <p className="text-sm font-medium text-gray-700 mb-3">Contact Details</p>
+          <div className="pt-2 border-t border-gray-200 dark:border-zinc-600">
+            <p className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-3">Contact Details</p>
             <div className="space-y-3">
               <TextField field="email" label="Email" placeholder="contact@example.com" />
               <TextField field="phone" label="Phone" placeholder="(555) 123-4567" />
@@ -1428,7 +1435,7 @@ function BlockFieldEditor({
     default:
       return (
         <div className="space-y-4">
-          <p className="text-sm text-gray-500 mb-2">Edit raw JSON for this block:</p>
+          <p className="text-sm text-gray-500 dark:text-zinc-400 mb-2">Edit raw JSON for this block:</p>
           <textarea
             value={JSON.stringify(block, null, 2)}
             onChange={(e) => {
@@ -1440,7 +1447,7 @@ function BlockFieldEditor({
               }
             }}
             rows={15}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-xs"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg font-mono text-xs bg-white dark:bg-zinc-700 dark:text-white"
           />
         </div>
       );
@@ -1477,12 +1484,12 @@ function ArrayEditor<T extends Record<string, unknown>>({
   return (
     <div className="space-y-3">
       {items.map((item, index) => (
-        <div key={index} className="relative p-3 bg-gray-50 rounded-lg border border-gray-200">
+        <div key={index} className="relative p-3 bg-gray-50 dark:bg-zinc-700 rounded-lg border border-gray-200 dark:border-zinc-600">
           <div className="absolute top-2 right-2 flex items-center gap-1">
             <button
               onClick={() => moveItem(index, index - 1)}
               disabled={index === 0}
-              className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+              className="p-1 text-gray-400 dark:text-zinc-400 hover:text-gray-600 dark:hover:text-zinc-200 disabled:opacity-30"
               title="Move up"
             >
               <ChevronUp className="w-3 h-3" />
@@ -1490,14 +1497,14 @@ function ArrayEditor<T extends Record<string, unknown>>({
             <button
               onClick={() => moveItem(index, index + 1)}
               disabled={index === items.length - 1}
-              className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+              className="p-1 text-gray-400 dark:text-zinc-400 hover:text-gray-600 dark:hover:text-zinc-200 disabled:opacity-30"
               title="Move down"
             >
               <ChevronDown className="w-3 h-3" />
             </button>
             <button
               onClick={() => removeItem(index)}
-              className="p-1 text-gray-400 hover:text-red-500"
+              className="p-1 text-gray-400 dark:text-zinc-400 hover:text-red-500"
               title="Remove"
             >
               <X className="w-3 h-3" />
@@ -1510,7 +1517,7 @@ function ArrayEditor<T extends Record<string, unknown>>({
       ))}
       <button
         onClick={addItem}
-        className="w-full py-2.5 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-500 hover:text-blue-500 transition-colors text-sm font-medium"
+        className="w-full py-2.5 border-2 border-dashed border-gray-300 dark:border-zinc-600 rounded-lg text-gray-500 dark:text-zinc-400 hover:border-blue-500 hover:text-blue-500 transition-colors text-sm font-medium"
       >
         + Add Item
       </button>

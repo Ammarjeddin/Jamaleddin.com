@@ -50,10 +50,26 @@
       "_template": "stats",
       "heading": "By The Numbers",
       "stats": [
-        { "number": "50+", "label": "Projects Delivered", "icon": "check-circle" },
-        { "number": "8+", "label": "Industries Served", "icon": "briefcase" },
-        { "number": "99%", "label": "On-Time Delivery", "icon": "clock" },
-        { "number": "100%", "label": "Client Satisfaction", "icon": "star" }
+        {
+          "number": "5+",
+          "label": "Projects Delivered",
+          "icon": "check-circle"
+        },
+        {
+          "number": "8+",
+          "label": "Industries Served",
+          "icon": "briefcase"
+        },
+        {
+          "number": "99%",
+          "label": "On-Time Delivery",
+          "icon": "clock"
+        },
+        {
+          "number": "100%",
+          "label": "Client Satisfaction",
+          "icon": "star"
+        }
       ]
     },
     {
