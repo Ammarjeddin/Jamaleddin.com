@@ -1,0 +1,93 @@
+{
+  "title": "Our Services",
+  "description": "Comprehensive software development services including AI solutions, web applications, mobile apps, SaaS platforms, and business consulting.",
+  "blocks": [
+    {
+      "_template": "heroBanner",
+      "title": "Our Services",
+      "subtitle": "End-to-end software solutions designed to transform your business. From AI-powered systems to custom applications, we build technology that delivers results.",
+      "height": "small",
+      "textAlign": "center"
+    },
+    {
+      "_template": "imageTextRight",
+      "heading": "AI Enablement & Intelligent Systems",
+      "content": "<p>Transform your business with cutting-edge artificial intelligence. We design and implement custom AI solutions including retrieval-augmented generation (RAG) systems, intelligent microservices, chatbots, and ML-powered automation.</p><p>From proof-of-concept to production deployment, we handle the full AI lifecycle.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+      "imageAlt": "AI and machine learning visualization",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextLeft",
+      "heading": "Custom Web Applications",
+      "content": "<p>Full-stack web application development tailored to your business needs. We build scalable, secure, and performant applications using modern frameworks and best practices.</p><p>From complex dashboards to customer portals, we deliver solutions that drive efficiency and growth.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "imageAlt": "Web application development",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextRight",
+      "heading": "iOS & Mobile Development",
+      "content": "<p>Native iOS applications built with Swift and SwiftUI for exceptional performance and user experience. We create apps that users love—from consumer-facing products to enterprise tools.</p><p>Full App Store deployment support included.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+      "imageAlt": "iOS mobile app development",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextLeft",
+      "heading": "SaaS Platform Development",
+      "content": "<p>End-to-end SaaS product development from architecture to launch. We build multi-tenant platforms with subscription billing, user management, analytics, and all the features modern SaaS products need.</p><p>Scale confidently with infrastructure designed for growth.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "imageAlt": "SaaS platform dashboard",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextRight",
+      "heading": "Custom Websites",
+      "content": "<p>Beautiful, fast, and conversion-optimized websites built with modern technologies. Whether you need a marketing site, portfolio, or complex multi-page presence, we deliver designs that make an impact.</p><p>SEO-friendly, mobile-responsive, and built for performance.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+      "imageAlt": "Custom website design",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextLeft",
+      "heading": "E-Commerce & SEO",
+      "content": "<p>Complete e-commerce solutions with integrated SEO strategy. We build online stores that not only look great but are optimized to rank and convert.</p><p>From product catalogs to checkout flows, payment integration to inventory management—we handle it all.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+      "imageAlt": "E-commerce and SEO optimization",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextRight",
+      "heading": "Business & Technology Consulting",
+      "content": "<p>Strategic guidance on technology decisions, digital transformation, and software architecture. We help you navigate complex technical landscapes and make informed decisions.</p><p>From technology audits to roadmap planning, we bring clarity to your digital strategy.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+      "imageAlt": "Business consulting session",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "imageTextLeft",
+      "heading": "Custom Software Solutions",
+      "content": "<p>Bespoke software development for unique business challenges. When off-the-shelf solutions don't cut it, we build exactly what you need—tailored to your workflows, integrated with your systems.</p><p>From internal tools to customer-facing platforms, we solve problems others can't.</p><p class=\"text-sm text-zinc-500 mt-4\"><strong>Pricing:</strong> Custom quotes based on project scope and complexity</p>",
+      "image": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80",
+      "imageAlt": "Custom software development",
+      "buttonText": "Get a Quote",
+      "buttonLink": "/contact"
+    },
+    {
+      "_template": "ctaBox",
+      "heading": "Ready to Start Your Project?",
+      "text": "Let's discuss how we can help transform your business with custom software solutions. Every project is unique—we'll provide a detailed estimate based on your specific needs.",
+      "buttonText": "Contact Us",
+      "buttonLink": "/contact",
+      "style": "primary"
+    }
+  ]
+}
