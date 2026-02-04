@@ -2,6 +2,7 @@ import { getSiteSettings } from "@/lib/content";
 import { getProduct, getProductSlugs } from "@/lib/products";
 import { Container } from "@/components/ui/Container";
 import { ProductDetail } from "@/components/shop/ProductDetail";
+import { ServiceSchema } from "@/components/seo/JsonLd";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
@@ -50,9 +51,26 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const currency = settings.template?.features?.shop?.currency || "USD";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jamaleddin.com";
+  const serviceUrl = `${siteUrl}/services/${product.slug}`;
 
   return (
     <section className="section glass">
+      {product.productType === "service" && (
+        <ServiceSchema
+          name={product.name}
+          description={product.seo?.metaDescription || product.description || ""}
+          url={serviceUrl}
+          provider={{
+            name: settings.siteName || "Jamaleddin",
+            url: siteUrl,
+          }}
+          image={product.images?.[0]?.src}
+          areaServed="United States"
+          serviceType={product.category || "Software Development"}
+          category={product.category}
+        />
+      )}
       <Container>
         {/* Breadcrumb */}
         <nav className="mb-8">

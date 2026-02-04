@@ -15,6 +15,7 @@ import { Team } from "./Team";
 import { Divider } from "./Divider";
 import { ProductGrid } from "./ProductGrid";
 import { ProductShowcase } from "./ProductShowcase";
+import { ClientBlockWrapper } from "./ClientBlockWrapper";
 
 // Block type definitions
 export type BlockType =
@@ -119,87 +120,108 @@ interface BlockRendererProps {
   hasHero?: boolean;
 }
 
+function renderBlock(block: Block, index: number, hasHero: boolean) {
+  const { _template, colorSettings, ...props } = block;
+
+  // Cast props to unknown first to satisfy TypeScript strict mode
+  const blockProps = props as unknown;
+
+  // Add negative margin to first block so it extends behind the navbar
+  // Skip this when blocks follow a hero section
+  const isFirstBlock = index === 0 && !hasHero;
+  const firstBlockProps = isFirstBlock ? { ...(blockProps as object), isFirstBlock } : blockProps;
+
+  let content: React.ReactNode = null;
+
+  switch (_template) {
+    case "textBlock":
+      content = <TextBlock {...(firstBlockProps as React.ComponentProps<typeof TextBlock>)} />;
+      break;
+
+    case "heroBanner":
+      content = <HeroBanner {...(firstBlockProps as React.ComponentProps<typeof HeroBanner>)} />;
+      break;
+
+    case "imageTextLeft":
+      content = <ImageTextLeft {...(firstBlockProps as React.ComponentProps<typeof ImageTextLeft>)} />;
+      break;
+
+    case "imageTextRight":
+      content = <ImageTextRight {...(firstBlockProps as React.ComponentProps<typeof ImageTextRight>)} />;
+      break;
+
+    case "cardsGrid":
+      content = <CardsGrid {...(firstBlockProps as React.ComponentProps<typeof CardsGrid>)} />;
+      break;
+
+    case "ctaBox":
+      content = <CtaBox {...(firstBlockProps as React.ComponentProps<typeof CtaBox>)} />;
+      break;
+
+    case "faq":
+      content = <Faq {...(firstBlockProps as React.ComponentProps<typeof Faq>)} />;
+      break;
+
+    case "imageGallery":
+      content = <ImageGallery {...(firstBlockProps as React.ComponentProps<typeof ImageGallery>)} />;
+      break;
+
+    case "contactInfo":
+      content = <ContactInfo {...(firstBlockProps as React.ComponentProps<typeof ContactInfo>)} />;
+      break;
+
+    case "stats":
+      content = <Stats {...(firstBlockProps as React.ComponentProps<typeof Stats>)} />;
+      break;
+
+    case "testimonials":
+      content = <Testimonials {...(firstBlockProps as React.ComponentProps<typeof Testimonials>)} />;
+      break;
+
+    case "video":
+      content = <Video {...(firstBlockProps as React.ComponentProps<typeof Video>)} />;
+      break;
+
+    case "timeline":
+      content = <Timeline {...(firstBlockProps as React.ComponentProps<typeof Timeline>)} />;
+      break;
+
+    case "team":
+      content = <Team {...(firstBlockProps as React.ComponentProps<typeof Team>)} />;
+      break;
+
+    case "divider":
+      content = <Divider {...(firstBlockProps as React.ComponentProps<typeof Divider>)} />;
+      break;
+
+    case "productGrid":
+      content = <ProductGrid {...(firstBlockProps as React.ComponentProps<typeof ProductGrid>)} />;
+      break;
+
+    case "productShowcase":
+      content = <ProductShowcase {...(firstBlockProps as React.ComponentProps<typeof ProductShowcase>)} />;
+      break;
+
+    default:
+      console.warn(`Unknown block type: ${_template}`);
+      return null;
+  }
+
+  return (
+    <ClientBlockWrapper key={index} blockType={_template} index={index}>
+      <BlockColorWrapper colorSettings={colorSettings}>
+        {content}
+      </BlockColorWrapper>
+    </ClientBlockWrapper>
+  );
+}
+
 export function BlockRenderer({ blocks, hasHero = false }: BlockRendererProps) {
   if (!blocks || blocks.length === 0) return null;
 
   return (
     <>
-      {blocks.map((block, index) => {
-        const { _template, colorSettings, ...props } = block;
-
-        // Cast props to unknown first to satisfy TypeScript strict mode
-        const blockProps = props as unknown;
-
-        // Add negative margin to first block so it extends behind the navbar
-        // Skip this when blocks follow a hero section
-        const isFirstBlock = index === 0 && !hasHero;
-        const firstBlockProps = isFirstBlock ? { ...(blockProps as object), isFirstBlock } : blockProps;
-
-        const renderBlock = () => {
-          switch (_template) {
-            case "textBlock":
-              return <TextBlock {...(firstBlockProps as React.ComponentProps<typeof TextBlock>)} />;
-
-            case "heroBanner":
-              return <HeroBanner {...(firstBlockProps as React.ComponentProps<typeof HeroBanner>)} />;
-
-            case "imageTextLeft":
-              return <ImageTextLeft {...(firstBlockProps as React.ComponentProps<typeof ImageTextLeft>)} />;
-
-            case "imageTextRight":
-              return <ImageTextRight {...(firstBlockProps as React.ComponentProps<typeof ImageTextRight>)} />;
-
-            case "cardsGrid":
-              return <CardsGrid {...(firstBlockProps as React.ComponentProps<typeof CardsGrid>)} />;
-
-            case "ctaBox":
-              return <CtaBox {...(firstBlockProps as React.ComponentProps<typeof CtaBox>)} />;
-
-            case "faq":
-              return <Faq {...(firstBlockProps as React.ComponentProps<typeof Faq>)} />;
-
-            case "imageGallery":
-              return <ImageGallery {...(firstBlockProps as React.ComponentProps<typeof ImageGallery>)} />;
-
-            case "contactInfo":
-              return <ContactInfo {...(firstBlockProps as React.ComponentProps<typeof ContactInfo>)} />;
-
-            case "stats":
-              return <Stats {...(firstBlockProps as React.ComponentProps<typeof Stats>)} />;
-
-            case "testimonials":
-              return <Testimonials {...(firstBlockProps as React.ComponentProps<typeof Testimonials>)} />;
-
-            case "video":
-              return <Video {...(firstBlockProps as React.ComponentProps<typeof Video>)} />;
-
-            case "timeline":
-              return <Timeline {...(firstBlockProps as React.ComponentProps<typeof Timeline>)} />;
-
-            case "team":
-              return <Team {...(firstBlockProps as React.ComponentProps<typeof Team>)} />;
-
-            case "divider":
-              return <Divider {...(firstBlockProps as React.ComponentProps<typeof Divider>)} />;
-
-            case "productGrid":
-              return <ProductGrid {...(firstBlockProps as React.ComponentProps<typeof ProductGrid>)} />;
-
-            case "productShowcase":
-              return <ProductShowcase {...(firstBlockProps as React.ComponentProps<typeof ProductShowcase>)} />;
-
-            default:
-              console.warn(`Unknown block type: ${_template}`);
-              return null;
-          }
-        };
-
-        return (
-          <BlockColorWrapper key={index} colorSettings={colorSettings}>
-            {renderBlock()}
-          </BlockColorWrapper>
-        );
-      })}
+      {blocks.map((block, index) => renderBlock(block, index, hasHero))}
     </>
   );
 }
