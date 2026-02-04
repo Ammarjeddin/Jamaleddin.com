@@ -72,7 +72,7 @@
           "name": "Ammar Jamaleddin",
           "role": "Founder & Business Lead",
           "bio": "Ammar brings a unique blend of corporate experience (Bosch USA) and entrepreneurial drive (Goldman Sachs 10KSB graduate). He ensures every project aligns with real business outcomes, not just technical specs.",
-          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
+          "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
           "email": "ammar@jamaleddin.com",
           "linkedin": "https://www.linkedin.com/in/ammarjeddin/"
         },
@@ -80,7 +80,7 @@
           "name": "Abdul Aziz Jamal Eddin",
           "role": "Lead Engineer",
           "bio": "A University of Michigan Computer Science graduate with experience at leading tech companies. AZ specializes in AI systems, platform architecture, and turning complex requirements into elegant solutions.",
-          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+          "photo": "/images/team/abdul-aziz.jpg",
           "email": "az@jamaleddin.com",
           "linkedin": "https://www.linkedin.com/in/ajedev/"
         }

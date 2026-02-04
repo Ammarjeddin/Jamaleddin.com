@@ -130,14 +130,14 @@
           "name": "Ammar Jamaleddin",
           "role": "Founder & Business Lead",
           "bio": "Former Bosch USA professional and Goldman Sachs 10KSB graduate. Ammar bridges the gap between business vision and technical execution, ensuring every project delivers real value.",
-          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+          "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
           "linkedin": "https://www.linkedin.com/in/ammarjeddin/"
         },
         {
           "name": "Abdul Aziz Jamal Eddin",
           "role": "Lead Engineer",
           "bio": "University of Michigan graduate with experience at major tech companies. Specializes in AI/ML systems, platform architecture, and building software that scales.",
-          "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+          "photo": "/images/team/abdul-aziz.jpg",
           "linkedin": "https://www.linkedin.com/in/ajedev/"
         }
       ]

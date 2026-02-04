@@ -18,12 +18,17 @@ interface TeamProps {
   subheading?: string;
   members: TeamMember[];
   isFirstBlock?: boolean;
+  /** Layout style: "default" for grid, "featured" for larger centered cards */
+  layout?: "default" | "featured";
 }
 
-export function Team({ heading, subheading, members, isFirstBlock = false }: TeamProps) {
+export function Team({ heading, subheading, members, isFirstBlock = false, layout = "default" }: TeamProps) {
+  // Use featured layout for 2 or fewer members, or when explicitly set
+  const isFeatured = layout === "featured" || (layout === "default" && members.length <= 2);
+
   return (
     <section className={cn("section glass", isFirstBlock && "-mt-20 pt-36 sm:pt-40")}>
-      <Container>
+      <Container size={isFeatured ? "default" : "default"}>
         {(heading || subheading) && (
           <div className="text-center mb-8 sm:mb-12 px-4 sm:px-0">
             {heading && (
@@ -37,11 +42,19 @@ export function Team({ heading, subheading, members, isFirstBlock = false }: Tea
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-0">
+        <div className={cn(
+          "px-4 sm:px-0",
+          isFeatured
+            ? "flex flex-col md:flex-row justify-center items-stretch gap-6 lg:gap-10 max-w-5xl mx-auto"
+            : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+        )}>
           {members.map((member, index) => (
             <div
               key={index}
-              className="team-card group w-full"
+              className={cn(
+                "team-card group",
+                isFeatured ? "w-full md:w-[420px] flex-shrink-0" : "w-full"
+              )}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Glow border effect */}
@@ -118,17 +131,29 @@ export function Team({ heading, subheading, members, isFirstBlock = false }: Tea
                 </div>
 
                 {/* Info section with glass effect */}
-                <div className="relative p-5 bg-gradient-to-b from-transparent via-[rgba(10,10,10,0.3)] to-[rgba(10,10,10,0.5)]">
-                  <h3 className="text-lg font-semibold text-zinc-100 group-hover:text-white transition-colors duration-300">
+                <div className={cn(
+                  "relative bg-gradient-to-b from-transparent via-[rgba(10,10,10,0.3)] to-[rgba(10,10,10,0.5)]",
+                  isFeatured ? "p-6" : "p-5"
+                )}>
+                  <h3 className={cn(
+                    "font-semibold text-zinc-100 group-hover:text-white transition-colors duration-300",
+                    isFeatured ? "text-xl" : "text-lg"
+                  )}>
                     {member.name}
                   </h3>
                   {member.role && (
-                    <p className="text-[var(--color-accent)] text-sm mb-2 font-medium">
+                    <p className={cn(
+                      "text-[var(--color-accent)] font-medium mb-2",
+                      isFeatured ? "text-base" : "text-sm"
+                    )}>
                       {member.role}
                     </p>
                   )}
                   {member.bio && (
-                    <p className="text-sm text-zinc-400 line-clamp-3 leading-relaxed">
+                    <p className={cn(
+                      "text-zinc-400 leading-relaxed",
+                      isFeatured ? "text-base" : "text-sm line-clamp-3"
+                    )}>
                       {member.bio}
                     </p>
                   )}
