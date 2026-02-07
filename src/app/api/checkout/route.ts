@@ -4,6 +4,11 @@ import { getProduct } from "@/lib/products";
 import type { CartItem, Product } from "@/lib/types/product";
 import { isSubscriptionProduct } from "@/lib/types/product";
 
+function getActiveStripeProductId(product: Product): string | undefined {
+  const isTestMode = process.env.STRIPE_SECRET_KEY?.startsWith("sk_test_");
+  return isTestMode ? (product.stripeTestProductId || product.stripeProductId) : product.stripeProductId;
+}
+
 interface CheckoutRequestBody {
   items: CartItem[];
   successUrl?: string;
@@ -37,11 +42,12 @@ export async function POST(request: NextRequest) {
         }
 
         // Use existing Stripe product if stripeProductId is set
-        if (product.stripeProductId) {
+        const stripeId = getActiveStripeProductId(product);
+        if (stripeId) {
           return {
             price_data: {
               currency: "usd",
-              product: product.stripeProductId,
+              product: stripeId,
               unit_amount: Math.round(product.pricing.price * 100),
             },
             quantity,
@@ -108,11 +114,12 @@ export async function POST(request: NextRequest) {
           }
 
           // Use existing Stripe product if stripeProductId is set
-          if (product.stripeProductId) {
+          const subStripeId = getActiveStripeProductId(product);
+          if (subStripeId) {
             return {
               price_data: {
                 currency: "usd",
-                product: product.stripeProductId,
+                product: subStripeId,
                 unit_amount: Math.round(product.pricing.price * 100),
                 recurring: {
                   interval: product.subscription.interval,

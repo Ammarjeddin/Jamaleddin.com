@@ -9,12 +9,18 @@ const PRODUCTS_DIR = path.join(process.cwd(), "content/products");
  * Enrich a local product with Stripe data (name, price, image).
  * Local description is always preserved.
  */
+function getActiveStripeProductId(product: Product): string | undefined {
+  const isTestMode = process.env.STRIPE_SECRET_KEY?.startsWith("sk_test_");
+  return isTestMode ? (product.stripeTestProductId || product.stripeProductId) : product.stripeProductId;
+}
+
 async function enrichWithStripeData(product: Product): Promise<Product> {
-  if (!product.stripeProductId) return product;
+  const stripeId = getActiveStripeProductId(product);
+  if (!stripeId) return product;
 
   try {
     const stripe = getStripe();
-    const stripeProduct = await stripe.products.retrieve(product.stripeProductId);
+    const stripeProduct = await stripe.products.retrieve(stripeId);
 
     // Fetch the default price if it exists
     let stripePrice: number | undefined;

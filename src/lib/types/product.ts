@@ -65,7 +65,8 @@ export interface Product {
   name: string;
   slug: string;
   description?: string;
-  stripeProductId?: string; // Stripe product ID (e.g., prod_xxx) - uses existing Stripe product instead of inline product_data
+  stripeProductId?: string; // Stripe live product ID (e.g., prod_xxx)
+  stripeTestProductId?: string; // Stripe test product ID
   longDescription?: unknown; // Rich text from TinaCMS
   productType: ProductType;
   pricing: ProductPricing;
