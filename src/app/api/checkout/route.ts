@@ -41,6 +41,11 @@ export async function POST(request: NextRequest) {
           throw new Error(`Product not found: ${clientProduct.slug}`);
         }
 
+        // Use Stripe Price directly if available (supports multi-currency)
+        if (product.stripePriceId) {
+          return { price: product.stripePriceId, quantity };
+        }
+
         // Use existing Stripe product if stripeProductId is set
         const stripeId = getActiveStripeProductId(product);
         if (stripeId) {
@@ -113,6 +118,11 @@ export async function POST(request: NextRequest) {
             throw new Error(`Subscription product not found: ${item.product.slug}`);
           }
 
+          // Use Stripe Price directly if available (supports multi-currency)
+          if (product.stripePriceId) {
+            return { price: product.stripePriceId, quantity: item.quantity };
+          }
+
           // Use existing Stripe product if stripeProductId is set
           const subStripeId = getActiveStripeProductId(product);
           if (subStripeId) {
@@ -167,6 +177,7 @@ export async function POST(request: NextRequest) {
         payment_method_types: ["card"],
         line_items: subscriptionLineItems,
         mode: "subscription",
+        locale: "auto",
         success_url: successUrl || `${origin}/shop/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: cancelUrl || `${origin}/shop/cart`,
         // Only collect shipping for physical products
@@ -201,6 +212,7 @@ export async function POST(request: NextRequest) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
+      locale: "auto",
       success_url: successUrl || `${origin}/shop/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl || `${origin}/shop/cart`,
       // Only collect shipping for physical products

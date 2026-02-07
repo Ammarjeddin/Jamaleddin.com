@@ -67,6 +67,7 @@ export interface Product {
   description?: string;
   stripeProductId?: string; // Stripe live product ID (e.g., prod_xxx)
   stripeTestProductId?: string; // Stripe test product ID
+  stripePriceId?: string; // Resolved Stripe default price ID (populated at runtime)
   longDescription?: unknown; // Rich text from TinaCMS
   productType: ProductType;
   pricing: ProductPricing;

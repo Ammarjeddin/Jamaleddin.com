@@ -6,8 +6,8 @@ import { getStripe } from "./stripe";
 const PRODUCTS_DIR = path.join(process.cwd(), "content/products");
 
 /**
- * Enrich a local product with Stripe data (name, price, image).
- * Local description is always preserved.
+ * Enrich a local product with Stripe data (name, description, price, image).
+ * Falls back to local data for any field Stripe doesn't provide.
  */
 function getActiveStripeProductId(product: Product): string | undefined {
   const isTestMode = process.env.STRIPE_SECRET_KEY?.startsWith("sk_test_");
@@ -24,10 +24,12 @@ async function enrichWithStripeData(product: Product): Promise<Product> {
 
     // Fetch the default price if it exists
     let stripePrice: number | undefined;
+    let stripePriceId: string | undefined;
     if (stripeProduct.default_price) {
       const priceId = typeof stripeProduct.default_price === "string"
         ? stripeProduct.default_price
         : stripeProduct.default_price.id;
+      stripePriceId = priceId;
       const price = await stripe.prices.retrieve(priceId);
       if (price.unit_amount) {
         stripePrice = price.unit_amount / 100;
@@ -37,6 +39,7 @@ async function enrichWithStripeData(product: Product): Promise<Product> {
     return {
       ...product,
       name: stripeProduct.name || product.name,
+      description: stripeProduct.description || product.description,
       images: stripeProduct.images?.length
         ? stripeProduct.images.map((src) => ({ src, alt: stripeProduct.name }))
         : product.images,
@@ -44,6 +47,7 @@ async function enrichWithStripeData(product: Product): Promise<Product> {
         ...product.pricing,
         ...(stripePrice !== undefined ? { price: stripePrice } : {}),
       },
+      stripePriceId,
     };
   } catch (error) {
     console.error(`Error fetching Stripe data for ${product.stripeProductId}:`, error);
