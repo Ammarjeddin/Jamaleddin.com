@@ -1,18 +1,17 @@
 {
-  "name": "Mastercom Recon Analysis",
+  "name": "Mastercom DealerHub",
   "slug": "mastercom-recon",
-  "stripeProductId": "prod_Tvt3LnfobnVGRp",
-  "stripeTestProductId": "prod_TtZjS9iauMbXfs",
   "description": "🌟- Prepare your reconciliation reports with ease.\n🌟- Track your inventory on the device scale (IMEI Based).\n🌟- Track your sales and estimate you payments from the provider.\n🌟- 10 Support hours every months.\n🌟- Upcoming features!!",
   "productType": "service",
   "pricing": {
-    "price": 300,
-    "taxable": true
+    "price": 349.99,
+    "taxable": false,
+    "compareAtPrice": 749.99
   },
   "images": [
     {
       "src": "https://media.licdn.com/dms/image/v2/C4D0BAQHsg71DgcywQA/company-logo_200_200/company-logo_200_200/0/1630576526089/master_com_telus_koodo_authorized_dealer_logo?e=1771459200&v=beta&t=B5ziiZDHz-U1K2fIFcLUef3LkLonpHiCfzUlbNpOpqA",
-      "alt": "Mastercom Recon Analysis logo - inventory tracking and reconciliation software"
+      "alt": "Mastercom DealerHub - inventory tracking and reconciliation software"
     }
   ],
   "category": "Custom",
@@ -35,6 +34,8 @@
   "status": "active",
   "featured": false,
   "unlisted": true,
+  "stripeProductId": "prod_Tvt3LnfobnVGRp",
+  "stripeTestProductId": "prod_TtZjS9iauMbXfs",
   "subscription": {
     "interval": "month",
     "intervalCount": 1
