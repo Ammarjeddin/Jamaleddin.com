@@ -129,7 +129,27 @@ export async function PUT(request: Request) {
       });
     }
 
-    // Save directly to live (and clear any existing draft)
+    // If GitHub is configured, save via GitHub API (works on read-only hosts like Netlify)
+    if (isGitHubConfigured()) {
+      const message = commitMessage || `Update ${path.basename(normalizedPath)}`;
+      const result = await saveFileToGitHub(normalizedPath, contentString, message);
+
+      if (!result.success) {
+        return NextResponse.json(
+          { error: `Failed to save to GitHub: ${result.error}` },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        savedAsDraft: false,
+        savedToLive: true,
+        savedToGitHub: true,
+      });
+    }
+
+    // Fallback: save to local filesystem (development only)
     const fullPath = path.join(process.cwd(), normalizedPath);
 
     // Ensure directory exists
@@ -150,24 +170,6 @@ export async function PUT(request: Request) {
       if (fs.existsSync(draftPath)) {
         fs.unlinkSync(draftPath);
       }
-    }
-
-    // If GitHub is configured, also save to draft branch
-    if (isGitHubConfigured()) {
-      const message = commitMessage || `Update ${path.basename(normalizedPath)}`;
-      const result = await saveFileToGitHub(normalizedPath, contentString, message);
-
-      if (!result.success) {
-        console.warn("GitHub save failed, but local save succeeded:", result.error);
-      }
-
-      return NextResponse.json({
-        success: true,
-        savedAsDraft: false,
-        savedToLive: true,
-        savedToGitHub: result.success,
-        gitHubError: result.error,
-      });
     }
 
     return NextResponse.json({
@@ -213,6 +215,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Access denied" }, { status: 403 });
     }
 
+    const contentString = JSON.stringify(content, null, 2);
+
+    // If GitHub is configured, save via GitHub API (works on read-only hosts like Netlify)
+    if (isGitHubConfigured()) {
+      const message = commitMessage || `Create ${path.basename(normalizedPath)}`;
+      const result = await saveFileToGitHub(normalizedPath, contentString, message);
+
+      if (!result.success) {
+        return NextResponse.json(
+          { error: `Failed to save to GitHub: ${result.error}` },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        savedToGitHub: true,
+      });
+    }
+
+    // Fallback: save to local filesystem (development only)
     const fullPath = path.join(process.cwd(), normalizedPath);
 
     // Check if file already exists
@@ -226,20 +249,7 @@ export async function POST(request: Request) {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-    const contentString = JSON.stringify(content, null, 2);
     fs.writeFileSync(fullPath, contentString);
-
-    // Save to GitHub draft branch if configured
-    if (isGitHubConfigured()) {
-      const message = commitMessage || `Create ${path.basename(normalizedPath)}`;
-      const result = await saveFileToGitHub(normalizedPath, contentString, message);
-
-      return NextResponse.json({
-        success: true,
-        savedToGitHub: result.success,
-        gitHubError: result.error,
-      });
-    }
 
     return NextResponse.json({ success: true, savedToGitHub: false });
   } catch (error) {

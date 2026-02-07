@@ -36,6 +36,18 @@ export async function POST(request: NextRequest) {
           throw new Error(`Product not found: ${clientProduct.slug}`);
         }
 
+        // Use existing Stripe product if stripeProductId is set
+        if (product.stripeProductId) {
+          return {
+            price_data: {
+              currency: "usd",
+              product: product.stripeProductId,
+              unit_amount: Math.round(product.pricing.price * 100),
+            },
+            quantity,
+          };
+        }
+
         return {
           price_data: {
             currency: "usd",
@@ -54,7 +66,7 @@ export async function POST(request: NextRequest) {
                 sku: product.inventory?.sku || "",
               },
             },
-            unit_amount: Math.round(product.pricing.price * 100), // Server-side price in cents
+            unit_amount: Math.round(product.pricing.price * 100),
           },
           quantity,
         };
@@ -93,6 +105,22 @@ export async function POST(request: NextRequest) {
           const product = await getProduct(item.product.slug);
           if (!product || !product.subscription) {
             throw new Error(`Subscription product not found: ${item.product.slug}`);
+          }
+
+          // Use existing Stripe product if stripeProductId is set
+          if (product.stripeProductId) {
+            return {
+              price_data: {
+                currency: "usd",
+                product: product.stripeProductId,
+                unit_amount: Math.round(product.pricing.price * 100),
+                recurring: {
+                  interval: product.subscription.interval,
+                  interval_count: product.subscription.intervalCount || 1,
+                },
+              },
+              quantity: item.quantity,
+            };
           }
 
           return {

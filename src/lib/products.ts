@@ -1,14 +1,56 @@
 import fs from "fs";
 import path from "path";
 import type { Product } from "./types/product";
+import { getStripe } from "./stripe";
 
 const PRODUCTS_DIR = path.join(process.cwd(), "content/products");
+
+/**
+ * Enrich a local product with Stripe data (name, price, image).
+ * Local description is always preserved.
+ */
+async function enrichWithStripeData(product: Product): Promise<Product> {
+  if (!product.stripeProductId) return product;
+
+  try {
+    const stripe = getStripe();
+    const stripeProduct = await stripe.products.retrieve(product.stripeProductId);
+
+    // Fetch the default price if it exists
+    let stripePrice: number | undefined;
+    if (stripeProduct.default_price) {
+      const priceId = typeof stripeProduct.default_price === "string"
+        ? stripeProduct.default_price
+        : stripeProduct.default_price.id;
+      const price = await stripe.prices.retrieve(priceId);
+      if (price.unit_amount) {
+        stripePrice = price.unit_amount / 100;
+      }
+    }
+
+    return {
+      ...product,
+      name: stripeProduct.name || product.name,
+      images: stripeProduct.images?.length
+        ? stripeProduct.images.map((src) => ({ src, alt: stripeProduct.name }))
+        : product.images,
+      pricing: {
+        ...product.pricing,
+        ...(stripePrice !== undefined ? { price: stripePrice } : {}),
+      },
+    };
+  } catch (error) {
+    console.error(`Error fetching Stripe data for ${product.stripeProductId}:`, error);
+    return product; // Fall back to local data
+  }
+}
 
 export async function getProduct(slug: string): Promise<Product | null> {
   try {
     const filePath = path.join(PRODUCTS_DIR, `${slug}.json`);
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(fileContent) as Product;
+    const product = JSON.parse(fileContent) as Product;
+    return enrichWithStripeData(product);
   } catch (error) {
     console.error(`Error reading product ${slug}:`, error);
     return null;
@@ -23,10 +65,12 @@ export async function getAllProducts(): Promise<Product[]> {
 
     const files = fs.readdirSync(PRODUCTS_DIR).filter((f) => f.endsWith(".json"));
 
-    return files.map((file) => {
+    const products = files.map((file) => {
       const content = fs.readFileSync(path.join(PRODUCTS_DIR, file), "utf-8");
       return JSON.parse(content) as Product;
     });
+
+    return Promise.all(products.map(enrichWithStripeData));
   } catch (error) {
     console.error("Error reading products:", error);
     return [];
