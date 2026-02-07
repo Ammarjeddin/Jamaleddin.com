@@ -76,6 +76,8 @@ interface Product {
     metaTitle?: string;
     metaDescription?: string;
   };
+  stripeProductId?: string;
+  stripeTestProductId?: string;
   status: "active" | "draft" | "archived";
   featured?: boolean;
   unlisted?: boolean;
@@ -572,6 +574,30 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                   className="w-full px-4 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">Separate tags with commas</p>
+              </div>
+
+              {/* Stripe Integration */}
+              <div className="pt-4 border-t border-gray-200 dark:border-zinc-700">
+                <div className="flex items-center gap-2 mb-3">
+                  <DollarSign className="w-4 h-4 text-purple-600" />
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-zinc-300">Stripe Integration</h3>
+                  <span className="text-xs text-gray-400 dark:text-zinc-500">Optional</span>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
+                    Stripe Product ID
+                  </label>
+                  <input
+                    type="text"
+                    value={product.stripeProductId || ""}
+                    onChange={(e) => updateField("stripeProductId", e.target.value || undefined)}
+                    placeholder="prod_xxxxxxxxxxxxx"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-zinc-700 dark:text-white font-mono text-sm"
+                  />
+                  <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">
+                    Link to an existing Stripe product. Name, price, and image will sync from Stripe.
+                  </p>
+                </div>
               </div>
 
               <label className="flex items-center gap-3 cursor-pointer">
