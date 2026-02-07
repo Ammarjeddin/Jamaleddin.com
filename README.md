@@ -1,6 +1,6 @@
 # Jamaleddin.com
 
-The official website for **Jamaleddin** — a premium digital services company offering web development, design, and creative solutions.
+The official website for **Jamaleddin LLC** — a premium consulting agency offering web development, design, and creative solutions.
 
 **Live Site:** [jamaleddin.com](https://jamaleddin.com)
 
@@ -10,14 +10,17 @@ Jamaleddin.com is a modern, dark-themed portfolio and services website built wit
 
 ## Features
 
-- **Dark Mode First** — Elegant dark theme with gold accent colors
+- **Dark Mode First** — Elegant dark theme with gold accent colors (#E8B54D)
 - **Glass Morphism UI** — Modern frosted glass effects throughout
 - **Animated Dot Pattern** — Subtle animated background for visual depth
 - **Responsive Design** — Mobile-first approach with fluid layouts
 - **Expandable Mobile Menu** — App-like navigation with staggered animations
 - **Services Showcase** — Filterable services/products grid
-- **Shopping Cart** — Full e-commerce capability with Stripe integration
-- **Admin Dashboard** — Content management system for pages and settings
+- **Shopping Cart & Checkout** — Full e-commerce with Stripe integration (subscriptions & one-time payments)
+- **Stripe Product Sync** — Products enriched with data from Stripe (name, price, images)
+- **Adaptive Pricing** — Local currency display for international customers via Stripe
+- **Admin Dashboard** — Content management system for pages, products, and settings
+- **GitHub Content API** — Dashboard saves push to GitHub in production, git auto-commit locally
 - **SEO Optimized** — Static generation with Next.js 16
 
 ## Tech Stack
@@ -26,8 +29,9 @@ Jamaleddin.com is a modern, dark-themed portfolio and services website built wit
 - [React 19](https://react.dev/) — UI library
 - [Tailwind CSS 4](https://tailwindcss.com/) — Utility-first CSS
 - [TypeScript](https://www.typescriptlang.org/) — Type safety
-- [Stripe](https://stripe.com/) — Payment processing
+- [Stripe](https://stripe.com/) — Payment processing (Checkout Sessions, subscriptions)
 - [Lucide Icons](https://lucide.dev/) — Icon library
+- [Netlify](https://netlify.com) — Hosting & deployment
 
 ## Development
 
@@ -46,33 +50,48 @@ npm run build
 
 ```
 ├── content/                 # Content files (JSON)
+│   ├── admin/              # Admin users
 │   ├── pages/              # Page content
-│   ├── products/           # Services/products
+│   ├── products/           # Products & services
 │   └── settings/           # Site settings
 ├── public/
-│   └── images/             # Static assets, logos
+│   └── images/
+│       ├── content/        # Content images
+│       ├── hero/           # Hero section images
+│       └── products/       # Product images
 ├── src/
 │   ├── app/
 │   │   ├── (site)/         # Public pages
-│   │   ├── api/            # API routes
+│   │   │   └── shop/       # Cart, checkout, success pages
+│   │   ├── api/            # API routes (content, checkout)
 │   │   └── dashboard/      # Admin dashboard
 │   ├── components/
+│   │   ├── admin/          # Dashboard editors (ProductEditor, etc.)
 │   │   ├── blocks/         # Content block components
 │   │   ├── layout/         # Navbar, Footer, MobileMenu
-│   │   ├── shop/           # E-commerce components
+│   │   ├── shop/           # Cart, StripeCheckout, CartDrawer
 │   │   └── ui/             # Shared UI components
-│   └── lib/                # Utilities
+│   ├── contexts/           # React contexts (CartContext)
+│   └── lib/                # Utilities, types, Stripe & product helpers
 ```
 
 ## Branch Strategy
 
 - **`main`** — Production branch (Netlify deploys from here)
 - **`dev`** — Development branch for local changes
-- **`content`** — Content branch for dashboard edits
+- **`content`** — Content branch for live dashboard edits (via GitHub API)
 
-## Deployment
+## Content Management
 
-Deployed on [Netlify](https://netlify.com) with automatic deployments from the `main` branch.
+- **Production (Netlify):** Dashboard saves push content to GitHub via the GitHub API
+- **Local Development:** Dashboard saves write to the filesystem and auto-commit to the current git branch
+
+## Stripe Integration
+
+- Products can be linked to Stripe via `stripeProductId` and `stripeTestProductId` fields
+- The checkout route auto-detects test vs live mode based on the `STRIPE_SECRET_KEY` prefix
+- Supports both one-time payments and recurring subscriptions
+- Product data (name, price, images) is enriched from Stripe at runtime
 
 ## Environment Variables
 
@@ -82,8 +101,16 @@ STRIPE_SECRET_KEY=sk_...
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 NEXT_PUBLIC_SITE_URL=https://jamaleddin.com
+GITHUB_TOKEN=ghp_...
+GITHUB_OWNER=your-github-username
+GITHUB_REPO=your-repo-name
+GITHUB_CONTENT_BRANCH=content
 ```
+
+## Deployment
+
+Deployed on [Netlify](https://netlify.com) with automatic deployments from the `main` branch.
 
 ---
 
-Built by Jamaleddin
+Built by Jamaleddin LLC | [info@jamaleddin.com](mailto:info@jamaleddin.com)
