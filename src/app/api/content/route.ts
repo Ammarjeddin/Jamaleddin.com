@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import { verifyToken } from "@/lib/auth";
 import { saveFileToGitHub, isGitHubConfigured } from "@/lib/github";
 import {
@@ -10,6 +11,21 @@ import {
   hasDraft,
   getContentWithDraftPreference,
 } from "@/lib/content";
+
+// Auto-commit content changes to the current git branch (local dev only)
+function gitCommitContent(filePath: string, message: string): boolean {
+  if (process.env.NODE_ENV === "production") return false;
+
+  try {
+    const cwd = process.cwd();
+    execSync(`git add "${filePath}"`, { cwd });
+    execSync(`git commit -m "${message}"`, { cwd });
+    return true;
+  } catch (error) {
+    console.warn("Git auto-commit failed:", error);
+    return false;
+  }
+}
 
 // Helper to verify auth
 async function verifyAuth() {
@@ -129,8 +145,8 @@ export async function PUT(request: Request) {
       });
     }
 
-    // If GitHub is configured, save via GitHub API (works on read-only hosts like Netlify)
-    if (isGitHubConfigured()) {
+    // In production, save via GitHub API (works on read-only hosts like Netlify)
+    if (process.env.NODE_ENV === "production" && isGitHubConfigured()) {
       const message = commitMessage || `Update ${path.basename(normalizedPath)}`;
       const result = await saveFileToGitHub(normalizedPath, contentString, message);
 
@@ -172,11 +188,16 @@ export async function PUT(request: Request) {
       }
     }
 
+    // Auto-commit to current branch in development
+    const message = commitMessage || `Update ${path.basename(normalizedPath)}`;
+    const committed = gitCommitContent(normalizedPath, message);
+
     return NextResponse.json({
       success: true,
       savedAsDraft: false,
       savedToLive: true,
       savedToGitHub: false,
+      committedLocally: committed,
     });
   } catch (error) {
     console.error("Error saving content:", error);
@@ -217,8 +238,8 @@ export async function POST(request: Request) {
 
     const contentString = JSON.stringify(content, null, 2);
 
-    // If GitHub is configured, save via GitHub API (works on read-only hosts like Netlify)
-    if (isGitHubConfigured()) {
+    // In production, save via GitHub API (works on read-only hosts like Netlify)
+    if (process.env.NODE_ENV === "production" && isGitHubConfigured()) {
       const message = commitMessage || `Create ${path.basename(normalizedPath)}`;
       const result = await saveFileToGitHub(normalizedPath, contentString, message);
 
@@ -251,7 +272,11 @@ export async function POST(request: Request) {
 
     fs.writeFileSync(fullPath, contentString);
 
-    return NextResponse.json({ success: true, savedToGitHub: false });
+    // Auto-commit to current branch in development
+    const message = commitMessage || `Create ${path.basename(normalizedPath)}`;
+    const committed = gitCommitContent(normalizedPath, message);
+
+    return NextResponse.json({ success: true, savedToGitHub: false, committedLocally: committed });
   } catch (error) {
     console.error("Error creating content:", error);
     return NextResponse.json(
@@ -295,6 +320,10 @@ export async function DELETE(request: Request) {
   try {
     const fullPath = path.join(process.cwd(), normalizedPath);
     fs.unlinkSync(fullPath);
+
+    // Auto-commit deletion to current branch in development
+    gitCommitContent(normalizedPath, `Delete ${path.basename(normalizedPath)}`);
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting content:", error);
