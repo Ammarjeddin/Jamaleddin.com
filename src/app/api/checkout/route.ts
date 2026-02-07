@@ -174,7 +174,6 @@ export async function POST(request: NextRequest) {
       const trialDays = firstSubProduct?.subscription?.trialDays;
 
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
         line_items: subscriptionLineItems,
         mode: "subscription",
         locale: "auto",
@@ -209,7 +208,6 @@ export async function POST(request: NextRequest) {
 
     // Regular one-time payment checkout
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
       locale: "auto",
