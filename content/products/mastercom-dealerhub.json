@@ -1,0 +1,43 @@
+{
+  "name": "Mastercom DealerHub",
+  "slug": "mastercom-dealerhub",
+  "description": "🌟- Prepare your reconciliation reports with ease.\n🌟- Track your inventory on the device scale (IMEI Based).\n🌟- Track your sales and estimate you payments from the provider.\n🌟- 10 Support hours every months.\n🌟- Upcoming features!!",
+  "productType": "service",
+  "pricing": {
+    "price": 349.99,
+    "taxable": false,
+    "compareAtPrice": 749.99
+  },
+  "images": [
+    {
+      "src": "https://media.licdn.com/dms/image/v2/C4D0BAQHsg71DgcywQA/company-logo_200_200/company-logo_200_200/0/1630576526089/master_com_telus_koodo_authorized_dealer_logo?e=1771459200&v=beta&t=B5ziiZDHz-U1K2fIFcLUef3LkLonpHiCfzUlbNpOpqA",
+      "alt": "Mastercom DealerHub - inventory tracking and reconciliation software"
+    }
+  ],
+  "category": "Custom",
+  "tags": "",
+  "inventory": {
+    "trackInventory": false,
+    "quantity": 0,
+    "sku": "",
+    "allowBackorder": false
+  },
+  "physical": {
+    "weight": 0,
+    "requiresShipping": true
+  },
+  "variants": [],
+  "seo": {
+    "metaTitle": "Mastercom Recon Analysis | Jamaleddin",
+    "metaDescription": "Streamline your reconciliation reports and inventory tracking with Mastercom Recon Analysis. Monitor device inventory by IMEI, track sales and provider payments, plus 10 monthly support hours."
+  },
+  "status": "active",
+  "featured": false,
+  "unlisted": true,
+  "stripeProductId": "prod_Tvt3LnfobnVGRp",
+  "stripeTestProductId": "prod_TtZjS9iauMbXfs",
+  "subscription": {
+    "interval": "month",
+    "intervalCount": 1
+  }
+}
