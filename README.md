@@ -17,8 +17,10 @@ Jamaleddin.com is a modern, dark-themed portfolio and services website built wit
 - **Expandable Mobile Menu** — App-like navigation with staggered animations
 - **Services Showcase** — Filterable services/products grid
 - **Shopping Cart & Checkout** — Full e-commerce with Stripe integration (subscriptions & one-time payments)
-- **Stripe Product Sync** — Products enriched with data from Stripe (name, price, images)
-- **Adaptive Pricing** — Local currency display for international customers via Stripe
+- **Stripe Product Sync** — Products enriched with data from Stripe (name, description, price, images)
+- **Stripe Prices Direct** — Uses Stripe Price IDs directly for multi-currency support
+- **Adaptive Pricing** — Local currency display and payment methods for international customers
+- **Auto Locale Detection** — Checkout language auto-detected from customer's browser
 - **Admin Dashboard** — Content management system for pages, products, and settings
 - **GitHub Content API** — Dashboard saves push to GitHub in production, git auto-commit locally
 - **SEO Optimized** — Static generation with Next.js 16
@@ -69,6 +71,7 @@ npm run build
 │   │   ├── admin/          # Dashboard editors (ProductEditor, etc.)
 │   │   ├── blocks/         # Content block components
 │   │   ├── layout/         # Navbar, Footer, MobileMenu
+│   │   ├── dashboard/      # Dashboard UI (MediaImageCard, etc.)
 │   │   ├── shop/           # Cart, StripeCheckout, CartDrawer
 │   │   └── ui/             # Shared UI components
 │   ├── contexts/           # React contexts (CartContext)
@@ -91,7 +94,10 @@ npm run build
 - Products can be linked to Stripe via `stripeProductId` and `stripeTestProductId` fields
 - The checkout route auto-detects test vs live mode based on the `STRIPE_SECRET_KEY` prefix
 - Supports both one-time payments and recurring subscriptions
-- Product data (name, price, images) is enriched from Stripe at runtime
+- Product data (name, description, price, images) is enriched from Stripe at runtime
+- When a Stripe product has a default price, checkout uses the Stripe Price ID directly (no hardcoded currency)
+- Stripe auto-detects customer location for local payment methods and language
+- Enable Adaptive Pricing in Stripe Dashboard for automatic currency conversion (one-time payments only)
 
 ## Environment Variables
 
