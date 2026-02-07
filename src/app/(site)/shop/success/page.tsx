@@ -53,7 +53,7 @@ function SuccessContent() {
   if (status === "error") {
     return (
       <div className="max-w-2xl mx-auto text-center">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-8">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-red-500/20 rounded-full mb-8">
           <AlertCircle className="w-12 h-12 text-red-500" />
         </div>
         <h1 className="text-3xl font-bold text-[var(--color-text)] mb-4">
@@ -75,7 +75,7 @@ function SuccessContent() {
   return (
     <div className="max-w-2xl mx-auto text-center">
       {/* Success Icon */}
-      <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-8">
+      <div className="inline-flex items-center justify-center w-20 h-20 bg-green-500/20 rounded-full mb-8">
         <CheckCircle className="w-12 h-12 text-green-500" />
       </div>
 
@@ -90,7 +90,7 @@ function SuccessContent() {
 
       {/* Order Info Cards */}
       <div className="grid sm:grid-cols-2 gap-4 mb-12">
-        <div className="bg-white rounded-xl p-6 text-left shadow-sm">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-left">
           <div className="flex items-center gap-3 mb-3">
             <Mail className="w-6 h-6 text-primary" />
             <h3 className="font-semibold text-[var(--color-text)]">Confirmation Email</h3>
@@ -100,7 +100,7 @@ function SuccessContent() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl p-6 text-left shadow-sm">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-left">
           <div className="flex items-center gap-3 mb-3">
             <Package className="w-6 h-6 text-primary" />
             <h3 className="font-semibold text-[var(--color-text)]">Order Processing</h3>
@@ -112,7 +112,7 @@ function SuccessContent() {
       </div>
 
       {/* What's Next */}
-      <div className="bg-white rounded-xl p-8 shadow-sm mb-8">
+      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 mb-8">
         <h2 className="text-xl font-semibold text-[var(--color-text)] mb-4">What happens next?</h2>
         <ul className="text-left space-y-3">
           <li className="flex items-start gap-3">
@@ -153,7 +153,7 @@ function SuccessContent() {
         </Link>
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 bg-gray-100 text-[var(--color-text)] px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+          className="inline-flex items-center justify-center gap-2 bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors"
         >
           Return to Home
         </Link>

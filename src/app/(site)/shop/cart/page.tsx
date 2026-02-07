@@ -34,16 +34,16 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen glass py-12">
+    <div className="min-h-screen glass pt-24 pb-12">
       <Container>
         <h1 className="text-3xl font-bold text-[var(--color-text)] mb-8">Shopping Cart</h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden dark:shadow-lg dark:shadow-black/20">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden">
               {/* Header */}
-              <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-gray-200 text-sm font-medium text-[var(--color-text-muted)]">
+              <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-white/10 text-sm font-medium text-[var(--color-text-muted)]">
                 <div className="col-span-6">Product</div>
                 <div className="col-span-2 text-center">Quantity</div>
                 <div className="col-span-2 text-right">Price</div>
@@ -60,11 +60,11 @@ export default function CartPage() {
                 return (
                   <div
                     key={`${item.product.slug}-${item.variantId || "default"}`}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border-b border-gray-200 items-center"
+                    className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border-b border-white/10 items-center"
                   >
                     {/* Product Info */}
                     <div className="md:col-span-6 flex gap-4">
-                      <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="relative w-20 h-20 bg-white/10 rounded-lg overflow-hidden flex-shrink-0">
                         <Image
                           src={imageUrl}
                           alt={item.product.name}
@@ -95,12 +95,12 @@ export default function CartPage() {
 
                     {/* Quantity */}
                     <div className="md:col-span-2 flex items-center justify-center">
-                      <div className="flex items-center border border-gray-200 rounded-lg">
+                      <div className="flex items-center border border-white/10 rounded-lg">
                         <button
                           onClick={() =>
                             updateQuantity(item.product.slug, item.quantity - 1, item.variantId)
                           }
-                          className="p-2 hover:bg-gray-100 transition-colors"
+                          className="p-2 hover:bg-white/10 transition-colors"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="w-4 h-4" />
@@ -112,7 +112,7 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product.slug, item.quantity + 1, item.variantId)
                           }
-                          className="p-2 hover:bg-gray-100 transition-colors"
+                          className="p-2 hover:bg-white/10 transition-colors"
                           aria-label="Increase quantity"
                         >
                           <Plus className="w-4 h-4" />
@@ -136,7 +136,7 @@ export default function CartPage() {
                       </span>
                       <button
                         onClick={() => removeItem(item.product.slug, item.variantId)}
-                        className="hidden md:block text-gray-400 hover:text-red-500 transition-colors"
+                        className="hidden md:block text-zinc-400 hover:text-red-500 transition-colors"
                         aria-label="Remove item"
                       >
                         <Trash2 className="w-5 h-5" />
@@ -166,7 +166,7 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm p-6 sticky top-4 dark:shadow-lg dark:shadow-black/20">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 sticky top-4">
               <h2 className="text-lg font-semibold text-[var(--color-text)] mb-4">Order Summary</h2>
 
               <div className="space-y-3 mb-6">
@@ -184,7 +184,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-4 mb-6">
+              <div className="border-t border-white/10 pt-4 mb-6">
                 <div className="flex justify-between text-lg font-semibold text-[var(--color-text)]">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotal, currency)}</span>

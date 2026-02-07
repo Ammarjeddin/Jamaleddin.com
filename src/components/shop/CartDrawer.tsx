@@ -117,14 +117,14 @@ export function CartDrawer({ currency = "USD" }: CartDrawerProps) {
             {/* Actions */}
             <div className="space-y-2">
               <Link
-                href="/services/checkout"
+                href="/shop/checkout"
                 onClick={closeCart}
                 className="block w-full bg-primary text-white text-center py-3 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors"
               >
                 Checkout
               </Link>
               <Link
-                href="/services/cart"
+                href="/shop/cart"
                 onClick={closeCart}
                 className="block w-full bg-gray-100 dark:bg-slate-700 text-[var(--color-text)] text-center py-3 px-4 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors"
               >

@@ -31,7 +31,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen glass py-12">
+    <div className="min-h-screen glass pt-24 pb-12">
       <Container>
         {/* Back Link */}
         <Link
@@ -47,11 +47,11 @@ export default function CheckoutPage() {
           <div>
             <h1 className="text-2xl font-bold text-[var(--color-text)] mb-6">Order Summary</h1>
 
-            <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-4">
               {items.map((item) => (
                 <div
                   key={`${item.product.slug}-${item.variantId || "default"}`}
-                  className="flex justify-between items-start py-3 border-b border-gray-100 last:border-0"
+                  className="flex justify-between items-start py-3 border-b border-white/10 last:border-0"
                 >
                   <div>
                     <p className="font-medium text-[var(--color-text)]">{item.product.name}</p>
@@ -78,7 +78,7 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-gray-200">
+              <div className="pt-4 border-t border-white/10">
                 <div className="flex justify-between text-xl font-bold text-[var(--color-text)]">
                   <span>Total</span>
                   <span>{formatPrice(subtotal, currency)}</span>
@@ -94,9 +94,9 @@ export default function CheckoutPage() {
           <div>
             <h2 className="text-2xl font-bold text-[var(--color-text)] mb-6">Payment</h2>
 
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
               {/* Trust Badges */}
-              <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-200">
+              <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/10">
                 <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
                   <Shield className="w-5 h-5 text-green-600" />
                   <span>Secure checkout</span>
@@ -115,14 +115,14 @@ export default function CheckoutPage() {
               <StripeCheckout />
 
               {/* Payment Methods */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="mt-6 pt-6 border-t border-white/10">
                 <p className="text-sm text-[var(--color-text-muted)] mb-3">Accepted payment methods:</p>
                 <div className="flex gap-2 flex-wrap">
                   {["Visa", "Mastercard", "Amex", "Discover", "Apple Pay", "Google Pay"].map(
                     (method) => (
                       <span
                         key={method}
-                        className="px-3 py-1 bg-gray-100 text-[var(--color-text-muted)] text-xs rounded-full"
+                        className="px-3 py-1 bg-white/10 text-[var(--color-text-muted)] text-xs rounded-full"
                       >
                         {method}
                       </span>
@@ -133,11 +133,11 @@ export default function CheckoutPage() {
             </div>
 
             {/* Help Text */}
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm text-blue-700">
-                <strong>Need help?</strong> Contact us at{" "}
-                <a href="mailto:support@example.com" className="underline">
-                  support@example.com
+            <div className="mt-6 p-4 bg-white/5 border border-white/10 rounded-lg">
+              <p className="text-sm text-zinc-300">
+                <strong className="text-white">Need help?</strong> Contact us at{" "}
+                <a href="mailto:info@jamaleddin.com" className="underline">
+                  info@jamaleddin.com
                 </a>{" "}
                 if you have any questions about your order.
               </p>

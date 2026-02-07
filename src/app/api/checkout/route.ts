@@ -167,8 +167,8 @@ export async function POST(request: NextRequest) {
         payment_method_types: ["card"],
         line_items: subscriptionLineItems,
         mode: "subscription",
-        success_url: successUrl || `${origin}/services/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: cancelUrl || `${origin}/services/cart`,
+        success_url: successUrl || `${origin}/shop/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: cancelUrl || `${origin}/shop/cart`,
         // Only collect shipping for physical products
         ...(hasPhysicalProducts && {
           shipping_address_collection: {
@@ -201,8 +201,8 @@ export async function POST(request: NextRequest) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: successUrl || `${origin}/services/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${origin}/services/cart`,
+      success_url: successUrl || `${origin}/shop/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${origin}/shop/cart`,
       // Only collect shipping for physical products
       ...(hasPhysicalProducts && {
         shipping_address_collection: {

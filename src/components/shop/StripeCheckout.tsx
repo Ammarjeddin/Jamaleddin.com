@@ -55,11 +55,11 @@ export function StripeCheckout({ className = "" }: StripeCheckoutProps) {
   return (
     <div className={className}>
       {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+        <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-red-700 font-medium">Checkout Error</p>
-            <p className="text-red-600 text-sm">{error}</p>
+            <p className="text-red-400 font-medium">Checkout Error</p>
+            <p className="text-red-300 text-sm">{error}</p>
           </div>
         </div>
       )}
@@ -82,7 +82,7 @@ export function StripeCheckout({ className = "" }: StripeCheckoutProps) {
         )}
       </button>
 
-      <p className="text-xs text-gray-500 text-center mt-3">
+      <p className="text-xs text-zinc-400 text-center mt-3">
         Secure checkout powered by Stripe
       </p>
     </div>

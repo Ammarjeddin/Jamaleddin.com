@@ -135,8 +135,8 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
   const [showSaveMenu, setShowSaveMenu] = useState(false);
 
   const productUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/services/${product.slug}`
-    : `/services/${product.slug}`;
+    ? `${window.location.origin}/shop/${product.slug}`
+    : `/shop/${product.slug}`;
 
   const copyProductLink = async () => {
     try {
@@ -363,7 +363,7 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                 )}
               </button>
               <a
-                href={`/services/${product.slug}`}
+                href={`/shop/${product.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 px-3 py-2 border border-l-0 border-gray-300 dark:border-zinc-600 rounded-r-lg text-sm text-gray-600 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-700 transition-colors"
@@ -1099,7 +1099,7 @@ export function ProductEditor({ initialProduct, isNew = false, existingCategorie
                     {product.seo?.metaTitle || product.name || "Product Title"}
                   </p>
                   <p className="text-green-700 dark:text-green-500 text-sm">
-                    yoursite.com/services/{product.slug || "product-slug"}
+                    yoursite.com/shop/{product.slug || "product-slug"}
                   </p>
                   <p className="text-gray-600 dark:text-zinc-400 text-sm mt-1">
                     {product.seo?.metaDescription || product.description || "Product description will appear here..."}
