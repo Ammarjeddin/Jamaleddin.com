@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "via.placeholder.com",
       },
+      {
+        protocol: "https",
+        hostname: "media.licdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "files.stripe.com",
+      },
     ],
     // Disable image optimization in dev for faster builds
     unoptimized: process.env.NODE_ENV === "development",

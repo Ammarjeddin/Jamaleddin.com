@@ -6,6 +6,7 @@ import path from "path";
 import { verifyToken } from "@/lib/auth";
 import { Container } from "@/components/ui/Container";
 import { ArrowLeft, Image, Upload, Folder, Info } from "lucide-react";
+import { MediaImageCard } from "@/components/dashboard/MediaImageCard";
 
 export const metadata = {
   title: "Media Library - Admin Dashboard",
@@ -28,23 +29,28 @@ interface MediaFile {
 }
 
 function getMediaFiles(): MediaFile[] {
-  const publicDir = path.join(process.cwd(), "public");
-  const uploadsDir = path.join(publicDir, "uploads");
-  const imagesDir = path.join(publicDir, "images");
+  try {
+    const publicDir = path.join(process.cwd(), "public");
+    const uploadsDir = path.join(publicDir, "uploads");
+    const imagesDir = path.join(publicDir, "images");
 
-  const files: MediaFile[] = [];
+    const files: MediaFile[] = [];
 
-  // Scan uploads directory
-  if (fs.existsSync(uploadsDir)) {
-    scanDirectory(uploadsDir, "/uploads", files);
+    // Scan uploads directory
+    if (fs.existsSync(uploadsDir)) {
+      scanDirectory(uploadsDir, "/uploads", files);
+    }
+
+    // Scan images directory
+    if (fs.existsSync(imagesDir)) {
+      scanDirectory(imagesDir, "/images", files);
+    }
+
+    return files.sort((a, b) => a.name.localeCompare(b.name));
+  } catch {
+    // File system access may fail in production (e.g. on Vercel)
+    return [];
   }
-
-  // Scan images directory
-  if (fs.existsSync(imagesDir)) {
-    scanDirectory(imagesDir, "/images", files);
-  }
-
-  return files.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function scanDirectory(dir: string, urlPrefix: string, files: MediaFile[]) {
@@ -161,29 +167,12 @@ export default async function MediaLibraryPage() {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
                 {images.map((file) => (
-                  <div
+                  <MediaImageCard
                     key={file.url}
-                    className="group relative aspect-square bg-[var(--color-surface-elevated)] rounded-lg overflow-hidden border border-[var(--color-border)]"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={file.url}
-                      alt={file.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2">
-                      <p className="text-zinc-100 text-xs text-center truncate w-full mb-1">{file.name}</p>
-                      <p className="text-zinc-400 text-xs">{formatFileSize(file.size)}</p>
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(file.url);
-                        }}
-                        className="mt-2 px-3 py-1.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-light)] text-black text-xs font-medium rounded transition-colors"
-                      >
-                        Copy URL
-                      </button>
-                    </div>
-                  </div>
+                    url={file.url}
+                    name={file.name}
+                    formattedSize={formatFileSize(file.size)}
+                  />
                 ))}
               </div>
             </div>
