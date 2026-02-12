@@ -73,6 +73,10 @@
       "href": "/"
     },
     {
+      "label": "Projects",
+      "href": "/projects"
+    },
+    {
       "label": "Services",
       "href": "/services"
     },

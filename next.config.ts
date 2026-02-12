@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "files.stripe.com",
       },
+      {
+        protocol: "https",
+        hostname: "is1-ssl.mzstatic.com",
+      },
     ],
     // Disable image optimization in dev for faster builds
     unoptimized: process.env.NODE_ENV === "development",
